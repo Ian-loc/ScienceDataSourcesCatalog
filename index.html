@@ -3,32 +3,32 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Fontes abertas de dados para ecologia, biodiversidade, clima, carbono, solo e vegetação.">
-<title>Catálogo de Dados Ambientais</title><link rel="stylesheet" href="assets/style.css">
+<title>Catálogo de Fontes de Dados Ambientais</title><link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <a class="skip" href="#catalogo">Ir ao catálogo</a>
 <header class="hero"><div class="wrap">
 <p class="eyebrow">Recurso aberto para ensino e pesquisa</p>
-<h1>Catálogo de Dados Ambientais</h1>
+<h1>Catálogo de Fontes de Dados Ambientais</h1>
 <p class="lead">Encontre fontes científicas e públicas sobre ecologia, biodiversidade, clima, carbono, solo, vegetação e o planeta.</p>
-<div class="actions"><a class="btn primary" href="#catalogo">Explorar fontes</a><a class="btn" href="data/data_resources.csv" download>Baixar CSV</a></div>
+<div class="actions"><a class="btn primary" href="#catalogo">Explorar fontes</a><a class="btn" href="analytics.html">Visão analítica</a><a class="btn" href="about.html">Sobre e citação</a><a class="btn" href="data/data_resources.csv" download>Baixar CSV</a></div>
 </div></header>
 <section class="stats"><div class="wrap stats-grid">
 <div><strong id="n-total">—</strong><span>fontes</span></div>
 <div><strong id="n-free">—</strong><span>download gratuito</span></div>
-<div><strong id="n-api">—</strong><span>com API</span></div>
-<div><strong id="n-br">—</strong><span>foco no Brasil</span></div>
+<div><strong id="n-api">—</strong><span>acesso programático</span></div>
+<div><strong id="n-br">—</strong><span>com dados do Brasil</span></div>
 </div></section>
 <main class="wrap">
 <section class="catalog" id="catalogo">
 <div class="heading"><div><p class="eyebrow">Busca orientada</p><h2>Fontes de dados</h2></div><p id="count" aria-live="polite"></p></div>
 <form class="filters" id="filters" role="search">
 <label class="search"><span>Buscar</span><input id="q" type="search" placeholder="Nome, tema, instituição, formato ou uso…"></label>
-<label><span>Tema</span><select id="domain"><option value="">Todos</option></select></label>
-<label><span>Identidade oficial</span><select id="type"><option value="">Todas</option></select></label>
+<label><span>Área de pesquisa</span><select id="area"><option value="">Todas</option></select></label>
+<label><span>Cobertura do Brasil</span><select id="brazil"><option value="">Todas</option><option>sim</option><option>parcial</option><option>não</option><option>não se aplica</option><option>desconhecido</option></select></label>
 <label><span>Cobertura</span><select id="coverage"><option value="">Todas</option></select></label>
 <label><span>Download</span><select id="download"><option value="">Todos</option><option>sim</option><option>parcial</option><option>não</option><option>desconhecido</option><option>não se aplica</option></select></label>
-<label><span>API</span><select id="api"><option value="">Todas</option><option>sim</option><option>não</option><option>desconhecido</option></select></label>
+<label><span>Acesso programático</span><select id="programmatic"><option value="">Todos</option><option>sim</option><option>parcial</option><option>não</option><option>não se aplica</option><option>desconhecido</option></select></label>
 <button type="button" id="clear">Limpar filtros</button>
 </form>
 <div id="list" class="cards"></div>
@@ -36,6 +36,6 @@
 </section>
 <section class="about"><div><p class="eyebrow">Como usar</p><h2>Um ponto de partida, não um selo de qualidade</h2></div><p>Antes de usar um conjunto de dados, confira a versão, a licença, a metodologia, a resolução, a cobertura, a incerteza e a adequação à pergunta científica.</p></section>
 </main>
-<footer class="wrap"><p>Catálogo aberto mantido por <a href="https://github.com/Ian-loc/ecology-data-catalog">Ian-loc</a>.</p><p>Dados: CC BY 4.0 · Código: MIT · Verificação: <span id="updated">—</span></p></footer>
+<footer class="wrap"><p>Catálogo aberto por Ian Lara · <a href="about.html">Sobre, método e citação</a> · <a href="analytics.html">Visão analítica</a>.</p><p>Dados: CC BY 4.0 · Código: MIT · Verificação: <span id="updated">—</span></p></footer>
 <script src="assets/app.js" defer></script>
 </body></html>

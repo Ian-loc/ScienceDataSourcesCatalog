@@ -1,53 +1,39 @@
 # Workflow de verificação do catálogo
 
-## Princípio de governança
+## Governança
 
-Existe uma única fonte de verdade: `data/data_resources.csv`. O JSON do site é um artefato de build. A planilha no Drive não deve ser atualizada em paralelo.
-
-## Ordem de evidência
-
-1. página institucional da própria fonte;
-2. documentação técnica ou metodologia oficial;
-3. página oficial de acesso/download ou documentação da API;
-4. licença ou termos oficiais;
-5. somente na ausência desses itens, documentação do órgão gestor.
-
-Descrições editoriais, agregadores e resultados de busca não substituem evidência oficial.
+A única fonte canônica é `data/data_resources.csv`. O JSON do site é gerado no build. A planilha do Drive não deve ser mantida em paralelo.
 
 ## Revisão por fonte
 
-Para cada linha:
+1. confirmar nome, identidade, objetivo e responsável na documentação oficial;
+2. testar página institucional, acesso aos dados e documentação programática;
+3. conferir produtos, formatos, visualizações, cobertura e resoluções;
+4. distinguir download manual, acesso programático, autenticação e restrições;
+5. localizar artigo revisado por pares que descreva ou use a fonte;
+6. registrar evidência técnica quando não houver artigo específico robusto;
+7. revisar utilidade acadêmica e limitações;
+8. atualizar `last_verified` apenas na linha efetivamente conferida.
 
-1. confirmar nome, sigla, identidade autodeclarada, objetivo e responsável;
-2. testar página oficial, acesso aos dados e documentação de API;
-3. conferir temas, produtos, formatos, cobertura e resoluções;
-4. distinguir download integral, parcial, condicionado ou inexistente;
-5. registrar licença e restrições sem inferir abertura;
-6. descrever usos acadêmicos concretos;
-7. explicitar limitações relevantes para interpretação ou reprodutibilidade;
-8. registrar `verification_url` e a data efetiva da revisão.
+## Evidência
 
-A identidade oficial preserva o vocabulário da própria fonte; não há taxonomia normalizada imposta pelo catálogo.
+Não usar um artigo apenas porque menciona o tema. A publicação deve descrever a infraestrutura, usar dados identificáveis da fonte ou avaliar suas condições. O tipo de evidência deve diferenciar artigo revisado por pares, artigo técnico, documentação técnica oficial e documentação oficial.
 
-## Controle de qualidade
+## Controle automático
 
-Antes de publicar, execute:
+Execute:
 
 ```bash
 python3 scripts/build_catalog.py
 ```
 
-O script bloqueia cabeçalho divergente, campos essenciais vazios, IDs inválidos ou duplicados, nomes duplicados, URLs essenciais não HTTPS, valores fora das listas de acesso/API e datas inválidas. O workflow repete essa validação antes do deploy.
+O script bloqueia esquema divergente, campos obrigatórios vazios, IDs ou nomes duplicados, URLs essenciais inválidas, categorias fora dos valores controlados, áreas de pesquisa desconhecidas e datas malformadas. O workflow repete a validação em todo pull request e antes do deploy.
 
 ## Frequência
 
-- trimestral: verificação automatizada/manual de links;
-- anual: revisão de conteúdo das 51 fontes;
-- imediata: correção de link quebrado, mudança de licença, acesso, versão ou responsável;
-- por pull request: validação estrutural e inspeção do diff.
+- trimestral: links, acesso, autenticação e disponibilidade;
+- anual: conteúdo, evidência acadêmica, versões e áreas;
+- imediata: mudança de licença, API, formato, cobertura ou responsável;
+- por pull request: validação estrutural e inspeção científica do diff.
 
-`last_verified` é por linha; não deve ser alterado em massa sem nova verificação.
-
-## Critério de utilidade acadêmica
-
-A avaliação prioriza descoberta, download, integração por API, reprodutibilidade, séries temporais, escala espacial, ensino, comparação entre estudos e adequação a perguntas de pesquisa. Limitações devem cobrir, quando aplicável, viés amostral, cobertura desigual, defasagem, resolução, dependência de credenciais, quotas, licenças e falta de acesso à base integral.
+A checagem de links deve interpretar 401, 403 e 429 com cautela: bloqueio a robôs não prova indisponibilidade para usuários.
