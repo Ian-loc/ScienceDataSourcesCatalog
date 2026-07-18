@@ -4,6 +4,6 @@ A seleção, descrição e organização originais deste catálogo são disponib
 
 Licença: https://creativecommons.org/licenses/by/4.0/
 
-Atribuição sugerida: “Catálogo de Dados Ambientais, Laraloc, versão consultada em [data]”.
+Atribuição sugerida: “Catálogo de Dados Ambientais, Ian-loc, versão consultada em [data]”.
 
 A licença não altera os direitos ou condições das fontes externas. Consulte sempre a fonte original.
