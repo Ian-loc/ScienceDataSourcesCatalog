@@ -1,5 +1,17 @@
 # Histórico de mudanças
 
+## Não lançado — DATA1-B matriz de migração
+
+- criada matriz explícita para os 51 `resource_id`, sem duplicar os campos atuais do CSV;
+- propostas classificações para `resource_type` e `geographic_scope` em todos os registros;
+- propostas normalizações de formatos, protocolos, ferramentas e situação institucional;
+- mantidas vazias as URLs de orientação de citação até confirmação oficial específica;
+- classificadas 24 decisões como alta confiança e 27 como revisão manual;
+- nenhuma decisão de baixa confiança foi aceita;
+- adicionadas exceções codificadas para recursos híbridos e valores `other_documented`;
+- criado `scripts/validate_migration_matrix.py` para conferir a matriz contra o CSV e o contrato 0.8.0;
+- CSV canônico permanece com 51 fontes e 34 campos; versão formal permanece 0.7.0.
+
 ## Não lançado — DATA1 auditoria do esquema 0.8.0
 
 - auditados os 34 campos e as 51 fontes antes de qualquer migração;
