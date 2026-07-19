@@ -191,9 +191,12 @@
     "authentication_yes_requires_access_condition",
     "free_download_yes_requires_data_access_url",
     "formats_must_not_contain_protocols_or_visualizations",
+    "visualizations_must_not_contain_formats_or_protocols",
     "protocols_must_not_contain_client_tools",
-    "placeholders_must_not_coexist_with_positive_values",
-    "citation_guidance_url_must_be_https"
+    "citation_guidance_url_must_be_https",
+    "multivalued_items_must_be_unique_and_trimmed",
+    "academic_evidence_doi_is_not_source_identifier",
+    "placeholders_must_not_coexist_with_positive_values"
   ],
   "migration_policy": {
     "automatic_migration_allowed": false,
