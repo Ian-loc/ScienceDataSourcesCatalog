@@ -38,15 +38,28 @@
 <div class="area-grid" id="area-links"></div>
 </section>
 <section class="wrap catalog" id="catalogo">
+<div class="catalog-toolbar">
 <div class="heading"><div><p class="eyebrow">Busca e comparação</p><h2>Encontre uma fonte adequada à sua pesquisa</h2></div><p id="count" aria-live="polite"></p></div>
+<label class="sort-control"><span>Ordenar resultados</span><select id="sort"><option value="relevance">Mais relevantes</option><option value="name">Nome de A a Z</option><option value="verified">Verificação mais recente</option></select></label>
+</div>
 <form class="filters" id="filters" role="search" aria-label="Filtros do catálogo">
+<div class="essential-grid">
 <label><span>Área de pesquisa</span><select id="area"><option value="">Todas as áreas</option></select></label>
-<label><span>Dados para o Brasil</span><select id="brazil"><option value="">Qualquer situação</option><option>sim</option><option>parcial</option><option>não</option><option>não se aplica</option><option>desconhecido</option></select></label>
-<label><span>Escala geográfica</span><select id="coverage"><option value="">Todas as coberturas</option></select></label>
-<label><span>Download gratuito</span><select id="download"><option value="">Qualquer situação</option><option>sim</option><option>parcial</option><option>não</option><option>desconhecido</option><option>não se aplica</option></select></label>
-<label><span>API e acesso automatizado</span><select id="programmatic"><option value="">Qualquer situação</option><option>sim</option><option>parcial</option><option>não</option><option>não se aplica</option><option>desconhecido</option></select></label>
-<button type="button" id="clear">Limpar busca e filtros</button>
+<label><span>Dados para o Brasil</span><select id="brazil"><option value="">Qualquer situação</option></select></label>
+<label><span>Download gratuito</span><select id="download"><option value="">Qualquer situação</option></select></label>
+<label><span>API e acesso automatizado</span><select id="programmatic"><option value="">Qualquer situação</option></select></label>
+</div>
+<details class="advanced-filters" id="advanced-filters">
+<summary>Mais filtros <span id="advanced-count" aria-live="polite"></span></summary>
+<div class="advanced-grid">
+<label><span>Cobertura geográfica declarada</span><select id="coverage"><option value="">Todas as coberturas</option></select></label>
+<label><span>Formato de dados</span><select id="format"><option value="">Todos os formatos</option></select></label>
+<label><span>Tipo de evidência</span><select id="evidence"><option value="">Todos os tipos</option></select></label>
+</div>
+</details>
+<div class="filter-footer"><p>As contagens mostram quantas fontes possuem cada atributo no catálogo completo.</p><button type="button" id="clear">Limpar busca e filtros</button></div>
 </form>
+<div class="active-filters" id="active-filters" aria-live="polite" hidden></div>
 <div id="list" class="cards"></div>
 <div id="empty" class="empty" hidden><h3>Nenhuma fonte corresponde à busca</h3><p>Remova um filtro ou tente um termo mais amplo.</p></div>
 </section>
