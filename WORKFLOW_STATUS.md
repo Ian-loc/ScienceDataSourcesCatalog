@@ -32,57 +32,42 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | UX3 | Redesenho dos cards | validado e documentado | PR #9; run 29701341054; Drive atualizado |
 | UX4 | Acessibilidade, responsividade e desempenho | validado e documentado | PR #11; run 29702280394; Drive atualizado |
 | UX4 | Confirmar publicação da interface | bloqueado | site deve exibir commit compatível com `70d2cb868054c551c9aaf2d41ea9fbdb8eef58f1` ou posterior |
-| DATA1 | Restaurar `resource_type` e escala controlada | autorizado | iniciar auditoria do esquema, vocabulários e regras de migração |
-| DATA1 | Normalizar formatos, protocolos e citações | planejado | campos não misturam formatos, visualizações e notas livres |
-| DATA1 | Ampliar validações cruzadas | planejado | inconsistências semânticas bloqueiam o build |
+| DATA1-A | Auditoria e projeto do esquema 0.8.0 | em desenvolvimento | documentos e contrato criados; falta PR, CI, integração e Drive |
+| DATA1-B | Matriz de migração das 51 fontes | planejado | valor atual, valor proposto, confiança e justificativa por registro |
+| DATA1-C | Migração atômica para 38 campos | bloqueado | depende da integração e revisão da auditoria e da matriz |
+| DATA1-D | Validações cruzadas do esquema 0.8.0 | planejado | inconsistências semânticas bloqueiam o build |
 | DATA2 | Revisar as 51 fontes em lotes auditáveis | planejado | cada lote tem evidência, diff, validação e changelog |
 | RELEASE1 | Título, ORCID, licenças e CFF | validado e documentado | PR #5 integrado, CI aprovado e Drive atualizado |
 | RELEASE2 | Criar versão `1.0.0` | bloqueado | trabalho não lançado encerrado e site/CSV/metadados verificados |
 | DOI | Arquivar no Zenodo como Dataset | bloqueado | release estável publicada e metadados conferidos |
 | POST-DOI | Propagar DOI de versão e conceito | bloqueado | repositório, site, ORCID e currículos atualizados |
 
-## UX1 + RELEASE1 documental — resultado
+## UX1–UX4 — resultado consolidado
 
-- **PR:** #5;
-- **Commit:** `678d7e716bf31c856bc70c3b028b23457c6f537f`;
-- **Validação:** run `29700737238`, sucesso;
-- **CSV:** não alterado;
-- **Drive:** registrado;
-- **Publicação:** não confirmada;
+- **UX1:** PR #5, run `29700737238`;
+- **UX2:** PR #7, run `29701061221`;
+- **UX3:** PR #9, run `29701341054`;
+- **UX4:** PR #11, run `29702280394`;
+- **CSV:** permaneceu com 51 fontes e 34 campos durante todos os ciclos de interface;
+- **Drive:** todos os ciclos foram registrados;
+- **Publicação:** ainda não confirmada por inspeção direta;
 - **DOI:** não criado.
 
-## UX2 — resultado
+## Ciclo atual — DATA1-A
 
-- **PR:** #7;
-- **Commit:** `a212192174c354508eaf48dea30a81faa5311ae5`;
-- **Validação:** run `29701061221`, sucesso;
-- **CSV:** não alterado;
-- **Drive:** registrado;
-- **Publicação:** não confirmada.
+- **Branch:** `agent/data1-schema-audit`;
+- **Escopo:** auditoria integral dos 34 campos e das 51 linhas, sem alterar o CSV;
+- **Documentação:** `DATA1_SCHEMA_AUDIT.md`;
+- **Contrato preliminar:** `schema/v0.8.0-draft.json`;
+- **Proposta mínima:** evolução de 34 para 38 campos;
+- **Novos campos:** `resource_type`, `geographic_scope`, `access_tools`, `citation_guidance_url`;
+- **Classificação:** dez tipos funcionais e oito escalas geográficas;
+- **Validação:** `scripts/validate_schema_draft.py` impede migração prematura e exige a preservação de 51 fontes e 34 campos nesta fase;
+- **Versão:** permanece 0.7.0;
+- **Pendente:** PR, CI, integração e registro no Drive.
 
-## UX3 — resultado
+## Próxima etapa após DATA1-A
 
-- **PR:** #9;
-- **Commit:** `eec289ee5036848fa836c43e7dcd088b47da3710`;
-- **Validação:** run `29701341054`, sucesso;
-- **CI:** exige referência aos 34 campos;
-- **CSV:** não alterado;
-- **Drive:** registrado;
-- **Publicação:** não confirmada.
+Criar a **matriz de migração por registro**. Nenhum valor das 51 linhas deve ser convertido antes de registrar valor atual, valor proposto, confiança e justificativa.
 
-## UX4 — resultado
-
-- **PR:** #11 — `Concluir acessibilidade, responsividade e desempenho`;
-- **Commit integrado:** `70d2cb868054c551c9aaf2d41ea9fbdb8eef58f1`;
-- **Validação:** GitHub Actions run `29702280394`, sucesso;
-- **Implementado:** landmarks, fieldsets, foco previsível, estados de carregamento, fallbacks sem JavaScript, movimento reduzido, alto contraste e breakpoints adicionais;
-- **Desempenho:** orçamento total máximo de 120 KB e proibição de dependências externas de scripts e estilos;
-- **CSV:** `data/data_resources.csv` não foi alterado;
-- **Drive:** fase registrada na aba `project_changelog`;
-- **Publicação:** ainda não confirmada por evidência direta do site.
-
-## Próximo ciclo autorizado
-
-O próximo ciclo é **DATA1 — fortalecimento estrutural do esquema**. A primeira etapa deve ser uma auditoria completa dos 34 campos, dos valores existentes e dos vocabulários propostos antes de qualquer migração do CSV.
-
-Consulte `IMPLEMENTATION_WORKFLOW.md` para a sequência completa até a release estável e o Zenodo.
+Consulte `IMPLEMENTATION_WORKFLOW.md` e `DATA1_SCHEMA_AUDIT.md` para a sequência completa.

@@ -18,6 +18,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validar CSV e gerar artefatos
         run: python3 scripts/build_catalog.py
+      - name: Validar proposta de esquema
+        run: python3 scripts/validate_schema_draft.py
       - name: Validar interface estática
         run: |
           python3 scripts/validate_frontend.py
