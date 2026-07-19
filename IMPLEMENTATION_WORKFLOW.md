@@ -29,8 +29,8 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 | UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5 e run 29700737238 concluídos |
 | UX2 | Filtros e resultados | validado e documentado | PR #7 e run 29701061221 concluídos |
 | UX3 | Redesenho dos cards | validado e documentado | PR #9 e run 29701341054 concluídos |
-| UX4 | Acessibilidade, responsividade e desempenho | em desenvolvimento | branch implementada; falta PR, CI, integração, publicação e Drive |
-| DATA1 | Correções estruturais do esquema | planejado | `resource_type`, escala geográfica controlada, formatos e citações normalizados |
+| UX4 | Acessibilidade, responsividade e desempenho | validado e documentado | PR #11 e run 29702280394 concluídos |
+| DATA1 | Correções estruturais do esquema | autorizado | iniciar auditoria dos 34 campos e vocabulários antes da migração |
 | DATA2 | Revisão das 51 fontes | planejado | lotes auditáveis com evidência, diff, validação e changelog |
 | RELEASE1 | Fechamento documental | validado e documentado | título, ORCID, licenças e CFF integrados no PR #5 |
 | RELEASE2 | Versão estável | bloqueado | trabalho não lançado encerrado; site, CSV e metadados verificados |
@@ -69,25 +69,36 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 - [x] Drive atualizado;
 - [ ] confirmar visualmente a publicação.
 
-## UX4 — tarefas
+## UX4 — resultado
 
-- [x] reforçar landmarks, títulos associados, fieldsets e nomes acessíveis;
-- [x] adicionar estados de carregamento e anúncios de resultados;
-- [x] tornar foco previsível após busca e remoção de filtros;
-- [x] identificar links que abrem em nova aba;
-- [x] manter texto e símbolos junto aos estados de cor;
-- [x] revisar layouts em larguras intermediárias e móveis;
-- [x] respeitar `prefers-reduced-motion`;
-- [x] adicionar fallback informativo sem JavaScript;
-- [x] adicionar suporte a alto contraste forçado;
-- [x] impedir dependências externas de scripts e estilos;
-- [x] definir orçamento de peso para HTML, CSS e JavaScript;
-- [x] ampliar testes automáticos de acessibilidade estrutural;
-- [x] preservar todos os 34 campos e o CSV canônico;
-- [ ] validar no pull request;
-- [ ] integrar após CI aprovado;
-- [ ] verificar o site publicado;
-- [ ] registrar o resultado no Drive.
+- [x] landmarks, títulos associados, fieldsets e nomes acessíveis;
+- [x] estados de carregamento e anúncios de resultados;
+- [x] foco previsível após busca e remoção de filtros;
+- [x] identificação de links que abrem em nova aba;
+- [x] texto e símbolos junto aos estados de cor;
+- [x] layouts intermediários e móveis revisados;
+- [x] `prefers-reduced-motion`, fallback sem JavaScript e alto contraste;
+- [x] dependências externas de scripts e estilos proibidas;
+- [x] orçamento máximo de 120 KB para a interface estática;
+- [x] testes automáticos de acessibilidade estrutural ampliados;
+- [x] todos os 34 campos e o CSV canônico preservados;
+- [x] PR #11 e run `29702280394` concluídos;
+- [x] commit `70d2cb868054c551c9aaf2d41ea9fbdb8eef58f1` integrado;
+- [x] Drive atualizado;
+- [ ] confirmar visualmente a publicação.
+
+## DATA1 — ordem de execução
+
+1. auditar os 34 campos atuais e todos os valores existentes;
+2. definir a diferença entre identidade oficial e tipo controlado de recurso;
+3. definir vocabulário controlado de escala geográfica, preservando cobertura detalhada livre;
+4. separar estritamente formatos, produtos, visualizações e protocolos;
+5. definir campos de orientação de citação e identificadores persistentes;
+6. documentar regras de migração e compatibilidade;
+7. ampliar validações cruzadas antes de alterar o CSV;
+8. migrar as 51 linhas em lote único somente quando os valores puderem ser derivados com segurança;
+9. submeter a mudança como versão de esquema pré-estável, provavelmente `0.8.0`;
+10. iniciar DATA2 apenas após o esquema ter sido validado na interface.
 
 ## RELEASE1 — resultado
 
@@ -117,8 +128,9 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 
 ## Ordem operacional atual
 
-1. validar e integrar UX4;
-2. verificar a publicação e registrar o ciclo no Drive;
-3. executar DATA1;
+1. concluir o registro comprovado do UX4;
+2. auditar e projetar DATA1;
+3. implementar a versão de esquema 0.8.0;
 4. executar DATA2 em lotes;
-5. fechar documentação e somente então criar `v1.0.0` e o depósito no Zenodo.
+5. confirmar publicação e fechar documentação;
+6. somente então criar `v1.0.0` e o depósito no Zenodo.

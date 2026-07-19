@@ -18,6 +18,7 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 - GitHub Issues está desativado; este arquivo é o backlog versionado autoritativo.
 - O conector confirma runs associados a pull requests, mas não expõe o run disparado por push na `main`.
 - A publicação só será marcada como confirmada mediante inspeção direta do site ou evidência equivalente.
+- A tentativa de inspeção direta após o UX4 falhou por indisponibilidade de resolução de rede; isso não constitui evidência de falha do site.
 
 ## Backlog
 
@@ -29,8 +30,9 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5; run 29700737238; Drive atualizado |
 | UX2 | Filtros e resultados | validado e documentado | PR #7; run 29701061221; Drive atualizado |
 | UX3 | Redesenho dos cards | validado e documentado | PR #9; run 29701341054; Drive atualizado |
-| UX4 | Acessibilidade, responsividade e desempenho | em desenvolvimento | branch implementada; falta PR, CI, integração, publicação e Drive |
-| DATA1 | Restaurar `resource_type` e escala controlada | planejado | esquema, CSV, codebook, validação e interface atualizados |
+| UX4 | Acessibilidade, responsividade e desempenho | validado e documentado | PR #11; run 29702280394; Drive atualizado |
+| UX4 | Confirmar publicação da interface | bloqueado | site deve exibir commit compatível com `70d2cb868054c551c9aaf2d41ea9fbdb8eef58f1` ou posterior |
+| DATA1 | Restaurar `resource_type` e escala controlada | autorizado | iniciar auditoria do esquema, vocabulários e regras de migração |
 | DATA1 | Normalizar formatos, protocolos e citações | planejado | campos não misturam formatos, visualizações e notas livres |
 | DATA1 | Ampliar validações cruzadas | planejado | inconsistências semânticas bloqueiam o build |
 | DATA2 | Revisar as 51 fontes em lotes auditáveis | planejado | cada lote tem evidência, diff, validação e changelog |
@@ -68,13 +70,19 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 - **Drive:** registrado;
 - **Publicação:** não confirmada.
 
-## Ciclo atual — UX4
+## UX4 — resultado
 
-- **Branch:** `agent/ux4-accessibility-performance`;
-- **Escopo:** acessibilidade estrutural, responsividade, movimento reduzido, fallback sem JavaScript e orçamento de desempenho;
-- **Implementado:** landmarks e fieldsets, estados `aria-busy`, foco após busca, links externos identificados, gráficos descritivos, alto contraste e breakpoints adicionais;
-- **Validação adicionada:** sem dependências externas, um `main` e um `h1` por página, `noscript`, metadados, campos, grupos técnicos e orçamento total da interface;
-- **CSV:** `data/data_resources.csv` não alterado;
-- **Pendente:** PR, CI, integração, inspeção do site e registro no Drive.
+- **PR:** #11 — `Concluir acessibilidade, responsividade e desempenho`;
+- **Commit integrado:** `70d2cb868054c551c9aaf2d41ea9fbdb8eef58f1`;
+- **Validação:** GitHub Actions run `29702280394`, sucesso;
+- **Implementado:** landmarks, fieldsets, foco previsível, estados de carregamento, fallbacks sem JavaScript, movimento reduzido, alto contraste e breakpoints adicionais;
+- **Desempenho:** orçamento total máximo de 120 KB e proibição de dependências externas de scripts e estilos;
+- **CSV:** `data/data_resources.csv` não foi alterado;
+- **Drive:** fase registrada na aba `project_changelog`;
+- **Publicação:** ainda não confirmada por evidência direta do site.
+
+## Próximo ciclo autorizado
+
+O próximo ciclo é **DATA1 — fortalecimento estrutural do esquema**. A primeira etapa deve ser uma auditoria completa dos 34 campos, dos valores existentes e dos vocabulários propostos antes de qualquer migração do CSV.
 
 Consulte `IMPLEMENTATION_WORKFLOW.md` para a sequência completa até a release estável e o Zenodo.
