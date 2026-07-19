@@ -31,10 +31,10 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | UX2 | Filtros e resultados | validado e documentado | PR #7; run 29701061221; Drive atualizado |
 | UX3 | Redesenho dos cards | validado e documentado | PR #9; run 29701341054; Drive atualizado |
 | UX4 | Acessibilidade, responsividade e desempenho | validado e documentado | PR #11; run 29702280394; Drive atualizado |
-| OBJ | Objetivos finais e portões para DOI | em revisão | contrato humano, contrato JSON e CI criados na branch |
+| OBJ | Objetivos finais e portões para DOI | concluído | PR #17; run 29704132742; commit 894be4f17a7e78f521acddf5fab12ef21086db01; Drive atualizado |
 | DATA1-A | Auditoria e projeto do esquema 0.8.0 | validado e documentado | PR #13; run 29702732587; Drive atualizado |
 | DATA1-B | Matriz de migração das 51 fontes | validado e documentado | PR #15; run 29703654373; Drive atualizado |
-| DATA1-BR | Revisão dos 35 casos pendentes | planejado em lotes | cinco lotes de sete registros; evidência oficial obrigatória |
+| DATA1-BR | Revisão dos 35 casos pendentes | autorizado | cinco lotes de sete registros; evidência oficial obrigatória |
 | DATA1-C | Migração atômica para 38 campos | bloqueado | depende da resolução dos 35 casos em revisão manual |
 | DATA1-D | Validações cruzadas do esquema 0.8.0 | planejado | inconsistências semânticas bloqueiam o build |
 | DATA2 | Revisar as 51 fontes no esquema final | planejado | cada lote tem evidência, diff, validação e changelog |
@@ -51,25 +51,29 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 - **UX1–UX4:** integrados e validados;
 - **DATA1-A:** integrado e validado;
 - **DATA1-B:** integrado e validado;
+- **G1 — escopo científico:** concluído;
+- **G2–G12:** parciais ou bloqueados;
 - **Matriz:** 16 registros prontos e 35 em revisão manual;
 - **Esquema 0.8.0:** ainda não aplicado;
 - **Publicação atual:** ainda não confirmada por inspeção direta;
 - **v1.0.0:** bloqueada;
 - **DOI:** bloqueado e não criado.
 
-## Ciclo atual — objetivos finais e prontidão para DOI
+## Objetivos finais — resultado
 
-- **Branch:** `agent/final-objectives-data1br`;
+- **PR:** #17 — `Definir objetivos finais e portões antes do DOI`;
+- **Commit integrado:** `894be4f17a7e78f521acddf5fab12ef21086db01`;
+- **Validação:** GitHub Actions run `29704132742`, sucesso;
 - **Contrato científico:** `FINAL_OBJECTIVES_AND_DOI_GATES.md`;
 - **Contrato legível por máquina:** `release/doi_readiness.json`;
 - **Portões:** G1-G12;
-- **Regra:** DOI permitido somente após todos os portões concluídos;
-- **Validador:** `scripts/validate_doi_readiness.py`;
+- **G1:** concluído;
+- **Drive:** fase registrada na aba `project_changelog`;
 - **Proteção:** versão formal permanece 0.7.0 e `doi_allowed` permanece `false`.
 
-## Planejamento DATA1-BR
+## DATA1-BR — lotes autorizados
 
-Os 35 registros em revisão manual foram organizados em `migration/data1br_review_batches.csv`:
+Os 35 registros em revisão manual estão em `migration/data1br_review_batches.csv`:
 
 - **BR1:** sete fontes brasileiras e subnacionais com lacunas de formato, protocolo ou atualização;
 - **BR2:** sete portais e sistemas nacionais/regionais com classificação ou acesso a confirmar;
@@ -81,10 +85,10 @@ Nenhum lote está marcado como revisado. Cada registro exige documentação ofic
 
 ## Próxima execução
 
-1. validar e integrar o contrato de objetivos e portões;
-2. revisar BR1 com documentação oficial;
-3. atualizar matriz, confiança, exceções e status somente com evidência;
-4. repetir BR2-BR5;
-5. autorizar DATA1-C apenas quando os 51 registros estiverem `pronto_para_migração`.
+1. executar BR1 com documentação oficial;
+2. atualizar matriz, confiança, exceções e status somente com evidência;
+3. repetir BR2-BR5;
+4. exigir 51 registros `pronto_para_migração`;
+5. autorizar DATA1-C somente após esse critério.
 
 Consulte `FINAL_OBJECTIVES_AND_DOI_GATES.md`, `IMPLEMENTATION_WORKFLOW.md`, `DATA1_SCHEMA_AUDIT.md` e `migration/README.md`.

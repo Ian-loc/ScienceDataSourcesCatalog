@@ -9,8 +9,8 @@
     {
       "id": "G1",
       "name": "escopo_cientifico",
-      "status": "implementado_pendente_integracao",
-      "evidence": "FINAL_OBJECTIVES_AND_DOI_GATES.md"
+      "status": "concluído",
+      "evidence": "PR #17; run 29704132742; commit 894be4f17a7e78f521acddf5fab12ef21086db01; Drive atualizado"
     },
     {
       "id": "G2",
