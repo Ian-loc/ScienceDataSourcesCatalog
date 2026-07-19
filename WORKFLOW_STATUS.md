@@ -15,8 +15,8 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 
 ## Limitações atuais
 
-- GitHub Issues está desativado neste repositório; este arquivo é o backlog versionado autoritativo.
-- O conector disponível confirma runs associados a pull requests, mas não expõe o run disparado por push na `main`.
+- GitHub Issues está desativado; este arquivo é o backlog versionado autoritativo.
+- O conector confirma runs associados a pull requests, mas não expõe o run disparado por push na `main`.
 - A inspeção externa do GitHub Pages ainda não fornece evidência direta do conteúdo publicado.
 
 ## Backlog
@@ -26,9 +26,9 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | P0 | Identificação verificável do build | integrado | `build-meta.json` contém versão, commit, data, fontes e campos |
 | P0 | Impedir versionamento de artefatos derivados | concluído | `.gitignore` cobre JSON, metadados de build e cache Python |
 | P0 | Confirmar deploy posterior ao merge | bloqueado | requer inspeção direta do site ou evidência do run de push da `main` |
-| UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5 integrado; run 29700737238 concluído; Drive atualizado |
-| UX1 | Confirmar publicação da interface | bloqueado | site deve exibir commit compatível com a `main` |
-| UX2 | Filtros e resultados | em desenvolvimento | branch implementada; falta PR, validação, integração e registro no Drive |
+| UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5; run 29700737238; Drive atualizado |
+| UX2 | Filtros e resultados | validado e documentado | PR #7; run 29701061221; Drive atualizado |
+| UX2 | Confirmar publicação dos controles | bloqueado | site deve exibir commit compatível com a `main` |
 | UX3 | Redesenho dos cards | planejado | cards curtos, estados claros e detalhes agrupados |
 | UX4 | Acessibilidade, responsividade e desempenho | planejado | teclado, contraste, mobile, carregamento e testes verificados |
 | DATA1 | Restaurar `resource_type` e escala controlada | planejado | esquema, CSV, codebook, validação e interface atualizados |
@@ -40,22 +40,28 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | DOI | Arquivar no Zenodo como Dataset | bloqueado | release estável publicada e metadados conferidos |
 | POST-DOI | Propagar DOI de versão e conceito | bloqueado | repositório, site, ORCID e currículos atualizados |
 
-## Ciclo UX1 + RELEASE1 documental — resultado
+## UX1 + RELEASE1 documental — resultado
 
 - **PR:** #5;
-- **Commit integrado:** `678d7e716bf31c856bc70c3b028b23457c6f537f`;
+- **Commit:** `678d7e716bf31c856bc70c3b028b23457c6f537f`;
 - **Validação:** run `29700737238`, sucesso;
-- **Conteúdo científico:** CSV canônico não alterado;
-- **Drive:** fase registrada;
-- **Publicação:** ainda não confirmada por evidência direta;
+- **CSV:** não alterado;
+- **Drive:** registrado;
+- **Publicação:** não confirmada;
 - **DOI:** não criado.
 
-## Ciclo atual — UX2
+## UX2 — resultado
 
-- **Branch:** `agent/ux2-filters-results`;
-- **Escopo:** filtros essenciais e avançados, ordenação, filtros ativos e URL compartilhável;
-- **Implementado:** contagens por opção, filtros por cobertura/formato/evidência, ordenação por relevância/nome/verificação, remoção individual de filtros e persistência na URL;
-- **Conteúdo científico:** `data/data_resources.csv` não alterado;
-- **Pendente:** PR, CI, revisão, integração, verificação do site e registro no Drive.
+- **PR:** #7 — `Adicionar filtros avançados e resultados compartilháveis`;
+- **Commit integrado:** `a212192174c354508eaf48dea30a81faa5311ae5`;
+- **Validação:** GitHub Actions run `29701061221`, sucesso;
+- **Implementado:** filtros essenciais/avançados, contagens, chips removíveis, ordenação e estado na URL;
+- **CSV:** `data/data_resources.csv` não foi alterado;
+- **Drive:** fase registrada na aba `project_changelog`;
+- **Publicação:** ainda não confirmada por evidência direta do site.
+
+## Próximo ciclo autorizado
+
+O próximo ciclo técnico é **UX3 — redesenho dos cards**. Deve manter o CSV inalterado e organizar as informações do card em níveis de decisão, detalhes e evidências.
 
 Consulte `IMPLEMENTATION_WORKFLOW.md` para a sequência completa até a release estável e o Zenodo.
