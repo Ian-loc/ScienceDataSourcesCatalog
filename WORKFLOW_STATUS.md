@@ -17,7 +17,7 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 
 - GitHub Issues está desativado; este arquivo é o backlog versionado autoritativo.
 - O conector confirma runs associados a pull requests, mas não expõe o run disparado por push na `main`.
-- A inspeção externa do GitHub Pages ainda não fornece evidência direta do conteúdo publicado.
+- A publicação só será marcada como confirmada mediante inspeção direta do site ou evidência equivalente.
 
 ## Backlog
 
@@ -29,8 +29,7 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5; run 29700737238; Drive atualizado |
 | UX2 | Filtros e resultados | validado e documentado | PR #7; run 29701061221; Drive atualizado |
 | UX3 | Redesenho dos cards | validado e documentado | PR #9; run 29701341054; Drive atualizado |
-| UX3 | Confirmar publicação dos cards | bloqueado | site deve exibir commit compatível com a `main` |
-| UX4 | Acessibilidade, responsividade e desempenho | planejado | teclado, contraste, mobile, carregamento e testes verificados |
+| UX4 | Acessibilidade, responsividade e desempenho | em desenvolvimento | branch implementada; falta PR, CI, integração, publicação e Drive |
 | DATA1 | Restaurar `resource_type` e escala controlada | planejado | esquema, CSV, codebook, validação e interface atualizados |
 | DATA1 | Normalizar formatos, protocolos e citações | planejado | campos não misturam formatos, visualizações e notas livres |
 | DATA1 | Ampliar validações cruzadas | planejado | inconsistências semânticas bloqueiam o build |
@@ -61,17 +60,21 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 
 ## UX3 — resultado
 
-- **PR:** #9 — `Redesenhar cards para decisão e leitura técnica`;
-- **Commit integrado:** `eec289ee5036848fa836c43e7dcd088b47da3710`;
-- **Validação:** GitHub Actions run `29701341054`, sucesso;
-- **Implementado:** cards por identidade, acesso, utilidade, limitação, ações e seis grupos técnicos;
-- **Garantia adicional:** o CI exige referência aos 34 campos no renderer;
-- **CSV:** `data/data_resources.csv` não foi alterado;
-- **Drive:** fase registrada na aba `project_changelog`;
-- **Publicação:** ainda não confirmada por evidência direta do site.
+- **PR:** #9;
+- **Commit:** `eec289ee5036848fa836c43e7dcd088b47da3710`;
+- **Validação:** run `29701341054`, sucesso;
+- **CI:** exige referência aos 34 campos;
+- **CSV:** não alterado;
+- **Drive:** registrado;
+- **Publicação:** não confirmada.
 
-## Próximo ciclo autorizado
+## Ciclo atual — UX4
 
-O próximo ciclo técnico é **UX4 — acessibilidade, responsividade e desempenho**. Depois dele, o trabalho deve avançar para as correções estruturais DATA1, sem criar `v1.0.0` ou DOI.
+- **Branch:** `agent/ux4-accessibility-performance`;
+- **Escopo:** acessibilidade estrutural, responsividade, movimento reduzido, fallback sem JavaScript e orçamento de desempenho;
+- **Implementado:** landmarks e fieldsets, estados `aria-busy`, foco após busca, links externos identificados, gráficos descritivos, alto contraste e breakpoints adicionais;
+- **Validação adicionada:** sem dependências externas, um `main` e um `h1` por página, `noscript`, metadados, campos, grupos técnicos e orçamento total da interface;
+- **CSV:** `data/data_resources.csv` não alterado;
+- **Pendente:** PR, CI, integração, inspeção do site e registro no Drive.
 
 Consulte `IMPLEMENTATION_WORKFLOW.md` para a sequência completa até a release estável e o Zenodo.
