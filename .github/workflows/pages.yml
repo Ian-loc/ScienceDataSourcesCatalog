@@ -16,8 +16,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validar workflow de correções de qualidade
-        run: python3 scripts/validate_quality_correction_plan.py
+      - name: Executar diagnóstico de qualidade
+        id: quality
+        shell: bash
+        run: |
+          set +e
+          python3 scripts/validate_quality_correction_plan.py > quality-validation.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          cat quality-validation.log
+          exit 0
+      - name: Publicar diagnóstico temporário
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-validation-log
+          path: quality-validation.log
+      - name: Bloquear falha da validação de qualidade
+        if: steps.quality.outputs.exit_code != '0'
+        run: exit 1
       - name: Validar CSV e gerar artefatos
         run: python3 scripts/build_catalog.py
       - name: Validar proposta de esquema
