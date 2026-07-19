@@ -32,9 +32,9 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | UX3 | Redesenho dos cards | validado e documentado | PR #9; run 29701341054; Drive atualizado |
 | UX4 | Acessibilidade, responsividade e desempenho | validado e documentado | PR #11; run 29702280394; Drive atualizado |
 | UX4 | Confirmar publicação da interface | bloqueado | site deve exibir commit compatível com `70d2cb868054c551c9aaf2d41ea9fbdb8eef58f1` ou posterior |
-| DATA1-A | Auditoria e projeto do esquema 0.8.0 | em desenvolvimento | documentos e contrato criados; falta PR, CI, integração e Drive |
-| DATA1-B | Matriz de migração das 51 fontes | planejado | valor atual, valor proposto, confiança e justificativa por registro |
-| DATA1-C | Migração atômica para 38 campos | bloqueado | depende da integração e revisão da auditoria e da matriz |
+| DATA1-A | Auditoria e projeto do esquema 0.8.0 | validado e documentado | PR #13; run 29702732587; Drive atualizado |
+| DATA1-B | Matriz de migração das 51 fontes | autorizado | valor atual, valor proposto, confiança e justificativa por registro |
+| DATA1-C | Migração atômica para 38 campos | bloqueado | depende da integração e revisão da matriz DATA1-B |
 | DATA1-D | Validações cruzadas do esquema 0.8.0 | planejado | inconsistências semânticas bloqueiam o build |
 | DATA2 | Revisar as 51 fontes em lotes auditáveis | planejado | cada lote tem evidência, diff, validação e changelog |
 | RELEASE1 | Título, ORCID, licenças e CFF | validado e documentado | PR #5 integrado, CI aprovado e Drive atualizado |
@@ -53,21 +53,23 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 - **Publicação:** ainda não confirmada por inspeção direta;
 - **DOI:** não criado.
 
-## Ciclo atual — DATA1-A
+## DATA1-A — resultado
 
-- **Branch:** `agent/data1-schema-audit`;
-- **Escopo:** auditoria integral dos 34 campos e das 51 linhas, sem alterar o CSV;
+- **PR:** #13 — `Auditar esquema e projetar versão 0.8.0`;
+- **Commit integrado:** `c6c6ccd31867d298fd802c80105bc4acfd32641a`;
+- **Validação:** GitHub Actions run `29702732587`, sucesso;
 - **Documentação:** `DATA1_SCHEMA_AUDIT.md`;
-- **Contrato preliminar:** `schema/v0.8.0-draft.json`;
-- **Proposta mínima:** evolução de 34 para 38 campos;
+- **Contrato:** `schema/v0.8.0-draft.json`;
+- **Proposta:** evolução mínima de 34 para 38 campos;
 - **Novos campos:** `resource_type`, `geographic_scope`, `access_tools`, `citation_guidance_url`;
-- **Classificação:** dez tipos funcionais e oito escalas geográficas;
-- **Validação:** `scripts/validate_schema_draft.py` impede migração prematura e exige a preservação de 51 fontes e 34 campos nesta fase;
+- **Proteção:** CI confirma 51 fontes, 34 campos atuais e ausência de migração prematura;
+- **CSV:** não alterado;
+- **Drive:** fase registrada;
 - **Versão:** permanece 0.7.0;
-- **Pendente:** PR, CI, integração e registro no Drive.
+- **DOI:** permanece bloqueado.
 
-## Próxima etapa após DATA1-A
+## Próximo ciclo autorizado
 
-Criar a **matriz de migração por registro**. Nenhum valor das 51 linhas deve ser convertido antes de registrar valor atual, valor proposto, confiança e justificativa.
+Criar **DATA1-B — matriz de migração por registro**. Nenhum valor das 51 linhas deve ser convertido antes de registrar valor atual, valor proposto, confiança e justificativa.
 
 Consulte `IMPLEMENTATION_WORKFLOW.md` e `DATA1_SCHEMA_AUDIT.md` para a sequência completa.
