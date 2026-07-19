@@ -1,0 +1,36 @@
+batch_id,resource_id,review_priority,review_focus,evidence_required,current_blocker,review_status
+BR1,DR0001,P1,"tipo funcional; formatos; protocolo; atualização","documentação oficial de produto e acesso","varies_by_dataset | unknown",pendente
+BR1,DR0002,P1,"tipo funcional; formatos; protocolo; licença","catálogo oficial e documentação OGC","varies_by_dataset",pendente
+BR1,DR0003,P1,"tipo funcional; formatos; acesso programático","documentação oficial e técnica","varies_by_dataset | unknown",pendente
+BR1,DR0004,P1,"formatos; acesso programático; licença","downloads oficiais e documentação técnica",unknown,pendente
+BR1,DR0005,P1,"protocolos; ferramentas; condições de acesso","página de dados abertos e documentação dos serviços",other_documented,pendente
+BR1,DR0006,P1,"formatos; serviços OGC; ferramentas","documentação oficial dos serviços e produtos","varies_by_dataset | other_documented",pendente
+BR1,DR0007,P1,"tipo funcional; formatos; acesso","documentação metodológica e de exportação","classificação média",pendente
+BR2,DR0008,P1,"tipo funcional; formatos variáveis; API","documentação oficial do catálogo e Swagger","classificação média",pendente
+BR2,DR0010,P1,"tipo funcional; ferramentas; autenticação","documentação oficial de download e Earth Engine","classificação média",pendente
+BR2,DR0011,P1,"protocolos OGC; ferramenta GeoNetwork; formatos","documentação oficial do portal e serviços",other_documented,pendente
+BR2,DR0012,P1,"escala; protocolos; exportação","documentação oficial dos produtos e serviços","classificação média",pendente
+BR2,DR0013,P1,"formatos; protocolos; ferramenta de exportação","documentação oficial da rede",other_documented,pendente
+BR2,DR0014,P1,"formatos; protocolo; tipo funcional","documentação oficial e arquivos de exemplo","other_documented | unknown",pendente
+BR2,DR0015,P1,"formatos; acesso; tipo funcional","documentação oficial de download",unknown,pendente
+BR3,DR0017,P1,"API; download; ferramenta web; tipo funcional","documentação oficial de acesso e exportação","classificação média",pendente
+BR3,DR0019,P1,"tipo funcional; ferramentas; autenticação","documentação oficial Earth Engine e APIs","classificação média",pendente
+BR3,DR0021,P1,"protocolo adicional; pacote Python","documentação oficial de API e cliente",other_documented,pendente
+BR3,DR0022,P1,"nome e natureza das ferramentas geoespaciais","documentação oficial de acesso e pacotes",other_documented,pendente
+BR3,DR0027,P1,"formato não identificado","documentação oficial de formatos e exportação",other_documented,pendente
+BR3,DR0028,P1,"protocolo adicional; orientação de citação","documentação oficial do repositório",other_documented,pendente
+BR3,DR0029,P1,"tipo funcional; ferramentas; cobertura","documentação oficial NEON e pacote neonUtilities","classificação média",pendente
+BR4,DR0030,P2,"tipo funcional; ferramentas clientes","documentação oficial DataONE e clientes","classificação média",pendente
+BR4,DR0032,P2,"formato não identificado; protocolos","documentação oficial do repositório",other_documented,pendente
+BR4,DR0034,P2,"protocolo adicional; exportação","documentação oficial da rede",other_documented,pendente
+BR4,DR0035,P2,"tipo funcional; aplicabilidade geográfica","documentação oficial do catálogo","classificação média",pendente
+BR4,DR0040,P2,"formato de dados principal","documentação oficial de download",other_documented,pendente
+BR4,DR0041,P2,"protocolo; pacote RBIEN; tipo funcional","documentação oficial da base e pacote",other_documented,pendente
+BR4,DR0042,P2,"protocolo adicional; pacote amerifluxr","documentação oficial da rede e pacote",other_documented,pendente
+BR5,DR0043,P2,"ferramentas comunitárias; orientação de citação","documentação oficial da rede",other_documented,pendente
+BR5,DR0044,P2,"protocolo adicional; exportação; tipo funcional","documentação oficial da plataforma",other_documented,pendente
+BR5,DR0045,P2,"tipo funcional; acesso por download","documentação oficial da plataforma","classificação média",pendente
+BR5,DR0047,P2,"tipo funcional; protocolos; ambiente de nuvem","documentação oficial Copernicus Data Space","classificação média",pendente
+BR5,DR0049,P2,"formatos; ferramenta de exportação; tipo funcional","documentação oficial da rede","varies_by_dataset | classificação média",pendente
+BR5,DR0050,P2,"protocolo adicional; ambiente de nuvem","documentação oficial NASA Earthdata",other_documented,pendente
+BR5,DR0051,P2,"escopo geográfico; natureza do recurso; acesso","documentação oficial do recurso","global_non_geographic_resource | classificação média",pendente

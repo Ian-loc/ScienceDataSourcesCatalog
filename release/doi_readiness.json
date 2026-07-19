@@ -1,0 +1,82 @@
+{
+  "contract_version": "1.0",
+  "catalog_current_version": "0.7.0",
+  "target_stable_release": "1.0.0",
+  "archive_type": "Dataset",
+  "doi_allowed": false,
+  "decision_rule": "DOI permitido somente quando G1-G12 estiverem concluídos e a release v1.0.0 tiver sido inspecionada.",
+  "gates": [
+    {
+      "id": "G1",
+      "name": "escopo_cientifico",
+      "status": "implementado_pendente_integracao",
+      "evidence": "FINAL_OBJECTIVES_AND_DOI_GATES.md"
+    },
+    {
+      "id": "G2",
+      "name": "esquema",
+      "status": "parcial",
+      "evidence": "schema/v0.8.0-draft.json"
+    },
+    {
+      "id": "G3",
+      "name": "migracao",
+      "status": "bloqueado",
+      "evidence": "35 registros permanecem em revisão manual"
+    },
+    {
+      "id": "G4",
+      "name": "validacao_semantica",
+      "status": "parcial",
+      "evidence": "regras preliminares existem; DATA1-D pendente"
+    },
+    {
+      "id": "G5",
+      "name": "revisao_das_fontes",
+      "status": "bloqueado",
+      "evidence": "DATA1-BR e DATA2 pendentes"
+    },
+    {
+      "id": "G6",
+      "name": "qualidade_de_acesso",
+      "status": "bloqueado",
+      "evidence": "links e condições ainda exigem revisão no esquema final"
+    },
+    {
+      "id": "G7",
+      "name": "interface",
+      "status": "parcial",
+      "evidence": "UX1-UX4 concluídos; exibição dos 38 campos pendente"
+    },
+    {
+      "id": "G8",
+      "name": "publicacao",
+      "status": "bloqueado",
+      "evidence": "deploy da release ainda não confirmado"
+    },
+    {
+      "id": "G9",
+      "name": "documentacao",
+      "status": "parcial",
+      "evidence": "documentação existente; fechamento da release pendente"
+    },
+    {
+      "id": "G10",
+      "name": "metadados_de_citacao",
+      "status": "parcial",
+      "evidence": "título, autor e ORCID definidos; versão e data 1.0.0 pendentes"
+    },
+    {
+      "id": "G11",
+      "name": "release_imutavel",
+      "status": "bloqueado",
+      "evidence": "tag e GitHub Release v1.0.0 não criadas"
+    },
+    {
+      "id": "G12",
+      "name": "inspecao_do_deposito",
+      "status": "bloqueado",
+      "evidence": "depósito Zenodo ainda não criado"
+    }
+  ]
+}

@@ -1,5 +1,16 @@
 # Histórico de mudanças
 
+## Não lançado — objetivos finais, prontidão para DOI e DATA1-BR
+
+- definido o produto final como catálogo científico de fontes, com unidade de registro `source`;
+- estabelecidos objetivo geral, oito objetivos específicos e limites deliberados;
+- definida a completude científica mínima de cada registro;
+- criados 12 portões obrigatórios antes do DOI;
+- criado contrato legível por máquina em `release/doi_readiness.json`;
+- organizado o DATA1-BR em cinco lotes de sete registros;
+- adicionado `scripts/validate_doi_readiness.py` ao GitHub Actions;
+- preservados CSV com 51 fontes × 34 campos, versão 0.7.0 e bloqueio do DOI.
+
 ## Não lançado — DATA1-B matriz de migração
 
 - criada matriz explícita para os 51 `resource_id`, sem duplicar os campos atuais do CSV;
