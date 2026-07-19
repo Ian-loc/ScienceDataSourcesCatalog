@@ -1,5 +1,13 @@
 # Histórico de mudanças
 
+## Não lançado — fechamento operacional
+
+- adicionada identificação verificável do build com versão, commit, data, número de fontes e número de variáveis;
+- versão e commit publicados passam a ser exibidos no catálogo e na página Sobre;
+- adicionada proteção contra versionamento acidental do JSON e dos metadados derivados;
+- criado `WORKFLOW_STATUS.md` para registrar backlog, estados e critérios de conclusão enquanto GitHub Issues permanecer desativado;
+- alinhamento final com o Google Drive condicionado à validação, integração e publicação deste ciclo.
+
 ## 0.7.0 — 2026-07-18
 
 - cruzada a documentação oficial com evidência acadêmica ou técnica representativa;
