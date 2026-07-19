@@ -1,5 +1,16 @@
 # Histórico de mudanças
 
+## Não lançado — UX3 redesenho dos cards
+
+- reorganizada a leitura dos cards em identidade, descrição, acesso, utilidade, limitação, ações e detalhes;
+- identidade oficial movida para uma linha secundária;
+- adicionados estados semânticos para download, API e cobertura do Brasil;
+- utilidade acadêmica e principal limitação passam a aparecer antes dos detalhes técnicos;
+- ação `Acessar dados` priorizada em relação aos links auxiliares;
+- detalhes agrupados em Acesso, Cobertura, Produtos e dados, Uso acadêmico, Evidências e Avaliação e governança;
+- preservados todos os campos e links do esquema atual;
+- CSV canônico mantido sem alterações.
+
 ## Não lançado — UX2 filtros e resultados
 
 - separados filtros essenciais e avançados;

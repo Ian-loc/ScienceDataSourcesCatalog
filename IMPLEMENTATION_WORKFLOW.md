@@ -28,7 +28,7 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 |---|---|---|---|
 | UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5 e run 29700737238 concluídos |
 | UX2 | Filtros e resultados | validado e documentado | PR #7 e run 29701061221 concluídos |
-| UX3 | Redesenho dos cards | planejado | cards curtos, estados de acesso claros e detalhes agrupados |
+| UX3 | Redesenho dos cards | em desenvolvimento | branch implementada; falta PR, CI, integração e Drive |
 | UX4 | Acessibilidade, responsividade e desempenho | planejado | teclado, contraste, mobile, carregamento e testes verificados |
 | DATA1 | Correções estruturais do esquema | planejado | `resource_type`, escala geográfica controlada, formatos e citações normalizados |
 | DATA2 | Revisão das 51 fontes | planejado | lotes auditáveis com evidência, diff, validação e changelog |
@@ -48,30 +48,26 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 
 ## UX2 — resultado
 
-- [x] separar filtros essenciais e avançados;
-- [x] adicionar contagens por opção;
-- [x] filtrar por cobertura, formato e tipo de evidência;
-- [x] mostrar filtros ativos removíveis;
-- [x] ordenar por relevância, nome e verificação;
-- [x] representar e restaurar estado pela URL;
-- [x] destacar a área selecionada;
-- [x] preservar o CSV e os campos de busca;
-- [x] validar o PR no run `29701061221`;
-- [x] integrar no commit `a212192174c354508eaf48dea30a81faa5311ae5`;
-- [x] registrar no Drive;
+- [x] filtros essenciais e avançados com contagens;
+- [x] filtros ativos, ordenação e URL compartilhável;
+- [x] PR #7 e run `29701061221` concluídos;
+- [x] CSV preservado e Drive atualizado;
 - [ ] confirmar visualmente a publicação.
 
-## UX3 — tarefas planejadas
+## UX3 — tarefas
 
-- [ ] mover a identidade oficial para uma linha secundária;
-- [ ] tornar a descrição mais escaneável;
-- [ ] apresentar estados de download, API e Brasil com texto semântico;
-- [ ] destacar utilidade acadêmica e principal limitação;
-- [ ] priorizar a ação `Acessar dados`;
-- [ ] agrupar detalhes em Acesso, Cobertura, Produtos, Uso acadêmico, Evidências e Avaliação;
-- [ ] manter todos os campos e links disponíveis;
-- [ ] validar estrutura, sintaxe e integridade do CSV;
-- [ ] registrar GitHub e Drive.
+- [x] mover a identidade oficial para uma linha secundária;
+- [x] tornar descrição, sigla e verificação mais escaneáveis;
+- [x] apresentar estados de download, API e Brasil com texto semântico;
+- [x] destacar utilidade acadêmica e principal limitação;
+- [x] priorizar a ação `Acessar dados`;
+- [x] agrupar detalhes em Acesso, Cobertura, Produtos e dados, Uso acadêmico, Evidências e Avaliação e governança;
+- [x] manter todos os campos e links disponíveis;
+- [x] preservar o CSV canônico;
+- [ ] validar estrutura, sintaxe e integridade no pull request;
+- [ ] integrar após CI aprovado;
+- [ ] registrar o resultado no Drive;
+- [ ] confirmar visualmente a publicação.
 
 ## RELEASE1 — resultado
 
@@ -101,7 +97,7 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 
 ## Ordem operacional atual
 
-1. executar UX3;
+1. validar e integrar UX3;
 2. executar UX4;
 3. executar DATA1 e DATA2;
 4. confirmar publicação e fechar documentação;

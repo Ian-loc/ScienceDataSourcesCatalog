@@ -58,6 +58,34 @@ def validate_page(filename: str, required_ids: set[str]) -> None:
             fail(f"{filename}: referência local ausente: {reference}")
 
 
+def validate_catalog_fields() -> None:
+    app_path = ROOT / "assets" / "app.js"
+    content = app_path.read_text(encoding="utf-8")
+    required_fields = {
+        "resource_id", "resource_name", "acronym", "official_identity", "description",
+        "homepage_url", "data_access_url", "research_areas", "keywords",
+        "data_product_types", "data_formats", "visualization_types",
+        "geographic_coverage", "covers_brazil", "spatial_resolution",
+        "temporal_coverage", "temporal_resolution", "data_sources", "free_download",
+        "access_conditions", "programmatic_access", "access_protocols",
+        "authentication_required", "access_documentation_url", "license",
+        "institutional_status", "owner_or_manager", "academic_uses", "limitations",
+        "academic_evidence_type", "academic_evidence_url", "academic_evidence_note",
+        "verification_url", "last_verified",
+    }
+    missing = sorted(field for field in required_fields if f"resource.{field}" not in content)
+    if missing:
+        fail(f"assets/app.js não referencia todos os campos do catálogo: {', '.join(missing)}")
+
+    required_groups = {
+        "Acesso", "Cobertura", "Produtos e dados", "Uso acadêmico",
+        "Evidências", "Avaliação e governança",
+    }
+    missing_groups = sorted(group for group in required_groups if f'"{group}"' not in content)
+    if missing_groups:
+        fail(f"assets/app.js não contém todos os grupos técnicos: {', '.join(missing_groups)}")
+
+
 validate_page(
     "index.html",
     {
@@ -75,5 +103,6 @@ validate_page(
         "chart-brazil", "chart-evidence", "chart-formats", "chart-visualizations",
     },
 )
+validate_catalog_fields()
 
-print("OK: estrutura HTML, IDs da interface e referências locais validados")
+print("OK: HTML, IDs, referências locais, campos e grupos técnicos validados")

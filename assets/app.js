@@ -43,10 +43,44 @@ const IGNORED_FORMATS = new Set(["formatos variados", "varia", "visualização w
 const split = value => String(value || "").split("|").map(item => item.trim()).filter(Boolean);
 const norm = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 const esc = value => String(value || "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));
-const detail = (label, value) => `<div class="detail"><strong>${label}</strong><span>${esc(value || "Não informado")}</span></div>`;
-const link = (label, url) => url && /^https:\/\//.test(url) ? `<a class="source" href="${esc(url)}" target="_blank" rel="noopener">${label} ↗</a>` : "";
+const validUrl = value => /^https:\/\//.test(String(value || ""));
 const formats = resource => [...new Set(split(resource.data_formats).map(value => value.split(";")[0].trim()).filter(value => value && !IGNORED_FORMATS.has(value.toLowerCase())))];
 const searchText = resource => norm(SEARCH_FIELDS.map(key => resource[key]).join(" "));
+
+function detail(label, value) {
+  return `<div class="detail"><strong>${esc(label)}</strong><span>${esc(value || "Não informado")}</span></div>`;
+}
+
+function actionLink(label, url, className = "action-secondary") {
+  return validUrl(url) ? `<a class="${className}" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} <span aria-hidden="true">↗</span></a>` : "";
+}
+
+function statusClass(value) {
+  const key = norm(value);
+  if (key === "sim") return "status-yes";
+  if (key === "parcial") return "status-partial";
+  if (key === "nao") return "status-no";
+  if (key === "nao se aplica") return "status-na";
+  return "status-unknown";
+}
+
+function statusSymbol(value) {
+  const key = norm(value);
+  if (key === "sim") return "✓";
+  if (key === "parcial") return "◐";
+  if (key === "nao") return "—";
+  if (key === "nao se aplica") return "·";
+  return "?";
+}
+
+function statusBadge(label, value) {
+  const readable = ENUM_LABELS[value] || value || "Desconhecido";
+  return `<div class="status-badge ${statusClass(value)}"><span class="status-symbol" aria-hidden="true">${statusSymbol(value)}</span><span><small>${esc(label)}</small><strong>${esc(readable)}</strong></span></div>`;
+}
+
+function detailGroup(title, content, links = "") {
+  return `<section class="detail-group"><h4>${esc(title)}</h4><div class="detail-grid">${content}</div>${links ? `<div class="detail-links">${links}</div>` : ""}</section>`;
+}
 
 function countValues(values) {
   return values.filter(Boolean).reduce((counts, value) => {
@@ -85,41 +119,85 @@ function optionLabel(element) {
 }
 
 function card(resource) {
-  const acronym = resource.acronym && resource.acronym !== resource.resource_name ? `<span class="acronym"> · ${esc(resource.acronym)}</span>` : "";
+  const acronym = resource.acronym && resource.acronym !== resource.resource_name ? `<span class="acronym">${esc(resource.acronym)}</span>` : "";
+  const areas = split(resource.research_areas);
+  const areaChips = areas.map(area => `<span class="chip">${esc(area)}</span>`).join("");
+
+  const accessGroup = detailGroup(
+    "Acesso",
+    detail("Download gratuito", resource.free_download) +
+    detail("Condições de acesso", resource.access_conditions) +
+    detail("API ou acesso automatizado", resource.programmatic_access) +
+    detail("Protocolos e ferramentas", resource.access_protocols) +
+    detail("Autenticação", resource.authentication_required),
+    actionLink("Documentação de acesso", resource.access_documentation_url)
+  );
+
+  const coverageGroup = detailGroup(
+    "Cobertura",
+    detail("Cobertura geográfica", resource.geographic_coverage) +
+    detail("Dados para o Brasil", resource.covers_brazil) +
+    detail("Resolução espacial", resource.spatial_resolution) +
+    detail("Cobertura temporal", resource.temporal_coverage) +
+    detail("Resolução temporal", resource.temporal_resolution)
+  );
+
+  const productsGroup = detailGroup(
+    "Produtos e dados",
+    detail("Produtos", resource.data_product_types) +
+    detail("Formatos", resource.data_formats) +
+    detail("Visualizações", resource.visualization_types) +
+    detail("Origem dos dados", resource.data_sources)
+  );
+
+  const academicGroup = detailGroup(
+    "Uso acadêmico",
+    detail("Utilidade acadêmica", resource.academic_uses) +
+    detail("Áreas de pesquisa", resource.research_areas) +
+    detail("Palavras-chave", resource.keywords)
+  );
+
+  const evidenceGroup = detailGroup(
+    "Evidências",
+    detail("Tipo de evidência", resource.academic_evidence_type) +
+    detail("Síntese da evidência", resource.academic_evidence_note),
+    actionLink("Evidência acadêmica ou técnica", resource.academic_evidence_url) +
+    actionLink("Evidência oficial", resource.verification_url)
+  );
+
+  const evaluationGroup = detailGroup(
+    "Avaliação e governança",
+    detail("Limitações", resource.limitations) +
+    detail("Responsável", resource.owner_or_manager) +
+    detail("Tipo de instituição", resource.institutional_status) +
+    detail("Licença", resource.license) +
+    detail("Última verificação", resource.last_verified) +
+    detail("Identificador interno", resource.resource_id)
+  );
+
   return `<article class="card">
-    <div class="top"><h3>${esc(resource.resource_name)}${acronym}</h3><span class="tag">${esc(resource.official_identity)}</span></div>
+    <header class="card-header">
+      <div class="card-title"><div class="title-line"><h3>${esc(resource.resource_name)}</h3>${acronym}</div><p class="identity">${esc(resource.official_identity)}</p></div>
+      <span class="verified-date">Verificado em ${esc(resource.last_verified)}</span>
+    </header>
     <p class="description">${esc(resource.description)}</p>
-    <div class="chips">${split(resource.research_areas).map(area => `<span class="chip">${esc(area)}</span>`).join("")}</div>
-    <div class="access"><span>Download gratuito: <b>${esc(resource.free_download)}</b></span><span>API ou acesso automatizado: <b>${esc(resource.programmatic_access)}</b></span><span>Dados para o Brasil: <b>${esc(resource.covers_brazil)}</b></span></div>
-    <details><summary>Ver detalhes, evidências e limitações</summary>
-      <div class="details">
-        ${detail("Palavras-chave", resource.keywords)}
-        ${detail("Produtos", resource.data_product_types)}
-        ${detail("Formatos", resource.data_formats)}
-        ${detail("Visualizações", resource.visualization_types)}
-        ${detail("Protocolos e ferramentas", resource.access_protocols)}
-        ${detail("Autenticação", resource.authentication_required)}
-        ${detail("Resolução espacial", resource.spatial_resolution)}
-        ${detail("Cobertura temporal", resource.temporal_coverage)}
-        ${detail("Resolução temporal", resource.temporal_resolution)}
-        ${detail("Origem dos dados", resource.data_sources)}
-        ${detail("Condições de acesso", resource.access_conditions)}
-        ${detail("Licença", resource.license)}
-        ${detail("Responsável", resource.owner_or_manager)}
-        ${detail("Tipo de instituição", resource.institutional_status)}
-        ${detail("Utilidade acadêmica", resource.academic_uses)}
-        ${detail("Limitações", resource.limitations)}
-        ${detail("Tipo de evidência acadêmica", resource.academic_evidence_type)}
-        ${detail("Síntese da evidência", resource.academic_evidence_note)}
-        ${detail("Verificado em", resource.last_verified)}
-      </div>
-      <div class="source-links">
-        ${link("Acessar dados", resource.data_access_url)}
-        ${link("Página oficial", resource.homepage_url)}
-        ${link("Documentação de acesso", resource.access_documentation_url)}
-        ${link("Evidência acadêmica ou técnica", resource.academic_evidence_url)}
-        ${link("Evidência oficial", resource.verification_url)}
-      </div>
+    <div class="chips" aria-label="Áreas de pesquisa">${areaChips}</div>
+    <div class="status-grid" aria-label="Resumo de acesso">
+      ${statusBadge("Download gratuito", resource.free_download)}
+      ${statusBadge("API ou acesso automatizado", resource.programmatic_access)}
+      ${statusBadge("Dados para o Brasil", resource.covers_brazil)}
+    </div>
+    <div class="card-highlights">
+      <div class="highlight academic-use"><span>Mais indicada para</span><p>${esc(resource.academic_uses)}</p></div>
+      <div class="highlight limitation"><span>Principal limitação</span><p>${esc(resource.limitations)}</p></div>
+    </div>
+    <div class="card-actions">
+      ${actionLink("Acessar dados", resource.data_access_url, "action-primary")}
+      ${actionLink("Site oficial", resource.homepage_url)}
+    </div>
+    <details class="card-details">
+      <summary>Ver detalhes técnicos, evidências e avaliação</summary>
+      <div class="detail-groups">${accessGroup}${coverageGroup}${productsGroup}${academicGroup}${evidenceGroup}${evaluationGroup}</div>
     </details>
   </article>`;
 }

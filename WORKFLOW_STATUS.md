@@ -28,8 +28,7 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | P0 | Confirmar deploy posterior ao merge | bloqueado | requer inspeção direta do site ou evidência do run de push da `main` |
 | UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5; run 29700737238; Drive atualizado |
 | UX2 | Filtros e resultados | validado e documentado | PR #7; run 29701061221; Drive atualizado |
-| UX2 | Confirmar publicação dos controles | bloqueado | site deve exibir commit compatível com a `main` |
-| UX3 | Redesenho dos cards | planejado | cards curtos, estados claros e detalhes agrupados |
+| UX3 | Redesenho dos cards | em desenvolvimento | branch implementada; falta PR, validação, integração e Drive |
 | UX4 | Acessibilidade, responsividade e desempenho | planejado | teclado, contraste, mobile, carregamento e testes verificados |
 | DATA1 | Restaurar `resource_type` e escala controlada | planejado | esquema, CSV, codebook, validação e interface atualizados |
 | DATA1 | Normalizar formatos, protocolos e citações | planejado | campos não misturam formatos, visualizações e notas livres |
@@ -52,16 +51,19 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 
 ## UX2 — resultado
 
-- **PR:** #7 — `Adicionar filtros avançados e resultados compartilháveis`;
-- **Commit integrado:** `a212192174c354508eaf48dea30a81faa5311ae5`;
-- **Validação:** GitHub Actions run `29701061221`, sucesso;
-- **Implementado:** filtros essenciais/avançados, contagens, chips removíveis, ordenação e estado na URL;
-- **CSV:** `data/data_resources.csv` não foi alterado;
-- **Drive:** fase registrada na aba `project_changelog`;
-- **Publicação:** ainda não confirmada por evidência direta do site.
+- **PR:** #7;
+- **Commit:** `a212192174c354508eaf48dea30a81faa5311ae5`;
+- **Validação:** run `29701061221`, sucesso;
+- **CSV:** não alterado;
+- **Drive:** registrado;
+- **Publicação:** não confirmada.
 
-## Próximo ciclo autorizado
+## Ciclo atual — UX3
 
-O próximo ciclo técnico é **UX3 — redesenho dos cards**. Deve manter o CSV inalterado e organizar as informações do card em níveis de decisão, detalhes e evidências.
+- **Branch:** `agent/ux3-card-redesign`;
+- **Escopo:** reorganização visual e semântica dos cards, sem alterar `data/data_resources.csv`;
+- **Implementado:** identidade secundária, estados de acesso, utilidade e limitação em destaque, ações priorizadas e seis grupos técnicos;
+- **Preservação:** todos os 34 campos e todos os links continuam disponíveis na interface;
+- **Pendente:** PR, CI, integração, registro no Drive e verificação do site.
 
 Consulte `IMPLEMENTATION_WORKFLOW.md` para a sequência completa até a release estável e o Zenodo.
