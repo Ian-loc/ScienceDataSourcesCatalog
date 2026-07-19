@@ -1,5 +1,16 @@
 # Histórico de mudanças
 
+## Não lançado — UX2 filtros e resultados
+
+- separados filtros essenciais e avançados;
+- adicionadas contagens por opção de filtro;
+- adicionados filtros avançados por cobertura, formato e tipo de evidência;
+- adicionados filtros ativos removíveis;
+- adicionada ordenação por relevância, nome e verificação mais recente;
+- busca, filtros e ordenação passam a ser representados na URL;
+- seleção por área passa a indicar estado ativo;
+- ampliada a validação estrutural para os novos controles.
+
 ## Não lançado — UX1 e preparação documental
 
 - adotado o título oficial **Ecology Data Catalog: catálogo de fontes de dados ambientais para pesquisa, ensino e extensão**;
