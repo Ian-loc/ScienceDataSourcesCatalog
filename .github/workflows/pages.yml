@@ -22,6 +22,8 @@ jobs:
         run: python3 scripts/validate_schema_draft.py
       - name: Validar matriz de migração DATA1-B
         run: python3 scripts/validate_migration_matrix.py
+      - name: Validar objetivos finais e prontidão para DOI
+        run: python3 scripts/validate_doi_readiness.py
       - name: Validar interface estática
         run: |
           python3 scripts/validate_frontend.py
