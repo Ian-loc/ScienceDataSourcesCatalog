@@ -18,7 +18,7 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 - GitHub Issues está desativado; este arquivo é o backlog versionado autoritativo.
 - O conector confirma runs associados a pull requests, mas não expõe o run disparado por push na `main`.
 - A publicação só será marcada como confirmada mediante inspeção direta do site ou evidência equivalente.
-- A tentativa de inspeção direta após o UX4 falhou por indisponibilidade de resolução de rede; isso não constitui evidência de falha do site.
+- A revisão externa das fontes exige acesso atual à documentação oficial; nenhum caso será declarado resolvido apenas por inferência a partir do CSV existente.
 
 ## Backlog
 
@@ -31,64 +31,60 @@ Os estados usados são: `planejado`, `em desenvolvimento`, `em revisão`, `integ
 | UX2 | Filtros e resultados | validado e documentado | PR #7; run 29701061221; Drive atualizado |
 | UX3 | Redesenho dos cards | validado e documentado | PR #9; run 29701341054; Drive atualizado |
 | UX4 | Acessibilidade, responsividade e desempenho | validado e documentado | PR #11; run 29702280394; Drive atualizado |
-| UX4 | Confirmar publicação da interface | bloqueado | site deve exibir commit compatível com `70d2cb868054c551c9aaf2d41ea9fbdb8eef58f1` ou posterior |
+| OBJ | Objetivos finais e portões para DOI | em revisão | contrato humano, contrato JSON e CI criados na branch |
 | DATA1-A | Auditoria e projeto do esquema 0.8.0 | validado e documentado | PR #13; run 29702732587; Drive atualizado |
 | DATA1-B | Matriz de migração das 51 fontes | validado e documentado | PR #15; run 29703654373; Drive atualizado |
-| DATA1-BR | Revisão dos 35 casos pendentes | autorizado | resolver confiança média e exceções antes da migração |
+| DATA1-BR | Revisão dos 35 casos pendentes | planejado em lotes | cinco lotes de sete registros; evidência oficial obrigatória |
 | DATA1-C | Migração atômica para 38 campos | bloqueado | depende da resolução dos 35 casos em revisão manual |
 | DATA1-D | Validações cruzadas do esquema 0.8.0 | planejado | inconsistências semânticas bloqueiam o build |
-| DATA2 | Revisar as 51 fontes em lotes auditáveis | planejado | cada lote tem evidência, diff, validação e changelog |
+| DATA2 | Revisar as 51 fontes no esquema final | planejado | cada lote tem evidência, diff, validação e changelog |
 | RELEASE1 | Título, ORCID, licenças e CFF | validado e documentado | PR #5 integrado, CI aprovado e Drive atualizado |
-| RELEASE2 | Criar versão `1.0.0` | bloqueado | trabalho não lançado encerrado e site/CSV/metadados verificados |
-| DOI | Arquivar no Zenodo como Dataset | bloqueado | release estável publicada e metadados conferidos |
+| RELEASE2 | Criar versão `1.0.0` | bloqueado | G1-G10 concluídos e release preparada |
+| DOI | Arquivar no Zenodo como Dataset | bloqueado | G1-G12 concluídos e depósito inspecionado |
 | POST-DOI | Propagar DOI de versão e conceito | bloqueado | repositório, site, ORCID e currículos atualizados |
 
-## UX1–UX4 — resultado consolidado
+## Estado consolidado
 
-- **UX1:** PR #5, run `29700737238`;
-- **UX2:** PR #7, run `29701061221`;
-- **UX3:** PR #9, run `29701341054`;
-- **UX4:** PR #11, run `29702280394`;
-- **CSV:** permaneceu com 51 fontes e 34 campos durante todos os ciclos de interface;
-- **Drive:** todos os ciclos foram registrados;
-- **Publicação:** ainda não confirmada por inspeção direta;
-- **DOI:** não criado.
+- **Versão formal:** 0.7.0;
+- **Fontes:** 51;
+- **Campos canônicos atuais:** 34;
+- **UX1–UX4:** integrados e validados;
+- **DATA1-A:** integrado e validado;
+- **DATA1-B:** integrado e validado;
+- **Matriz:** 16 registros prontos e 35 em revisão manual;
+- **Esquema 0.8.0:** ainda não aplicado;
+- **Publicação atual:** ainda não confirmada por inspeção direta;
+- **v1.0.0:** bloqueada;
+- **DOI:** bloqueado e não criado.
 
-## DATA1-A — resultado
+## Ciclo atual — objetivos finais e prontidão para DOI
 
-- **PR:** #13 — `Auditar esquema e projetar versão 0.8.0`;
-- **Commit integrado:** `c6c6ccd31867d298fd802c80105bc4acfd32641a`;
-- **Validação:** GitHub Actions run `29702732587`, sucesso;
-- **Documentação:** `DATA1_SCHEMA_AUDIT.md`;
-- **Contrato:** `schema/v0.8.0-draft.json`;
-- **Proposta:** evolução mínima de 34 para 38 campos;
-- **Novos campos:** `resource_type`, `geographic_scope`, `access_tools`, `citation_guidance_url`;
-- **Proteção:** CI confirma 51 fontes, 34 campos atuais e ausência de migração prematura;
-- **CSV:** não alterado;
-- **Drive:** fase registrada;
-- **Versão:** permanece 0.7.0;
-- **DOI:** permanece bloqueado.
+- **Branch:** `agent/final-objectives-data1br`;
+- **Contrato científico:** `FINAL_OBJECTIVES_AND_DOI_GATES.md`;
+- **Contrato legível por máquina:** `release/doi_readiness.json`;
+- **Portões:** G1-G12;
+- **Regra:** DOI permitido somente após todos os portões concluídos;
+- **Validador:** `scripts/validate_doi_readiness.py`;
+- **Proteção:** versão formal permanece 0.7.0 e `doi_allowed` permanece `false`.
 
-## DATA1-B — resultado
+## Planejamento DATA1-BR
 
-- **PR:** #15 — `Construir matriz de migração DATA1-B`;
-- **Commit integrado:** `2081084c6f59e6d54acff49cc3ee9db456c31447`;
-- **Validação:** GitHub Actions run `29703654373`, sucesso;
-- **Matriz:** `migration/data1b_migration_matrix.csv`;
-- **Documentação:** `migration/README.md`;
-- **Validador:** `scripts/validate_migration_matrix.py`;
-- **Cobertura:** 51 decisões e 51 `resource_id` preservados;
-- **Confiança:** 24 decisões altas, 27 médias e nenhuma baixa;
-- **Autorização:** 16 registros prontos e 35 em revisão manual;
-- **Proteção:** confiança e autorização de migração são estados independentes; exceções e `other_documented` bloqueiam aplicação automática;
-- **Citação:** URLs permanecem vazias até confirmação oficial específica;
-- **CSV:** não alterado; continua com 51 fontes e 34 campos;
-- **Drive:** fase registrada na aba `project_changelog`;
-- **Versão:** permanece 0.7.0;
-- **DOI:** permanece bloqueado.
+Os 35 registros em revisão manual foram organizados em `migration/data1br_review_batches.csv`:
 
-## Próximo ciclo autorizado
+- **BR1:** sete fontes brasileiras e subnacionais com lacunas de formato, protocolo ou atualização;
+- **BR2:** sete portais e sistemas nacionais/regionais com classificação ou acesso a confirmar;
+- **BR3:** sete infraestruturas com ferramentas, protocolos ou formatos não especificados;
+- **BR4:** sete redes, catálogos e bases globais com exceções técnicas;
+- **BR5:** sete plataformas e recursos globais com classificação, acesso ou escopo a resolver.
 
-Executar **DATA1-BR — revisão dos 35 registros marcados como `revisão_manual`**. Cada caso deve ser resolvido com evidência oficial suficiente, remoção ou especificação de placeholders e atualização da matriz. A migração DATA1-C não está autorizada enquanto houver casos pendentes.
+Nenhum lote está marcado como revisado. Cada registro exige documentação oficial atual antes de alterar a matriz.
 
-Consulte `IMPLEMENTATION_WORKFLOW.md`, `DATA1_SCHEMA_AUDIT.md` e `migration/README.md` para a sequência completa.
+## Próxima execução
+
+1. validar e integrar o contrato de objetivos e portões;
+2. revisar BR1 com documentação oficial;
+3. atualizar matriz, confiança, exceções e status somente com evidência;
+4. repetir BR2-BR5;
+5. autorizar DATA1-C apenas quando os 51 registros estiverem `pronto_para_migração`.
+
+Consulte `FINAL_OBJECTIVES_AND_DOI_GATES.md`, `IMPLEMENTATION_WORKFLOW.md`, `DATA1_SCHEMA_AUDIT.md` e `migration/README.md`.
