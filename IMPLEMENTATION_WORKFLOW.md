@@ -28,7 +28,7 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 |---|---|---|---|
 | UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5 e run 29700737238 concluídos |
 | UX2 | Filtros e resultados | validado e documentado | PR #7 e run 29701061221 concluídos |
-| UX3 | Redesenho dos cards | em desenvolvimento | branch implementada; falta PR, CI, integração e Drive |
+| UX3 | Redesenho dos cards | validado e documentado | PR #9 e run 29701341054 concluídos |
 | UX4 | Acessibilidade, responsividade e desempenho | planejado | teclado, contraste, mobile, carregamento e testes verificados |
 | DATA1 | Correções estruturais do esquema | planejado | `resource_type`, escala geográfica controlada, formatos e citações normalizados |
 | DATA2 | Revisão das 51 fontes | planejado | lotes auditáveis com evidência, diff, validação e changelog |
@@ -54,20 +54,32 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 - [x] CSV preservado e Drive atualizado;
 - [ ] confirmar visualmente a publicação.
 
-## UX3 — tarefas
+## UX3 — resultado
 
-- [x] mover a identidade oficial para uma linha secundária;
-- [x] tornar descrição, sigla e verificação mais escaneáveis;
-- [x] apresentar estados de download, API e Brasil com texto semântico;
-- [x] destacar utilidade acadêmica e principal limitação;
-- [x] priorizar a ação `Acessar dados`;
-- [x] agrupar detalhes em Acesso, Cobertura, Produtos e dados, Uso acadêmico, Evidências e Avaliação e governança;
-- [x] manter todos os campos e links disponíveis;
-- [x] preservar o CSV canônico;
-- [ ] validar estrutura, sintaxe e integridade no pull request;
-- [ ] integrar após CI aprovado;
-- [ ] registrar o resultado no Drive;
+- [x] identidade oficial em linha secundária;
+- [x] descrição, sigla e verificação mais escaneáveis;
+- [x] estados semânticos para download, API e Brasil;
+- [x] utilidade acadêmica e limitação em destaque;
+- [x] ação `Acessar dados` priorizada;
+- [x] seis grupos técnicos implementados;
+- [x] todos os campos e links preservados;
+- [x] CI exige referência aos 34 campos;
+- [x] PR #9 e run `29701341054` concluídos;
+- [x] commit `eec289ee5036848fa836c43e7dcd088b47da3710` integrado;
+- [x] Drive atualizado;
 - [ ] confirmar visualmente a publicação.
+
+## UX4 — tarefas planejadas
+
+- [ ] testar navegação integral por teclado;
+- [ ] revisar ordem de foco, nomes acessíveis e estados expandidos;
+- [ ] validar contraste e uso de cor não exclusivo;
+- [ ] revisar layouts em larguras móveis e intermediárias;
+- [ ] evitar animação quando `prefers-reduced-motion` estiver ativo;
+- [ ] adicionar fallback informativo quando JavaScript estiver indisponível;
+- [ ] verificar peso dos arquivos e ausência de dependências desnecessárias;
+- [ ] ampliar testes automáticos de acessibilidade estrutural;
+- [ ] registrar GitHub e Drive.
 
 ## RELEASE1 — resultado
 
@@ -97,8 +109,7 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 
 ## Ordem operacional atual
 
-1. validar e integrar UX3;
-2. executar UX4;
-3. executar DATA1 e DATA2;
-4. confirmar publicação e fechar documentação;
-5. somente então criar `v1.0.0` e o depósito no Zenodo.
+1. executar UX4;
+2. executar DATA1 e DATA2;
+3. confirmar publicação e fechar documentação;
+4. somente então criar `v1.0.0` e o depósito no Zenodo.
