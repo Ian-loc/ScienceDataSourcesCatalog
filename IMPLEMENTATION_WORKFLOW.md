@@ -22,14 +22,12 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 
 **Ecology Data Catalog: catálogo de fontes de dados ambientais para pesquisa, ensino e extensão**
 
-O título deve ser idêntico no site, README, `CITATION.cff`, Zenodo, ORCID, currículo, Lattes e documentação técnica.
-
 ## Ciclos
 
 | Ciclo | Escopo | Estado | Critério de conclusão |
 |---|---|---|---|
-| UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5 e run 29700737238 concluídos; publicação ainda sem evidência direta |
-| UX2 | Filtros e resultados | em desenvolvimento | branch implementada; falta PR, CI, integração e registro no Drive |
+| UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5 e run 29700737238 concluídos |
+| UX2 | Filtros e resultados | validado e documentado | PR #7 e run 29701061221 concluídos |
 | UX3 | Redesenho dos cards | planejado | cards curtos, estados de acesso claros e detalhes agrupados |
 | UX4 | Acessibilidade, responsividade e desempenho | planejado | teclado, contraste, mobile, carregamento e testes verificados |
 | DATA1 | Correções estruturais do esquema | planejado | `resource_type`, escala geográfica controlada, formatos e citações normalizados |
@@ -41,77 +39,70 @@ O título deve ser idêntico no site, README, `CITATION.cff`, Zenodo, ORCID, cur
 
 ## UX1 — resultado
 
-- [x] definir título oficial;
-- [x] criar navegação superior consistente;
-- [x] reposicionar a busca no hero;
-- [x] apresentar o benefício principal antes do nome institucional;
-- [x] reduzir botões concorrentes no hero;
-- [x] revisar rótulos de busca e filtros;
-- [x] criar atalhos de busca por temas e recursos frequentes;
-- [x] criar exploração pelas áreas de pesquisa;
-- [x] reduzir a altura do hero e ajustar a hierarquia tipográfica;
-- [x] preservar estatísticas, filtros, cards e conteúdo científico;
-- [x] validar CSV, HTML, referências locais e JavaScript no PR;
-- [x] registrar o resultado no changelog do GitHub e no Drive;
-- [ ] confirmar visualmente o site publicado e o commit exibido no build.
+- [x] busca no hero e navegação consistente;
+- [x] benefício principal, atalhos e exploração por áreas;
+- [x] linguagem, hierarquia e documentação revisadas;
+- [x] CSV, HTML, referências locais e JavaScript validados;
+- [x] GitHub e Drive atualizados;
+- [ ] confirmar visualmente o site e o commit exibido no build.
 
-## UX2 — tarefas
+## UX2 — resultado
 
 - [x] separar filtros essenciais e avançados;
 - [x] adicionar contagens por opção;
-- [x] adicionar filtros por cobertura, formato e tipo de evidência;
-- [x] mostrar filtros ativos como controles removíveis;
-- [x] adicionar ordenação por relevância, nome e verificação;
-- [x] representar busca, filtros e ordenação na URL;
-- [x] restaurar o estado a partir da URL ao abrir a página;
-- [x] indicar visualmente a área temática selecionada;
-- [x] preservar o CSV canônico e os campos de busca existentes;
-- [ ] validar o build e a sintaxe no pull request;
-- [ ] integrar após CI aprovado;
-- [ ] registrar o resultado no Drive;
+- [x] filtrar por cobertura, formato e tipo de evidência;
+- [x] mostrar filtros ativos removíveis;
+- [x] ordenar por relevância, nome e verificação;
+- [x] representar e restaurar estado pela URL;
+- [x] destacar a área selecionada;
+- [x] preservar o CSV e os campos de busca;
+- [x] validar o PR no run `29701061221`;
+- [x] integrar no commit `a212192174c354508eaf48dea30a81faa5311ae5`;
+- [x] registrar no Drive;
 - [ ] confirmar visualmente a publicação.
+
+## UX3 — tarefas planejadas
+
+- [ ] mover a identidade oficial para uma linha secundária;
+- [ ] tornar a descrição mais escaneável;
+- [ ] apresentar estados de download, API e Brasil com texto semântico;
+- [ ] destacar utilidade acadêmica e principal limitação;
+- [ ] priorizar a ação `Acessar dados`;
+- [ ] agrupar detalhes em Acesso, Cobertura, Produtos, Uso acadêmico, Evidências e Avaliação;
+- [ ] manter todos os campos e links disponíveis;
+- [ ] validar estrutura, sintaxe e integridade do CSV;
+- [ ] registrar GitHub e Drive.
 
 ## RELEASE1 — resultado
 
-- [x] preservar `type: dataset`;
-- [x] incluir ORCID `0000-0003-1164-9318` no `CITATION.cff`;
-- [x] manter `version: "0.7.0"` até a release estável;
-- [x] manter a data efetiva da versão e usar aspas no YAML;
-- [x] criar `LICENSE-DATA.md` para CSV, metadados e curadoria;
-- [x] esclarecer no README o escopo de MIT e CC BY 4.0;
-- [x] não criar `.zenodo.json` sem necessidade comprovada;
-- [x] documentar que o DOI pode ser inserido no repositório ativo após o primeiro arquivamento.
+- [x] `type: dataset`, ORCID, versão e data adequados;
+- [x] `LICENSE-DATA.md` e separação de licenças;
+- [x] ausência deliberada de `.zenodo.json`;
+- [x] política de inserção posterior do DOI documentada.
 
 ## Condições obrigatórias para `v1.0.0`
 
 1. encerrar os blocos não lançados no changelog;
 2. validar CSV e artefatos derivados;
 3. verificar o site e o commit exibido no build;
-4. concluir UX1–UX4 ou registrar explicitamente o que ficará para versões posteriores;
+4. concluir UX1–UX4 ou registrar o que ficará para versões posteriores;
 5. concluir DATA1 e a revisão mínima das 51 fontes;
 6. validar título, autor, ORCID, licenças, versão e data;
 7. alterar `CITATION.cff` para `version: "1.0.0"` somente no dia da release;
 8. criar tag e GitHub Release `v1.0.0`;
 9. testar se GitHub–Zenodo preserva o tipo Dataset;
 10. se necessário, realizar depósito manual classificado como Dataset;
-11. conferir arquivos, autor, título, licença, tipo e versão antes da publicação;
-12. inserir DOI de versão e DOI de conceito no repositório ativo após a atribuição.
+11. conferir arquivos e metadados antes da publicação;
+12. inserir DOI de versão e DOI de conceito no repositório ativo.
 
 ## Citação planejada
 
-Versão específica:
-
 > LARA, Ian. *Ecology Data Catalog: catálogo de fontes de dados ambientais para pesquisa, ensino e extensão*. Versão 1.0.0. Zenodo, 2026. DOI: [DOI da versão].
-
-Projeto geral:
-
-> LARA, Ian. *Ecology Data Catalog: catálogo de fontes de dados ambientais para pesquisa, ensino e extensão*. Zenodo, 2026. Concept DOI: [DOI de conceito].
 
 ## Ordem operacional atual
 
-1. validar e integrar UX2;
-2. registrar UX2 no Drive e confirmar a publicação quando houver evidência;
-3. executar UX3 e UX4;
-4. executar DATA1 e DATA2;
-5. fechar documentação e publicação;
-6. somente então criar `v1.0.0` e o depósito no Zenodo.
+1. executar UX3;
+2. executar UX4;
+3. executar DATA1 e DATA2;
+4. confirmar publicação e fechar documentação;
+5. somente então criar `v1.0.0` e o depósito no Zenodo.
