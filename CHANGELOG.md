@@ -1,5 +1,18 @@
 # Histórico de mudanças
 
+## Não lançado — DATA1 auditoria do esquema 0.8.0
+
+- auditados os 34 campos e as 51 fontes antes de qualquer migração;
+- documentada a separação entre identidade oficial e função controlada do recurso;
+- proposta evolução mínima de 34 para 38 campos;
+- propostos `resource_type`, `geographic_scope`, `access_tools` e `citation_guidance_url`;
+- definidos vocabulários preliminares para tipos, escala, formatos, protocolos, ferramentas, origem e situação institucional;
+- classificada preliminarmente a função principal e a escala geográfica das 51 fontes;
+- definidas 14 regras de validação cruzada e uma sequência de migração atômica;
+- criado contrato legível por máquina em `schema/v0.8.0-draft.json`;
+- criado teste que impede alteração prematura do CSV e exige a preservação das 51 fontes e 34 campos durante a auditoria;
+- versão formal permanece 0.7.0; DOI continua bloqueado.
+
 ## Não lançado — UX4 acessibilidade, responsividade e desempenho
 
 - reforçados landmarks, fieldsets, títulos associados e nomes acessíveis;
