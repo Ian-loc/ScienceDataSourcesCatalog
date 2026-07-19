@@ -31,8 +31,8 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 | UX3 | Redesenho dos cards | validado e documentado | PR #9 e run 29701341054 concluídos |
 | UX4 | Acessibilidade, responsividade e desempenho | validado e documentado | PR #11 e run 29702280394 concluídos |
 | DATA1-A | Auditoria e projeto do esquema | validado e documentado | PR #13 e run 29702732587 concluídos |
-| DATA1-B | Matriz de migração | autorizado | decisão por registro com confiança e justificativa |
-| DATA1-C | Migração para 38 campos | bloqueado | depende de DATA1-B validado |
+| DATA1-B | Matriz de migração | em desenvolvimento | 51 decisões, confiança, justificativas e validação cruzada |
+| DATA1-C | Migração para 38 campos | bloqueado | depende de DATA1-B validado e revisão das decisões médias |
 | DATA1-D | Validação semântica e interface | planejado | regras cruzadas e exibição dos 38 campos aprovadas |
 | DATA2 | Revisão das 51 fontes | planejado | lotes auditáveis com evidência, diff, validação e changelog |
 | RELEASE1 | Fechamento documental | validado e documentado | título, ORCID, licenças e CFF integrados no PR #5 |
@@ -83,33 +83,57 @@ Melhorar a descoberta e comparação de fontes, corrigir ambiguidades documentai
 
 ## DATA1-B — matriz de migração
 
-A matriz deve conter, para cada `resource_id`:
+### Entregas implementadas na branch
 
-- base atual para a classificação funcional;
-- `resource_type_proposed`;
-- `geographic_scope_proposed`;
-- normalização proposta de `data_formats`;
-- normalização proposta de `access_protocols`;
-- conteúdo proposto de `access_tools`;
-- normalização de `institutional_status`;
-- `citation_guidance_url` quando confirmada;
-- nível de confiança: `alta`, `média` ou `baixa`;
-- justificativa e evidência.
+- [x] matriz com os 51 `resource_id` em `migration/data1b_migration_matrix.csv`;
+- [x] propostas de `resource_type` e `geographic_scope` para todas as fontes;
+- [x] formatos, protocolos, ferramentas e situação institucional normalizados;
+- [x] separação entre decisões de alta confiança e revisão manual;
+- [x] 24 registros de alta confiança;
+- [x] 27 registros de confiança média;
+- [x] nenhuma decisão de baixa confiança;
+- [x] exceções explícitas para `other_documented` e recurso global não geográfico;
+- [x] URLs de citação vazias até confirmação oficial específica;
+- [x] documentação em `migration/README.md`;
+- [x] validador em `scripts/validate_migration_matrix.py`;
+- [x] execução do validador adicionada ao GitHub Actions;
+- [x] CSV canônico preservado com 51 fontes e 34 campos;
+- [ ] validar em pull request;
+- [ ] integrar após CI aprovado;
+- [ ] registrar no Drive.
 
-Casos de confiança média ou baixa exigem revisão manual antes da migração.
+### Regra de não duplicação
+
+A matriz registra somente decisões propostas. Valores atuais, nomes e evidências continuam sendo recuperados do CSV canônico pelos seguintes vínculos:
+
+- `official_identity` → base atual do tipo funcional;
+- `geographic_coverage` → base atual da escala;
+- `data_formats` → formatos atuais;
+- `access_protocols` → protocolos e ferramentas atuais;
+- `institutional_status` → situação atual;
+- `verification_url` → evidência oficial.
+
+### Regra de revisão
+
+1. `alta` pode ser preparada para a migração DATA1-C;
+2. `média` exige revisão manual antes da aplicação;
+3. `baixa` bloqueia integração da matriz;
+4. qualquer `other_documented` exige exceção codificada e revisão manual;
+5. nenhuma decisão é aplicada ao CSV no DATA1-B.
 
 ## DATA1-C — migração atômica 0.8.0
 
 Somente após DATA1-B:
 
-1. atualizar o cabeçalho para 38 campos;
-2. migrar as 51 linhas em uma única branch;
-3. atualizar `CODEBOOK.md`, metodologia, scripts e interface;
-4. preservar os 51 IDs;
-5. impedir perda de qualquer informação científica;
-6. atualizar `CITATION.cff` para `0.8.0` somente junto à migração;
-7. validar e registrar no Drive;
-8. não criar DOI.
+1. revisar os 27 registros médios e resolver todas as exceções;
+2. atualizar o cabeçalho para 38 campos;
+3. migrar as 51 linhas em uma única branch;
+4. atualizar `CODEBOOK.md`, metodologia, scripts e interface;
+5. preservar os 51 IDs;
+6. impedir perda de qualquer informação científica;
+7. atualizar `CITATION.cff` para `0.8.0` somente junto à migração;
+8. validar e registrar no Drive;
+9. não criar DOI.
 
 ## DATA1-D — validação semântica
 
@@ -153,9 +177,10 @@ Implementar regras que bloqueiem:
 
 ## Ordem operacional atual
 
-1. produzir e revisar DATA1-B;
-2. migrar atomicamente para 0.8.0 em DATA1-C;
-3. concluir validações e interface em DATA1-D;
-4. executar DATA2 em lotes;
-5. confirmar publicação e fechar documentação;
-6. somente então criar `v1.0.0` e o depósito no Zenodo.
+1. validar e integrar DATA1-B;
+2. revisar as 27 decisões médias;
+3. migrar atomicamente para 0.8.0 em DATA1-C;
+4. concluir validações e interface em DATA1-D;
+5. executar DATA2 em lotes;
+6. confirmar publicação e fechar documentação;
+7. somente então criar `v1.0.0` e o depósito no Zenodo.
