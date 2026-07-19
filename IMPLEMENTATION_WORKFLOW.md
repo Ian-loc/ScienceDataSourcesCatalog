@@ -29,7 +29,7 @@ O título deve ser idêntico no site, README, `CITATION.cff`, Zenodo, ORCID, cur
 | Ciclo | Escopo | Estado | Critério de conclusão |
 |---|---|---|---|
 | UX1 | Arquitetura, linguagem e navegação | validado e documentado | PR #5 e run 29700737238 concluídos; publicação ainda sem evidência direta |
-| UX2 | Filtros e resultados | planejado | filtros essenciais/avançados, chips ativos, ordenação, contagens e estado na URL |
+| UX2 | Filtros e resultados | em desenvolvimento | branch implementada; falta PR, CI, integração e registro no Drive |
 | UX3 | Redesenho dos cards | planejado | cards curtos, estados de acesso claros e detalhes agrupados |
 | UX4 | Acessibilidade, responsividade e desempenho | planejado | teclado, contraste, mobile, carregamento e testes verificados |
 | DATA1 | Correções estruturais do esquema | planejado | `resource_type`, escala geográfica controlada, formatos e citações normalizados |
@@ -54,6 +54,22 @@ O título deve ser idêntico no site, README, `CITATION.cff`, Zenodo, ORCID, cur
 - [x] validar CSV, HTML, referências locais e JavaScript no PR;
 - [x] registrar o resultado no changelog do GitHub e no Drive;
 - [ ] confirmar visualmente o site publicado e o commit exibido no build.
+
+## UX2 — tarefas
+
+- [x] separar filtros essenciais e avançados;
+- [x] adicionar contagens por opção;
+- [x] adicionar filtros por cobertura, formato e tipo de evidência;
+- [x] mostrar filtros ativos como controles removíveis;
+- [x] adicionar ordenação por relevância, nome e verificação;
+- [x] representar busca, filtros e ordenação na URL;
+- [x] restaurar o estado a partir da URL ao abrir a página;
+- [x] indicar visualmente a área temática selecionada;
+- [x] preservar o CSV canônico e os campos de busca existentes;
+- [ ] validar o build e a sintaxe no pull request;
+- [ ] integrar após CI aprovado;
+- [ ] registrar o resultado no Drive;
+- [ ] confirmar visualmente a publicação.
 
 ## RELEASE1 — resultado
 
@@ -93,8 +109,8 @@ Projeto geral:
 
 ## Ordem operacional atual
 
-1. confirmar visualmente a publicação do UX1;
-2. executar UX2 em branch própria;
+1. validar e integrar UX2;
+2. registrar UX2 no Drive e confirmar a publicação quando houver evidência;
 3. executar UX3 e UX4;
 4. executar DATA1 e DATA2;
 5. fechar documentação e publicação;

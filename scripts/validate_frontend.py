@@ -62,7 +62,8 @@ validate_page(
     "index.html",
     {
         "conteudo", "areas", "area-links", "catalogo", "hero-search", "q", "filters",
-        "area", "brazil", "coverage", "download", "programmatic", "clear", "list",
+        "area", "brazil", "download", "programmatic", "coverage", "format", "evidence",
+        "sort", "advanced-filters", "advanced-count", "active-filters", "clear", "list",
         "empty", "count", "n-total", "n-free", "n-api", "n-br", "updated",
     },
 )
