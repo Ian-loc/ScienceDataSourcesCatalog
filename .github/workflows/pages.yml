@@ -30,6 +30,8 @@ jobs:
         run: |
           python3 scripts/validate_data1bx_matrix.py
           python3 scripts/load_data1bx_from_canonical.py
+      - name: Validar lote de revisão BR1
+        run: python3 scripts/validate_br1_matrix.py
       - name: Validar objetivos finais e prontidão para DOI
         run: python3 scripts/validate_doi_readiness.py
       - name: Validar interface estática
