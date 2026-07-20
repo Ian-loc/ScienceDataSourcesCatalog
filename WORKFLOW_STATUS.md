@@ -33,6 +33,7 @@ CI verde comprova estrutura e coerência interna. A verificação factual de fon
 | DATA1-B | Matriz inicial de migração | validado e documentado | PR #15; run 29703654373 |
 | QC0 | Alinhar 14 regras semânticas | validado e documentado | PR #19; run 29706338430 |
 | SELECT1 | Inclusão, exclusão, duplicidade e lacunas | validado e documentado | PR #19; política integrada e validada |
+| CAND1 | Fila versionada de candidatos | em desenvolvimento | OWID registrado como CAND0001; validação e PR pendentes |
 | DATA1-BX | Completar campos da matriz | em desenvolvimento | contrato, matriz de 51 IDs e validação por campo; preenchimento ainda pendente |
 | DATA1-BR | Revisão dos 35 casos pendentes | bloqueado por DATA1-BX | cinco lotes de sete; evidência oficial obrigatória |
 | DATA1-C | Migração atômica para 38 campos | bloqueado | 51 registros prontos e matriz completa |
@@ -49,8 +50,10 @@ CI verde comprova estrutura e coerência interna. A verificação factual de fon
 ## Estado consolidado
 
 - **Versão formal:** 0.7.0;
-- **Fontes:** 51;
+- **Fontes canônicas:** 51;
 - **Campos canônicos atuais:** 34;
+- **Fila de candidatos:** 1 registro, separado do CSV canônico;
+- **CAND0001:** Our World in Data, aguardando evidência oficial;
 - **UX1–UX4:** integrados e validados;
 - **DATA1-A e DATA1-B:** integrados e validados;
 - **QC0 e SELECT1:** integrados e validados no PR #19;
@@ -82,6 +85,7 @@ A resposta operacional é:
 - carregar valores do CSV apenas como ponto de partida, sem tratá-los como verificação externa;
 - manter DATA1-BR bloqueado até as 51 linhas cobrirem as cinco dimensões;
 - não expandir o CSV antes de DATA2;
+- registrar novas indicações apenas em `candidates/source_candidates.csv`;
 - manter RES1 e EDU1 como enriquecimentos posteriores e não bloqueantes.
 
 ## Resolução e página didática
@@ -113,6 +117,7 @@ Reavaliar a ordem após:
 2. atribuir confiança por campo e registrar todas as dimensões ainda pendentes;
 3. validar a matriz completa e revisar qualquer discrepância com o CSV canônico;
 4. somente então iniciar BR1;
-5. preservar CSV 51 × 34, versão 0.7.0 e DOI bloqueado até os portões correspondentes.
+5. manter OWID e outros candidatos fora do CSV até um ciclo autorizado de expansão;
+6. preservar CSV 51 × 34, versão 0.7.0 e DOI bloqueado até os portões correspondentes.
 
-Consulte `QUALITY_CORRECTION_WORKFLOW.md`, `SELECTION_AND_COVERAGE_POLICY.md`, `FINAL_OBJECTIVES_AND_DOI_GATES.md`, `IMPLEMENTATION_WORKFLOW.md`, `DATA1_SCHEMA_AUDIT.md` e `migration/data1bx_contract.json`.
+Consulte `QUALITY_CORRECTION_WORKFLOW.md`, `SELECTION_AND_COVERAGE_POLICY.md`, `FINAL_OBJECTIVES_AND_DOI_GATES.md`, `IMPLEMENTATION_WORKFLOW.md`, `DATA1_SCHEMA_AUDIT.md`, `migration/data1bx_contract.json` e `candidates/README.md`.
