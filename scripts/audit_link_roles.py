@@ -11,6 +11,10 @@ ROOT = Path(__file__).resolve().parents[1]
 CSV_PATH = ROOT / "data" / "data_resources.csv"
 REPORT_PATH = ROOT / "data" / "link_role_audit.json"
 BUILD_META_PATH = ROOT / "data" / "build-meta.json"
+INDEX_PATH = ROOT / "index.html"
+BUILD_META_JS_PATH = ROOT / "assets" / "build-meta.js"
+METHODOLOGY_PATH = ROOT / "METHODOLOGY.md"
+CODEBOOK_PATH = ROOT / "CODEBOOK.md"
 
 REQUIRED_FIELDS = {"resource_id", "resource_name", "homepage_url", "data_access_url"}
 
@@ -24,6 +28,23 @@ def normalize_url(value: str) -> str:
     path = parsed.path.rstrip("/") or "/"
     return urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), path, parsed.query, ""))
 
+
+for path in (INDEX_PATH, BUILD_META_JS_PATH, METHODOLOGY_PATH, CODEBOOK_PATH):
+    if not path.exists():
+        fail(f"arquivo obrigatório ausente: {path.relative_to(ROOT)}")
+
+index_text = INDEX_PATH.read_text(encoding="utf-8")
+build_meta_js = BUILD_META_JS_PATH.read_text(encoding="utf-8")
+methodology = METHODOLOGY_PATH.read_text(encoding="utf-8")
+codebook = CODEBOOK_PATH.read_text(encoding="utf-8")
+
+if 'id="q-link-role-pending"' not in index_text:
+    fail("index.html não exibe o indicador de URLs iguais pendentes")
+if '"q-link-role-pending":quality.link_role_pending_records' not in build_meta_js:
+    fail("assets/build-meta.js não conecta o indicador aos metadados do build")
+for token in ("Site oficial", "Acessar dados", "homepage_url", "data_access_url"):
+    if token not in methodology or token not in codebook:
+        fail(f"regra dos links sem documentação completa: {token}")
 
 with CSV_PATH.open(encoding="utf-8-sig", newline="") as handle:
     reader = csv.DictReader(handle)
