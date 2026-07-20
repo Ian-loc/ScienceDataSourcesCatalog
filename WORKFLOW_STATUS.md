@@ -11,8 +11,8 @@ CI verde comprova estrutura e coerência interna. Não comprova, sozinho, que um
 - a publicação só será marcada como confirmada mediante inspeção direta do site ou evidência equivalente;
 - a revisão factual exige documentação oficial atual;
 - o acesso web de pesquisa não está disponível neste ambiente;
-- novas indicações podem ser registradas, mas novas fontes permanecem fora do CSV até a estabilização das 51 atuais;
-- candidatos identificados por conhecimento prévio ou URL submetida permanecem em triagem, sem decisão final;
+- novas fontes permanecem fora do CSV até a estabilização das 51 atuais;
+- candidatos permanecem em triagem, sem decisão final;
 - auditoria interna e seleção de lotes não autorizam elevar confiança nem corrigir o CSV sem evidência externa atual.
 
 ## Backlog
@@ -29,8 +29,9 @@ CI verde comprova estrutura e coerência interna. Não comprova, sozinho, que um
 | SELECT1 | Inclusão, exclusão, duplicidade e lacunas | validado e documentado | PR #19 |
 | CAND1 | Fila versionada de candidatos | em desenvolvimento | 18 candidatos; nenhum incluído no CSV |
 | DATA1-BX | Completar campos da matriz | projeção canônica concluída | 51 fontes × 5 dimensões carregadas; confiança desconhecida; revisão externa pendente |
-| DATA1-BR/BR1 | Revisar primeiro lote de sete casos | auditoria interna concluída; revisão externa bloqueada | contrato, seleção, achados e validador BR1; exige documentação oficial atual para concluir |
-| DATA1-BR/BR2–BR5 | Revisar 28 casos restantes | planejado | quatro lotes de sete com os mesmos controles de evidência |
+| DATA1-BR/BR1 | Plataformas e monitoramento de alto impacto | auditoria interna concluída; revisão externa bloqueada | sete fontes; contrato e matriz validados |
+| DATA1-BR/BR2 | Biodiversidade, ciência cidadã e redes | auditoria interna concluída; revisão externa bloqueada | sete fontes; registro comum, contrato e matriz validados |
+| DATA1-BR/BR3–BR5 | Revisar 21 casos restantes | planejado | três lotes de sete com os mesmos controles de evidência |
 | DATA1-C | Migração atômica para 38 campos | bloqueado | decisões DATA1-B e DATA1-BX revisadas |
 | DATA1-D | Validação semântica do esquema final | planejado | 14 regras ativas no CSV 0.8.0 |
 | DATA2 | Revisar as 51 fontes no esquema final | planejado | links, acesso, formatos, licença, evidência e data revisados |
@@ -48,37 +49,59 @@ CI verde comprova estrutura e coerência interna. Não comprova, sozinho, que um
 - **Fontes canônicas:** 51;
 - **Campos canônicos:** 34;
 - **Fila de candidatos:** 18 registros separados do CSV;
-- **Candidatos prioritários de saúde e demografia:** WHO GHO, GHDx, OpenDataSUS, DATASUS TabNet, SIDRA, WPP, EM-DAT, DesInventar, SINITOX e PAHO ENLACE;
-- **Repositórios científicos candidatos:** SciELO Data, Zenodo, Harvard Dataverse e re3data;
 - **DATA1-B:** 16 registros prontos e 35 em revisão manual;
-- **DATA1-BX:** cinco valores atuais carregados para todas as 51 fontes, com confiança `desconhecida` e todas as dimensões ainda pendentes de verificação externa;
-- **BR1 selecionado:** CEMADEN, dados.gov.br, MapBiomas, TerraBrasilis, BDQueimadas, Google Earth Engine e Global Forest Watch;
-- **BR1 auditoria interna:** concluída, com riscos e dimensões de revisão registrados;
-- **BR1 revisão factual:** bloqueada enquanto não houver acesso à documentação oficial atual;
-- **Relatório de qualidade:** gerado automaticamente em `data/data_quality_report.json` durante o build;
+- **DATA1-BX:** cinco dimensões carregadas para 51 fontes, com confiança `desconhecida`;
+- **Lotes ativos:** BR1 e BR2, 14 fontes sem sobreposição;
+- **Casos manuais ainda não distribuídos:** 21;
+- **Revisão externa BR1 e BR2:** bloqueada enquanto não houver documentação oficial atual acessível;
+- **Relatório de qualidade:** gerado automaticamente durante o build;
 - **Página inicial:** mostra documentação oficial, evidência revisada por pares e incertezas de acesso/licença;
 - **Esquema 0.8.0:** ainda não aplicado;
 - **Expansão:** bloqueada;
 - **v1.0.0 e DOI:** bloqueados.
 
-## Achados do BR1
+## BR1 — achados principais
 
-As sete fontes são internamente coerentes com ressalvas, mas não estão prontas para migração. Os principais riscos compartilhados são:
+Fontes: CEMADEN, dados.gov.br, MapBiomas, TerraBrasilis, BDQueimadas, Google Earth Engine e Global Forest Watch.
 
-- tratar portal, plataforma ou agregador como produtor original dos dados;
-- generalizar acesso, licença, formatos e API para todos os produtos;
-- misturar protocolos técnicos, ferramentas, catálogos de metadados e formatos de exportação;
-- atribuir uma única resolução ou temporalidade a coleções heterogêneas;
-- confundir alerta, foco de calor, incêndio, área queimada, desmatamento anual e detecção rápida;
-- citar a plataforma sem preservar provedor, coleção, versão, camada e método do produto utilizado.
+Riscos dominantes:
 
-A decisão conservadora é manter o CSV 0.7.0 sem alterações até que cada dimensão seja confrontada com documentação oficial atual, URL de evidência, data e revisor.
+- plataforma ou agregador tratado como produtor original;
+- acesso, licença, formatos e API generalizados para produtos heterogêneos;
+- mistura de protocolos, ferramentas, metadados e formatos de exportação;
+- resolução e temporalidade atribuídas uniformemente;
+- confusão entre alerta, foco, incêndio, área queimada, desmatamento anual e detecção rápida.
 
-## Interpretação correta do avanço DATA1-BX
+## BR2 — achados principais
 
-A projeção canônica reduz risco de perda e permite comparar sistematicamente cinco dimensões: `data_product_types`, `visualization_types`, `data_sources`, `temporal_resolution` e `access_conditions`. Ela não aumenta a confiança dos valores.
+Fontes: speciesLink, SiBBr, eBird, Movebank, DataONE, iNaturalist e TRY.
 
-A ferramenta `scripts/load_data1bx_from_canonical.py` garante que a matriz continue correspondente ao CSV 0.7.0 enquanto a revisão externa não começa. O validador `scripts/validate_br1_matrix.py` impede que uma seleção bloqueada seja apresentada como revisão factual concluída.
+Riscos dominantes:
+
+- duplicação do mesmo registro ou dataset entre speciesLink, SiBBr, GBIF, DataONE e repositórios membros;
+- agregador, federação ou plataforma confundidos com fonte primária;
+- licença definida por coleção, observação, mídia, estudo, dataset ou contribuidor;
+- coordenadas sensíveis, obscurecidas ou dependentes de política do estudo;
+- viés de observador, esforço desigual e qualidade taxonômica;
+- observações brutas confundidas com produtos modelados;
+- acesso por solicitação, embargo ou termos específicos;
+- protocolos e pacotes tratados como equivalentes a downloads completos.
+
+As 14 fontes são internamente coerentes com ressalvas, mas não estão prontas para migração. A decisão é manter o CSV 0.7.0 até que cada dimensão seja confrontada com documentação oficial atual, URL de evidência, data e revisor.
+
+## Controle dos lotes
+
+`migration/br_batch_registry.json` controla ordem, contratos e matrizes. `scripts/validate_br_batches.py` verifica:
+
+- sete fontes por lote;
+- IDs exclusivos entre lotes;
+- correspondência com CSV, DATA1-B e DATA1-BX;
+- estado `revisão_manual` na DATA1-B;
+- confiança `desconhecida` na DATA1-BX;
+- URLs existentes idênticas ao CSV;
+- bloqueio de evidência, revisor, data e correções enquanto não houver revisão externa.
+
+A projeção DATA1-BX reduz risco de perda, mas não aumenta confiança.
 
 ## Qualidade e apresentação
 
@@ -100,18 +123,19 @@ RES1 e EDU1 permanecem não bloqueantes para v1.0.0 e DOI, salvo quando revelare
 
 Reavaliar a ordem após:
 
-1. BR1 — seleção e auditoria interna concluídas; revisão externa bloqueada;
-2. cada lote BR2–BR5;
+1. BR1 e BR2 — auditorias internas concluídas; revisões externas bloqueadas;
+2. cada lote BR3–BR5;
 3. migração 0.8.0;
 4. primeiros lotes DATA2;
 5. testes funcionais da interface.
 
 ## Próxima execução
 
-1. executar revisão externa BR1 por produto quando houver acesso atual à documentação oficial;
-2. enquanto esse acesso não estiver disponível, selecionar BR2 entre os 28 casos manuais restantes e registrar somente auditoria interna;
-3. não alterar confiança, evidência, data ou CSV com base em inferência;
-4. manter os 18 candidatos fora do CSV até um ciclo de expansão autorizado;
-5. preservar CSV 51 × 34, versão 0.7.0, esquema 0.8.0 não aplicado e DOI bloqueado.
+1. executar revisão externa de BR1 e BR2 quando houver acesso atual à documentação oficial;
+2. enquanto esse acesso não estiver disponível, selecionar BR3 entre os 21 casos manuais restantes;
+3. priorizar repositórios científicos, redes de fluxos e produtos climáticos com formatos ou protocolos ambíguos;
+4. não alterar confiança, evidência, data ou CSV com base em inferência;
+5. manter os 18 candidatos fora do CSV;
+6. preservar CSV 51 × 34, versão 0.7.0, esquema 0.8.0 não aplicado e DOI bloqueado.
 
-Consulte `migration/br1_contract.json`, `migration/br1_review_matrix.csv`, `migration/data1bx_contract.json`, `migration/data1bx_migration_matrix.csv`, `QUALITY_CORRECTION_WORKFLOW.md`, `SELECTION_AND_COVERAGE_POLICY.md`, `FINAL_OBJECTIVES_AND_DOI_GATES.md` e `candidates/source_candidates.csv`.
+Consulte `migration/br_batch_registry.json`, `migration/br1_contract.json`, `migration/br1_review_matrix.csv`, `migration/br2_contract.json`, `migration/br2_review_matrix.csv`, `migration/data1bx_contract.json`, `migration/data1bx_migration_matrix.csv`, `QUALITY_CORRECTION_WORKFLOW.md`, `SELECTION_AND_COVERAGE_POLICY.md` e `FINAL_OBJECTIVES_AND_DOI_GATES.md`.

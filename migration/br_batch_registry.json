@@ -1,0 +1,33 @@
+{
+  "registry_version": "1.0.0",
+  "phase": "DATA1-BR",
+  "canonical_csv": "data/data_resources.csv",
+  "data1b_matrix": "migration/data1b_migration_matrix.csv",
+  "data1bx_matrix": "migration/data1bx_migration_matrix.csv",
+  "expected_records_per_batch": 7,
+  "planned_batches": ["BR1", "BR2", "BR3", "BR4", "BR5"],
+  "active_batches": [
+    {
+      "batch": "BR1",
+      "contract": "migration/br1_contract.json",
+      "review_matrix": "migration/br1_review_matrix.csv",
+      "internal_audit_status": "concluída",
+      "external_review_status": "bloqueada_sem_web"
+    },
+    {
+      "batch": "BR2",
+      "contract": "migration/br2_contract.json",
+      "review_matrix": "migration/br2_review_matrix.csv",
+      "internal_audit_status": "concluída",
+      "external_review_status": "bloqueada_sem_web"
+    }
+  ],
+  "rules": [
+    "active_batches_follow_planned_order",
+    "resource_ids_are_unique_across_batches",
+    "every_active_batch_has_exactly_seven_records",
+    "every_active_batch_uses_the_same_canonical_inputs",
+    "internal_audit_does_not_raise_external_confidence",
+    "canonical_csv_changes_remain_forbidden_without_current_official_evidence"
+  ]
+}

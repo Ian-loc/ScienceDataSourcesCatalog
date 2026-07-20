@@ -1,0 +1,75 @@
+{
+  "contract_version": "1.0.0",
+  "phase": "DATA1-BR",
+  "batch": "BR2",
+  "status": "internal_audit_complete_external_review_blocked",
+  "canonical_csv": "data/data_resources.csv",
+  "data1b_matrix": "migration/data1b_migration_matrix.csv",
+  "data1bx_matrix": "migration/data1bx_migration_matrix.csv",
+  "review_matrix": "migration/br2_review_matrix.csv",
+  "expected_records": 7,
+  "expected_resource_ids": [
+    "DR0013",
+    "DR0014",
+    "DR0027",
+    "DR0028",
+    "DR0030",
+    "DR0034",
+    "DR0040"
+  ],
+  "selection_principles": [
+    "high_scientific_use_in_biodiversity",
+    "high_duplication_or_attribution_risk",
+    "record_or_dataset_level_access_variation",
+    "manual_review_required_in_data1b",
+    "field_level_uncertainty_preserved_in_data1bx"
+  ],
+  "impact_levels": ["alta", "muito_alta"],
+  "scientific_risk_levels": ["alto", "muito_alto"],
+  "risk_flags": [
+    "aggregator_source_attribution",
+    "duplicate_dataset_across_networks",
+    "variable_by_dataset",
+    "record_level_license",
+    "sensitive_coordinates",
+    "sampling_bias",
+    "raw_vs_modeled_products",
+    "taxonomic_quality",
+    "request_based_access",
+    "contributor_terms",
+    "repository_federation",
+    "protocol_normalization",
+    "provider_vs_platform"
+  ],
+  "review_dimensions": [
+    "identity_and_role",
+    "dataset_and_record_scope",
+    "access_and_authentication",
+    "formats_and_protocols",
+    "spatial_sensitivity",
+    "source_attribution",
+    "license_and_citation",
+    "quality_bias_and_limitations",
+    "duplication_and_relationships"
+  ],
+  "internal_consistency_values": ["coerente_com_ressalvas", "inconsistência_detectada"],
+  "external_review_status_values": [
+    "bloqueada_sem_web",
+    "pronta_para_revisão_externa",
+    "revisão_externa_em_andamento",
+    "revisada_com_evidência_oficial"
+  ],
+  "decision_values": ["manter_csv_atual", "correção_necessária", "manter_confirmado"],
+  "rules": [
+    "exactly_seven_records_in_fixed_order",
+    "all_records_must_exist_in_canonical_csv",
+    "all_records_must_be_manual_review_in_data1b",
+    "all_records_must_preserve_unknown_field_confidence_in_data1bx_until_external_review",
+    "existing_evidence_urls_must_match_canonical_csv",
+    "blocked_external_review_forbids_evidence_reviewer_and_date",
+    "blocked_external_review_requires_hold_current_csv",
+    "no_canonical_csv_changes_without_current_official_evidence",
+    "selection_does_not_equal_validation"
+  ],
+  "automatic_csv_changes_allowed": false
+}

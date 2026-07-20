@@ -2,59 +2,28 @@
 
 ## Finalidade
 
-A migração do esquema 0.7.0 para 0.8.0 é preparada em matrizes separadas:
+A migração do esquema 0.7.0 para 0.8.0 é preparada sem substituir o CSV canônico:
 
-- `data1b_migration_matrix.csv`: decisões iniciais sobre os quatro novos campos e normalizações técnicas já projetadas;
-- `data1bx_migration_matrix.csv`: complemento obrigatório para cinco dimensões que ainda não estavam cobertas;
-- `br1_review_matrix.csv`: primeiro lote de revisão aprofundada dos registros que permanecem dependentes de evidência externa.
+- `data1b_migration_matrix.csv`: tipo funcional, escala, formatos, protocolos, ferramentas e situação institucional;
+- `data1bx_migration_matrix.csv`: produtos, visualizações, fontes dos dados, resolução temporal e condições de acesso;
+- `br_batch_registry.json`: ordem e estado dos lotes de revisão manual;
+- `br1_review_matrix.csv` e `br2_review_matrix.csv`: auditorias internas aprofundadas.
 
-Nenhuma matriz substitui o arquivo canônico `data/data_resources.csv`. Os valores permanecem associados pelo `resource_id`, e a versão 0.7.0 continua protegida até DATA1-C.
+Todas as matrizes permanecem ligadas por `resource_id`. O arquivo `data/data_resources.csv` continua canônico e a versão 0.7.0 permanece protegida até DATA1-C.
 
-## DATA1-B — matriz inicial
+## DATA1-B
 
-`data1b_migration_matrix.csv` registra uma decisão proposta para cada uma das 51 fontes.
+A matriz inicial contém as 51 fontes:
 
-### Ligações com o CSV atual
-
-| Decisão | Campo atual usado como base |
-|---|---|
-| tipo funcional | `official_identity` |
-| escala geográfica | `geographic_coverage` |
-| formatos | `data_formats` |
-| protocolos e ferramentas | `access_protocols` |
-| situação institucional | `institutional_status` |
-| evidência | `verification_url` |
-
-### Colunas
-
-- `resource_id`: identificador preservado do catálogo;
-- `resource_type_proposed`: função principal controlada;
-- `geographic_scope_proposed`: maior extensão geográfica geral;
-- `data_formats_proposed`: formatos normalizados;
-- `access_protocols_proposed`: protocolos e interfaces técnicas;
-- `access_tools_proposed`: pacotes, clientes e ambientes separados dos protocolos;
-- `institutional_status_proposed`: situação institucional normalizada e multivalorada;
-- `citation_guidance_url_proposed`: página oficial específica de citação, somente quando confirmada;
-- `confidence`: confiança global da decisão DATA1-B;
-- `migration_status`: decisão pronta ou dependente de revisão manual;
-- `rationale`: justificativa funcional e geográfica;
-- `exceptions`: exceções codificadas que impedem migração automática.
-
-### Estado
-
-- 51 fontes representadas;
-- 24 decisões de alta confiança;
-- 27 decisões de confiança média;
-- nenhuma decisão de baixa confiança;
-- 16 registros sem exceção estão prontos nesta matriz;
-- 35 registros permanecem em revisão manual;
+- 16 registros prontos para migração;
+- 35 registros em revisão manual;
+- 24 decisões de alta confiança e 27 de confiança média;
 - todo valor `other_documented` exige exceção explícita;
-- URLs de orientação de citação permanecem vazias até confirmação oficial;
-- nenhuma proposta deve ser aplicada antes das revisões previstas.
+- orientação de citação só é preenchida quando existe página oficial confirmada.
 
-## DATA1-BX — complemento obrigatório
+## DATA1-BX
 
-A auditoria identificou cinco dimensões ausentes da matriz inicial:
+Cinco dimensões são controladas separadamente:
 
 - `data_product_types`;
 - `visualization_types`;
@@ -62,27 +31,20 @@ A auditoria identificou cinco dimensões ausentes da matriz inicial:
 - `temporal_resolution`;
 - `access_conditions`.
 
-O contrato está em `data1bx_contract.json`. A matriz `data1bx_migration_matrix.csv` preserva os mesmos 51 IDs e registra, para cada dimensão:
+Cada dimensão possui valor, confiança, estado, base de evidência, URL, data e revisor. O estado `carregado_do_csv` apenas preserva o conteúdo atual; não equivale a verificação externa. Enquanto não houver confronto com documentação oficial, a confiança permanece `desconhecida`.
 
-- valor proposto;
-- confiança específica do campo;
-- estado de revisão;
-- base de evidência;
-- URL, data e revisor quando houver confirmação oficial;
-- campos ainda pendentes.
+## Registro de lotes DATA1-BR
 
-### Estados
+`br_batch_registry.json` define cinco lotes planejados, BR1–BR5. Os lotes ativos devem:
 
-- `não_iniciado`: nenhum valor carregado; todas as cinco dimensões pendentes;
-- `carregado_do_csv`: valor copiado do CSV 0.7.0, com confiança `desconhecida`; não equivale a verificação externa;
-- `revisão_manual`: uma ou mais dimensões em avaliação;
-- `confirmado_documentação_oficial`: cinco dimensões sustentadas por evidência oficial, data e revisor.
+- seguir a ordem planejada sem saltos;
+- conter exatamente sete fontes;
+- usar os mesmos arquivos canônicos e matrizes de origem;
+- não repetir `resource_id` entre lotes;
+- preservar confiança DATA1-BX desconhecida enquanto a revisão externa estiver bloqueada;
+- proibir alterações automáticas do CSV.
 
-Uma confiança global por linha não é suficiente no DATA1-BX. A confiança deve ser registrada separadamente para cada dimensão.
-
-## DATA1-BR — lote BR1
-
-O contrato `br1_contract.json` seleciona sete fontes atuais que combinam uso científico elevado, impacto público e alto custo de interpretação incorreta:
+### BR1 — plataformas e monitoramento de alto impacto
 
 1. CEMADEN (`DR0005`);
 2. dados.gov.br (`DR0008`);
@@ -92,17 +54,33 @@ O contrato `br1_contract.json` seleciona sete fontes atuais que combinam uso cie
 6. Google Earth Engine (`DR0019`);
 7. Global Forest Watch (`DR0044`).
 
-A matriz `br1_review_matrix.csv` registra:
+Riscos dominantes: heterogeneidade por produto, agregação de terceiros, acesso e licença variáveis, temporalidade, protocolos e semântica de alertas, focos, incêndios, áreas queimadas e desmatamento.
 
-- justificativa da seleção e nível de risco;
-- riscos de agregação, escopo por produto, acesso, licença, temporalidade e semântica;
+### BR2 — biodiversidade, ciência cidadã e redes de dados
+
+1. speciesLink (`DR0013`);
+2. SiBBr (`DR0014`);
+3. eBird (`DR0027`);
+4. Movebank (`DR0028`);
+5. DataONE (`DR0030`);
+6. iNaturalist (`DR0034`);
+7. TRY (`DR0040`).
+
+Riscos dominantes: duplicação entre redes, distinção entre agregador e fonte primária, licença por registro ou dataset, coordenadas sensíveis, viés amostral, produtos brutos versus modelados, qualidade taxonômica, acesso por solicitação e termos dos contribuidores.
+
+## Interpretação da auditoria interna
+
+Cada matriz BR registra:
+
+- justificativa e prioridade;
+- flags de risco;
 - achados de consistência interna;
-- URLs já presentes no CSV;
-- dimensões que precisam de confronto com documentação oficial;
-- bloqueio explícito da revisão externa quando não há acesso web atual;
-- decisão conservadora de manter o CSV até existir evidência contemporânea.
+- URLs já existentes no CSV;
+- dimensões que exigem documentação oficial;
+- estado factual externo;
+- decisão conservadora sobre o CSV.
 
-A auditoria interna não equivale a validação factual externa. Enquanto `external_review_status` for `bloqueada_sem_web`, a matriz não aceita URL de evidência usada, revisor, data ou decisão de correção.
+A auditoria interna não equivale a validação factual. Enquanto `external_review_status` for `bloqueada_sem_web`, a linha não pode receber nova URL de evidência, revisor, data, confiança elevada ou decisão de correção.
 
 ## Validação
 
@@ -112,17 +90,20 @@ Execute:
 python3 scripts/validate_migration_matrix.py
 python3 scripts/validate_data1bx_matrix.py
 python3 scripts/load_data1bx_from_canonical.py
-python3 scripts/validate_br1_matrix.py
+python3 scripts/validate_br_batches.py
 ```
 
-Os testes preservam os 51 IDs, a correspondência das matrizes com o CSV 0.7.0, a confiança por campo, os estados de evidência e o bloqueio de alterações automáticas.
+Para compatibilidade, `python3 scripts/validate_br1_matrix.py` valida somente BR1 por meio do validador comum.
+
+O validador dos lotes confere registro, contratos, matrizes, ordem, exclusividade dos IDs, URLs existentes, estado manual em DATA1-B, confiança desconhecida em DATA1-BX e bloqueios de evidência.
 
 ## Estado protegido
 
 - CSV canônico: 51 fontes × 34 campos;
 - versão formal: 0.7.0;
 - esquema 0.8.0: proposta não aplicada;
-- DATA1-BX: projeção canônica concluída, confiança externa ainda desconhecida;
-- BR1: seleção e auditoria interna concluídas; revisão factual externa bloqueada;
+- DATA1-BX: projeção concluída, confiança externa desconhecida;
+- BR1 e BR2: auditorias internas concluídas; revisões factuais externas bloqueadas;
+- 14 dos 35 casos manuais distribuídos em lotes;
 - candidatos: fora do CSV;
 - DOI: bloqueado.
