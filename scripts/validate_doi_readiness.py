@@ -1,34 +1,20 @@
 #!/usr/bin/env python3
-"""Valida o contrato de objetivos finais, os portões de DOI e o plano DATA1-BR."""
+"""Valida objetivos, portões de DOI e o estado real de DATA1-BR/EXT."""
 from __future__ import annotations
 
 import csv
 import json
-from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX_PATH = ROOT / "migration" / "data1b_migration_matrix.csv"
-BATCHES_PATH = ROOT / "migration" / "data1br_review_batches.csv"
+REGISTRY_PATH = ROOT / "migration" / "br_batch_registry.json"
+QUEUE_PATH = ROOT / "migration" / "external_review_queue.csv"
+EVIDENCE_PATH = ROOT / "migration" / "external_review_evidence.csv"
 READINESS_PATH = ROOT / "release" / "doi_readiness.json"
 OBJECTIVES_PATH = ROOT / "FINAL_OBJECTIVES_AND_DOI_GATES.md"
-
-BATCH_COLUMNS = [
-    "batch_id",
-    "resource_id",
-    "review_priority",
-    "review_focus",
-    "evidence_required",
-    "current_blocker",
-    "review_status",
-]
 EXPECTED_GATES = [f"G{i}" for i in range(1, 13)]
-ALLOWED_GATE_STATUS = {
-    "implementado_pendente_integracao",
-    "parcial",
-    "bloqueado",
-    "concluído",
-}
+ALLOWED_GATE_STATUS = {"implementado_pendente_integracao", "parcial", "bloqueado", "concluído"}
 
 
 def fail(message: str) -> None:
@@ -36,54 +22,50 @@ def fail(message: str) -> None:
 
 
 def read_csv(path: Path) -> tuple[list[str], list[dict[str, str]]]:
+    if not path.exists():
+        fail(f"arquivo ausente: {path.relative_to(ROOT)}")
     with path.open(encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         return list(reader.fieldnames or []), list(reader)
 
 
 _, matrix_rows = read_csv(MATRIX_PATH)
-batch_columns, batch_rows = read_csv(BATCHES_PATH)
+registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+queue_header, queue_rows = read_csv(QUEUE_PATH)
+evidence_header, evidence_rows = read_csv(EVIDENCE_PATH)
 readiness = json.loads(READINESS_PATH.read_text(encoding="utf-8"))
 objectives = OBJECTIVES_PATH.read_text(encoding="utf-8")
 
-if batch_columns != BATCH_COLUMNS:
-    fail("cabeçalho do plano DATA1-BR diferente do contrato")
+manual_ids = {row["resource_id"] for row in matrix_rows if row["migration_status"] == "revisão_manual"}
+ready_ids = {row["resource_id"] for row in matrix_rows if row["migration_status"] == "pronto_para_migração"}
+if len(manual_ids) != 35 or len(ready_ids) != 16:
+    fail("DATA1-B deve preservar 35 casos manuais e 16 prontos")
 
-pending_ids = [
-    row["resource_id"]
-    for row in matrix_rows
-    if row["migration_status"] == "revisão_manual"
-]
-planned_ids = [row["resource_id"] for row in batch_rows]
+active = registry.get("active_batches", [])
+if [entry.get("batch") for entry in active] != ["BR1", "BR2", "BR3", "BR4", "BR5"]:
+    fail("registro real deve conter BR1–BR5 ativos e ordenados")
+planned_ids: list[str] = []
+for entry in active:
+    contract = json.loads((ROOT / entry["contract"]).read_text(encoding="utf-8"))
+    ids = contract.get("expected_resource_ids", [])
+    if len(ids) != 7:
+        fail(f"{entry['batch']}: contrato deve conter sete IDs")
+    planned_ids.extend(ids)
+if len(planned_ids) != 35 or len(set(planned_ids)) != 35 or set(planned_ids) != manual_ids:
+    fail("contratos BR1–BR5 não correspondem exatamente aos 35 casos manuais")
 
-if len(pending_ids) != 35:
-    fail(f"matriz deve conter 35 registros em revisão manual; encontrados {len(pending_ids)}")
-if len(batch_rows) != 35:
-    fail(f"plano DATA1-BR deve conter 35 registros; encontrados {len(batch_rows)}")
-if len(set(planned_ids)) != 35:
-    fail("plano DATA1-BR contém resource_id duplicado")
-if set(planned_ids) != set(pending_ids):
-    missing = sorted(set(pending_ids) - set(planned_ids))
-    extra = sorted(set(planned_ids) - set(pending_ids))
-    fail(f"plano não corresponde aos casos pendentes; ausentes={missing}; extras={extra}")
-
-batch_counts = Counter(row["batch_id"] for row in batch_rows)
-if set(batch_counts) != {"BR1", "BR2", "BR3", "BR4", "BR5"}:
-    fail("plano deve conter exatamente os lotes BR1-BR5")
-if any(count != 7 for count in batch_counts.values()):
-    fail(f"cada lote deve conter sete registros; contagens={dict(batch_counts)}")
-
-for line, row in enumerate(batch_rows, start=2):
-    if row["review_priority"] not in {"P1", "P2"}:
-        fail(f"linha {line}: prioridade inválida")
-    if row["review_status"] != "pendente":
-        fail(f"linha {line}: o ciclo de planejamento não pode declarar revisão concluída")
-    for field in ("review_focus", "evidence_required", "current_blocker"):
-        if not row[field].strip():
-            fail(f"linha {line}: {field} vazio")
+if "resource_id" not in queue_header or len(queue_rows) != 35:
+    fail("fila externa deve conter 35 fontes")
+queue_ids = {row["resource_id"] for row in queue_rows}
+if queue_ids != manual_ids:
+    fail("fila externa não corresponde aos 35 casos manuais")
+if "resource_id" not in evidence_header:
+    fail("tabela de evidências sem resource_id")
+if any(row["resource_id"] not in queue_ids for row in evidence_rows):
+    fail("tabela de evidências contém fonte fora da fila")
 
 if readiness.get("catalog_current_version") != "0.7.0":
-    fail("contrato deve preservar a versão formal 0.7.0 nesta etapa")
+    fail("contrato deve preservar a versão formal 0.7.0")
 if readiness.get("target_stable_release") != "1.0.0":
     fail("target_stable_release deve ser 1.0.0")
 if readiness.get("archive_type") != "Dataset":
@@ -92,26 +74,20 @@ if readiness.get("doi_allowed") is not False:
     fail("DOI deve permanecer bloqueado")
 
 gates = readiness.get("gates", [])
-gate_ids = [gate.get("id") for gate in gates]
-if gate_ids != EXPECTED_GATES:
-    fail("contrato deve conter G1-G12 em ordem")
+if [gate.get("id") for gate in gates] != EXPECTED_GATES:
+    fail("contrato deve conter G1–G12 em ordem")
 for gate in gates:
     if gate.get("status") not in ALLOWED_GATE_STATUS:
         fail(f"{gate.get('id')}: status inválido")
     if not str(gate.get("evidence", "")).strip():
         fail(f"{gate.get('id')}: evidência vazia")
-
 if all(gate.get("status") == "concluído" for gate in gates):
     fail("estado atual não pode declarar todos os portões concluídos")
 
 required_phrases = [
-    "Objetivo geral",
-    "Objetivos específicos finais",
-    "Limites deliberados",
-    "Definição mínima de completude científica",
-    "Critérios de qualidade da versão 1.0.0",
-    "Portões obrigatórios para DOI",
-    "Regra de decisão",
+    "Objetivo geral", "Objetivos específicos finais", "Limites deliberados",
+    "Definição mínima de completude científica", "Critérios de qualidade da versão 1.0.0",
+    "Portões obrigatórios para DOI", "Regra de decisão",
 ]
 for phrase in required_phrases:
     if phrase not in objectives:
@@ -121,6 +97,6 @@ for gate_id in EXPECTED_GATES:
         fail(f"documento de objetivos não menciona {gate_id}")
 
 print(
-    "OK: objetivos e prontidão para DOI validados — "
-    f"12 portões; 35 revisões pendentes em 5 lotes; DOI bloqueado; versão 0.7.0 preservada"
+    "OK: objetivos e prontidão para DOI validados — registro real BR1–BR5, "
+    f"fila externa com 35 fontes, {len(evidence_rows)} evidência(s), DOI bloqueado e versão 0.7.0 preservada"
 )

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Valida o workflow de correções críticas sem alterar o catálogo canônico."""
+"""Valida workflow, documentação crítica e estados protegidos."""
 from __future__ import annotations
 
 import csv
@@ -12,10 +12,15 @@ WORKFLOW_PATH = ROOT / "QUALITY_CORRECTION_WORKFLOW.md"
 IMPLEMENTATION_PATH = ROOT / "IMPLEMENTATION_WORKFLOW.md"
 STATUS_PATH = ROOT / "WORKFLOW_STATUS.md"
 SELECTION_PATH = ROOT / "SELECTION_AND_COVERAGE_POLICY.md"
+AUDIT_PATH = ROOT / "DOCUMENTATION_CONSISTENCY_AUDIT.md"
 SCHEMA_PATH = ROOT / "schema" / "v0.8.0-draft.json"
 CSV_PATH = ROOT / "data" / "data_resources.csv"
 CITATION_PATH = ROOT / "CITATION.cff"
 READINESS_PATH = ROOT / "release" / "doi_readiness.json"
+REGISTRY_PATH = ROOT / "migration" / "br_batch_registry.json"
+QUEUE_PATH = ROOT / "migration" / "external_review_queue.csv"
+EVIDENCE_PATH = ROOT / "migration" / "external_review_evidence.csv"
+OBSOLETE_BATCHES_PATH = ROOT / "migration" / "data1br_review_batches.csv"
 
 EXPECTED_RULES = {
     "publishing_software_requires_not_applicable_geography",
@@ -34,8 +39,8 @@ EXPECTED_RULES = {
     "placeholders_must_not_coexist_with_positive_values",
 }
 REQUIRED_CYCLES = [
-    "QC0", "SELECT1", "DATA1-BX", "DATA1-BR", "DATA1-C", "DATA1-D",
-    "DATA2", "UX5", "RELEASE2", "DOI", "RES1", "EDU1",
+    "QC0", "SELECT1", "DATA1-BX", "DATA1-BR", "DATA1-BR-CLOSE", "DATA1-EXT",
+    "DATA1-C", "DATA1-D", "DATA2", "UX5", "RELEASE2", "DOI", "RES1", "EDU1",
 ]
 
 
@@ -43,29 +48,26 @@ def fail(message: str) -> None:
     raise SystemExit(f"ERRO: {message}")
 
 
-def cycle_pattern(cycle: str) -> str:
-    if cycle == "DATA1-BR":
-        return r"\|\s*DATA1-BR(?:/BR1)?\s*\|"
-    return rf"\|\s*{re.escape(cycle)}\s*\|"
-
-
 def require_cycle_order(text: str, filename: str) -> None:
     positions: list[int] = []
     for cycle in REQUIRED_CYCLES:
-        match = re.search(cycle_pattern(cycle), text)
+        pattern = rf"\|\s*{re.escape(cycle)}\s*\|"
+        match = re.search(pattern, text)
         if not match:
             fail(f"{filename} não contém ciclo obrigatório: {cycle}")
         positions.append(match.start())
     if positions != sorted(positions):
-        fail(f"ordem operacional dos ciclos está divergente em {filename}")
+        fail(f"ordem operacional divergente em {filename}")
 
 
 for path in (
-    WORKFLOW_PATH, IMPLEMENTATION_PATH, STATUS_PATH, SELECTION_PATH,
-    SCHEMA_PATH, CSV_PATH, CITATION_PATH, READINESS_PATH,
+    WORKFLOW_PATH, IMPLEMENTATION_PATH, STATUS_PATH, SELECTION_PATH, AUDIT_PATH,
+    SCHEMA_PATH, CSV_PATH, CITATION_PATH, READINESS_PATH, REGISTRY_PATH, QUEUE_PATH, EVIDENCE_PATH,
 ):
     if not path.exists():
         fail(f"arquivo obrigatório ausente: {path.relative_to(ROOT)}")
+if OBSOLETE_BATCHES_PATH.exists():
+    fail("plano antigo data1br_review_batches.csv deve permanecer removido")
 
 schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 rules = schema.get("cross_validation_rules", [])
@@ -75,9 +77,12 @@ if len(rules) != 14 or len(set(rules)) != 14 or set(rules) != EXPECTED_RULES:
 workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
 implementation = IMPLEMENTATION_PATH.read_text(encoding="utf-8")
 status = STATUS_PATH.read_text(encoding="utf-8")
-require_cycle_order(workflow, "QUALITY_CORRECTION_WORKFLOW.md")
-require_cycle_order(implementation, "IMPLEMENTATION_WORKFLOW.md")
-require_cycle_order(status, "WORKFLOW_STATUS.md")
+for text, filename in (
+    (workflow, "QUALITY_CORRECTION_WORKFLOW.md"),
+    (implementation, "IMPLEMENTATION_WORKFLOW.md"),
+    (status, "WORKFLOW_STATUS.md"),
+):
+    require_cycle_order(text, filename)
 
 workflow_folded = workflow.casefold()
 for token in (
@@ -95,22 +100,19 @@ status_folded = status.casefold()
 for token in (
     "revisão externa bloqueada",
     "novas fontes permanecem fora do csv",
+    "implementado_pendente_integracao",
     "res1 e edu1",
 ):
     if token.casefold() not in status_folded:
         fail(f"WORKFLOW_STATUS.md sem estado crítico: {token}")
 
-selection = SELECTION_PATH.read_text(encoding="utf-8")
-selection_folded = selection.casefold()
+selection = SELECTION_PATH.read_text(encoding="utf-8").casefold()
 for section in (
-    "Critérios mínimos de inclusão",
-    "Critérios de exclusão",
-    "Duplicidade e relação entre recursos",
-    "Candidatos",
-    "Matriz de lacunas",
-    "Critérios de prioridade para expansão",
+    "critérios mínimos de inclusão", "critérios de exclusão",
+    "duplicidade e relação entre recursos", "candidatos", "matriz de lacunas",
+    "critérios de prioridade para expansão",
 ):
-    if section.casefold() not in selection_folded:
+    if section not in selection:
         fail(f"política de seleção sem seção: {section}")
 
 with CSV_PATH.open(encoding="utf-8-sig", newline="") as handle:
@@ -130,8 +132,6 @@ if readiness.get("doi_allowed") is not False:
     fail("DOI deve permanecer bloqueado")
 
 print(
-    "OK: correções de qualidade validadas — 14 regras alinhadas; "
-    "seleção documentada; SELECT1 e DATA1-BX precedem BR1; "
-    "BR1 externo bloqueado; RES1 e EDU1 não bloqueantes; "
-    "CSV 51 × 34 e versão 0.7.0 preservados"
+    "OK: documentação e workflow coerentes — ordem até DATA1-EXT, plano antigo removido, "
+    "14 regras alinhadas, CSV 51 × 34 e versão 0.7.0 preservados"
 )

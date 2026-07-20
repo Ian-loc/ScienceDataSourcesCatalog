@@ -9,52 +9,55 @@ Catálogo público e pesquisável de plataformas, repositórios, redes e sistema
 - [Sobre, método e citação](https://ian-loc.github.io/ecology-data-catalog/about.html)
 - [CSV canônico](data/data_resources.csv)
 
-O catálogo é uma camada de descoberta, comparação e triagem. Ele não armazena os datasets externos e não substitui a documentação metodológica, a licença ou a citação exigida por cada produto.
+O catálogo é uma camada de descoberta e triagem. Não hospeda os datasets externos nem substitui documentação, licença ou citação dos produtos originais.
 
-## Fonte única de dados
+## Fonte única
 
-A fonte canônica é **[data/data_resources.csv](data/data_resources.csv)**. O arquivo `data/data_resources.json` é validado e gerado a partir do CSV no workflow do GitHub Pages. A planilha do Google Drive é referência histórica e changelog executivo; ela não participa da publicação.
+`data/data_resources.csv` é a única fonte canônica. O JSON do site é gerado no workflow. O Google Drive mantém somente changelog executivo e histórico.
 
-## Conteúdo
+A versão 0.7.0 reúne 51 fontes e 34 campos. A proposta 0.8.0 acrescenta quatro campos, mas ainda não foi aplicada.
 
-A versão 0.7.0 reúne 51 fontes e 34 variáveis, incluindo:
+## Estado da curadoria
 
-- identidade declarada pela própria fonte;
-- áreas de pesquisa condensadas e palavras-chave;
-- formatos, produtos e tipos de visualização;
-- cobertura do Brasil;
-- download, autenticação e acesso programático;
-- protocolos como REST, OGC, STAC, S3, Earth Engine e pacotes R/Python;
-- utilidade acadêmica e limitações;
-- evidência oficial, técnica ou revisada por pares.
+- 16 registros estão preparados estruturalmente para futura migração;
+- 35 registros permanecem em revisão manual;
+- BR1–BR5 concluíram a auditoria interna desses 35 casos;
+- a revisão externa usa fila separada e evidências por afirmação;
+- nenhuma correção externa é aplicada automaticamente ao CSV;
+- 18 candidatos permanecem fora do catálogo;
+- v1.0.0 e DOI estão bloqueados.
 
 ## Atualização
 
-1. Edite somente `data/data_resources.csv` para alterar o conteúdo científico.
-2. Use documentação oficial e, quando disponível, literatura revisada por pares.
-3. Registre incertezas; não converta ausência de documentação em “não”.
-4. Execute `python3 scripts/build_catalog.py`.
-5. Abra um pull request e confira a validação automática.
-6. Registre mudanças integradas no changelog do GitHub e no registro executivo do Drive.
+1. use documentação oficial atual e literatura representativa;
+2. registre evidências em `migration/external_review_evidence.csv`;
+3. atualize fila, proposta e decisão;
+4. altere o CSV somente em ciclo autorizado e revisado;
+5. execute a suíte de validação;
+6. abra pull request, confirme CI e registre o merge no Drive.
 
-Consulte [METHODOLOGY.md](METHODOLOGY.md), [CODEBOOK.md](CODEBOOK.md), [AUDIT_WORKFLOW.md](AUDIT_WORKFLOW.md), [IMPLEMENTATION_WORKFLOW.md](IMPLEMENTATION_WORKFLOW.md) e [WORKFLOW_STATUS.md](WORKFLOW_STATUS.md).
+## Documentação
+
+- [Estado atual](WORKFLOW_STATUS.md)
+- [Workflow de implementação](IMPLEMENTATION_WORKFLOW.md)
+- [Workflow de qualidade](QUALITY_CORRECTION_WORKFLOW.md)
+- [Auditoria de consistência documental](DOCUMENTATION_CONSISTENCY_AUDIT.md)
+- [Metodologia](METHODOLOGY.md)
+- [Codebook](CODEBOOK.md)
+- [Workflow de auditoria](AUDIT_WORKFLOW.md)
+- [Política de seleção](SELECTION_AND_COVERAGE_POLICY.md)
+- [Objetivos e portões de DOI](FINAL_OBJECTIVES_AND_DOI_GATES.md)
 
 ## Como citar
 
 > LARA, Ian. *Ecology Data Catalog: catálogo de fontes de dados ambientais para pesquisa, ensino e extensão*. Versão 0.7.0. GitHub, 2026. https://ian-loc.github.io/ecology-data-catalog/
 
-ORCID do autor: [0000-0003-1164-9318](https://orcid.org/0000-0003-1164-9318).
-
-A citação do catálogo não substitui a citação do dataset, produto e versão originais.
+ORCID: [0000-0003-1164-9318](https://orcid.org/0000-0003-1164-9318). A citação do catálogo não substitui a citação do dataset, produto e versão originais.
 
 ## Licenças
 
-- **Código e rotinas:** MIT, conforme [LICENSE](LICENSE).
-- **CSV, metadados e curadoria original:** CC BY 4.0, conforme [LICENSE-DATA.md](LICENSE-DATA.md).
-- **Fontes externas:** licenças, termos de uso e condições de citação próprias.
+- código: MIT;
+- CSV, metadados e curadoria original: CC BY 4.0;
+- fontes externas: licenças e termos próprios.
 
-## Versão estável e DOI
-
-A versão `1.0.0` e o DOI ainda não foram criados. Eles estão condicionados ao fechamento técnico, científico e documental descrito em [IMPLEMENTATION_WORKFLOW.md](IMPLEMENTATION_WORKFLOW.md).
-
-A futura release deverá ser arquivada no Zenodo como **Dataset**. O projeto mantém apenas `CITATION.cff` enquanto não houver necessidade comprovada de `.zenodo.json`.
+A futura release será arquivada como **Dataset** somente após os portões G1–G12.

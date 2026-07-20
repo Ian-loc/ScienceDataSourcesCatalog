@@ -2,208 +2,91 @@
 
 ## Objetivo
 
-Corrigir as fragilidades identificadas na auditoria transversal antes de migrar o catálogo para 0.8.0, expandir o número de fontes ou preparar a versão 1.0.0 e o DOI.
-
-O princípio central é simples: **controle de processo não substitui verificação científica**. CI verde comprova estrutura e coerência interna; não comprova, por si só, que links, formatos, APIs, licenças, resoluções e classificações externas estejam atuais ou corretos.
+Corrigir fragilidades antes de migrar para 0.8.0, expandir fontes ou preparar v1.0.0 e DOI. Controle de processo não substitui verificação científica: CI verde comprova estrutura, não atualidade ou correção de links, APIs, licenças, formatos e resoluções.
 
 ## Regras de prioridade
 
-1. corrigir primeiro contradições entre documentos, contratos e validadores;
-2. definir os critérios de seleção antes de ampliar a matriz ou a lista de fontes;
-3. completar a matriz de migração antes de revisar os 35 casos pendentes;
-4. revisar as fontes atuais antes de expandir o catálogo;
-5. manter melhorias didáticas e de resolução como enriquecimentos não bloqueantes;
-6. reavaliar a ordem ao final de cada ciclo, usando evidência de custo, risco e dependência;
-7. não alterar versão, CSV canônico ou DOI enquanto os respectivos portões estiverem bloqueados.
+1. corrigir contradições entre documentos, contratos e validadores;
+2. revisar as 51 fontes atuais antes de expandir;
+3. separar risco científico, esforço operacional e decisão de escopo;
+4. registrar evidência por afirmação e dimensão;
+5. não alterar CSV, versão ou DOI enquanto os portões estiverem bloqueados;
+6. reavaliar a ordem após cada ciclo relevante;
+7. manter RES1 e EDU1 como enriquecimentos não bloqueantes.
 
-## Ordem operacional revisada
+## Ordem operacional atual
 
-| Ordem | Ciclo | Prioridade | Escopo | Estado atual | Critério de conclusão |
-|---:|---|---|---|---|---|
-| 1 | QC0 | P0 | Alinhar as 14 regras semânticas entre auditoria, JSON e CI | integrado e validado | contrato e teste exigem o mesmo conjunto exato de regras |
-| 2 | SELECT1 | P0 | Definir inclusão, exclusão, duplicidade e análise de lacunas | integrado e validado | política versionada e validada pelo CI |
-| 3 | DATA1-BX | P0 | Expandir a matriz para todos os campos cuja normalização foi prometida | em desenvolvimento | 51 linhas com propostas ou estados explícitos para todos os campos-alvo |
-| 4 | DATA1-BR | P0 | Revisar os 35 casos pendentes contra documentação oficial | bloqueado por DATA1-BX | nenhuma decisão pendente ou inferida sem evidência |
-| 5 | DATA1-C | P0 | Migrar atomicamente para 38 campos | bloqueado | 51 IDs preservados, zero perda e versão 0.8.0 validada |
-| 6 | DATA1-D | P0 | Ativar validações semânticas no CSV final | planejado | as 14 regras bloqueiam estados inconsistentes |
-| 7 | DATA2 | P0 | Auditar as 51 fontes no esquema final | planejado | links, acesso, formatos, licença, evidência e data revisados |
-| 8 | UX5 | P1 | Exibir e filtrar os 38 campos; testar em navegador | planejado | testes estruturais e funcionais aprovados |
-| 9 | RELEASE2 | P1 | Preparar v1.0.0 e confirmar deploy | bloqueado | G1–G10 concluídos e site inspecionado |
-| 10 | DOI | P1 | Criar release imutável e depósito Dataset | bloqueado | G1–G12 concluídos |
-| 11 | RES1 | P3 | Faixas de resolução por produto | baixa prioridade; não bloqueante | tabela auxiliar documentada e auditada |
-| 12 | EDU1 | P3 | Página didática sobre fenômenos ambientais | baixa prioridade; não bloqueante | conteúdo curto, referenciado e ligado às fontes do catálogo |
+| Ordem | Ciclo | Estado | Produto/critério |
+|---:|---|---|---|
+| 1 | QC0 | concluído | 14 regras semânticas alinhadas |
+| 2 | SELECT1 | concluído | política de seleção e cobertura |
+| 3 | DATA1-BX | projeção concluída | 51 × 5 dimensões; confiança desconhecida |
+| 4 | DATA1-BR | auditoria interna concluída | BR1–BR5 cobrem 35 casos |
+| 5 | DATA1-BR-CLOSE | implementado_pendente_integracao | fila comparável e evidência longa |
+| 6 | DATA1-EXT | próximo ciclo | G0 e ondas W1–W5 com evidência oficial |
+| 7 | DATA1-C | bloqueado | migração atômica para 38 campos |
+| 8 | DATA1-D | planejado | 14 regras no CSV final |
+| 9 | DATA2 | planejado | revisão das 51 fontes no esquema final |
+| 10 | UX5 | parcial | 38 campos e testes funcionais |
+| 11 | RELEASE2 | bloqueado | v1.0.0 e deploy confirmado |
+| 12 | DOI | bloqueado | G1–G12 concluídos |
+| 13 | RES1 | P3 | resolução por produto |
+| 14 | EDU1 | P3 | página didática referenciada |
 
-### Checkpoint após QC0 + SELECT1
+## DATA1-BR-CLOSE
 
-QC0 e SELECT1 foram concluídos no PR #19 e validados pelo run 29706338430. A reordenação foi confirmada: DATA1-BX é a próxima etapa autoritativa e BR1 permanece bloqueado até a matriz cobrir as cinco dimensões faltantes.
+A primeira proposta de fila somava quantidade de flags e dimensões. Isso era inadequado porque BR1–BR5 foram descritos com granularidades diferentes.
 
-## QC0 — contrato semântico
+O modelo corrigido usa:
 
-Correções concluídas:
+- `scientific_priority_tier`: somente impacto e risco científico;
+- `execution_wave`: escopo, papéis dos links, documentação ausente e sequência;
+- `external_review_evidence.csv`: várias evidências por fonte, dimensão e afirmação.
 
-- exigência de exatamente 14 regras no contrato 0.8.0;
-- inclusão no JSON das regras sobre `visualization_types`, unicidade/trim de listas e DOI de evidência;
-- substituição do teste permissivo de “dez ou mais” pelo conjunto exato;
-- CSV, CFF, versão e interface mantidos inalterados.
+O Project COSMOS é tratado em `G0`, portão de escopo separado. Ele não recebe pontos artificiais e não é removido automaticamente.
 
-## SELECT1 — critérios de seleção e cobertura
+## DATA1-EXT
 
-A política de seleção passou a responder:
+Cada evidência deve registrar:
 
-- o que conta como fonte elegível;
-- o que deve ser excluído;
-- como reconhecer duplicidades e recursos sucessores;
-- como tratar versões regionais, software e catálogos agregadores;
-- como registrar candidatos sem colocá-los imediatamente no CSV;
-- como medir lacunas temáticas, geográficas, institucionais e de acesso.
+- fonte e dimensão revisada;
+- afirmação e valor atual;
+- valor observado oficialmente;
+- URL e tipo de evidência;
+- data, revisor e organização;
+- suporte ao valor atual;
+- ação e valor propostos;
+- limitações.
 
-A expansão permanece bloqueada até DATA1 e DATA2 estarem concluídos, mas a política já está ativa e versionada.
+Documentação oficial sustenta API, formato, licença e autenticação. Literatura revisada por pares confronta identidade, uso efetivo, limitações e interpretação; não substitui documentação técnica atual.
 
-## DATA1-BX — completar a matriz antes da revisão externa
+## Migração e revisão final
 
-A matriz DATA1-B cobre tipo, escala, formatos, protocolos, ferramentas, situação institucional e orientação de citação. A auditoria também prometeu normalizar:
+DATA1-C somente começa quando decisões críticas estiverem resolvidas. A migração deve preservar 51 IDs, todo o conteúdo científico e produzir 38 campos. DATA1-D ativa as 14 regras no CSV final. DATA2 revisa as 51 fontes no esquema estabilizado.
 
-- `data_product_types`;
-- `visualization_types`;
-- `data_sources`;
-- `temporal_resolution`;
-- `access_conditions`.
+## RES1 — resolução por produto
 
-Antes de BR1, a matriz deverá ser ampliada com estes campos e com estados explícitos de confiança e revisão. Não é permitido declarar a normalização completa enquanto essas dimensões não estiverem cobertas.
+Não é cientificamente seguro inferir resolução pelo zoom de um visualizador. Distinguir célula raster, escala cartográfica, precisão de coordenadas, suporte espacial, resolução temporal e limite de exibição.
 
-A auditoria deste ciclo identificou que uma única coluna `confidence` por linha é insuficiente para DATA1-BX: um registro pode ter alta confiança em tipos de produto e baixa confiança em condições de acesso. O contrato DATA1-BX, portanto, exige confiança por dimensão.
+A tabela futura `data/product_resolution_examples.csv` deve registrar produto, tipo de resolução, valores mais fino e mais grosseiro, unidade ou escala, versão, evidência, data, confiança e notas. Faixas só podem ser comparadas quando usam a mesma dimensão e unidade.
 
-### Estrutura de controle
+RES1 é não bloqueante para v1.0.0 e DOI, salvo quando revelar erro factual no valor atual.
 
-- `migration/data1bx_contract.json`: contrato legível por máquina;
-- `migration/data1bx_migration_matrix.csv`: 51 IDs preservados e cinco pares proposta/confiança;
-- `scripts/validate_data1bx_matrix.py`: valida estados, evidência e bloqueio de migração.
+## EDU1 — página didática
 
-O estado inicial `não_iniciado` é deliberado. Copiar um valor do CSV canônico muda o estado para `carregado_do_csv`, mas não constitui verificação externa e mantém as cinco dimensões pendentes.
+A página didática deve explicar fenômeno, medição, tipos de dados, limitações, fontes relacionadas e referências. Linguagem acessível não autoriza simplificação enganosa ou inferência causal por visualização.
 
-### Regra de migração
-
-- valor controlado confirmado → proposta explícita;
-- heterogeneidade real entre produtos → placeholder documentado e justificativa;
-- ausência de evidência → `unknown`, revisão pendente;
-- texto científico que não cabe em vocabulário → preservado em campo narrativo, sem perda;
-- nenhuma transformação automática apenas por correspondência de palavras;
-- nenhuma linha DATA1-BX autoriza migração enquanto houver dimensão pendente.
-
-## DATA1-BR e DATA2 — revisão científica
-
-Cada revisão deverá registrar, no mínimo:
-
-- fonte e URL oficial;
-- grupo de campos sustentado pela evidência;
-- data efetiva da inspeção;
-- resultado observado;
-- incerteza ou limitação;
-- alteração proposta;
-- revisor e PR.
-
-A evidência acadêmica representativa não substitui documentação oficial de API, formato, licença ou autenticação.
-
-## RES1 — resolução mínima e máxima por produto
-
-### Viabilidade
-
-É possível registrar faixas com boa precisão quando a documentação oficial informa a resolução nativa de produtos específicos. Não é cientificamente seguro inferir resolução a partir do nível de zoom de um geovisualizador.
-
-### Conceitos que não devem ser misturados
-
-- **raster:** tamanho de célula ou resolução angular;
-- **vetor/cartografia:** escala nominal, unidade mínima de mapeamento ou precisão posicional;
-- **pontos:** precisão/incerteza das coordenadas, não “pixel”;
-- **tempo:** intervalo de observação ou atualização;
-- **visualizador:** limite de zoom e generalização de exibição, que não representam necessariamente a resolução dos dados.
-
-### Estrutura recomendada
-
-Criar, após a estabilização do esquema principal, uma tabela auxiliar `data/product_resolution_examples.csv`, ligada por `resource_id`, com:
-
-- `product_name`;
-- `resolution_dimension`;
-- `finest_resolution`;
-- `coarsest_resolution`;
-- `unit_or_scale`;
-- `resolution_type`;
-- `coverage_or_version`;
-- `evidence_url`;
-- `last_verified`;
-- `confidence`;
-- `notes`.
-
-A faixa só poderá aparecer no card da fonte quando os produtos comparados usarem a mesma dimensão e unidade. Caso contrário, a interface deverá informar “varia por produto” e mostrar exemplos documentados.
-
-RES1 é **não bloqueante para v1.0.0 e DOI**, exceto quando a auditoria identificar que o valor atual de `spatial_resolution` está incorreto.
-
-## EDU1 — página didática sobre fenômenos
-
-Criar uma página separada, sem transformar os cards em textos enciclopédicos. Cada módulo deverá responder:
-
-1. o que é o fenômeno;
-2. como é medido ou observado;
-3. quais tipos de dados o representam;
-4. quais limitações e incertezas são comuns;
-5. quais fontes do catálogo podem ser usadas;
-6. quais referências sustentam a explicação.
-
-Temas iniciais possíveis:
-
-- mudanças climáticas, riscos e adaptação;
-- biodiversidade e agrobiodiversidade;
-- fragmentação, conectividade e efeitos de borda;
-- carbono em vegetação e solo;
-- uso e cobertura da terra;
-- agroflorestas e serviços ecossistêmicos;
-- sistemas alimentares, clima e biodiversidade;
-- sensoriamento remoto, resolução e escala.
-
-Regras editoriais:
-
-- linguagem acessível sem simplificação enganosa;
-- separação entre definição, evidência e exemplo;
-- referências verificáveis;
-- atualização independente do CSV científico;
-- nenhuma afirmação causal baseada apenas em visualização;
-- links diretos para filtros do catálogo relacionados ao tema.
-
-EDU1 é **não bloqueante para v1.0.0 e DOI** e deve ser iniciado somente após DATA2 ou quando houver capacidade editorial separada.
+EDU1 é não bloqueante para v1.0.0 e DOI e deve começar após DATA2 ou com capacidade editorial separada.
 
 ## Checkpoints de reordenação
 
-A ordem será reavaliada após:
-
-1. QC0 + SELECT1 — concluído;
-2. DATA1-BX;
-3. cada lote BR1–BR5;
-4. migração 0.8.0;
-5. primeiros lotes DATA2;
-6. testes funcionais da interface.
-
-Uma tarefa pode subir de prioridade quando:
-
-- bloqueia outra etapa;
-- revela risco de perda de dados;
-- afeta a validade científica;
-- corrige informação pública incorreta;
-- reduz retrabalho significativo.
-
-Uma tarefa pode descer de prioridade quando:
-
-- é apenas enriquecimento;
-- exige pesquisa externa indisponível;
-- aumenta o esquema sem benefício decisório claro;
-- pode ser entregue com segurança em v1.1.0.
+Reavaliar após DATA1-BR-CLOSE, G0, W1, migração 0.8.0, primeiros lotes DATA2 e testes funcionais. Uma tarefa sobe quando bloqueia dependências, evita perda, corrige informação pública ou reduz retrabalho; desce quando é apenas enriquecimento ou pode ser entregue com segurança depois.
 
 ## Estado protegido
 
-Durante este workflow:
-
-- versão formal permanece 0.7.0;
-- CSV permanece com 51 fontes e 34 campos até DATA1-C;
-- `doi_allowed` permanece `false`;
+- versão formal 0.7.0;
+- CSV 51 × 34 até DATA1-C;
+- `doi_allowed = false`;
 - nenhuma nova fonte entra diretamente no catálogo;
-- candidatos podem ser registrados fora do CSV canônico;
+- candidatos permanecem fora do CSV;
 - RES1 e EDU1 não desbloqueiam nem bloqueiam o DOI.

@@ -2,114 +2,89 @@
 
 ## Objetivo
 
-Tornar explícito por que uma fonte entra no catálogo, como duplicidades são evitadas e quais lacunas permanecem. A política orienta expansão futura, mas não declara o catálogo completo ou representativo de todo o universo de fontes ambientais.
+Explicitar por que uma fonte entra, como duplicidades são evitadas e quais lacunas permanecem. O catálogo não é declarado completo ou representativo de todo o universo ambiental.
 
 ## Unidade de seleção
 
-A unidade elegível é uma **fonte de dados ou infraestrutura de informação** com identidade própria, responsável identificável e acesso público verificável. Exemplos incluem base de dados, repositório, catálogo, portal, plataforma, sistema de informação, sistema de monitoramento, serviço de dados, rede de dados ou software de publicação.
+A unidade elegível é uma **fonte de dados ou infraestrutura de informação** com identidade própria, responsável identificável e acesso verificável: base, repositório, catálogo, portal, plataforma, sistema, serviço, rede ou software de publicação.
 
 ## Critérios mínimos de inclusão
 
-Uma fonte candidata deve atender a todos os requisitos:
+A fonte deve:
 
-1. possuir finalidade relevante para pesquisa, ensino ou extensão em temas ambientais;
-2. disponibilizar dados, metadados ou serviços de descoberta/acesso, e não apenas conteúdo editorial;
-3. possuir página oficial ou documentação institucional verificável;
-4. ter responsável, mantenedor ou arranjo de governança identificável;
-5. apresentar utilidade acadêmica distinta ou cobertura que reduza uma lacuna do catálogo;
-6. permitir descrição no nível de fonte sem exigir uma linha por dataset;
-7. aceitar registro honesto de condições de acesso, licença, limitações e incertezas.
+1. ser relevante para pesquisa, ensino ou extensão ambiental;
+2. disponibilizar dados, metadados ou serviço de descoberta/acesso, não apenas conteúdo editorial;
+3. possuir documentação oficial verificável;
+4. ter governança identificável;
+5. oferecer utilidade distinta ou reduzir lacuna;
+6. permitir descrição no nível de fonte;
+7. permitir registro honesto de acesso, licença, limitações e incertezas.
 
 ## Critérios de exclusão
 
 Excluir do CSV canônico:
 
-- páginas de notícias, blogs e materiais exclusivamente didáticos;
-- artigos, relatórios ou livros sem infraestrutura de dados associada;
-- um dataset isolado que pertence claramente a uma fonte já catalogada;
-- ferramentas de análise sem função de publicação, descoberta ou acesso a dados;
-- cópias não oficiais ou mirrors sem governança própria;
-- páginas descontinuadas sem sucessor acessível, salvo quando mantidas em registro histórico separado;
-- recursos sem evidência suficiente para confirmar identidade e função.
+- notícias, blogs e materiais somente didáticos;
+- artigos ou relatórios sem infraestrutura associada;
+- dataset isolado pertencente a fonte já catalogada;
+- ferramenta sem função de publicação, descoberta ou acesso;
+- mirror sem governança própria;
+- recurso descontinuado sem função independente;
+- recurso cuja identidade ou função não tenha evidência suficiente.
+
+## Recursos bibliométricos e editoriais
+
+Bases de literatura, rankings e redes de citação exigem um portão de escopo antes da migração. A decisão deve avaliar reutilização estruturada, função de descoberta ambiental, governança, condições de acesso, utilidade distinta e destino adequado: catálogo principal, seção auxiliar, fusão ou exclusão.
+
+Recursos já presentes, como Project COSMOS, permanecem preservados até decisão explícita. O portão não autoriza exclusão automática.
 
 ## Duplicidade e relação entre recursos
 
 ### Mesmo recurso, nomes diferentes
 
-Manter uma única linha quando siglas, marcas ou URLs representam a mesma infraestrutura e a mesma governança.
+Manter uma linha quando nomes, siglas ou URLs representam a mesma infraestrutura e governança.
 
 ### Portal e base subjacente
 
-Manter linhas separadas somente quando:
-
-- possuem funções decisórias distintas para o usuário;
-- têm documentação, acesso ou governança próprios;
-- a separação melhora a descoberta sem duplicar integralmente o conteúdo.
+Manter linhas separadas somente quando possuem função, documentação, acesso ou governança próprios e a separação melhora a descoberta sem duplicação integral.
 
 ### Agregador e provedor
 
-Um agregador pode coexistir com provedores originais. A descrição e as limitações devem alertar sobre possível dupla contagem de datasets.
+Podem coexistir, mas devem alertar sobre dupla contagem e preservar o provedor original.
 
 ### Versões regionais
 
-Criar linha própria apenas quando a versão regional possui governança, documentação, cobertura e acesso próprios. Páginas traduzidas ou filtros regionais da mesma infraestrutura não justificam nova linha.
+Criar linha própria somente com governança, documentação, cobertura e acesso próprios.
 
 ### Recurso sucessor
 
-Quando um recurso substitui outro:
-
-- manter o sucessor no catálogo ativo;
-- registrar a relação no histórico ou nas limitações;
-- não manter duas linhas ativas se o recurso anterior apenas redireciona e não preserva função independente.
+Manter o sucessor ativo, registrar a relação e não conservar duas linhas quando o anterior apenas redireciona.
 
 ## Candidatos
 
-Novas fontes devem entrar primeiro em `candidates/source_candidates.csv`, separado do CSV canônico. A triagem mínima deve registrar:
+Novas fontes entram primeiro em `candidates/source_candidates.csv`, com nome, URL, justificativa, tema, cobertura, duplicidade, evidência, prioridade e decisão: incluir, excluir, fundir ou aguardar evidência.
 
-- nome e URL;
-- motivo da candidatura;
-- tema e cobertura presumidos;
-- possível duplicidade;
-- evidência oficial inicial;
-- prioridade;
-- decisão: incluir, excluir, fundir, aguardar evidência.
-
-Nenhum candidato deve ser publicado diretamente sem passar por revisão de elegibilidade e completude.
-
-A fila usa estados explícitos de evidência e revisão. Uma URL fornecida pelo usuário pode justificar `triagem_inicial`, mas não autoriza `incluir`, `excluir` ou `fundir` sem documentação oficial revisada. O contrato da fila está documentado em `candidates/README.md` e é validado por `scripts/validate_candidate_queue.py`.
+Uma URL fornecida pelo usuário autoriza triagem inicial, não decisão final. Nenhum candidato é publicado sem revisão de elegibilidade e completude.
 
 ## Matriz de lacunas
 
-A cobertura do catálogo deve ser descrita, não presumida. A análise de lacunas deve cruzar pelo menos:
+A cobertura deve cruzar área de pesquisa, escala geográfica, tipo funcional, natureza institucional, download gratuito, acesso programático e presença de dados do Brasil.
 
-- área de pesquisa;
-- escala geográfica;
-- tipo funcional;
-- natureza institucional;
-- download gratuito;
-- acesso programático;
-- presença de dados aplicáveis ao Brasil.
-
-A matriz serve para orientar busca de novas fontes. Ela não estabelece cotas artificiais e não transforma frequência de registros em medida de importância científica.
+A matriz orienta busca; não cria cotas e frequência de registros não mede importância científica.
 
 ## Critérios de prioridade para expansão
 
-Prioridade maior para fontes que:
+Prioridade maior para fontes que reduzam lacunas brasileiras ou latino-americanas, tenham documentação estável, acesso reutilizável, cubram temas pouco representados e possuam uso científico demonstrável.
 
-1. reduzem lacunas brasileiras ou latino-americanas;
-2. são oficiais, acadêmicas ou intergovernamentais e possuem documentação estável;
-3. oferecem acesso gratuito, formatos reutilizáveis ou API documentada;
-4. cobrem temas pouco representados;
-5. têm uso científico demonstrável e limitações identificáveis.
-
-Prioridade menor para fontes redundantes, pouco documentadas, estritamente comerciais ou cuja utilidade já seja coberta por outro recurso mais estável.
+Prioridade menor para recursos redundantes, pouco documentados, estritamente comerciais ou já cobertos por fonte mais estável.
 
 ## Revisão da seleção
 
-- antes de cada lote de expansão: revisar duplicidades e lacunas;
+- antes de expansão: revisar duplicidades, escopo e lacunas;
 - anualmente: reavaliar recursos descontinuados, incorporados ou renomeados;
-- imediatamente: atualizar quando houver fusão, sucessão ou mudança institucional importante.
+- imediatamente: atualizar fusão, sucessão ou mudança institucional;
+- antes da migração: resolver portões de escopo pendentes.
 
 ## Estado atual
 
-A política orienta a expansão futura. Enquanto DATA1 e DATA2 não estiverem concluídos, a inclusão de novas fontes no CSV canônico permanece bloqueada; apenas a fila de candidatos pode crescer.
+Enquanto DATA1 e DATA2 não estiverem concluídos, novas fontes permanecem fora do CSV. Project COSMOS está no portão G0 e permanece no CSV 0.7.0 sem decisão automática.

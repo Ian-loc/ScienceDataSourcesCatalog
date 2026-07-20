@@ -1,0 +1,42 @@
+{
+  "contract_version": "1.0.0",
+  "phase": "DATA1-EXT",
+  "table": "migration/external_review_evidence.csv",
+  "queue": "migration/external_review_queue.csv",
+  "allow_empty_initial_table": true,
+  "review_dimensions": [
+    "identity_and_role",
+    "homepage_and_data_access_role",
+    "dataset_collection_site_or_product_scope",
+    "access_authentication_and_restrictions",
+    "formats_protocols_tools_and_downloads",
+    "temporal_coverage_version_and_update",
+    "spatial_resolution_scale_and_support",
+    "source_attribution_and_overlap",
+    "license_citation_and_doi",
+    "methodology_quality_and_limitations",
+    "scope_and_eligibility"
+  ],
+  "evidence_source_types": [
+    "official_homepage",
+    "official_access_page",
+    "official_api_documentation",
+    "official_license_or_terms",
+    "official_methodology",
+    "official_metadata",
+    "technical_document",
+    "peer_reviewed_article"
+  ],
+  "support_values": ["sim", "parcial", "não", "inconclusivo"],
+  "proposed_actions": ["manter", "corrigir", "marcar_desconhecido", "documentar_variabilidade", "avaliar_exclusão_ou_fusão"],
+  "rules": [
+    "one_row_per_resource_dimension_and_claim",
+    "multiple_evidence_rows_per_resource_are_allowed",
+    "resource_id_must_exist_in_external_review_queue",
+    "evidence_url_must_be_https",
+    "accessed_at_must_be_iso_date",
+    "reviewer_is_required_for_every_evidence_row",
+    "current_and_observed_values_must_be_distinguished",
+    "evidence_does_not_change_the_canonical_csv_automatically"
+  ]
+}

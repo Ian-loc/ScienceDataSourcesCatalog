@@ -36,6 +36,10 @@ jobs:
         run: |
           python3 scripts/validate_br_batches.py
           python3 scripts/validate_br_completion.py
+      - name: Validar fechamento e evidências externas
+        run: |
+          python3 scripts/validate_external_review_evidence.py
+          python3 scripts/validate_external_review_queue.py
       - name: Validar objetivos finais e prontidão para DOI
         run: python3 scripts/validate_doi_readiness.py
       - name: Validar interface estática
