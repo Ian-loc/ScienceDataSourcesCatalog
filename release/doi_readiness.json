@@ -1,82 +1,22 @@
 {
-  "contract_version": "1.1",
+  "contract_version": "1.2",
   "catalog_current_version": "0.7.0",
   "target_stable_release": "1.0.0",
   "archive_type": "Dataset",
   "doi_allowed": false,
   "decision_rule": "DOI permitido somente quando G1-G12 estiverem concluídos e a release v1.0.0 tiver sido inspecionada.",
   "gates": [
-    {
-      "id": "G1",
-      "name": "escopo_cientifico",
-      "status": "concluído",
-      "evidence": "PR #17; objetivos, unidade de registro e limites documentados; decisão específica sobre COSMOS ainda pertence ao portão operacional G0"
-    },
-    {
-      "id": "G2",
-      "name": "esquema",
-      "status": "parcial",
-      "evidence": "schema/v0.8.0-draft.json define 38 campos; CSV final e codebook 0.8.0 ainda não aplicados"
-    },
-    {
-      "id": "G3",
-      "name": "migracao",
-      "status": "bloqueado",
-      "evidence": "16 registros prontos; 35 casos auditados internamente em BR1-BR5, mas revisão externa e migração atômica permanecem pendentes"
-    },
-    {
-      "id": "G4",
-      "name": "validacao_semantica",
-      "status": "parcial",
-      "evidence": "14 regras alinhadas no contrato; ativação contra o CSV 0.8.0 depende de DATA1-D"
-    },
-    {
-      "id": "G5",
-      "name": "revisao_das_fontes",
-      "status": "bloqueado",
-      "evidence": "BR1-BR5 concluídos como auditoria interna; G0, ondas externas e DATA2 ainda pendentes"
-    },
-    {
-      "id": "G6",
-      "name": "qualidade_de_acesso",
-      "status": "bloqueado",
-      "evidence": "auditoria de papéis dos links registra 16 destinos iguais; tabela externa de evidências ainda vazia"
-    },
-    {
-      "id": "G7",
-      "name": "interface",
-      "status": "parcial",
-      "evidence": "UX1-UX4 concluídos; exibição e testes funcionais dos 38 campos dependem de UX5"
-    },
-    {
-      "id": "G8",
-      "name": "publicacao",
-      "status": "bloqueado",
-      "evidence": "deploy da release estável ainda não confirmado por inspeção direta ou evidência equivalente"
-    },
-    {
-      "id": "G9",
-      "name": "documentacao",
-      "status": "parcial",
-      "evidence": "auditoria de consistência e correções de DATA1-BR-CLOSE implementadas em branch; integração e fechamento da release pendentes"
-    },
-    {
-      "id": "G10",
-      "name": "metadados_de_citacao",
-      "status": "parcial",
-      "evidence": "título, Lara, Ian e ORCID definidos; versão e data 1.0.0 permanecem pendentes"
-    },
-    {
-      "id": "G11",
-      "name": "release_imutavel",
-      "status": "bloqueado",
-      "evidence": "tag e GitHub Release v1.0.0 não criadas"
-    },
-    {
-      "id": "G12",
-      "name": "inspecao_do_deposito",
-      "status": "bloqueado",
-      "evidence": "depósito Zenodo do tipo Dataset ainda não criado nem inspecionado"
-    }
+    {"id":"G1","name":"escopo_cientifico","status":"concluído","evidence":"PR #17; objetivos, unidade e limites aprovados; COSMOS permanece no portão operacional G0"},
+    {"id":"G2","name":"esquema","status":"parcial","evidence":"schema/v0.8.0-draft.json define 38 campos; CSV final e codebook 0.8.0 ainda não aplicados"},
+    {"id":"G3","name":"migracao","status":"bloqueado","evidence":"16 registros prontos; 35 auditados internamente; revisão externa e migração atômica pendentes"},
+    {"id":"G4","name":"validacao_semantica","status":"parcial","evidence":"14 regras alinhadas; ativação contra o CSV 0.8.0 depende de DATA1-D"},
+    {"id":"G5","name":"revisao_das_fontes","status":"bloqueado","evidence":"BR1-BR5 internos e DATA1-BR-CLOSE concluídos; G0, W1-W5 e DATA2 pendentes"},
+    {"id":"G6","name":"qualidade_de_acesso","status":"bloqueado","evidence":"16 destinos iguais pendentes; tabela externa de evidências ainda vazia"},
+    {"id":"G7","name":"interface","status":"parcial","evidence":"UX1-UX4 concluídos; exibição e testes dos 38 campos dependem de UX5"},
+    {"id":"G8","name":"publicacao","status":"bloqueado","evidence":"deploy da release estável ainda não confirmado por inspeção direta ou evidência equivalente"},
+    {"id":"G9","name":"documentacao","status":"parcial","evidence":"auditoria e DATA1-BR-CLOSE integrados; PR #29 e run 29778282362 validaram a suíte; fechamento da release 1.0.0 ainda pendente"},
+    {"id":"G10","name":"metadados_de_citacao","status":"parcial","evidence":"título, Lara, Ian e ORCID definidos; versão e data 1.0.0 pendentes"},
+    {"id":"G11","name":"release_imutavel","status":"bloqueado","evidence":"tag e GitHub Release v1.0.0 não criadas"},
+    {"id":"G12","name":"inspecao_do_deposito","status":"bloqueado","evidence":"depósito Zenodo do tipo Dataset ainda não criado nem inspecionado"}
   ]
 }
