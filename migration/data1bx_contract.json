@@ -1,0 +1,74 @@
+{
+  "contract_version": "1.0.0",
+  "phase": "DATA1-BX",
+  "status": "population_pending",
+  "canonical_csv": "data/data_resources.csv",
+  "base_matrix": "migration/data1b_migration_matrix.csv",
+  "target_matrix": "migration/data1bx_migration_matrix.csv",
+  "expected_records": 51,
+  "preserve_resource_ids": true,
+  "dimensions": [
+    {
+      "source_field": "data_product_types",
+      "proposal_column": "data_product_types_proposed",
+      "confidence_column": "data_product_types_confidence"
+    },
+    {
+      "source_field": "visualization_types",
+      "proposal_column": "visualization_types_proposed",
+      "confidence_column": "visualization_types_confidence"
+    },
+    {
+      "source_field": "data_sources",
+      "proposal_column": "data_sources_proposed",
+      "confidence_column": "data_sources_confidence"
+    },
+    {
+      "source_field": "temporal_resolution",
+      "proposal_column": "temporal_resolution_proposed",
+      "confidence_column": "temporal_resolution_confidence"
+    },
+    {
+      "source_field": "access_conditions",
+      "proposal_column": "access_conditions_proposed",
+      "confidence_column": "access_conditions_confidence"
+    }
+  ],
+  "required_context_columns": [
+    "bx_review_status",
+    "bx_evidence_basis",
+    "bx_evidence_url",
+    "bx_last_verified",
+    "bx_reviewer",
+    "bx_unresolved_fields",
+    "bx_notes"
+  ],
+  "confidence_values": [
+    "alta",
+    "média",
+    "baixa",
+    "desconhecida"
+  ],
+  "review_status_values": [
+    "não_iniciado",
+    "carregado_do_csv",
+    "revisão_manual",
+    "confirmado_documentação_oficial"
+  ],
+  "evidence_basis_values": [
+    "none",
+    "canonical_csv",
+    "official_documentation"
+  ],
+  "unresolved_separator": " | ",
+  "rules": [
+    "field_level_confidence_required_when_value_present",
+    "blank_value_requires_unresolved_field",
+    "carried_forward_is_not_external_verification",
+    "official_confirmation_requires_https_evidence_date_and_reviewer",
+    "confirmed_record_requires_no_unresolved_fields",
+    "resource_ids_must_match_canonical_order",
+    "automatic_migration_forbidden"
+  ],
+  "automatic_migration_allowed": false
+}
