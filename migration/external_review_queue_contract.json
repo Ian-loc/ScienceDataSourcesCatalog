@@ -1,51 +1,46 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "2.0.0",
   "phase": "DATA1-BR-CLOSE",
-  "status": "prioritized_external_review_queue_ready",
+  "status": "implemented_pending_integration",
   "queue": "migration/external_review_queue.csv",
+  "evidence_table": "migration/external_review_evidence.csv",
   "batch_registry": "migration/br_batch_registry.json",
   "link_role_audit": "data/link_role_audit.json",
   "canonical_csv": "data/data_resources.csv",
   "expected_records": 35,
   "expected_source_batches": ["BR1", "BR2", "BR3", "BR4", "BR5"],
-  "priority_weights": {
-    "impact_level": {"alta": 20, "muito_alta": 30},
-    "scientific_risk_level": {"alto": 25, "muito_alto": 35},
-    "risk_flag_count": {"points_per_item": 1, "maximum": 8},
-    "review_dimension_count": {"points_per_item": 1, "maximum": 10},
-    "link_role_status": {
-      "separate_destinations": 0,
-      "role_review_required": 4,
-      "same_destination_pending_review": 8
-    },
-    "missing_access_documentation": 5,
-    "scope_decision_required": 6
+  "scientific_priority_rules": {
+    "P0": "impact_level=muito_alta and scientific_risk_level=muito_alto",
+    "P1": "exactly one of impact_level or scientific_risk_level is muito_alta/muito_alto and the other is alta/alto",
+    "P2": "impact_level=alta and scientific_risk_level=alto",
+    "P3": "reserved for future lower combinations"
   },
-  "priority_tiers": {
-    "P0": {"minimum": 90},
-    "P1": {"minimum": 82, "maximum": 89},
-    "P2": {"minimum": 74, "maximum": 81},
-    "P3": {"maximum": 73}
+  "execution_wave_rules": {
+    "G0": "scope_decision_required",
+    "W1": "P0 and same_destination_pending_review",
+    "W2": "P0 not in W1 and (role_review_required or access_documentation_status=ausente)",
+    "W3": "remaining P0",
+    "W4": "P1",
+    "W5": "P2 or P3"
   },
-  "expected_tier_counts": {"P0": 7, "P1": 10, "P2": 11, "P3": 7},
+  "expected_tier_counts": {"P0": 23, "P1": 9, "P2": 3, "P3": 0},
+  "expected_wave_counts": {"G0": 1, "W1": 7, "W2": 9, "W3": 7, "W4": 8, "W5": 3},
   "scope_decision_required_ids": ["DR0051"],
   "role_review_flags": ["homepage_vs_data_access", "institutional_vs_operational_page"],
-  "sort_order": [
-    "priority_score_desc",
-    "source_batch_asc",
-    "batch_rank_asc",
-    "resource_id_asc"
-  ],
-  "queue_status_values": ["aguardando_evidência_oficial", "em_revisão", "revisada"],
+  "wave_order": ["G0", "W1", "W2", "W3", "W4", "W5"],
+  "sort_order_within_wave": ["access_documentation_absent_first", "source_batch_asc", "batch_rank_asc", "resource_id_asc"],
+  "review_track_values": ["scope_decision", "external_evidence"],
+  "queue_status_values": ["aguardando_decisão_de_escopo", "aguardando_evidência_oficial", "em_revisão", "revisada"],
   "decision_values": ["manter_csv_atual", "manter_confirmado", "correção_necessária", "exclusão_a_avaliar"],
   "rules": [
     "queue_covers_exactly_all_35_manual_review_records",
     "queue_preserves_source_batch_and_batch_rank",
-    "priority_is_reproducible_from_versioned_inputs",
+    "scientific_priority_uses_only_comparable_impact_and_risk_levels",
+    "operational_wave_is_separate_from_scientific_priority",
     "same_destination_status_comes_from_link_role_audit",
     "role_review_status_requires_an_explicit_role_review_flag",
-    "external_evidence_fields_remain_blank_until_review",
-    "canonical_csv_changes_remain_forbidden_without_current_official_evidence",
-    "scope_decision_does_not_automatically_remove_the_resource"
+    "scope_decision_is_a_separate_gate_and_does_not_add_priority_points",
+    "evidence_is_stored_in_a_long_form_separate_table",
+    "canonical_csv_changes_remain_forbidden_without_current_official_evidence"
   ]
 }
