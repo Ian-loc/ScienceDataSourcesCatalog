@@ -2,6 +2,7 @@
   "contract_version": "1.0.0",
   "phase": "DATA1-BX",
   "status": "population_pending",
+  "canonical_projection_status": "loaded_51x5",
   "canonical_csv": "data/data_resources.csv",
   "base_matrix": "migration/data1b_migration_matrix.csv",
   "target_matrix": "migration/data1bx_migration_matrix.csv",
