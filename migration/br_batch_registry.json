@@ -34,6 +34,13 @@
       "review_matrix": "migration/br4_review_matrix.csv",
       "internal_audit_status": "concluída",
       "external_review_status": "bloqueada_sem_web"
+    },
+    {
+      "batch": "BR5",
+      "contract": "migration/br5_contract.json",
+      "review_matrix": "migration/br5_review_matrix.csv",
+      "internal_audit_status": "concluída",
+      "external_review_status": "bloqueada_sem_web"
     }
   ],
   "rules": [

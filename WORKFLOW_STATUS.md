@@ -2,172 +2,108 @@
 
 ## Regra operacional
 
-Uma tarefa só é considerada concluída quando estiver implementada em branch, revisada em pull request, integrada à `main`, validada pelo GitHub Actions e registrada no changelog. Quando afetar o site, a publicação também precisa ser confirmada.
+Uma tarefa só é concluída após branch, pull request, integração à `main`, GitHub Actions verde e registro no changelog. Alterações públicas também exigem confirmação do deploy.
 
-CI verde comprova estrutura e coerência interna. Não comprova, sozinho, que uma fonte externa esteja atual, acessível ou cientificamente correta.
+CI verde comprova estrutura e coerência interna. Não comprova atualidade, acesso ou correção factual das fontes externas.
 
-## Limitações atuais
+## Limitações
 
-- a publicação só será marcada como confirmada mediante inspeção direta do site ou evidência equivalente;
-- a revisão factual exige documentação oficial atual;
-- o acesso web de pesquisa não está disponível neste ambiente;
+- revisão externa bloqueada enquanto não houver documentação oficial atual;
+- acesso web de pesquisa não está disponível neste ambiente;
+- auditoria interna não eleva confiança nem autoriza correções no CSV;
+- URLs iguais em `homepage_url` e `data_access_url` permanecem pendentes;
 - novas fontes permanecem fora do CSV até a estabilização das 51 atuais;
-- candidatos permanecem em triagem, sem decisão final;
-- auditoria interna e seleção de lotes não autorizam elevar confiança nem corrigir o CSV sem evidência externa atual;
-- URLs iguais em `homepage_url` e `data_access_url` são pendências, não confirmação de que o mesmo destino é adequado aos dois botões.
+- versão 1.0.0 e DOI continuam bloqueados.
 
 ## Backlog
 
-| Prioridade | Frente | Estado | Evidência ou critério de conclusão |
-|---|---|---|---|
-| P0 | Identificação verificável do build | integrado | versão, commit, fontes e campos em `build-meta.json` |
-| P0 | Confirmar deploy posterior ao merge | bloqueado | inspeção direta do site ou evidência equivalente |
-| UX1–UX4 | Interface, filtros, cards, acessibilidade e desempenho | validado e documentado | PRs #5, #7, #9 e #11 |
-| OBJ | Objetivos finais e portões para DOI | concluído | PR #17 |
-| DATA1-A | Auditoria e projeto do esquema 0.8.0 | validado e documentado | PR #13 |
-| DATA1-B | Matriz inicial de migração | validado e documentado | PR #15 |
-| QC0 | Alinhar 14 regras semânticas | validado e documentado | PR #19 |
-| SELECT1 | Inclusão, exclusão, duplicidade e lacunas | validado e documentado | PR #19 |
-| CAND1 | Fila versionada de candidatos | em desenvolvimento | 18 candidatos; nenhum incluído no CSV |
-| DATA1-BX | Completar campos da matriz | projeção canônica concluída | 51 fontes × 5 dimensões carregadas; confiança desconhecida; revisão externa pendente |
-| DATA1-BR/BR1 | Plataformas e monitoramento de alto impacto | auditoria interna concluída; revisão externa bloqueada | sete fontes; contrato e matriz validados |
-| DATA1-BR/BR2 | Biodiversidade, ciência cidadã e redes | auditoria interna concluída; revisão externa bloqueada | sete fontes; contrato e matriz validados |
-| DATA1-BR/BR3 | Clima, repositórios e redes de fluxos | auditoria interna concluída; revisão externa bloqueada | sete fontes; contrato e matriz integrados ao registro comum |
-| DATA1-BR/BR4 | Sistemas territoriais e climáticos brasileiros | auditoria interna concluída; revisão externa bloqueada | sete fontes; papéis dos links incluídos como dimensão obrigatória |
-| DATA1-BR/BR5 | Revisar 7 casos restantes | planejado | lote final com os mesmos controles de evidência e URLs |
-| DATA1-C | Migração atômica para 38 campos | bloqueado | decisões DATA1-B e DATA1-BX revisadas |
-| DATA1-D | Validação semântica do esquema final | planejado | 14 regras ativas no CSV 0.8.0 |
-| DATA2 | Revisar as 51 fontes no esquema final | planejado | links, acesso, formatos, licença, evidência e data revisados |
-| UX5 | Interface dos 38 campos e testes de navegador | em desenvolvimento parcial | resumo público de qualidade e indicador dos papéis dos links; adaptação aos 38 campos ainda pendente |
-| RELEASE1 | Título, ORCID, licenças e CFF | validado e documentado | PR #5 |
-| RELEASE2 | Criar versão 1.0.0 | bloqueado | G1–G10 concluídos e deploy confirmado |
-| DOI | Arquivar no Zenodo como Dataset | bloqueado | G1–G12 concluídos e depósito inspecionado |
-| RES1 | Faixas de resolução por produto | P3, não bloqueante | tabela auxiliar com evidência e unidades comparáveis |
-| EDU1 | Página didática de fenômenos | P3, não bloqueante | conteúdo referenciado e ligado às fontes |
-| POST-DOI | Propagar identificadores | bloqueado | DOI de versão e conceito em repositório, site, ORCID e currículos |
+| Frente | Estado | Critério principal |
+|---|---|---|
+| DATA1-A | concluído | esquema 0.8.0 documentado |
+| DATA1-B | concluído | 51 linhas classificadas |
+| QC0 | concluído | 14 regras semânticas alinhadas |
+| SELECT1 | concluído | inclusão, exclusão, duplicidade e lacunas documentadas |
+| DATA1-BX | projeção concluída | 51 × 5 dimensões; confiança desconhecida |
+| DATA1-BR | auditoria interna concluída | BR1–BR5 cobrem os 35 casos manuais |
+| DATA1-BR-CLOSE | próximo checkpoint | fila única de revisão externa |
+| DATA1-C | bloqueado | decisões e evidências revisadas |
+| DATA1-D | planejado | 14 regras no CSV 0.8.0 |
+| DATA2 | planejado | revisão factual das 51 fontes |
+| UX5 | parcial | interface dos 38 campos |
+| RELEASE2 | bloqueado | portões G1–G10 e deploy confirmado |
+| DOI | bloqueado | portões G1–G12 e depósito inspecionado |
+| RES1 | P3 | resolução por produto |
+| EDU1 | P3 | página didática referenciada |
 
 ## Estado consolidado
 
-- **Versão formal:** 0.7.0;
-- **Fontes canônicas:** 51;
-- **Campos canônicos:** 34;
-- **Fila de candidatos:** 18 registros separados do CSV;
-- **DATA1-B:** 16 registros prontos e 35 em revisão manual;
-- **DATA1-BX:** cinco dimensões carregadas para 51 fontes, com confiança `desconhecida`;
-- **Lotes ativos:** BR1–BR4, totalizando 28 fontes sem sobreposição;
-- **Casos manuais ainda não distribuídos:** 7;
-- **Revisões externas BR1–BR4:** bloqueadas enquanto não houver documentação oficial atual acessível;
-- **Papéis dos links:** regra documentada, auditoria automática integrada ao build e dimensão obrigatória no BR4;
-- **Relatório de qualidade:** gerado automaticamente durante o build;
-- **Página inicial:** mostra documentação oficial, evidência revisada por pares, incertezas de acesso/licença e URLs iguais pendentes;
-- **Esquema 0.8.0:** ainda não aplicado;
-- **Expansão:** bloqueada;
-- **v1.0.0 e DOI:** bloqueados.
+- versão formal: **0.7.0**;
+- CSV canônico: **51 fontes × 34 campos**;
+- DATA1-B: **16 prontos + 35 revisão_manual**;
+- DATA1-BX: confiança `desconhecida`;
+- lotes ativos: **BR1–BR5**;
+- casos manuais distribuídos: **35 de 35**;
+- casos manuais restantes: **0**;
+- candidatos: **18 fora do CSV**;
+- esquema 0.8.0: não aplicado;
+- expansão, v1.0.0 e DOI: bloqueados.
 
-## BR1 — achados principais
+## Síntese dos lotes
 
-Fontes: CEMADEN, dados.gov.br, MapBiomas, TerraBrasilis, BDQueimadas, Google Earth Engine e Global Forest Watch.
+### BR1
 
-Riscos dominantes: agregadores tratados como produtores; atributos generalizados entre produtos; mistura de protocolos, ferramentas e formatos; resolução e temporalidade uniformizadas; confusão entre alertas, focos, incêndios, áreas queimadas e desmatamento.
+CEMADEN, dados.gov.br, MapBiomas, TerraBrasilis, BDQueimadas, Google Earth Engine e Global Forest Watch.
 
-## BR2 — achados principais
+Riscos: agregadores versus produtores, heterogeneidade por produto, protocolos, resolução, temporalidade e semântica de alertas.
 
-Fontes: speciesLink, SiBBr, eBird, Movebank, DataONE, iNaturalist e TRY.
+### BR2
 
-Riscos dominantes: duplicação entre redes; agregador confundido com fonte primária; licença por coleção, observação, mídia, estudo ou dataset; coordenadas sensíveis; viés amostral; dados brutos versus produtos modelados; acesso por solicitação ou termos específicos.
+speciesLink, SiBBr, eBird, Movebank, DataONE, iNaturalist e TRY.
 
-## BR3 — achados principais
+Riscos: duplicação entre redes, licença por registro ou dataset, coordenadas sensíveis, viés amostral, taxonomia e dados brutos versus modelados.
 
-Fontes: Copernicus Climate Data Store, WorldClim, NEON, PANGAEA, Climate Data Guide, AmeriFlux e FLUXNET.
+### BR3
 
-Riscos dominantes:
+Copernicus Climate Data Store, WorldClim, NEON, PANGAEA, Climate Data Guide, AmeriFlux e FLUXNET.
 
-- versão, coleção, produto e cenário tratados de forma genérica;
-- observações, reanálises, modelos e produtos derivados misturados;
-- resolução nominal confundida com suporte ou precisão;
-- dados provisórios, revisados ou reprocessados sem distinção;
-- licença, período e processamento definidos no nível do dataset ou sítio;
-- área de influência das torres tratada como geometria fixa;
-- duplicação de sítios entre AmeriFlux e coleções FLUXNET;
-- catálogo ou guia confundido com provedor original.
+Riscos: versão e coleção, observação versus modelo, dados reprocessados, licença por dataset ou sítio, suporte espacial e duplicação entre redes.
 
-## BR4 — achados principais
+### BR4
 
-Fontes: Clima Gerais, IDE-SISEMA, AdaptaBrasil, SIRENE, PANORAMA/CENSIPAM, UrbVerde e BDiA.
+Clima Gerais, IDE-SISEMA, AdaptaBrasil, SIRENE, PANORAMA/CENSIPAM, UrbVerde e BDiA.
 
-Riscos dominantes:
+Riscos: indicadores compostos, atualização por produto, visualizador versus download, escala cartográfica, protocolos sem documentação e papéis dos links.
 
-- indicadores compostos confundidos com observações ou medições diretas;
-- datas de atualização atribuídas à plataforma em vez do produto, camada ou módulo;
-- visualizador tratado como prova de download, formato ou protocolo;
-- resolução visual confundida com escala cartográfica, precisão ou suporte espacial;
-- serviços OGC e acesso programático declarados sem documentação técnica associada;
-- licenças e fontes generalizadas entre camadas e levantamentos;
-- homepage, página operacional e acesso aos dados sem papéis demonstrados separadamente.
+### BR5
 
-SIRENE, UrbVerde e BDiA usam atualmente o mesmo destino nos dois botões. O PANORAMA usa `/` e `/home`, mas essa diferença superficial não comprova separação entre página institucional e aplicação de dados.
+HidroWeb, BIEN, Global Carbon Atlas, Copernicus Data Space Ecosystem, ILTER, ORNL DAAC e Project COSMOS.
 
-As 28 fontes são internamente coerentes com ressalvas, mas não estão prontas para migração. A decisão permanece manter o CSV 0.7.0 até confronto com documentação oficial atual, URL de evidência, data e revisor.
+Riscos: qualidade de séries de estações, generalização entre datasets e sítios, API de metadados versus arquivos, ferramentas versus protocolos, processamento, autenticação, DOI, licença e base integral versus interface pública.
 
-## Controle dos lotes
+O Project COSMOS é bibliométrico e não fornece medições ambientais diretas. Sua permanência exige decisão futura de escopo; a auditoria interna não autoriza exclusão automática.
 
-`migration/br_batch_registry.json` controla ordem, contratos e matrizes. `scripts/validate_br_batches.py` verifica:
+As 35 fontes permanecem internamente coerentes com ressalvas e com decisão `manter_csv_atual` até revisão oficial com evidência, data e revisor.
 
-- sete fontes por lote;
-- IDs exclusivos entre lotes;
-- correspondência com CSV, DATA1-B e DATA1-BX;
-- estado `revisão_manual` na DATA1-B;
-- confiança `desconhecida` na DATA1-BX;
-- URLs existentes idênticas ao CSV;
-- bloqueio de evidência, revisor, data e correções enquanto não houver revisão externa.
+## Controles técnicos
 
-A projeção DATA1-BX reduz risco de perda, mas não aumenta confiança.
+`migration/br_batch_registry.json` controla ordem, contratos e matrizes.
 
-## Papéis dos links
+`scripts/validate_br_batches.py` valida sete fontes por lote, IDs exclusivos, correspondência com CSV, DATA1-B e DATA1-BX, URLs existentes e bloqueios de evidência.
 
-A regra operacional é:
+`scripts/validate_br_completion.py` confirma que BR1–BR5 cobrem exatamente os 35 IDs `revisão_manual` e que os 16 registros prontos permanecem fora dos lotes.
 
-- **Site oficial** (`homepage_url`): página institucional principal, página “Sobre” ou página oficial do órgão responsável;
-- **Acessar dados** (`data_access_url`): catálogo, busca, visualizador, formulário de solicitação ou página de download;
-- **Documentação de acesso** (`access_documentation_url`): instruções técnicas de API, protocolos ou credenciais.
+`scripts/audit_link_roles.py` controla a distinção entre página institucional, acesso aos dados e documentação técnica. Igualdade ou diferença superficial entre URLs não autoriza correção automática.
 
-`scripts/audit_link_roles.py` gera `data/link_role_audit.json`, identifica URLs iguais e incorpora o total aos indicadores públicos de qualidade. URLs iguais permanecem pendentes até inspeção oficial; nenhuma substituição será inferida.
+## Resolução e conteúdo didático
 
-A diferença entre dois caminhos também não comprova papéis distintos. A revisão precisa demonstrar a função de cada destino no nível da fonte e do produto.
-
-## Qualidade e apresentação
-
-O build produz indicadores de documentação oficial, evidência revisada por pares, incerteza de acesso, licença variável, papéis dos links e placeholders por campo. Esses indicadores descrevem a qualidade do catálogo; não certificam todos os produtos de cada plataforma.
-
-## Resolução e página didática
-
-### RES1
-
-Registrar resolução no nível de produto, distinguindo célula raster, escala cartográfica, precisão de coordenadas, resolução temporal e limite de zoom. Não inferir resolução a partir do visualizador.
-
-### EDU1
-
-Criar página separada para explicar fenômenos, formas de medição, tipos de dados, limitações e fontes relacionadas.
-
-RES1 e EDU1 permanecem não bloqueantes para v1.0.0 e DOI, salvo quando revelarem erro factual no catálogo.
-
-## Checkpoints de reordenação
-
-Reavaliar a ordem após:
-
-1. BR1–BR4 — auditorias internas concluídas; revisões externas bloqueadas;
-2. BR5;
-3. migração 0.8.0;
-4. primeiros lotes DATA2;
-5. testes funcionais da interface.
+RES1 e EDU1 permanecem P3 e não bloqueantes. RES1 deve distinguir célula raster, escala cartográfica, precisão, suporte espacial, resolução temporal e zoom. EDU1 deve explicar fenômenos, medição, tipos de dados e limitações.
 
 ## Próxima execução
 
-1. executar revisão externa de BR1–BR4 quando houver acesso atual à documentação oficial;
-2. enquanto esse acesso não estiver disponível, registrar BR5 com os sete casos manuais restantes;
-3. incluir a separação entre `homepage_url` e `data_access_url` na revisão de cada fonte;
-4. não alterar confiança, evidência, data ou CSV com base em inferência;
-5. manter os 18 candidatos fora do CSV;
-6. preservar CSV 51 × 34, versão 0.7.0, esquema 0.8.0 não aplicado e DOI bloqueado.
+1. consolidar BR1–BR5 em uma fila única de revisão externa;
+2. ordenar as fontes por risco, impacto e documentação necessária;
+3. executar a revisão factual quando houver acesso oficial atual;
+4. não iniciar DATA1-C enquanto decisões críticas estiverem bloqueadas;
+5. preservar CSV 51 × 34, versão 0.7.0, candidatos externos e DOI bloqueado.
 
-Consulte `migration/br_batch_registry.json`, os contratos e matrizes BR1–BR4, `migration/data1bx_contract.json`, `migration/data1bx_migration_matrix.csv`, `METHODOLOGY.md`, `CODEBOOK.md`, `QUALITY_CORRECTION_WORKFLOW.md`, `SELECTION_AND_COVERAGE_POLICY.md` e `FINAL_OBJECTIVES_AND_DOI_GATES.md`.
+Consulte os contratos e matrizes BR1–BR5, `migration/data1bx_migration_matrix.csv`, `METHODOLOGY.md`, `CODEBOOK.md`, `QUALITY_CORRECTION_WORKFLOW.md` e `FINAL_OBJECTIVES_AND_DOI_GATES.md`.
