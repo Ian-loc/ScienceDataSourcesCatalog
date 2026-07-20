@@ -8,11 +8,11 @@ CI verde comprova estrutura e coerência interna. Não comprova atualidade, aces
 
 ## Limitações
 
-- revisão factual depende de documentação oficial atual;
+- revisão externa bloqueada enquanto não houver documentação oficial atual;
 - acesso web de pesquisa não está disponível neste ambiente;
 - auditoria interna não eleva confiança nem autoriza correções no CSV;
 - URLs iguais em `homepage_url` e `data_access_url` permanecem pendentes;
-- as 18 fontes candidatas permanecem fora do catálogo;
+- novas fontes permanecem fora do CSV até a estabilização das 51 atuais;
 - versão 1.0.0 e DOI continuam bloqueados.
 
 ## Backlog
@@ -21,8 +21,10 @@ CI verde comprova estrutura e coerência interna. Não comprova atualidade, aces
 |---|---|---|
 | DATA1-A | concluído | esquema 0.8.0 documentado |
 | DATA1-B | concluído | 51 linhas classificadas |
+| QC0 | concluído | 14 regras semânticas alinhadas |
+| SELECT1 | concluído | inclusão, exclusão, duplicidade e lacunas documentadas |
 | DATA1-BX | projeção concluída | 51 × 5 dimensões; confiança desconhecida |
-| DATA1-BR/BR1–BR5 | auditoria interna concluída | 35 casos manuais cobertos sem sobreposição |
+| DATA1-BR | auditoria interna concluída | BR1–BR5 cobrem os 35 casos manuais |
 | DATA1-BR-CLOSE | próximo checkpoint | fila única de revisão externa |
 | DATA1-C | bloqueado | decisões e evidências revisadas |
 | DATA1-D | planejado | 14 regras no CSV 0.8.0 |
@@ -94,7 +96,7 @@ As 35 fontes permanecem internamente coerentes com ressalvas e com decisão `man
 
 ## Resolução e conteúdo didático
 
-RES1 deve distinguir célula raster, escala cartográfica, precisão, suporte espacial, resolução temporal e zoom. EDU1 deve explicar fenômenos, medição, tipos de dados e limitações. Ambos permanecem P3 e não bloqueantes, salvo quando revelarem erro factual.
+RES1 e EDU1 permanecem P3 e não bloqueantes. RES1 deve distinguir célula raster, escala cartográfica, precisão, suporte espacial, resolução temporal e zoom. EDU1 deve explicar fenômenos, medição, tipos de dados e limitações.
 
 ## Próxima execução
 
