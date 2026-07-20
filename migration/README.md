@@ -7,7 +7,7 @@ A migração do esquema 0.7.0 para 0.8.0 é preparada sem substituir o CSV canô
 - `data1b_migration_matrix.csv`: tipo funcional, escala, formatos, protocolos, ferramentas e situação institucional;
 - `data1bx_migration_matrix.csv`: produtos, visualizações, fontes dos dados, resolução temporal e condições de acesso;
 - `br_batch_registry.json`: ordem e estado dos lotes de revisão manual;
-- `br1_review_matrix.csv`, `br2_review_matrix.csv` e `br3_review_matrix.csv`: auditorias internas aprofundadas.
+- `br1_review_matrix.csv`, `br2_review_matrix.csv`, `br3_review_matrix.csv` e `br4_review_matrix.csv`: auditorias internas aprofundadas.
 
 Todas as matrizes permanecem ligadas por `resource_id`. O arquivo `data/data_resources.csv` continua canônico e a versão 0.7.0 permanece protegida até DATA1-C.
 
@@ -62,6 +62,12 @@ Copernicus Climate Data Store, WorldClim, NEON, PANGAEA, Climate Data Guide, Ame
 
 Riscos dominantes: versão e coleção, mistura de observações, reanálises, modelos e produtos derivados, período climatológico e cenário, dados provisórios ou reprocessados, licença por dataset ou sítio, área de influência das torres e sobreposição entre AmeriFlux e FLUXNET.
 
+### BR4 — sistemas territoriais e climáticos brasileiros
+
+Clima Gerais, IDE-SISEMA, AdaptaBrasil, SIRENE, PANORAMA/CENSIPAM, UrbVerde e BDiA.
+
+Riscos dominantes: indicadores compostos confundidos com observações, atualização não demonstrada por produto, camada ou módulo, resolução visual confundida com escala cartográfica, formatos e serviços generalizados, dashboard tratado como download e ausência de separação comprovada entre página institucional e acesso efetivo aos dados.
+
 ## Papéis dos links
 
 Os cards usam dois destinos distintos:
@@ -69,13 +75,15 @@ Os cards usam dois destinos distintos:
 - `homepage_url`: página institucional principal, página “Sobre” ou página oficial do órgão responsável;
 - `data_access_url`: catálogo, busca, visualizador, formulário de solicitação ou página de download.
 
+`homepage_and_data_access_role` é dimensão obrigatória do BR4. Três casos do lote usam atualmente o mesmo destino e permanecem pendentes: SIRENE, UrbVerde e BDiA. O PANORAMA usa `/` e `/home`, mas a auditoria interna não considera essa diferença de caminho prova suficiente de que exista separação institucional e operacional.
+
 `scripts/audit_link_roles.py` gera `data/link_role_audit.json` e contabiliza:
 
 - destinos separados;
 - URLs iguais pendentes de revisão;
 - casos em que acesso aos dados não se aplica.
 
-A igualdade dos links não autoriza correção automática. O destino correto depende de inspeção oficial atual.
+A igualdade ou a diferença superficial entre links não autoriza correção automática. O destino correto depende de inspeção oficial atual.
 
 ## Interpretação da auditoria interna
 
@@ -103,8 +111,8 @@ O validador dos lotes confere registro, contratos, matrizes, ordem, exclusividad
 - versão formal: 0.7.0;
 - esquema 0.8.0: proposta não aplicada;
 - DATA1-BX: projeção concluída, confiança externa desconhecida;
-- BR1, BR2 e BR3: auditorias internas concluídas; revisões factuais externas bloqueadas;
-- 21 dos 35 casos manuais distribuídos em lotes;
-- 14 casos manuais restantes para BR4 e BR5;
+- BR1–BR4: auditorias internas concluídas; revisões factuais externas bloqueadas;
+- 28 dos 35 casos manuais distribuídos em lotes;
+- 7 casos manuais restantes para BR5;
 - candidatos: fora do CSV;
 - DOI: bloqueado.

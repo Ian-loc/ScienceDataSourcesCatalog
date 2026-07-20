@@ -33,7 +33,8 @@ CI verde comprova estrutura e coerência interna. Não comprova, sozinho, que um
 | DATA1-BR/BR1 | Plataformas e monitoramento de alto impacto | auditoria interna concluída; revisão externa bloqueada | sete fontes; contrato e matriz validados |
 | DATA1-BR/BR2 | Biodiversidade, ciência cidadã e redes | auditoria interna concluída; revisão externa bloqueada | sete fontes; contrato e matriz validados |
 | DATA1-BR/BR3 | Clima, repositórios e redes de fluxos | auditoria interna concluída; revisão externa bloqueada | sete fontes; contrato e matriz integrados ao registro comum |
-| DATA1-BR/BR4–BR5 | Revisar 14 casos restantes | planejado | dois lotes de sete com os mesmos controles de evidência |
+| DATA1-BR/BR4 | Sistemas territoriais e climáticos brasileiros | auditoria interna concluída; revisão externa bloqueada | sete fontes; papéis dos links incluídos como dimensão obrigatória |
+| DATA1-BR/BR5 | Revisar 7 casos restantes | planejado | lote final com os mesmos controles de evidência e URLs |
 | DATA1-C | Migração atômica para 38 campos | bloqueado | decisões DATA1-B e DATA1-BX revisadas |
 | DATA1-D | Validação semântica do esquema final | planejado | 14 regras ativas no CSV 0.8.0 |
 | DATA2 | Revisar as 51 fontes no esquema final | planejado | links, acesso, formatos, licença, evidência e data revisados |
@@ -53,10 +54,10 @@ CI verde comprova estrutura e coerência interna. Não comprova, sozinho, que um
 - **Fila de candidatos:** 18 registros separados do CSV;
 - **DATA1-B:** 16 registros prontos e 35 em revisão manual;
 - **DATA1-BX:** cinco dimensões carregadas para 51 fontes, com confiança `desconhecida`;
-- **Lotes ativos:** BR1, BR2 e BR3, totalizando 21 fontes sem sobreposição;
-- **Casos manuais ainda não distribuídos:** 14;
-- **Revisões externas BR1–BR3:** bloqueadas enquanto não houver documentação oficial atual acessível;
-- **Papéis dos links:** regra documentada e auditoria automática integrada ao build;
+- **Lotes ativos:** BR1–BR4, totalizando 28 fontes sem sobreposição;
+- **Casos manuais ainda não distribuídos:** 7;
+- **Revisões externas BR1–BR4:** bloqueadas enquanto não houver documentação oficial atual acessível;
+- **Papéis dos links:** regra documentada, auditoria automática integrada ao build e dimensão obrigatória no BR4;
 - **Relatório de qualidade:** gerado automaticamente durante o build;
 - **Página inicial:** mostra documentação oficial, evidência revisada por pares, incertezas de acesso/licença e URLs iguais pendentes;
 - **Esquema 0.8.0:** ainda não aplicado;
@@ -90,7 +91,23 @@ Riscos dominantes:
 - duplicação de sítios entre AmeriFlux e coleções FLUXNET;
 - catálogo ou guia confundido com provedor original.
 
-As 21 fontes são internamente coerentes com ressalvas, mas não estão prontas para migração. A decisão permanece manter o CSV 0.7.0 até confronto com documentação oficial atual, URL de evidência, data e revisor.
+## BR4 — achados principais
+
+Fontes: Clima Gerais, IDE-SISEMA, AdaptaBrasil, SIRENE, PANORAMA/CENSIPAM, UrbVerde e BDiA.
+
+Riscos dominantes:
+
+- indicadores compostos confundidos com observações ou medições diretas;
+- datas de atualização atribuídas à plataforma em vez do produto, camada ou módulo;
+- visualizador tratado como prova de download, formato ou protocolo;
+- resolução visual confundida com escala cartográfica, precisão ou suporte espacial;
+- serviços OGC e acesso programático declarados sem documentação técnica associada;
+- licenças e fontes generalizadas entre camadas e levantamentos;
+- homepage, página operacional e acesso aos dados sem papéis demonstrados separadamente.
+
+SIRENE, UrbVerde e BDiA usam atualmente o mesmo destino nos dois botões. O PANORAMA usa `/` e `/home`, mas essa diferença superficial não comprova separação entre página institucional e aplicação de dados.
+
+As 28 fontes são internamente coerentes com ressalvas, mas não estão prontas para migração. A decisão permanece manter o CSV 0.7.0 até confronto com documentação oficial atual, URL de evidência, data e revisor.
 
 ## Controle dos lotes
 
@@ -116,6 +133,8 @@ A regra operacional é:
 
 `scripts/audit_link_roles.py` gera `data/link_role_audit.json`, identifica URLs iguais e incorpora o total aos indicadores públicos de qualidade. URLs iguais permanecem pendentes até inspeção oficial; nenhuma substituição será inferida.
 
+A diferença entre dois caminhos também não comprova papéis distintos. A revisão precisa demonstrar a função de cada destino no nível da fonte e do produto.
+
 ## Qualidade e apresentação
 
 O build produz indicadores de documentação oficial, evidência revisada por pares, incerteza de acesso, licença variável, papéis dos links e placeholders por campo. Esses indicadores descrevem a qualidade do catálogo; não certificam todos os produtos de cada plataforma.
@@ -136,19 +155,19 @@ RES1 e EDU1 permanecem não bloqueantes para v1.0.0 e DOI, salvo quando revelare
 
 Reavaliar a ordem após:
 
-1. BR1–BR3 — auditorias internas concluídas; revisões externas bloqueadas;
-2. cada lote BR4–BR5;
+1. BR1–BR4 — auditorias internas concluídas; revisões externas bloqueadas;
+2. BR5;
 3. migração 0.8.0;
 4. primeiros lotes DATA2;
 5. testes funcionais da interface.
 
 ## Próxima execução
 
-1. executar revisão externa de BR1–BR3 quando houver acesso atual à documentação oficial;
-2. enquanto esse acesso não estiver disponível, selecionar BR4 entre os 14 casos manuais restantes;
-3. incluir a separação entre `homepage_url` e `data_access_url` na revisão factual de cada fonte;
+1. executar revisão externa de BR1–BR4 quando houver acesso atual à documentação oficial;
+2. enquanto esse acesso não estiver disponível, registrar BR5 com os sete casos manuais restantes;
+3. incluir a separação entre `homepage_url` e `data_access_url` na revisão de cada fonte;
 4. não alterar confiança, evidência, data ou CSV com base em inferência;
 5. manter os 18 candidatos fora do CSV;
 6. preservar CSV 51 × 34, versão 0.7.0, esquema 0.8.0 não aplicado e DOI bloqueado.
 
-Consulte `migration/br_batch_registry.json`, os contratos e matrizes BR1–BR3, `migration/data1bx_contract.json`, `migration/data1bx_migration_matrix.csv`, `METHODOLOGY.md`, `CODEBOOK.md`, `QUALITY_CORRECTION_WORKFLOW.md`, `SELECTION_AND_COVERAGE_POLICY.md` e `FINAL_OBJECTIVES_AND_DOI_GATES.md`.
+Consulte `migration/br_batch_registry.json`, os contratos e matrizes BR1–BR4, `migration/data1bx_contract.json`, `migration/data1bx_migration_matrix.csv`, `METHODOLOGY.md`, `CODEBOOK.md`, `QUALITY_CORRECTION_WORKFLOW.md`, `SELECTION_AND_COVERAGE_POLICY.md` e `FINAL_OBJECTIVES_AND_DOI_GATES.md`.
