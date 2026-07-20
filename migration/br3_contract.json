@@ -1,0 +1,77 @@
+{
+  "contract_version": "1.0.0",
+  "phase": "DATA1-BR",
+  "batch": "BR3",
+  "status": "internal_audit_complete_external_review_blocked",
+  "canonical_csv": "data/data_resources.csv",
+  "data1b_matrix": "migration/data1b_migration_matrix.csv",
+  "data1bx_matrix": "migration/data1bx_migration_matrix.csv",
+  "review_matrix": "migration/br3_review_matrix.csv",
+  "expected_records": 7,
+  "expected_resource_ids": [
+    "DR0021",
+    "DR0022",
+    "DR0029",
+    "DR0032",
+    "DR0035",
+    "DR0042",
+    "DR0043"
+  ],
+  "selection_principles": [
+    "high_scientific_use_in_climate_ecology_and_flux_research",
+    "high_version_collection_or_processing_risk",
+    "dataset_or_site_level_access_and_license_variation",
+    "manual_review_required_in_data1b",
+    "field_level_uncertainty_preserved_in_data1bx"
+  ],
+  "impact_levels": ["alta", "muito_alta"],
+  "scientific_risk_levels": ["alto", "muito_alto"],
+  "risk_flags": [
+    "variable_by_dataset",
+    "version_and_collection_scope",
+    "observation_vs_derived_product",
+    "reanalysis_model_observation_mix",
+    "temporal_baseline_and_scenario",
+    "provisional_or_reprocessed_data",
+    "site_overlap_across_networks",
+    "dataset_level_license",
+    "latency_and_revision",
+    "provider_vs_catalog",
+    "protocol_normalization",
+    "spatial_resolution_semantics",
+    "footprint_and_site_scope",
+    "doi_and_version_attribution"
+  ],
+  "review_dimensions": [
+    "identity_and_role",
+    "dataset_collection_and_version",
+    "access_and_authentication",
+    "formats_and_protocols",
+    "temporal_baseline_and_resolution",
+    "spatial_resolution_and_support",
+    "source_attribution",
+    "license_and_citation",
+    "processing_quality_and_revision",
+    "overlap_and_relationships"
+  ],
+  "internal_consistency_values": ["coerente_com_ressalvas", "inconsistência_detectada"],
+  "external_review_status_values": [
+    "bloqueada_sem_web",
+    "pronta_para_revisão_externa",
+    "revisão_externa_em_andamento",
+    "revisada_com_evidência_oficial"
+  ],
+  "decision_values": ["manter_csv_atual", "correção_necessária", "manter_confirmado"],
+  "rules": [
+    "exactly_seven_records_in_fixed_order",
+    "all_records_must_exist_in_canonical_csv",
+    "all_records_must_be_manual_review_in_data1b",
+    "all_records_must_preserve_unknown_field_confidence_in_data1bx_until_external_review",
+    "existing_evidence_urls_must_match_canonical_csv",
+    "blocked_external_review_forbids_evidence_reviewer_and_date",
+    "blocked_external_review_requires_hold_current_csv",
+    "no_canonical_csv_changes_without_current_official_evidence",
+    "selection_does_not_equal_validation"
+  ],
+  "automatic_csv_changes_allowed": false
+}
