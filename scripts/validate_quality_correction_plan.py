@@ -41,7 +41,8 @@ EXPECTED_RULES = {
 }
 REQUIRED_CYCLES = [
     "QC0", "SELECT1", "DATA1-BX", "DATA1-BR", "DATA1-BR-CLOSE", "STATE-SYNC",
-    "DATA1-EXT", "DATA1-C", "DATA1-D", "DATA2", "UX5", "RELEASE2", "DOI", "RES1", "EDU1",
+    "MIRROR-XLSX", "DATA1-EXT", "DATA1-C", "DATA1-D", "DATA2", "UX5", "RELEASE2",
+    "DOI", "RES1", "EDU1",
 ]
 
 
@@ -100,12 +101,14 @@ for token in (
 implementation_folded = implementation.casefold()
 for token in (
     "| data1-br-close | concluído |",
-    "| state-sync | implementado_pendente_integracao |",
+    "| state-sync | concluído |",
+    "| mirror-xlsx | bloqueado por upload |",
     "| data1-ext | ativo |",
     "w1a",
     "w1b",
     "w1c",
     "drive_mirror_contract.md",
+    "proxy `407`",
 ):
     if token.casefold() not in implementation_folded:
         fail(f"IMPLEMENTATION_WORKFLOW.md sem estado crítico: {token}")
@@ -115,9 +118,11 @@ for token in (
     "revisão externa bloqueada",
     "novas fontes permanecem fora do csv",
     "| data1-br-close | concluído |",
-    "| state-sync | implementado_pendente_integracao |",
+    "| state-sync | concluído |",
+    "| mirror-xlsx | bloqueado por upload |",
     "| data1-ext | ativo |",
-    "51 × 22",
+    "planilha nativa: **51 × 34**",
+    "`.xlsx`: **51 × 22**",
     "res1 e edu1",
 ):
     if token.casefold() not in status_folded:
@@ -129,10 +134,10 @@ for token in (
     "única fonte canônica",
     "source_commit",
     "generated_at",
-    "51 recursos e 34 campos",
-    "51 recursos e 22 campos",
+    "planilha nativa: aba `data_resources` verificada com 51 recursos e os 34 campos canônicos",
+    "arquivo `.xlsx`: download bruto verificado com 51 recursos e 22 campos históricos",
+    "proxy `407`",
     "igualdade célula a célula",
-    "regeneração completa",
     "project_changelog",
 ):
     if token.casefold() not in mirror:
@@ -164,6 +169,6 @@ if readiness.get("doi_allowed") is not False:
     fail("DOI deve permanecer bloqueado")
 
 print(
-    "OK: STATE-SYNC implementado; DATA1-BR-CLOSE concluído e DATA1-EXT ativo; "
-    "contrato de espelhamento presente, 14 regras alinhadas, CSV 51 × 34 e versão 0.7.0 preservados"
+    "OK: STATE-SYNC concluído; planilha nativa 51 × 34 e XLSX 51 × 22 registrados separadamente; "
+    "MIRROR-XLSX bloqueado por upload, DATA1-EXT ativo, CSV 51 × 34 e versão 0.7.0 preservados"
 )
