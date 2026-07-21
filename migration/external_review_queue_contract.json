@@ -1,9 +1,10 @@
 {
-  "contract_version": "2.0.0",
-  "phase": "DATA1-BR-CLOSE",
-  "status": "implemented_pending_integration",
+  "contract_version": "2.1.0",
+  "phase": "DATA1-EXT",
+  "status": "active_g0_resolved",
   "queue": "migration/external_review_queue.csv",
   "evidence_table": "migration/external_review_evidence.csv",
+  "scope_decision_document": "G0_COSMOS_SCOPE_DECISION.md",
   "batch_registry": "migration/br_batch_registry.json",
   "link_role_audit": "data/link_role_audit.json",
   "canonical_csv": "data/data_resources.csv",
@@ -26,11 +27,20 @@
   "expected_tier_counts": {"P0": 23, "P1": 9, "P2": 3, "P3": 0},
   "expected_wave_counts": {"G0": 1, "W1": 7, "W2": 9, "W3": 7, "W4": 8, "W5": 3},
   "scope_decision_required_ids": ["DR0051"],
+  "resolved_scope_decisions": {
+    "DR0051": {
+      "queue_status": "escopo_resolvido",
+      "decision": "manter_confirmado",
+      "destination": "catalogo_principal",
+      "role": "infraestrutura_bibliometrica",
+      "canonical_csv_change_allowed": false
+    }
+  },
   "role_review_flags": ["homepage_vs_data_access", "institutional_vs_operational_page"],
   "wave_order": ["G0", "W1", "W2", "W3", "W4", "W5"],
   "sort_order_within_wave": ["access_documentation_absent_first", "source_batch_asc", "batch_rank_asc", "resource_id_asc"],
   "review_track_values": ["scope_decision", "external_evidence"],
-  "queue_status_values": ["aguardando_decisão_de_escopo", "aguardando_evidência_oficial", "em_revisão", "revisada"],
+  "queue_status_values": ["aguardando_decisão_de_escopo", "escopo_resolvido", "aguardando_evidência_oficial", "em_revisão", "revisada"],
   "decision_values": ["manter_csv_atual", "manter_confirmado", "correção_necessária", "exclusão_a_avaliar"],
   "rules": [
     "queue_covers_exactly_all_35_manual_review_records",
@@ -40,6 +50,8 @@
     "same_destination_status_comes_from_link_role_audit",
     "role_review_status_requires_an_explicit_role_review_flag",
     "scope_decision_is_a_separate_gate_and_does_not_add_priority_points",
+    "resolved_scope_decision_requires_versioned_decision_document",
+    "scope_decision_does_not_require_claim_level_evidence_to_change_canonical_values",
     "evidence_is_stored_in_a_long_form_separate_table",
     "canonical_csv_changes_remain_forbidden_without_current_official_evidence"
   ]
