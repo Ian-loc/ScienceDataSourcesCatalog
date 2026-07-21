@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Valida a fila DATA1-BR-CLOSE sem usar contagens incomparáveis entre lotes."""
+"""Valida a fila DATA1-EXT, incluindo o portão de escopo G0."""
 from __future__ import annotations
 
 import csv
@@ -60,8 +60,26 @@ def execution_wave(tier: str, link_status: str, access_status: str, scope: bool)
 
 def main() -> None:
     contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
-    if contract.get("phase") != "DATA1-BR-CLOSE" or contract.get("expected_records") != 35:
-        fail("contrato DATA1-BR-CLOSE inválido")
+    if contract.get("phase") != "DATA1-EXT" or contract.get("expected_records") != 35:
+        fail("contrato DATA1-EXT inválido")
+    if contract.get("status") != "active_g0_resolved":
+        fail("contrato deve registrar G0 resolvido e DATA1-EXT ativo")
+
+    scope_path_value = contract.get("scope_decision_document", "")
+    scope_path = ROOT / scope_path_value
+    if not scope_path_value or not scope_path.exists():
+        fail("documento versionado da decisão G0 ausente")
+    scope_text = scope_path.read_text(encoding="utf-8").casefold()
+    for token in (
+        "project cosmos",
+        "manter no catálogo principal",
+        "infraestrutura bibliométrica",
+        "não é fonte direta de medições ambientais",
+        "base integral não é aberta",
+        "próximo ciclo científico: w1a",
+    ):
+        if token.casefold() not in scope_text:
+            fail(f"decisão G0 sem requisito: {token}")
 
     registry = json.loads((ROOT / contract["batch_registry"]).read_text(encoding="utf-8"))
     active = registry.get("active_batches", [])
@@ -93,6 +111,9 @@ def main() -> None:
     }
     role_flags = set(contract["role_review_flags"])
     scope_ids = set(contract["scope_decision_required_ids"])
+    resolved_scope = contract.get("resolved_scope_decisions", {})
+    if set(resolved_scope) != scope_ids:
+        fail("decisões G0 resolvidas devem corresponder exatamente aos IDs de escopo")
     wave_order = {wave: index for index, wave in enumerate(contract["wave_order"])}
 
     evidence_header, evidence_rows = read_csv(ROOT / contract["evidence_table"])
@@ -163,12 +184,30 @@ def main() -> None:
         evidence_count = evidence_counts.get(row["resource_id"], 0)
         if row["evidence_record_count"] != str(evidence_count):
             fail(f"linha {rank + 1}: evidence_record_count divergente")
-        if row["queue_status"].startswith("aguardando_") and evidence_count != 0:
-            fail(f"linha {rank + 1}: status de espera não aceita evidência registrada")
-        if row["queue_status"] in {"em_revisão", "revisada"} and evidence_count == 0:
-            fail(f"linha {rank + 1}: revisão exige evidência")
-        if row["review_track"] == "scope_decision" and "escopo" not in row["decision_notes"].casefold() and "elegibilidade" not in row["decision_notes"].casefold():
-            fail(f"linha {rank + 1}: portão de escopo sem justificativa")
+
+        if row["review_track"] == "scope_decision":
+            scope_contract = resolved_scope.get(row["resource_id"], {})
+            if row["queue_status"] != scope_contract.get("queue_status"):
+                fail(f"linha {rank + 1}: status diverge da decisão G0")
+            if row["decision"] != scope_contract.get("decision"):
+                fail(f"linha {rank + 1}: decisão diverge do contrato G0")
+            if scope_contract.get("destination") != "catalogo_principal":
+                fail(f"linha {rank + 1}: destino G0 não confirmado")
+            if scope_contract.get("role") != "infraestrutura_bibliometrica":
+                fail(f"linha {rank + 1}: papel bibliométrico ausente")
+            if scope_contract.get("canonical_csv_change_allowed") is not False:
+                fail(f"linha {rank + 1}: G0 não pode autorizar alteração canônica")
+            if evidence_count != 0:
+                fail(f"linha {rank + 1}: G0 não deve simular evidência factual nova")
+            if "escopo" not in row["decision_notes"].casefold() and "elegibilidade" not in row["decision_notes"].casefold():
+                fail(f"linha {rank + 1}: portão de escopo sem justificativa")
+        else:
+            if row["queue_status"] == "escopo_resolvido":
+                fail(f"linha {rank + 1}: status de escopo usado fora de G0")
+            if row["queue_status"].startswith("aguardando_") and evidence_count != 0:
+                fail(f"linha {rank + 1}: status de espera não aceita evidência registrada")
+            if row["queue_status"] in {"em_revisão", "revisada"} and evidence_count == 0:
+                fail(f"linha {rank + 1}: revisão exige evidência")
 
     tier_counts = Counter(row["scientific_priority_tier"] for row in queue_rows)
     for tier in ("P0", "P1", "P2", "P3"):
@@ -181,11 +220,11 @@ def main() -> None:
 
     canonical_header, canonical_rows = read_csv(ROOT / contract["canonical_csv"])
     if len(canonical_header) != 34 or len(canonical_rows) != 51:
-        fail("DATA1-BR-CLOSE não pode alterar o CSV canônico 51 × 34")
+        fail("G0 não pode alterar o CSV canônico 51 × 34")
 
     print(
-        "OK: DATA1-BR-CLOSE validado — prioridade científica separada da onda operacional; "
-        "G0=1, W1=7, W2=9, W3=7, W4=8, W5=3; evidência longa vinculada; CSV preservado"
+        "OK: DATA1-EXT validado — G0 resolvido para COSMOS como infraestrutura bibliométrica; "
+        "W1–W5 preservadas, evidência longa vinculada e CSV 51 × 34 inalterado"
     )
 
 
