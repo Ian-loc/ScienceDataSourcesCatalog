@@ -13,9 +13,9 @@ O catálogo é uma camada de descoberta e triagem. Não hospeda os datasets exte
 
 ## Fonte única
 
-`data/data_resources.csv` é a única fonte canônica. O JSON do site é gerado no workflow. O Google Drive mantém somente changelog executivo e histórico.
+`data/data_resources.csv` é a única fonte canônica. O JSON do site é gerado no workflow. A planilha nativa e o `.xlsx` do Google Drive são espelhos derivados e históricos; não constituem uma segunda fonte de edição ou publicação. O `project_changelog` do Drive mantém o registro executivo.
 
-A versão 0.7.0 reúne 51 fontes e 34 campos. A proposta 0.8.0 acrescenta quatro campos, mas ainda não foi aplicada.
+A versão 0.7.0 reúne 51 fontes e 34 campos. A proposta 0.8.0 acrescenta quatro campos, mas ainda não foi aplicada. Os espelhos históricos de 22 campos não devem ser usados para avaliar a completude da versão atual.
 
 ## Estado da curadoria
 
@@ -34,13 +34,15 @@ A versão 0.7.0 reúne 51 fontes e 34 campos. A proposta 0.8.0 acrescenta quatro
 3. atualize fila, proposta e decisão;
 4. altere o CSV somente em ciclo autorizado e revisado;
 5. execute a suíte de validação;
-6. abra pull request, confirme CI e registre o merge no Drive.
+6. abra pull request, confirme CI e registre o merge no Drive;
+7. regenere os espelhos somente a partir de um commit validado de `main`.
 
 ## Documentação
 
 - [Estado atual](WORKFLOW_STATUS.md)
 - [Workflow de implementação](IMPLEMENTATION_WORKFLOW.md)
 - [Workflow de qualidade](QUALITY_CORRECTION_WORKFLOW.md)
+- [Contrato de espelhamento do Drive](DRIVE_MIRROR_CONTRACT.md)
 - [Auditoria de consistência documental](DOCUMENTATION_CONSISTENCY_AUDIT.md)
 - [Metodologia](METHODOLOGY.md)
 - [Codebook](CODEBOOK.md)
