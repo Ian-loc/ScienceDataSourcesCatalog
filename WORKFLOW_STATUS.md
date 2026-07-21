@@ -11,6 +11,7 @@ Uma tarefa só é concluída após branch, pull request, integração à `main`,
 - URLs iguais entre homepage e acesso permanecem pendentes;
 - novas fontes permanecem fora do CSV;
 - planilha nativa e `.xlsx` são espelhos derivados e não substituem o CSV canônico;
+- o `.xlsx` ainda não está sincronizado com os 34 campos canônicos;
 - v1.0.0 e DOI permanecem bloqueados.
 
 ## Backlog
@@ -22,7 +23,8 @@ Uma tarefa só é concluída após branch, pull request, integração à `main`,
 | DATA1-BX | projeção concluída | 51 × 5 dimensões; confiança desconhecida |
 | DATA1-BR | auditoria interna concluída | BR1–BR5 cobrem 35 casos |
 | DATA1-BR-CLOSE | concluído | fila corrigida, evidência longa, documentação e validação integradas |
-| STATE-SYNC | implementado_pendente_integracao | estados documentais corrigidos e contrato de espelhamento criado |
+| STATE-SYNC | concluído | estados documentais corrigidos, contrato criado e estado real dos espelhos verificado |
+| MIRROR-XLSX | bloqueado por upload | substituir 51 × 22 por export 51 × 34 e verificar igualdade |
 | DATA1-EXT | ativo | portão G0 e revisão por ondas W1A–W1C, W2–W5 |
 | DATA1-C | bloqueado | decisões e evidências resolvidas |
 | DATA1-D | planejado | 14 regras no CSV 0.8.0 |
@@ -46,21 +48,21 @@ Uma tarefa só é concluída após branch, pull request, integração à `main`,
 - evidências externas registradas: **0**;
 - candidatos: **18 fora do CSV**;
 - esquema 0.8.0 não aplicado; expansão e DOI bloqueados;
-- espelho nativo e `.xlsx`: **51 × 22**, históricos e incompletos em relação ao CSV atual.
+- planilha nativa: **51 × 34**, cabeçalhos canônicos verificados;
+- `.xlsx`: **51 × 22**, download bruto verificado; substituição falhou duas vezes por proxy `407`.
 
 ## STATE-SYNC
 
-A inspeção de 2026-07-21 confirmou que `IMPLEMENTATION_WORKFLOW.md` e `QUALITY_CORRECTION_WORKFLOW.md` ainda descreviam DATA1-BR-CLOSE como pendente. Também confirmou que os dois arquivos do Drive preservam a estrutura histórica de 22 campos, enquanto o CSV canônico possui 34.
+O ciclo foi integrado pelo PR #32 no commit `f35b2c766043308d9e19751539a2c99972df949b`. O run `29836549232` passou integralmente, incluindo workflow, CSV, esquema, matrizes, DOI e interface. O changelog do Drive registra a integração e uma correção factual posterior.
 
-O ciclo implementa:
+Produtos concluídos:
 
-- correção dos estados secundários;
-- `DRIVE_MIRROR_CONTRACT.md` como regra de autoridade e regeneração;
-- distinção explícita entre changelog atual e tabela de dados defasada no Drive;
-- divisão de W1 em W1A–W1C para PRs menores;
-- validação automática da existência e dos requisitos mínimos do contrato.
-
-O estado permanece `implementado_pendente_integracao` até PR, CI, merge e changelog.
+- DATA1-BR-CLOSE alinhado como concluído e DATA1-EXT como ativo;
+- `DRIVE_MIRROR_CONTRACT.md` integrado;
+- W1 subdividida em W1A–W1C sem alteração de composição;
+- estado real dos dois arquivos do Drive verificado;
+- declaração incorreta de sincronização total corrigida no changelog;
+- pendência do `.xlsx` isolada em MIRROR-XLSX, sem bloquear DATA1-EXT.
 
 ## Fechamento DATA1-BR-CLOSE
 
@@ -75,19 +77,20 @@ Enquanto esta sessão ainda preparava o pull request, outra sessão abriu e inte
 A autoridade e a direção do fluxo são definidas em `DRIVE_MIRROR_CONTRACT.md`.
 
 - GitHub `main` e `data/data_resources.csv` permanecem canônicos;
-- os arquivos do Drive são derivados e não aceitam sincronização bidirecional automática;
+- a planilha nativa corresponde atualmente ao catálogo 0.7.0 de 51 × 34;
+- o `.xlsx` permanece histórico, com 51 × 22;
 - um espelho sincronizado deve declarar versão, esquema, commit-fonte, data e resultado da comparação;
-- o estado 51 × 22 não deve ser usado para avaliar completude do catálogo 0.7.0;
+- MIRROR-XLSX deve ser retomado quando o upload de substituição estiver operacional;
 - a regeneração obrigatória 51 × 38 ocorre após DATA1-C e DATA1-D.
 
 ## Próximos produtos
 
-1. concluir **STATE-SYNC** por PR, CI, merge e changelog;
-2. executar **G0** e produzir parecer de elegibilidade do Project COSMOS e regra geral para recursos bibliométricos;
-3. executar **W1A** para TerraBrasilis e Google Earth Engine Data Catalog;
-4. executar **W1B** para SiBBr, BDiA e HidroWeb;
-5. executar **W1C** para SIRENE e Global Carbon Atlas;
-6. realizar checkpoint científico conjunto pós-W1A–W1C;
+1. executar **G0** e produzir parecer de elegibilidade do Project COSMOS e regra geral para recursos bibliométricos;
+2. executar **W1A** para TerraBrasilis e Google Earth Engine Data Catalog;
+3. executar **W1B** para SiBBr, BDiA e HidroWeb;
+4. executar **W1C** para SIRENE e Global Carbon Atlas;
+5. realizar checkpoint científico conjunto pós-W1A–W1C;
+6. retomar **MIRROR-XLSX** quando o upload de substituição estiver disponível;
 7. produzir prévia 0.8.0 somente depois das decisões críticas, em arquivo não canônico;
 8. preservar CSV 51 × 34, versão 0.7.0, candidatos e DOI bloqueado.
 
