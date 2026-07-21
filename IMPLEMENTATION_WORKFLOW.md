@@ -44,15 +44,35 @@ Melhorar descoberta e comparação, corrigir ambiguidades científicas e prepara
 | 5 | DATA1-BR-CLOSE | concluído | fila, ondas e evidência longa |
 | 6 | STATE-SYNC | concluído | estados, contrato e verificação dos espelhos |
 | 7 | MIRROR-XLSX | bloqueado por upload | substituir 51 × 22 por export 51 × 34 |
-| 8 | DATA1-EXT | ativo | decisão G0 e revisão W1–W5 |
-| 9 | DATA1-C | bloqueado | CSV 0.8.0 com 38 campos |
-| 10 | DATA1-D | planejado | 14 regras ativas no CSV final |
-| 11 | DATA2 | planejado | 51 fontes revisadas no esquema final |
-| 12 | UX5 | parcial | interface e filtros dos 38 campos |
-| 13 | RELEASE2 | bloqueado | v1.0.0 e deploy confirmado |
-| 14 | DOI | bloqueado | G1–G12 e depósito inspecionado |
-| 15 | RES1 | não bloqueante | resolução por produto |
-| 16 | EDU1 | não bloqueante | conteúdo didático referenciado |
+| 8 | DATA1-EXT | ativo | decisão de escopo e revisão factual por ondas |
+| 9 | G0 | implementado_pendente_integracao | decisão de elegibilidade do Project COSMOS |
+| 10 | W1A | bloqueado por G0 | TerraBrasilis e Google Earth Engine Data Catalog |
+| 11 | W1B | planejado | SiBBr, BDiA e HidroWeb |
+| 12 | W1C | planejado | SIRENE e Global Carbon Atlas |
+| 13 | DATA1-C | bloqueado | CSV 0.8.0 com 38 campos |
+| 14 | DATA1-D | planejado | 14 regras ativas no CSV final |
+| 15 | DATA2 | planejado | 51 fontes revisadas no esquema final |
+| 16 | UX5 | parcial | interface e filtros dos 38 campos |
+| 17 | RELEASE2 | bloqueado | v1.0.0 e deploy confirmado |
+| 18 | DOI | bloqueado | G1–G12 e depósito inspecionado |
+| 19 | RES1 | não bloqueante | resolução por produto |
+| 20 | EDU1 | não bloqueante | conteúdo didático referenciado |
+
+## G0 — Project COSMOS
+
+A decisão de escopo está formalizada em `G0_COSMOS_SCOPE_DECISION.md`.
+
+A proposta implementada é:
+
+1. manter Project COSMOS no catálogo principal;
+2. classificá-lo conceitualmente como infraestrutura bibliométrica de pesquisa climática;
+3. impedir que seja descrito como fonte direta de medições ambientais;
+4. manter explícito que a base integral não é aberta;
+5. preservar a linha do CSV 0.7.0 sem alterações;
+6. registrar na fila `escopo_resolvido` e `manter_confirmado`;
+7. manter acesso, licença, atualização e demais atributos sujeitos à revisão factual final.
+
+G0 somente passa a concluído após integração, CI verde e changelog. W1A permanece bloqueado até esse fechamento.
 
 ## STATE-SYNC
 
@@ -64,9 +84,10 @@ Resultados:
 2. `DRIVE_MIRROR_CONTRACT.md` define autoridade, direção do fluxo, metadados, verificação e tratamento de concorrência;
 3. o PR #32 foi integrado no commit `f35b2c766043308d9e19751539a2c99972df949b`;
 4. o run `29836549232` passou integralmente;
-5. a planilha nativa foi verificada com 51 × 34;
-6. o `.xlsx` foi verificado com 51 × 22 e isolado em MIRROR-XLSX;
-7. o changelog recebeu uma linha corretiva após uma declaração concorrente incompleta.
+5. o PR #33 corrigiu o estado concorrente no commit `97c79902b87d510ff5d248a78f19bc8902ca6bc6`;
+6. a planilha nativa foi verificada com 51 × 34;
+7. o `.xlsx` foi verificado com 51 × 22 e isolado em MIRROR-XLSX;
+8. o changelog recebeu uma linha corretiva após uma declaração concorrente incompleta.
 
 ## DATA1-BR-CLOSE
 
@@ -78,13 +99,13 @@ A fila externa não usa quantidade bruta de flags ou dimensões. A prioridade ci
 
 ## DATA1-EXT
 
-1. executar `G0` e decidir a elegibilidade do Project COSMOS;
+1. integrar e fechar `G0`;
 2. revisar `W1A`: TerraBrasilis e Google Earth Engine Data Catalog;
 3. revisar `W1B`: SiBBr, BDiA e HidroWeb;
 4. revisar `W1C`: SIRENE e Global Carbon Atlas;
 5. registrar páginas institucionais, acesso, documentação técnica, licença, método, versão, resolução e limitações em linhas distintas;
 6. atualizar fila e propostas sem escrever automaticamente no CSV;
-7. reavaliar a ordem após G0 e o fechamento conjunto de W1A–W1C.
+7. reavaliar a ordem após o fechamento conjunto de W1A–W1C.
 
 A subdivisão de W1 reduz o tamanho de cada PR sem alterar as sete fontes prioritárias nem a lógica da fila.
 
@@ -121,4 +142,4 @@ RES1 documentará resolução por produto sem inferir valores do zoom. EDU1 ser�
 
 ## Checkpoints
 
-Reavaliar após G0, W1A–W1C, eventual reparo MIRROR-XLSX, migração 0.8.0, regeneração dos espelhos, primeiros lotes DATA2 e testes de interface.
+Reavaliar após fechamento de G0, W1A–W1C, eventual reparo MIRROR-XLSX, migração 0.8.0, regeneração dos espelhos, primeiros lotes DATA2 e testes de interface.
