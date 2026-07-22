@@ -7,6 +7,10 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
+CANONICAL_PRODUCT_NAME = "Science Data Sources Catalog"
+CANONICAL_SITE_URL = "https://ian-loc.github.io/ScienceDataSourcesCatalog/"
+CANONICAL_REPOSITORY_URL = "https://github.com/Ian-loc/ScienceDataSourcesCatalog"
+LEGACY_PUBLIC_TOKENS = ("Ecology Data Catalog", "Ian-loc/ecology-data-catalog", "github.io/ecology-data-catalog")
 
 
 class PageParser(HTMLParser):
@@ -110,6 +114,24 @@ def validate_page(filename: str, required_ids: set[str], require_noscript: bool 
         fail(f"{filename}: requisitos de navegação/metadados ausentes: {', '.join(missing_tokens)}")
 
 
+def validate_public_identity() -> None:
+    public_files = ("README.md", "index.html", "analytics.html", "about.html", "CITATION.cff")
+    contents = {filename: (ROOT / filename).read_text(encoding="utf-8") for filename in public_files}
+
+    for filename, content in contents.items():
+        if CANONICAL_PRODUCT_NAME not in content:
+            fail(f"{filename}: nome canônico do produto ausente")
+        stale = sorted(token for token in LEGACY_PUBLIC_TOKENS if token in content)
+        if stale:
+            fail(f"{filename}: identidade ou URL legada presente: {', '.join(stale)}")
+
+    for filename in ("README.md", "about.html", "CITATION.cff"):
+        if CANONICAL_SITE_URL not in contents[filename]:
+            fail(f"{filename}: URL canônica do site ausente")
+        if CANONICAL_REPOSITORY_URL not in contents[filename]:
+            fail(f"{filename}: URL canônica do repositório ausente")
+
+
 def validate_catalog_fields() -> None:
     app_path = ROOT / "assets" / "app.js"
     content = app_path.read_text(encoding="utf-8")
@@ -199,6 +221,7 @@ validate_page(
         "chart-visualizations",
     },
 )
+validate_public_identity()
 validate_catalog_fields()
 validate_accessibility_css()
 validate_size_budget()
