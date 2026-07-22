@@ -1,5 +1,13 @@
 # Histórico de mudanças
 
+## Não lançado — identidade pública e URL canônica
+
+- consolidado o nome **Science Data Sources Catalog** após a renomeação do repositório;
+- atualizados página inicial, análise, página Sobre, README e metadados de citação;
+- substituídas URLs do repositório e do GitHub Pages que ainda apontavam para `ecology-data-catalog`;
+- adicionada validação automática contra regressões do nome e das URLs públicas;
+- preservados CSV canônico com 51 fontes × 34 campos, versão 0.7.0, workflow W1A e bloqueio do DOI.
+
 ## Não lançado — objetivos finais, prontidão para DOI e DATA1-BR
 
 - definido o produto final como catálogo científico de fontes, com unidade de registro `source`;
