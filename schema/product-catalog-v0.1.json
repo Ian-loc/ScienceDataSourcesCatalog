@@ -1,0 +1,189 @@
+{
+  "schema_version": "product-catalog-v0.1",
+  "status": "pilot",
+  "purpose": "Representar produtos e formas de acesso sem duplicar a unidade fonte do catálogo principal.",
+  "entities": {
+    "source": {
+      "canonical_file": "data/data_resources.csv",
+      "primary_key": "resource_id",
+      "cardinality": "1"
+    },
+    "product": {
+      "canonical_file": "data/data_products.csv",
+      "primary_key": "product_id",
+      "foreign_keys": {
+        "resource_id": "data/data_resources.csv.resource_id"
+      },
+      "cardinality_from_source": "0..N",
+      "fields": [
+        "product_id",
+        "resource_id",
+        "product_name",
+        "product_acronym",
+        "product_family",
+        "product_kind",
+        "product_description",
+        "research_areas",
+        "keywords",
+        "geographic_coverage",
+        "covers_brazil",
+        "spatial_support",
+        "spatial_resolution",
+        "temporal_coverage",
+        "temporal_resolution",
+        "update_frequency",
+        "product_status",
+        "version_or_collection",
+        "enumeration_scope",
+        "product_page_url",
+        "methodology_url",
+        "primary_or_derived",
+        "limitations",
+        "last_verified"
+      ]
+    },
+    "distribution": {
+      "canonical_file": "data/product_distributions.csv",
+      "primary_key": "distribution_id",
+      "foreign_keys": {
+        "product_id": "data/data_products.csv.product_id"
+      },
+      "cardinality_from_product": "1..N",
+      "fields": [
+        "distribution_id",
+        "product_id",
+        "distribution_name",
+        "access_url",
+        "format",
+        "access_protocol",
+        "access_tool",
+        "free_download",
+        "authentication_required",
+        "access_conditions",
+        "license",
+        "provider_attribution_required",
+        "subset_support",
+        "notes",
+        "last_verified"
+      ]
+    },
+    "variable": {
+      "status": "deferred",
+      "proposed_file": "data/product_variables.csv",
+      "purpose": "Adicionar variáveis, unidades, bandas, profundidades e métricas quando isso melhorar a busca sem transformar o catálogo em cópia do dataset."
+    }
+  },
+  "controlled_values": {
+    "product_kind": [
+      "dataset",
+      "dataset_series",
+      "catalog",
+      "federated_catalog",
+      "data_service",
+      "indicator_family",
+      "map_layer_collection",
+      "software_output"
+    ],
+    "enumeration_scope": [
+      "complete",
+      "family_level",
+      "external_index",
+      "representative_sample"
+    ],
+    "product_status": [
+      "ativo",
+      "experimental",
+      "descontinuado",
+      "arquivado",
+      "desconhecido"
+    ],
+    "covers_brazil": [
+      "sim",
+      "parcial",
+      "não",
+      "desconhecido",
+      "não se aplica"
+    ],
+    "primary_or_derived": [
+      "primário",
+      "derivado",
+      "agregador",
+      "serviço",
+      "misto",
+      "desconhecido"
+    ],
+    "free_download": [
+      "sim",
+      "parcial",
+      "não",
+      "desconhecido",
+      "não se aplica"
+    ],
+    "authentication_required": [
+      "sim",
+      "parcial",
+      "não",
+      "desconhecido",
+      "não se aplica"
+    ],
+    "provider_attribution_required": [
+      "sim",
+      "não",
+      "desconhecido"
+    ]
+  },
+  "rules": [
+    "source_is_not_product",
+    "product_is_not_file_format",
+    "distribution_holds_format_protocol_and_access",
+    "product_description_must_describe_scientific_content",
+    "temporal_resolution_is_distinct_from_update_frequency",
+    "spatial_resolution_must_not_be_inferred_from_viewer_zoom",
+    "aggregators_must_preserve_primary_provider",
+    "external_catalogs_must_declare_enumeration_scope_external_index",
+    "product_level_facts_override_source_summaries",
+    "source_summaries_may_be_derived_from_verified_products",
+    "every_distribution_must_reference_an_existing_product",
+    "every_product_must_reference_an_existing_source",
+    "license_is_recorded_at_the_lowest_verified_level",
+    "last_verified_uses_iso_date"
+  ],
+  "search_index": {
+    "recommended_fields": [
+      "source.resource_name",
+      "product.product_name",
+      "product.product_family",
+      "product.product_description",
+      "product.research_areas",
+      "product.keywords",
+      "product.geographic_coverage",
+      "distribution.format",
+      "distribution.access_protocol"
+    ],
+    "recommended_filters": [
+      "source",
+      "product_kind",
+      "research_area",
+      "keyword",
+      "covers_brazil",
+      "spatial_support",
+      "spatial_resolution",
+      "temporal_resolution",
+      "update_frequency",
+      "format",
+      "access_protocol",
+      "free_download",
+      "authentication_required",
+      "product_status"
+    ]
+  },
+  "migration_policy": {
+    "pilot_sources": [
+      "DR0011",
+      "DR0019"
+    ],
+    "does_not_replace_source_csv": true,
+    "does_not_enumerate_every_dataset_in_mega_catalogs": true,
+    "future_site_integration_required": true
+  }
+}
