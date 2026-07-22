@@ -1,4 +1,5 @@
-# Ecology Data Catalog: catálogo de fontes de dados ambientais para pesquisa, ensino e extensão
+# Science Data Sources Catalog - Catálogo de fontes de dados científicos
+# Dados científicos para pesquisa, ensino e extensão
 
 Catálogo público e pesquisável de plataformas, repositórios, redes e sistemas para ecologia, biodiversidade, clima, carbono, solos, vegetação e temas relacionados.
 
