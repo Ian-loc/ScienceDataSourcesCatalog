@@ -177,7 +177,7 @@ function productCard(product) {
         <div class="title-line"><h3 id="${cardId}">${esc(product.product_name)}</h3>${acronym}</div>
         <p class="identity">${esc(product.product_family)} · ${esc(KIND_LABELS[product.product_kind] || product.product_kind)}</p>
       </div>
-      <span class="verified-date">Verificado em ${esc(product.last_verified)}</span>
+      <span class="verified-date">Registro revisado em ${esc(product.last_verified)}</span>
     </header>
     <p class="description" id="${descriptionId}">${esc(product.product_description)}</p>
     <div class="chips" aria-label="Áreas de pesquisa">${areas.map(area => `<span class="chip">${esc(area)}</span>`).join("")}</div>
