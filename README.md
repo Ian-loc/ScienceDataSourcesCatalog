@@ -16,6 +16,8 @@ Catálogo público e pesquisável de plataformas, repositórios, redes, sistemas
 
 O catálogo é uma camada de descoberta e triagem. Não hospeda os datasets externos nem substitui documentação, licença ou citação dos produtos originais.
 
+> **Nota de verificação:** `last_verified` registra a revisão do registro. Não deve ser interpretado como certificação integral de todos os produtos, versões, licenças ou endpoints externos.
+
 ## Fonte única e artefatos derivados
 
 `data/data_resources.csv` é a única fonte canônica do catálogo de fontes. Os JSONs do site são gerados no workflow. A planilha nativa e o `.xlsx` do Google Drive são espelhos derivados; não constituem uma segunda fonte de edição ou publicação. O `project_changelog` do Drive mantém o registro executivo.

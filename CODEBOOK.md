@@ -37,7 +37,7 @@
 | `academic_evidence_url` | Artigo ou documento representativo. |
 | `academic_evidence_note` | O que a evidência sustenta. |
 | `verification_url` | Principal evidência oficial disponível. |
-| `last_verified` | Data efetiva da revisão, AAAA-MM-DD. |
+| `last_verified` | Data da revisão do registro, AAAA-MM-DD; não certifica integralmente todos os produtos ou campos da fonte. |
 
 ## Novos campos propostos para 0.8.0
 
