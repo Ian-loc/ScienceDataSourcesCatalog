@@ -15,7 +15,8 @@ NOTICE = (
     '<aside class="verification-notice wrap" role="note" aria-label="Estado da verificação factual">'
     '<strong>Transparência factual:</strong> as datas exibidas indicam a revisão do registro. '
     'Elas não certificam automaticamente todos os produtos mantidos pela fonte. '
-    'Acesso, licença, versão e resolução devem ser confirmados no produto específico.'</n    '</aside>'
+    'Acesso, licença, versão e resolução devem ser confirmados no produto específico.'
+    '</aside>'
 )
 
 
@@ -59,16 +60,6 @@ def apply_resources(payload: dict) -> int:
     return changes
 
 
-def replace_once(path: Path, old: str, new: str) -> bool:
-    text = path.read_text(encoding="utf-8")
-    if new in text:
-        return False
-    if old not in text:
-        raise SystemExit(f"ERRO: marcador não encontrado em {path.relative_to(ROOT)}")
-    path.write_text(text.replace(old, new, 1), encoding="utf-8")
-    return True
-
-
 def replace_all(path: Path, replacements: dict[str, str]) -> bool:
     text = path.read_text(encoding="utf-8")
     updated = text
@@ -89,31 +80,26 @@ def apply_ui_and_docs() -> int:
         style_path.write_text(style, encoding="utf-8")
         changes += 1
 
-    generic_replacements = {
+    replacements = {
         "Verificado em ": "Registro revisado em ",
         'detail("Última verificação",': 'detail("Registro revisado em",',
         "Verificação mais recente": "Revisão do registro mais recente",
     }
     for relative in ("assets/app.js", "assets/products.js", "index.html", "products.html"):
-        if replace_all(ROOT / relative, generic_replacements):
+        if replace_all(ROOT / relative, replacements):
             changes += 1
 
-    index_path = ROOT / "index.html"
-    index_text = index_path.read_text(encoding="utf-8")
-    if NOTICE not in index_text:
-        index_text = index_text.replace('<main id="conteudo">', NOTICE + '\n<main id="conteudo">', 1)
-        index_path.write_text(index_text, encoding="utf-8")
-        changes += 1
+    for page, main_id in (("index.html", "conteudo"), ("products.html", "produtos")):
+        path = ROOT / page
+        text = path.read_text(encoding="utf-8")
+        if NOTICE not in text:
+            marker = f'<main id="{main_id}">'
+            if marker not in text:
+                raise SystemExit(f"ERRO: marcador principal ausente em {page}")
+            path.write_text(text.replace(marker, NOTICE + "\n" + marker, 1), encoding="utf-8")
+            changes += 1
 
-    products_path = ROOT / "products.html"
-    products_text = products_path.read_text(encoding="utf-8")
-    if NOTICE not in products_text:
-        products_text = products_text.replace('<main id="produtos">', NOTICE + '\n<main id="produtos">', 1)
-        products_path.write_text(products_text, encoding="utf-8")
-        changes += 1
-
-    codebook = ROOT / "CODEBOOK.md"
-    if replace_all(codebook, {
+    if replace_all(ROOT / "CODEBOOK.md", {
         "| `last_verified` | Data efetiva da revisão, AAAA-MM-DD. |":
         "| `last_verified` | Data da revisão do registro, AAAA-MM-DD; não certifica integralmente todos os produtos ou campos da fonte. |"
     }):
@@ -121,28 +107,28 @@ def apply_ui_and_docs() -> int:
 
     about = ROOT / "about.html"
     about_text = about.read_text(encoding="utf-8")
-    method_sentence = "A evidência acadêmica é representativa, não uma revisão sistemática completa das citações de cada infraestrutura."
-    clarification = method_sentence + " A data exibida nos cards registra a revisão do registro; a confirmação factual é feita por afirmação e pode variar entre produtos e formas de acesso."
-    if method_sentence in about_text and clarification not in about_text:
-        about.write_text(about_text.replace(method_sentence, clarification, 1), encoding="utf-8")
+    old = "A evidência acadêmica é representativa, não uma revisão sistemática completa das citações de cada infraestrutura."
+    new = old + " A data exibida nos cards registra a revisão do registro; a confirmação factual é feita por afirmação e pode variar entre produtos e formas de acesso."
+    if old in about_text and new not in about_text:
+        about.write_text(about_text.replace(old, new, 1), encoding="utf-8")
         changes += 1
 
     readme = ROOT / "README.md"
     readme_text = readme.read_text(encoding="utf-8")
-    note = "\n> **Nota de verificação:** `last_verified` registra a revisão do registro. Não deve ser interpretado como certificação integral de todos os produtos, versões, licenças ou endpoints externos.\n"
-    if note.strip() not in readme_text:
+    note = "> **Nota de verificação:** `last_verified` registra a revisão do registro. Não deve ser interpretado como certificação integral de todos os produtos, versões, licenças ou endpoints externos."
+    if note not in readme_text:
         anchor = "O catálogo é uma camada de descoberta e triagem. Não hospeda os datasets externos nem substitui documentação, licença ou citação dos produtos originais."
         if anchor not in readme_text:
             raise SystemExit("ERRO: âncora do README não encontrada")
-        readme.write_text(readme_text.replace(anchor, anchor + note, 1), encoding="utf-8")
+        readme.write_text(readme_text.replace(anchor, anchor + "\n\n" + note, 1), encoding="utf-8")
         changes += 1
 
     changelog = ROOT / "CHANGELOG.md"
     changelog_text = changelog.read_text(encoding="utf-8")
-    heading = "## Não lançado — correções factuais e escala visual\n"
+    heading = "## Não lançado — correções factuais e escala visual"
     if heading not in changelog_text:
         entry = (
-            heading + "\n"
+            heading + "\n\n"
             "- corrigidos 11 registros com divergências confirmadas em autenticação, API, licença ou condições de acesso;\n"
             "- registradas as fontes oficiais em `data/factual_corrections_2026-07-23.json`;\n"
             "- redefinida a apresentação de `last_verified` como data de revisão do registro, não certificação integral;\n"
@@ -181,8 +167,7 @@ def check(payload: dict) -> None:
         if row.get("last_verified") != payload["reviewed_at"]:
             failures.append(f"{item['resource_id']}.last_verified diverge")
 
-    style = (ROOT / "assets" / "style.css").read_text(encoding="utf-8")
-    if MARKER not in style:
+    if MARKER not in (ROOT / "assets" / "style.css").read_text(encoding="utf-8"):
         failures.append("marcador de escala visual ausente")
     for page in ("index.html", "products.html"):
         if NOTICE not in (ROOT / page).read_text(encoding="utf-8"):
