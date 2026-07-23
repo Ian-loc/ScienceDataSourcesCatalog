@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Pesquise produtos, séries e formas de acesso a dados ambientais no Science Data Sources Catalog.">
+<meta name="theme-color" content="#173f32"><meta name="color-scheme" content="light">
+<title>Produtos de dados · Science Data Sources Catalog</title><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/products.css"><link rel="stylesheet" href="assets/accessibility.css">
+</head>
+<body>
+<a class="skip" href="#produtos">Ir aos produtos</a>
+<nav class="site-nav" aria-label="Navegação principal"><div class="wrap nav-inner">
+<a class="brand" href="index.html" aria-label="Science Data Sources Catalog — página inicial"><span>Science Data Sources Catalog</span><small>fontes de dados científicos</small></a>
+<div class="nav-links"><a href="index.html#areas">Áreas</a><a href="index.html#catalogo">Fontes</a><a href="products.html" aria-current="page">Produtos</a><a href="analytics.html">Análise</a><a href="about.html">Método e citação</a></div>
+</div></nav>
+<header class="hero"><div class="wrap hero-grid">
+<div class="hero-copy"><p class="eyebrow">Descoberta no nível do produto</p><h1>Encontre o produto adequado à sua pergunta</h1><p class="lead">Compare séries, coleções, catálogos e serviços pelo fenômeno representado, cobertura, resolução, versão e forma de acesso. Esta visualização começa com o piloto TerraBrasilis e Google Earth Engine.</p></div>
+<div class="hero-tool">
+<form class="hero-search" id="product-search" role="search" aria-label="Busca de produtos">
+<label for="product-q">Buscar produtos</label>
+<div class="search-row"><input id="product-q" type="search" autocomplete="off" enterkeyhint="search" aria-describedby="product-search-help" placeholder="Fenômeno, produto, fonte, formato ou protocolo…"><button type="submit">Buscar produtos</button></div>
+<p class="search-help" id="product-search-help">A busca reconhece termos equivalentes em português e inglês, como biomassa/biomass e desmatamento/deforestation.</p>
+</form>
+<div class="quick-search" aria-label="Buscas sugeridas"><span>Exemplos:</span><button type="button" data-product-query="desmatamento">desmatamento</button><button type="button" data-product-query="alertas">alertas</button><button type="button" data-product-query="uso da terra">uso da terra</button><button type="button" data-product-query="WMS">WMS</button></div>
+<div class="hero-links"><a href="index.html#catalogo">Explorar fontes</a><a href="data/data_products.csv" download>Baixar produtos em CSV</a><a href="about.html">Entender o método</a></div>
+</div>
+</div></header>
+<section class="stats" aria-label="Resumo dos produtos"><div class="wrap stats-grid">
+<div><strong id="p-total">—</strong><span>produtos ou famílias</span></div>
+<div><strong id="p-sources">—</strong><span>fontes representadas</span></div>
+<div><strong id="p-free">—</strong><span>com alguma distribuição gratuita</span></div>
+<div><strong id="p-formats">—</strong><span>formatos ou modalidades registrados</span></div>
+</div></section>
+<main id="produtos">
+<section class="wrap product-intro" aria-labelledby="pilot-heading">
+<div><p class="eyebrow">Piloto controlado</p><h2 id="pilot-heading">Produtos não são sinônimos de fontes nem de arquivos</h2></div>
+<p>Uma fonte pode oferecer vários produtos, e cada produto pode ter várias distribuições. A interface preserva essa relação para evitar tratar PRODES, DETER, um serviço WMS e o TerraBrasilis como se fossem unidades equivalentes.</p>
+</section>
+<section class="wrap catalog" id="product-catalog" aria-labelledby="product-catalog-heading">
+<div class="catalog-toolbar">
+<div class="heading"><div><p class="eyebrow">Busca e comparação</p><h2 id="product-catalog-heading" tabindex="-1">Produtos disponíveis no piloto</h2></div><p id="product-count" role="status" aria-live="polite" aria-atomic="true">Carregando produtos…</p></div>
+<label class="sort-control" for="product-sort"><span>Ordenar resultados</span><select id="product-sort"><option value="relevance">Mais relevantes</option><option value="name">Nome de A a Z</option><option value="source">Fonte de A a Z</option><option value="verified">Verificação mais recente</option></select></label>
+</div>
+<form class="filters product-filters" id="product-filters" role="search" aria-label="Filtros de produtos" aria-describedby="product-filter-note">
+<fieldset class="essential-grid"><legend class="sr-only">Filtros principais de produtos</legend>
+<label><span>Fonte</span><select id="product-source"><option value="">Todas as fontes</option></select></label>
+<label><span>Área de pesquisa</span><select id="product-area"><option value="">Todas as áreas</option></select></label>
+<label><span>Dados para o Brasil</span><select id="product-brazil"><option value="">Qualquer situação</option></select></label>
+<label><span>Tipo de produto</span><select id="product-kind"><option value="">Todos os tipos</option></select></label>
+</fieldset>
+<details class="advanced-filters" id="product-advanced-filters">
+<summary>Mais filtros <span id="product-advanced-count" aria-live="polite"></span></summary>
+<fieldset class="advanced-grid product-advanced-grid"><legend class="sr-only">Filtros avançados de produtos</legend>
+<label><span>Formato ou modalidade</span><select id="product-format"><option value="">Todos os formatos</option></select></label>
+<label><span>Protocolo de acesso</span><select id="product-protocol"><option value="">Todos os protocolos</option></select></label>
+<label><span>Autenticação</span><select id="product-auth"><option value="">Qualquer situação</option></select></label>
+<label><span>Estado do produto</span><select id="product-status"><option value="">Todos os estados</option></select></label>
+<label><span>Origem</span><select id="product-origin"><option value="">Primário ou derivado</option></select></label>
+</fieldset>
+</details>
+<div class="filter-footer"><p id="product-filter-note">Filtros descrevem produtos e suas formas de acesso. Confirme sempre a documentação da coleção usada.</p><button type="button" id="product-clear">Limpar busca e filtros</button></div>
+</form>
+<div class="active-filters" id="product-active-filters" role="region" aria-label="Filtros ativos de produtos" aria-live="polite" hidden></div>
+<div id="product-list" class="cards product-cards" role="list" aria-busy="true" aria-describedby="product-count"></div>
+<div id="product-empty" class="empty" role="status" hidden><h3>Nenhum produto corresponde à busca</h3><p>Remova um filtro ou use um termo mais amplo.</p></div>
+<noscript><div class="noscript"><h3>A busca interativa requer JavaScript</h3><p>Você ainda pode <a href="data/data_products.csv" download>baixar o CSV de produtos</a>, consultar as <a href="index.html#catalogo">fontes</a> ou ler a <a href="about.html">metodologia</a>.</p></div></noscript>
+</section>
+<section class="wrap about"><div><p class="eyebrow">Uso científico responsável</p><h2>Resolva a pergunta no nível correto</h2></div><p>Resolução espacial, periodicidade, versão e licença pertencem ao produto ou à distribuição específica. Não as generalize a partir da plataforma que hospeda ou processa os dados.</p></section>
+</main>
+<div class="compare-bar" id="compare-bar" role="region" aria-label="Produtos selecionados para comparação" aria-live="polite" hidden>
+<div><strong id="compare-count">0 produtos selecionados</strong><span id="compare-status">Selecione de dois a três produtos.</span></div>
+<div class="compare-actions"><button type="button" id="compare-open">Comparar</button><button type="button" id="compare-clear">Limpar</button></div>
+</div>
+<dialog id="compare-dialog" aria-labelledby="compare-title">
+<div class="compare-dialog-header"><div><p class="eyebrow">Comparação lado a lado</p><h2 id="compare-title">Produtos selecionados</h2></div><button type="button" id="compare-close" aria-label="Fechar comparação">Fechar</button></div>
+<div id="compare-content"></div>
+</dialog>
+<footer class="wrap"><p><strong>Science Data Sources Catalog</strong> · Ian Lara · <a href="index.html#catalogo">Fontes</a> · <a href="about.html">Método e citação</a></p><p>Dados: CC BY 4.0 · Código: MIT · Build: <span data-build-meta>—</span></p></footer>
+<script src="assets/products.js" defer></script>
+<script src="assets/build-meta.js" defer></script>
+</body></html>

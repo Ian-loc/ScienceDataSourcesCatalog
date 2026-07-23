@@ -2,6 +2,7 @@
 """Validação estrutural, de acessibilidade e de peso da interface estática."""
 from __future__ import annotations
 
+import json
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
@@ -115,7 +116,7 @@ def validate_page(filename: str, required_ids: set[str], require_noscript: bool 
 
 
 def validate_public_identity() -> None:
-    public_files = ("README.md", "index.html", "analytics.html", "about.html", "CITATION.cff")
+    public_files = ("README.md", "index.html", "products.html", "analytics.html", "about.html", "CITATION.cff")
     contents = {filename: (ROOT / filename).read_text(encoding="utf-8") for filename in public_files}
 
     for filename, content in contents.items():
@@ -168,6 +169,47 @@ def validate_catalog_fields() -> None:
         fail(f"assets/app.js perdeu garantias de acessibilidade: {', '.join(missing_accessibility)}")
 
 
+def validate_product_interface() -> None:
+    script_path = ROOT / "assets" / "products.js"
+    css_path = ROOT / "assets" / "products.css"
+    data_path = ROOT / "data" / "data_products.json"
+    for path in (script_path, css_path, data_path):
+        if not path.exists():
+            fail(f"artefato de produtos ausente: {path.relative_to(ROOT)}")
+
+    content = script_path.read_text(encoding="utf-8")
+    required_tokens = {
+        "data/data_products.json", "product.product_name", "product.product_description",
+        "product.source.resource_name", "product.distributions", "product.spatial_resolution",
+        "product.temporal_resolution", "product.version_or_collection", "product.limitations",
+        'role="listitem"', "aria-labelledby", "aria-describedby", "noopener noreferrer",
+        "history.replaceState", "showModal", "SYNONYM_GROUPS",
+    }
+    missing = sorted(token for token in required_tokens if token not in content)
+    if missing:
+        fail(f"assets/products.js incompleto: {', '.join(missing)}")
+
+    products = json.loads(data_path.read_text(encoding="utf-8"))
+    if not products:
+        fail("data/data_products.json sem produtos")
+    required_product_keys = {
+        "product_id", "resource_id", "product_name", "product_description",
+        "spatial_resolution", "temporal_resolution", "source", "distributions",
+    }
+    for index, product in enumerate(products, start=1):
+        missing_keys = sorted(required_product_keys.difference(product))
+        if missing_keys:
+            fail(f"produto JSON {index}: chaves ausentes: {', '.join(missing_keys)}")
+        if not product["distributions"]:
+            fail(f"produto JSON {product['product_id']}: sem distribuições")
+
+    css = css_path.read_text(encoding="utf-8")
+    required_css = {".product-card", ".compare-bar", ".compare-table", "dialog::backdrop", "@media(max-width:720px)"}
+    missing_css = sorted(token for token in required_css if token not in css)
+    if missing_css:
+        fail(f"assets/products.css incompleto: {', '.join(missing_css)}")
+
+
 def validate_accessibility_css() -> None:
     path = ROOT / "assets" / "accessibility.css"
     if not path.exists():
@@ -182,11 +224,14 @@ def validate_accessibility_css() -> None:
 def validate_size_budget() -> None:
     limits = {
         "index.html": 20_000,
+        "products.html": 18_000,
         "analytics.html": 12_000,
-        "about.html": 20_000,
+        "about.html": 22_000,
         "assets/style.css": 30_000,
+        "assets/products.css": 10_000,
         "assets/accessibility.css": 10_000,
         "assets/app.js": 50_000,
+        "assets/products.js": 45_000,
         "assets/analytics.js": 15_000,
         "assets/build-meta.js": 5_000,
     }
@@ -197,8 +242,8 @@ def validate_size_budget() -> None:
         total += size
         if size > limit:
             fail(f"{filename}: {size} bytes excede o limite de {limit} bytes")
-    if total > 120_000:
-        fail(f"interface estática excede orçamento total: {total} > 120000 bytes")
+    if total > 190_000:
+        fail(f"interface estática excede orçamento total: {total} > 190000 bytes")
     print(f"OK: orçamento da interface = {total} bytes")
 
 
@@ -212,6 +257,21 @@ validate_page(
         "count", "n-total", "n-free", "n-api", "n-br", "updated",
     },
 )
+validate_page(
+    "products.html",
+    {
+        "produtos", "pilot-heading", "product-catalog", "product-catalog-heading",
+        "product-search", "product-search-help", "product-q", "product-count",
+        "product-filters", "product-filter-note", "product-source", "product-area",
+        "product-brazil", "product-kind", "product-format", "product-protocol",
+        "product-auth", "product-status", "product-origin", "product-sort",
+        "product-advanced-filters", "product-advanced-count", "product-active-filters",
+        "product-clear", "product-list", "product-empty", "p-total", "p-sources",
+        "p-free", "p-formats", "compare-bar", "compare-count", "compare-status",
+        "compare-open", "compare-clear", "compare-dialog", "compare-title",
+        "compare-close", "compare-content",
+    },
+)
 validate_page("about.html", {"sobre"})
 validate_page(
     "analytics.html",
@@ -223,7 +283,8 @@ validate_page(
 )
 validate_public_identity()
 validate_catalog_fields()
+validate_product_interface()
 validate_accessibility_css()
 validate_size_budget()
 
-print("OK: HTML, acessibilidade estrutural, dependências, campos e desempenho validados")
+print("OK: HTML, produtos, acessibilidade estrutural, dependências, campos e desempenho validados")

@@ -6,7 +6,8 @@ async function renderBuildMeta(){
     const meta=await response.json();
     const commit=String(meta.commit||"desconhecido");
     const shortCommit=commit==="local"?commit:commit.slice(0,12);
-    const label=`v${meta.version||"?"} · ${shortCommit} · ${meta.records||"?"} fontes × ${meta.fields||"?"} campos`;
+    const productPart=Number.isInteger(meta.products)?` · ${meta.products} produtos`:"";
+    const label=`v${meta.version||"?"} · ${shortCommit} · ${meta.records||"?"} fontes × ${meta.fields||"?"} campos${productPart}`;
     targets.forEach(target=>target.textContent=label);
 
     const quality=meta.quality||{};

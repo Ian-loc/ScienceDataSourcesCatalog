@@ -1,5 +1,18 @@
 # Histórico de mudanças
 
+## Não lançado — UX6 descoberta e comparação de produtos
+
+- criada página pública separada para produtos, preservando a diferença entre fonte, produto e distribuição;
+- integrado o piloto de 10 produtos ou famílias e 15 distribuições de TerraBrasilis e Google Earth Engine;
+- adicionada geração automática de `data/data_products.json` com identidade da fonte e formas de acesso aninhadas;
+- adicionada busca textual com sinônimos em português e inglês;
+- adicionados filtros compartilháveis por fonte, área, Brasil, tipo, formato, protocolo, autenticação, estado e origem;
+- adicionada comparação lado a lado de dois ou três produtos;
+- expostas resolução, cobertura, versão, limitações, metodologia e distribuições específicas;
+- ampliados testes de integridade, acessibilidade, orçamento de peso e artefatos publicáveis;
+- atualizado workflow do GitHub Pages para `upload-pages-artifact@v4` e validação explícita dos artefatos;
+- preservados CSV canônico de fontes 51 × 34, versão 0.7.0 e bloqueio do DOI.
+
 ## Não lançado — identidade pública e URL canônica
 
 - consolidado o nome **Science Data Sources Catalog** após a renomeação do repositório;
