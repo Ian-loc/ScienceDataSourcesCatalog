@@ -1,0 +1,44 @@
+name: Aplicar correções factuais confirmadas
+on:
+  push:
+    branches: ["fix/factual-remediation-ui-scale"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: factual-remediation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/factual-remediation-ui-scale
+          fetch-depth: 0
+      - name: Validar sintaxe do procedimento
+        run: python3 -m py_compile scripts/apply_factual_remediation.py
+      - name: Aplicar correções ao CSV, interface e documentação
+        run: python3 scripts/apply_factual_remediation.py
+      - name: Validar catálogo completo após correções
+        run: |
+          python3 scripts/validate_product_catalog.py
+          python3 scripts/build_catalog.py
+          python3 scripts/validate_frontend.py
+          python3 scripts/apply_factual_remediation.py --check
+          node --check assets/app.js
+          node --check assets/products.js
+      - name: Remover workflow temporário
+        run: rm .github/workflows/apply-factual-remediation.yml
+      - name: Consolidar alterações na branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração adicional necessária."
+          else
+            git commit -m "fix: apply verified factual corrections and compact UI"
+            git push origin HEAD:fix/factual-remediation-ui-scale
+          fi
