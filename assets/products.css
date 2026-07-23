@@ -41,6 +41,8 @@ dialog::backdrop{background:#102820aa}
   .product-advanced-grid{grid-template-columns:repeat(2,minmax(160px,1fr))}
 }
 @media(max-width:720px){
+  .nav-links a:nth-child(3){display:inline}
+  .nav-links a:nth-child(4){display:none}
   .product-intro,.product-meta-grid,.distribution-grid{grid-template-columns:1fr}
   .product-intro{gap:1rem}
   .compare-bar,.distribution header,.compare-dialog-header{align-items:stretch;flex-direction:column}
