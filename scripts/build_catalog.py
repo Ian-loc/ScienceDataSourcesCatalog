@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Valida o CSV canônico e gera os artefatos consumidos pelo site."""
+"""Valida os dados canônicos e gera os artefatos consumidos pelo site."""
 from __future__ import annotations
 
 import csv
@@ -14,6 +14,9 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 CSV_PATH = ROOT / "data" / "data_resources.csv"
 JSON_PATH = ROOT / "data" / "data_resources.json"
+PRODUCT_CSV_PATH = ROOT / "data" / "data_products.csv"
+DISTRIBUTION_CSV_PATH = ROOT / "data" / "product_distributions.csv"
+PRODUCT_JSON_PATH = ROOT / "data" / "data_products.json"
 BUILD_META_PATH = ROOT / "data" / "build-meta.json"
 QUALITY_REPORT_PATH = ROOT / "data" / "data_quality_report.json"
 CITATION_PATH = ROOT / "CITATION.cff"
@@ -96,6 +99,13 @@ def has_uncertainty(value: str) -> bool:
     return any(marker in normalized for marker in UNCERTAINTY_MARKERS)
 
 
+def read_rows(path: Path) -> list[dict[str, str]]:
+    if not path.exists():
+        fail(f"arquivo ausente: {path.relative_to(ROOT)}")
+    with path.open(encoding="utf-8-sig", newline="") as handle:
+        return list(csv.DictReader(handle))
+
+
 with CSV_PATH.open(encoding="utf-8-sig", newline="") as handle:
     reader = csv.DictReader(handle)
     if reader.fieldnames != REQUIRED_COLUMNS:
@@ -166,6 +176,40 @@ JSON_PATH.write_text(
     encoding="utf-8",
 )
 
+products = read_rows(PRODUCT_CSV_PATH)
+distributions = read_rows(DISTRIBUTION_CSV_PATH)
+source_index = {row["resource_id"]: row for row in rows}
+distributions_by_product: dict[str, list[dict[str, str]]] = {}
+for distribution in distributions:
+    distributions_by_product.setdefault(distribution["product_id"], []).append(distribution)
+
+enriched_products: list[dict[str, object]] = []
+for product in products:
+    source = source_index.get(product["resource_id"])
+    if source is None:
+        fail(f"produto {product['product_id']} referencia fonte inexistente")
+    product_distributions = distributions_by_product.get(product["product_id"], [])
+    if not product_distributions:
+        fail(f"produto {product['product_id']} não possui distribuição")
+    enriched = dict(product)
+    enriched["source"] = {
+        "resource_id": source["resource_id"],
+        "resource_name": source["resource_name"],
+        "acronym": source["acronym"],
+        "official_identity": source["official_identity"],
+        "homepage_url": source["homepage_url"],
+        "data_access_url": source["data_access_url"],
+    }
+    enriched["distributions"] = product_distributions
+    enriched["available_formats"] = sorted({row["format"] for row in product_distributions})
+    enriched["available_protocols"] = sorted({row["access_protocol"] for row in product_distributions})
+    enriched_products.append(enriched)
+
+PRODUCT_JSON_PATH.write_text(
+    json.dumps(enriched_products, ensure_ascii=False, indent=2) + "\n",
+    encoding="utf-8",
+)
+
 unknown_by_field = {
     field: sum(1 for row in rows if has_uncertainty(row[field]))
     for field in REQUIRED_COLUMNS
@@ -202,6 +246,9 @@ build_meta = {
     "built_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
     "records": len(rows),
     "fields": len(REQUIRED_COLUMNS),
+    "products": len(products),
+    "product_sources": len({row["resource_id"] for row in products}),
+    "distributions": len(distributions),
     "quality": {
         "official_documentation_records": quality["official_documentation_records"],
         "peer_reviewed_evidence_records": quality["peer_reviewed_evidence_records"],
@@ -216,5 +263,6 @@ BUILD_META_PATH.write_text(
 
 print(
     f"OK: {len(rows)} fontes e {len(REQUIRED_COLUMNS)} variáveis validadas; "
-    f"JSON, relatório de qualidade e metadados de build gerados para a versão {build_meta['version']}"
+    f"{len(products)} produtos e {len(distributions)} distribuições publicados; "
+    f"artefatos gerados para a versão {build_meta['version']}"
 )
