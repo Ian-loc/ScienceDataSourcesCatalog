@@ -3,8 +3,6 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
-  issue_comment:
-    types: [created]
 permissions:
   contents: write
 concurrency:
@@ -12,9 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   remediate:
-    if: >-
-      github.actor != 'github-actions[bot]' &&
-      (github.event_name != 'issue_comment' || github.event.comment.body == '/apply-factual-remediation')
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -34,12 +30,13 @@ jobs:
           python3 scripts/apply_factual_remediation.py --check
           node --check assets/app.js
           node --check assets/products.js
-      - name: Remover workflow temporário
+      - name: Remover workflow temporário do resultado
         run: rm .github/workflows/apply-factual-remediation.yml
-      - name: Consolidar alterações na main
+      - name: Publicar resultado em branch de integração
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c bot/factual-remediation-applied-20260723
           git add .
           git commit -m "fix: apply verified factual corrections and compact UI"
-          git push origin HEAD:main
+          git push origin HEAD:bot/factual-remediation-applied-20260723
