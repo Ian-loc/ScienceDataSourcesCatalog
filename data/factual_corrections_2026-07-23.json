@@ -1,0 +1,152 @@
+{
+  "reviewed_at": "2026-07-23",
+  "reviewer": "OpenAI-assisted review under Ian-loc repository governance",
+  "scope_note": "Correções limitadas a afirmações operacionais contraditas ou atualizadas por documentação oficial. A data last_verified passa a significar revisão do registro, não certificação integral da fonte.",
+  "resources": [
+    {
+      "resource_id": "DR0006",
+      "official_source": "CENSIPAM",
+      "evidence_url": "https://panorama.sipam.gov.br/api/meteorologia/v1",
+      "evidence_type": "official_api_documentation",
+      "fields": {
+        "access_conditions": "consulta pública; APIs específicas podem exigir solicitação e chaves",
+        "authentication_required": "parcial",
+        "access_documentation_url": "https://panorama.sipam.gov.br/api/meteorologia/v1",
+        "limitations": "Os painéis combinam fontes e periodicidades distintas; registrar o produto e a data de extração. A API de meteorologia exige solicitação e duas chaves de acesso.",
+        "verification_url": "https://panorama.sipam.gov.br/api/meteorologia/v1"
+      }
+    },
+    {
+      "resource_id": "DR0013",
+      "official_source": "speciesLink / CRIA",
+      "evidence_url": "https://specieslink.net/ws/1.0/",
+      "secondary_evidence_url": "https://specieslink.net/data_sharing_policy",
+      "evidence_type": "official_api_documentation",
+      "fields": {
+        "programmatic_access": "sim",
+        "access_protocols": "REST API | JSON | GeoJSON | exportação tabular",
+        "authentication_required": "sim",
+        "access_documentation_url": "https://specieslink.net/ws/1.0/",
+        "license": "CC BY 4.0 para dados textuais da rede | CC BY-SA 4.0 para imagens | condições adicionais podem existir por coleção",
+        "limitations": "Precisão e completude dependem da coleção; a API exige apikey; condições adicionais de citação, redistribuição ou uso podem existir por coleção.",
+        "verification_url": "https://specieslink.net/data_sharing_policy"
+      }
+    },
+    {
+      "resource_id": "DR0017",
+      "official_source": "Agência Nacional de Águas e Saneamento Básico",
+      "evidence_url": "https://www.snirh.gov.br/hidroweb/acesso-api",
+      "evidence_type": "official_api_documentation",
+      "fields": {
+        "access_conditions": "downloads públicos | API mediante solicitação de credenciais",
+        "authentication_required": "parcial",
+        "access_documentation_url": "https://www.snirh.gov.br/hidroweb/acesso-api",
+        "limitations": "Falhas, mudanças de estação, consistência e período efetivo precisam ser avaliados; a API requer credenciais solicitadas à ANA.",
+        "verification_url": "https://www.snirh.gov.br/hidroweb/acesso-api"
+      }
+    },
+    {
+      "resource_id": "DR0018",
+      "official_source": "Instituto Nacional de Meteorologia",
+      "evidence_url": "https://bdmep.inmet.gov.br/",
+      "evidence_type": "official_access_page",
+      "fields": {
+        "access_conditions": "e-mail confirmado | seleção de estação, período e variáveis | processamento em fila",
+        "authentication_required": "sim",
+        "limitations": "Requer confirmação por e-mail; cobertura, horários, instrumentos e completude variam; o link gerado expira em 48 horas.",
+        "verification_url": "https://bdmep.inmet.gov.br/"
+      }
+    },
+    {
+      "resource_id": "DR0025",
+      "official_source": "IUCN Red List",
+      "evidence_url": "https://api.iucnredlist.org/help",
+      "evidence_type": "official_api_documentation",
+      "fields": {
+        "access_protocols": "REST API v4 | consulta web | downloads espaciais sujeitos a termos",
+        "authentication_required": "sim",
+        "access_documentation_url": "https://api.iucnredlist.org/help",
+        "limitations": "Avaliações têm datas e abrangências diferentes; a API v3 está em fim de vida; API v4 e downloads seguem termos próprios e exigem token ou conta.",
+        "verification_url": "https://api.iucnredlist.org/help"
+      }
+    },
+    {
+      "resource_id": "DR0029",
+      "official_source": "NSF NEON",
+      "evidence_url": "https://www.neonscience.org/impact/observatory-blog/next-week-required-logins-and-data-licensing-updates",
+      "evidence_type": "official_access_page",
+      "fields": {
+        "access_conditions": "consulta pública | conta obrigatória para downloads | token para API e neonUtilities",
+        "authentication_required": "sim",
+        "license": "CC BY 4.0 para dados obtidos desde 2026-06-30 | downloads anteriores permanecem sob CC0",
+        "limitations": "Cobertura restrita aos Estados Unidos; produtos podem ser provisórios ou revisados; desde 2026-06-30 downloads exigem conta ou token e novos dados usam CC BY 4.0.",
+        "verification_url": "https://www.neonscience.org/impact/observatory-blog/next-week-required-logins-and-data-licensing-updates"
+      }
+    },
+    {
+      "resource_id": "DR0033",
+      "official_source": "Dryad",
+      "evidence_url": "https://datadryad.org/help/guides/best_practices",
+      "secondary_evidence_url": "https://datadryad.org/help/requirements/files",
+      "evidence_type": "official_license_or_terms",
+      "fields": {
+        "access_conditions": "aberto após publicação",
+        "license": "CC0 1.0 para dados de pesquisa publicados no Dryad",
+        "limitations": "Os dados publicados são abertos sob CC0; taxas normalmente se aplicam à publicação, não ao acesso; materiais incompatíveis com CC0 não são aceitos como arquivos de dados.",
+        "verification_url": "https://datadryad.org/help/guides/best_practices"
+      }
+    },
+    {
+      "resource_id": "DR0036",
+      "official_source": "Fine-Root Ecology Database",
+      "evidence_url": "https://roots.ornl.gov/public-release",
+      "evidence_type": "official_access_page",
+      "fields": {
+        "access_conditions": "formulário de solicitação | token enviado por e-mail e válido por 24 horas",
+        "authentication_required": "sim",
+        "access_documentation_url": "https://roots.ornl.gov/public-release",
+        "limitations": "Cobertura e métodos variam entre estudos; citar a versão e fontes originais; o acesso ao FRED 3.0 exige formulário e token de 24 horas enviado por e-mail.",
+        "verification_url": "https://roots.ornl.gov/public-release"
+      }
+    },
+    {
+      "resource_id": "DR0037",
+      "official_source": "ISRIC — World Soil Information",
+      "evidence_url": "https://docs.isric.org/globaldata/soilgrids/index.html",
+      "evidence_type": "official_api_documentation",
+      "fields": {
+        "programmatic_access": "parcial",
+        "access_protocols": "WMS | WCS | WebDAV | Google Earth Engine | REST API beta temporariamente pausada",
+        "access_documentation_url": "https://docs.isric.org/globaldata/soilgrids/index.html",
+        "limitations": "São predições modeladas a 250 m, não medições em cada pixel; usar as camadas de incerteza. A REST API beta está temporariamente pausada; fluxos estáveis devem usar WCS ou WebDAV.",
+        "verification_url": "https://docs.isric.org/globaldata/soilgrids/index.html"
+      }
+    },
+    {
+      "resource_id": "DR0038",
+      "official_source": "ISRIC — World Soil Information",
+      "evidence_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+      "evidence_type": "official_api_documentation",
+      "fields": {
+        "data_formats": "TSV | WFS | formatos geoespaciais e tabulares derivados",
+        "access_protocols": "OGC WFS | GraphQL API | download de snapshots TSV | plataforma web",
+        "access_documentation_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+        "license": "CC BY ou CC BY-NC conforme o provedor | parte dos dados permanece restrita e não é redistribuída",
+        "limitations": "Cobertura desigual e histórica; respeitar a licença de cada provedor; distinguir perfis observados das predições SoilGrids e dados restritos dos conjuntos públicos.",
+        "verification_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html"
+      }
+    },
+    {
+      "resource_id": "DR0050",
+      "official_source": "ORNL DAAC / NASA Earthdata",
+      "evidence_url": "https://daac.ornl.gov/sign_in.shtml",
+      "evidence_type": "official_access_page",
+      "fields": {
+        "access_conditions": "consulta pública de metadados | Earthdata Login obrigatório para downloads e pedidos",
+        "authentication_required": "sim",
+        "limitations": "Downloads exigem Earthdata Login; citar DOI, versão, qualidade e documentação do dataset específico; formatos e serviços variam por produto.",
+        "verification_url": "https://daac.ornl.gov/sign_in.shtml"
+      }
+    }
+  ]
+}
