@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.1.0",
+  "contract_version": "2.1.1",
   "phase": "DATA1-EXT",
   "status": "active_g0_resolved",
   "queue": "migration/external_review_queue.csv",
@@ -25,7 +25,7 @@
     "W5": "P2 or P3"
   },
   "expected_tier_counts": {"P0": 23, "P1": 9, "P2": 3, "P3": 0},
-  "expected_wave_counts": {"G0": 1, "W1": 7, "W2": 9, "W3": 7, "W4": 8, "W5": 3},
+  "expected_wave_counts": {"G0": 1, "W1": 7, "W2": 8, "W3": 8, "W4": 8, "W5": 3},
   "scope_decision_required_ids": ["DR0051"],
   "resolved_scope_decisions": {
     "DR0051": {

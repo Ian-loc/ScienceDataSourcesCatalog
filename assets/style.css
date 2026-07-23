@@ -211,3 +211,16 @@ footer p{margin:0}
   .summary-grid{grid-template-columns:repeat(2,1fr)}
   .chart-card.wide{grid-column:auto}
 }
+
+
+/* factual-remediation-compact-ui-2026-07-23 */
+html{font-size:15.5px}
+h1{font-size:clamp(2.15rem,5vw,4.05rem)}
+h2{font-size:clamp(1.55rem,3vw,2.25rem)}
+.lead{font-size:clamp(.96rem,1.5vw,1.12rem)}
+.hero-grid{padding:3.45rem 0}
+.card h3{font-size:1.12rem}
+.verified-date{font-size:.65rem}
+.verification-notice{margin-top:1rem;padding:.8rem 1rem;border:1px solid #d7c792;border-radius:10px;background:var(--amber);color:#5d4a14;font-size:.82rem}
+.verification-notice strong{color:#49390e}
+@media(max-width:720px){html{font-size:15px}.hero-grid{padding:2.6rem 0}}

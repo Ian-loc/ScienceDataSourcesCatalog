@@ -176,14 +176,14 @@ function card(resource) {
     detail("Responsável", resource.owner_or_manager) +
     detail("Tipo de instituição", resource.institutional_status) +
     detail("Licença", resource.license) +
-    detail("Última verificação", resource.last_verified) +
+    detail("Registro revisado em", resource.last_verified) +
     detail("Identificador interno", resource.resource_id)
   );
 
   return `<article class="card" role="listitem" aria-labelledby="${cardId}" aria-describedby="${descriptionId}">
     <header class="card-header">
       <div class="card-title"><div class="title-line"><h3 id="${cardId}">${esc(resource.resource_name)}</h3>${acronym}</div><p class="identity">${esc(resource.official_identity)}</p></div>
-      <span class="verified-date">Verificado em ${esc(resource.last_verified)}</span>
+      <span class="verified-date">Registro revisado em ${esc(resource.last_verified)}</span>
     </header>
     <p class="description" id="${descriptionId}">${esc(resource.description)}</p>
     <div class="chips" aria-label="Áreas de pesquisa">${areaChips}</div>

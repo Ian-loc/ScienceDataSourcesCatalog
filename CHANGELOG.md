@@ -1,5 +1,15 @@
 # Histórico de mudanças
 
+## Não lançado — correções factuais e escala visual
+
+- corrigidos 11 registros com divergências confirmadas em autenticação, API, licença ou condições de acesso;
+- registradas as fontes oficiais em `data/factual_corrections_2026-07-23.json`;
+- redefinida a apresentação de `last_verified` como data de revisão do registro, não certificação integral;
+- adicionada advertência pública sobre variabilidade por produto e distribuição;
+- reduzida moderadamente a escala tipográfica e o tamanho máximo dos títulos;
+- preservados número de fontes, esquema 0.7.0 e bloqueio do DOI.
+
+
 ## Não lançado — UX6 descoberta e comparação de produtos
 
 - criada página pública separada para produtos, preservando a diferença entre fonte, produto e distribuição;
