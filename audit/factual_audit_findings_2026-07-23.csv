@@ -1,0 +1,52 @@
+resource_id,audit_verdict,issue_classes,required_action,official_evidence
+DR0001,C2_partial_or_overgeneralized,identity;access;freshness,Keep; add indicator-level freshness and evidence; do not imply all fields externally verified.,https://clima-gerais.meioambiente.mg.gov.br/vulnerabilidade-territorial
+DR0002,C2_partial_or_overgeneralized,formats;license;access_docs,Keep; point to GeoNetwork/service documentation and move layer-specific facts to products.,https://idesisema.meioambiente.mg.gov.br/geonetwork/
+DR0003,C2_partial_or_overgeneralized,access;license;methods,Keep; mark operational fields unknown until directly evidenced.,https://adaptabrasil.mcti.gov.br/index.php/metodologia
+DR0004,C2_partial_or_overgeneralized,temporal_coverage;data_access_url;license,"Use product-specific pages, editions and terminal year; separate inventory, factors and state modules.",https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/sirene
+DR0005,C2_partial_or_overgeneralized,open_data;formats;programmatic_access,Retain source; enumerate individual open datasets and request-based products.,https://www.gov.br/cemaden/pt-br/assuntos/dados-abertos
+DR0006,C1_material_error,authentication;license;access,Correct authentication to product-specific/partial; record API credential workflow and distinguish site-content from dataset licenses.,https://panorama.sipam.gov.br/api/meteorologia/; https://panorama.sipam.gov.br/
+DR0007,C4_not_certifiable,methods;access;license;freshness,Keep provisional; require official product documentation and dated methodology before factual certification.,https://urbverde.iau.usp.br/
+DR0008,C2_partial_or_overgeneralized,authentication;resource_level,Change authentication to partial/endpoint-specific; distinguish catalogue API from dataset downloads.,https://dados.gov.br/swagger-ui/index.html
+DR0009,C2_partial_or_overgeneralized,formats;authentication;license,Expand formats; make authentication explicit by access route; preserve dataset-level license.,https://techdocs.gbif.org/en/data-use/download-formats
+DR0010,C2_partial_or_overgeneralized,authentication;license;resolution;product_scope,Set authentication partial; record CC BY; move 30 m/10.1 to product level and include the 10 m beta product separately.,https://brasil.mapbiomas.org/colecoes-mapbiomas/; https://brasil.mapbiomas.org/termos-de-uso/
+DR0011,C2_partial_or_overgeneralized,links;protocols;formats;product_scope,Use the official data-access/services pages and exact endpoints; keep PRODES/DETER facts at product level.,https://terrabrasilis.dpi.inpe.br/en/data-access/
+DR0012,C2_partial_or_overgeneralized,protocols;license;product_scope,"Retain core; verify each service/export and separate hotspots, risk and burned-area products.",https://terrabrasilis.dpi.inpe.br/queimadas/portal/informacoes/perguntas-frequentes/
+DR0013,C1_material_error,authentication;license,Set API authentication yes; separate network license from provider/collection terms.,https://specieslink.net/ws/1.0/; https://specieslink.net/data_sharing_policy
+DR0014,C4_not_certifiable,access;programmatic_access;license,Keep provisional and do not claim operational status until official accessible documentation is captured.,https://www.sibbr.gov.br/
+DR0015,C2_partial_or_overgeneralized,formats;scale;license,Keep; attach per-layer metadata and scale rather than source-level format assertions.,https://bdiaweb.ibge.gov.br/
+DR0016,C3_broadly_supported,formats,Keep; add KML/XLSX/PDF and preserve extraction date/version.,https://www.gov.br/pt-br/servicos/consultar-o-cadastro-nacional-de-unidades-de-conservacao-da-natureza
+DR0017,C1_material_error,authentication;access_conditions;availability,Set authentication yes; document credential request and current service availability.,https://www.snirh.gov.br/hidroweb/rest/api/documentacao
+DR0018,C1_material_error,authentication;access_conditions,Set authentication yes and link login/access instructions.,https://bdmep.inmet.gov.br/
+DR0019,C2_partial_or_overgeneralized,pricing;quotas;product_scope,Update access conditions with current tiers and billing implications; retain dataset-level license/provider.,https://developers.google.com/earth-engine/guides/access
+DR0020,C3_broadly_supported,formats,Keep; verify exact product-format matrix periodically.,https://appeears.earthdatacloud.nasa.gov/help
+DR0021,C3_broadly_supported,dataset_terms,Keep; clarify that each dataset license must be accepted separately.,https://cds.climate.copernicus.eu/how-to-api
+DR0022,C2_partial_or_overgeneralized,version;temporal_coverage;license,"Create product rows for historical, future and versions; mark v1.4 obsolete.",https://www.worldclim.org/data/worldclim21.html
+DR0023,C2_partial_or_overgeneralized,formats;license;version,"Move resolution, format, license and temporal coverage to product/version rows.",https://chelsa-climate.org/
+DR0024,C2_partial_or_overgeneralized,terms;redistribution;api,"Record WDPCA terms, release month/year and public-vs-licensed versions; add exact API documentation.",https://www.protectedplanet.net/en/legal
+DR0025,C1_material_error,api;terms;authentication,Replace v3 documentation with v4; split assessment API and spatial downloads; record non-commercial terms.,https://api.iucnredlist.org/
+DR0026,C3_broadly_supported,formats,Keep; preserve dataset-level quality/license caveats.,https://obis.org/data/access/
+DR0027,C2_partial_or_overgeneralized,product_scope;access;license,"Split EBD, API and Status & Trends into products/distributions.",https://science.ebird.org/en/use-ebird-data
+DR0028,C2_partial_or_overgeneralized,authentication;license;formats,"Keep authentication partial; distinguish public, restricted and repository-published studies; add Excel/ArcGIS/KML routes.",https://www.movebank.org/cms/movebank-content/access-data
+DR0029,C1_material_error,authentication;license,Immediately correct authentication and license; add policy-change date.,https://www.neonscience.org/impact/observatory-blog/neon-data-portal-updates-coming-june-2026
+DR0030,C2_partial_or_overgeneralized,resource_type;programmatic_access,Assign federated-catalog type and inherit access/license from member dataset.,https://www.dataone.org/
+DR0031,C3_broadly_supported,dataset_terms,Keep; link the KNB API directly and preserve dataset-level terms.,https://knb.ecoinformatics.org/api
+DR0032,C2_partial_or_overgeneralized,authentication;dataset_terms,Set authentication partial and retain DOI/version/license per dataset.,https://ws.pangaea.de/
+DR0033,C1_material_error,embargo;license,Remove generic embargo claim and state CC0 for Dryad research data; separate software/supplement hosted elsewhere.,https://datadryad.org/help/requirements/files
+DR0034,C2_partial_or_overgeneralized,api;licenses;geoprivacy,"Link current v2 API; explicitly separate observation, photo and sound licenses.",https://api.inaturalist.org/v2/docs/
+DR0035,C3_broadly_supported,scope,Keep; explicitly note the hosted-index exception and classify as guidance/catalogue.,https://climatedataguide.ucar.edu/climate-data
+DR0036,C1_material_error,authentication;access_conditions,Set authentication yes and document token/request workflow.,https://roots.ornl.gov/
+DR0037,C1_material_error,api_status;programmatic_access,Mark REST API unavailable/paused; keep WCS/WebDAV as stable routes and add service-status date.,https://docs.isric.org/globaldata/soilgrids/index.html
+DR0038,C1_material_error,protocols;license,Replace protocols with GraphQL/WFS and accurately model source-license restrictions.,https://docs.isric.org/globaldata/wosis/faq-wosis.html
+DR0039,C3_broadly_supported,scope,"Keep, but ensure UI type makes software/tool status prominent.",https://www.gbif.org/ipt
+DR0040,C3_broadly_supported,version;access,Keep; add current version and separate public versus restricted access.,https://www.try-db.org/
+DR0041,C2_partial_or_overgeneralized,freshness;temporal_coverage,Record source snapshot dates and distinguish database release from observation date.,https://bien.nceas.ucsb.edu/bien/data-and-access/
+DR0042,C3_broadly_supported,license_mix,Keep; preserve per-site DOI/license and account requirement.,https://ameriflux.lbl.gov/data/aboutdata/
+DR0043,C2_partial_or_overgeneralized,collection_status;license,Create separate current-Shuttle and legacy-collection products; update access and license statements.,https://fluxnet.org/data/
+DR0044,C2_partial_or_overgeneralized,authentication;provider_license,Keep authentication partial; link API auth docs and inherit provider/license per layer.,https://data-api.globalforestwatch.org/
+DR0045,C2_partial_or_overgeneralized,license;downloads;product_scope,"Record exact data-use terms and split country emissions, budgets and city products.",https://globalcarbonatlas.org/project/data-use/
+DR0046,C2_partial_or_overgeneralized,formats;license;product_scope,Correct license and exact formats; preserve dataset edition/gas/sector/granularity.,https://edgar.jrc.ec.europa.eu/dataset_ghg2025
+DR0047,C3_broadly_supported,authentication_by_service,Keep; model authentication per distribution rather than one source-level boolean.,https://documentation.dataspace.copernicus.eu/APIs.html
+DR0048,C2_partial_or_overgeneralized,transition;authentication;availability,Record transitional interfaces and project-specific access controls; avoid a single stable access claim.,https://esgf.github.io/software.html
+DR0049,C3_broadly_supported,formats,Keep; expand protocols/formats and inherit dataset access from sites/repositories.,https://deims.org/docs/export.html
+DR0050,C1_material_error,authentication;license,Set authentication yes for data access; distinguish discovery from download and dataset-specific restrictions.,https://daac.ornl.gov/sign_in.shtml
+DR0051,C3_broadly_supported,scope;license,Keep with explicit bibliometric type; state non-open database and exact Carbon Brief reuse terms.,https://interactive.carbonbrief.org/cosmos/methodology/index.html
