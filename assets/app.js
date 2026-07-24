@@ -2,6 +2,7 @@ const $ = selector => document.querySelector(selector);
 
 const els = {
   q: $("#q"),
+  scope: $("#scope"),
   area: $("#area"),
   brazil: $("#brazil"),
   download: $("#download"),
@@ -23,12 +24,14 @@ const els = {
 
 let all = [];
 let filtered = [];
+let scopeRegistry = null;
 
 const SEARCH_FIELDS = [
   "resource_name", "acronym", "official_identity", "description", "research_areas",
   "keywords", "data_product_types", "data_formats", "visualization_types",
   "geographic_coverage", "data_sources", "access_protocols", "access_conditions",
-  "license", "owner_or_manager", "academic_uses", "limitations", "academic_evidence_note"
+  "license", "owner_or_manager", "academic_uses", "limitations", "academic_evidence_note",
+  "_scope_search"
 ];
 
 const ENUM_ORDER = ["sim", "parcial", "não", "desconhecido", "não se aplica"];
@@ -49,6 +52,37 @@ const formats = resource => [...new Set(split(resource.data_formats).map(value =
 const searchText = resource => norm(SEARCH_FIELDS.map(key => resource[key]).join(" "));
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const domId = value => String(value || "resource").replace(/[^a-zA-Z0-9_-]/g, "-");
+
+function buildScopeIndex(registry) {
+  const index = new Map();
+  registry.tiers.forEach((tier, order) => {
+    tier.resource_ids.forEach(resourceId => {
+      index.set(resourceId, {
+        priority_tier: tier.priority_tier,
+        priority_order: order,
+        source_origin: tier.source_origin,
+        brazil_scope_class: tier.brazil_scope_class,
+        display_label: tier.display_label,
+        inclusion_role: tier.inclusion_role,
+        description: tier.description
+      });
+    });
+  });
+  return index;
+}
+
+function attachScope(resources, registry) {
+  const index = buildScopeIndex(registry);
+  return resources.map(resource => {
+    const scope = index.get(resource.resource_id);
+    if (!scope) throw Error(`Prioridade Brasil ausente para ${resource.resource_id}.`);
+    return {
+      ...resource,
+      _scope: scope,
+      _scope_search: `${scope.display_label} ${scope.description} ${scope.source_origin} ${scope.inclusion_role}`
+    };
+  });
+}
 
 function detail(label, value) {
   return `<div class="detail"><strong>${esc(label)}</strong><span>${esc(value || "Não informado")}</span></div>`;
@@ -79,6 +113,11 @@ function statusSymbol(value) {
 function statusBadge(label, value) {
   const readable = ENUM_LABELS[value] || value || "Desconhecido";
   return `<div class="status-badge ${statusClass(value)}" role="group" aria-label="${esc(label)}: ${esc(readable)}"><span class="status-symbol" aria-hidden="true">${statusSymbol(value)}</span><span><small>${esc(label)}</small><strong>${esc(readable)}</strong></span></div>`;
+}
+
+function scopeBadge(resource) {
+  const scope = resource._scope;
+  return `<span class="scope-badge scope-${esc(scope.priority_tier.toLowerCase())}" title="${esc(scope.description)}">${esc(scope.display_label)}</span>`;
 }
 
 function detailGroup(title, content, links = "") {
@@ -140,6 +179,9 @@ function card(resource) {
 
   const coverageGroup = detailGroup(
     "Cobertura",
+    detail("Prioridade no escopo Brasil", `${resource._scope.priority_tier} — ${resource._scope.display_label}`) +
+    detail("Origem da fonte", resource._scope.source_origin) +
+    detail("Papel no catálogo", resource._scope.inclusion_role) +
     detail("Cobertura geográfica", resource.geographic_coverage) +
     detail("Dados para o Brasil", resource.covers_brazil) +
     detail("Resolução espacial", resource.spatial_resolution) +
@@ -182,7 +224,7 @@ function card(resource) {
 
   return `<article class="card" role="listitem" aria-labelledby="${cardId}" aria-describedby="${descriptionId}">
     <header class="card-header">
-      <div class="card-title"><div class="title-line"><h3 id="${cardId}">${esc(resource.resource_name)}</h3>${acronym}</div><p class="identity">${esc(resource.official_identity)}</p></div>
+      <div class="card-title"><div class="scope-line">${scopeBadge(resource)}</div><div class="title-line"><h3 id="${cardId}">${esc(resource.resource_name)}</h3>${acronym}</div><p class="identity">${esc(resource.official_identity)}</p></div>
       <span class="verified-date">Registro revisado em ${esc(resource.last_verified)}</span>
     </header>
     <p class="description" id="${descriptionId}">${esc(resource.description)}</p>
@@ -225,12 +267,15 @@ function relevanceScore(resource, query) {
 
 function sortResults(query) {
   const byName = (a, b) => a.resource_name.localeCompare(b.resource_name, "pt-BR");
+  const byScope = (a, b) => a._scope.priority_order - b._scope.priority_order;
   if (els.sort.value === "verified") {
-    filtered.sort((a, b) => String(b.last_verified).localeCompare(String(a.last_verified)) || byName(a, b));
-  } else if (els.sort.value === "name" || !query) {
+    filtered.sort((a, b) => String(b.last_verified).localeCompare(String(a.last_verified)) || byScope(a, b) || byName(a, b));
+  } else if (els.sort.value === "name") {
     filtered.sort(byName);
+  } else if (els.sort.value === "relevance" && query) {
+    filtered.sort((a, b) => relevanceScore(b, query) - relevanceScore(a, query) || byScope(a, b) || byName(a, b));
   } else {
-    filtered.sort((a, b) => relevanceScore(b, query) - relevanceScore(a, query) || byName(a, b));
+    filtered.sort((a, b) => byScope(a, b) || (query ? relevanceScore(b, query) - relevanceScore(a, query) : 0) || byName(a, b));
   }
 }
 
@@ -238,7 +283,8 @@ function render() {
   els.list.setAttribute("aria-busy", "true");
   els.list.innerHTML = filtered.map(card).join("");
   els.empty.hidden = filtered.length > 0;
-  els.count.textContent = `${filtered.length} ${filtered.length === 1 ? "fonte encontrada" : "fontes encontradas"} · ${all.length} no catálogo`;
+  const coreCount = filtered.filter(resource => resource._scope.priority_tier === "P0").length;
+  els.count.textContent = `${filtered.length} ${filtered.length === 1 ? "fonte encontrada" : "fontes encontradas"} · ${coreCount} ${coreCount === 1 ? "fonte brasileira" : "fontes brasileiras"} · ${all.length} no catálogo`;
   els.list.setAttribute("aria-busy", "false");
 }
 
@@ -247,6 +293,7 @@ function renderActiveFilters() {
   if (els.q.value.trim()) items.push({key: "q", label: `Busca: ${els.q.value.trim()}`});
 
   [
+    ["scope", "Escopo", els.scope],
     ["area", "Área", els.area],
     ["brazil", "Brasil", els.brazil],
     ["download", "Download", els.download],
@@ -267,6 +314,11 @@ function renderActiveFilters() {
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
   });
+  document.querySelectorAll("[data-scope]").forEach(button => {
+    const active = button.dataset.scope === els.scope.value;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
 
   els.activeFilters.hidden = items.length === 0;
   els.activeFilters.innerHTML = items.length ? `<span>Filtros ativos:</span>${items.map(item => `<button type="button" data-remove="${item.key}" aria-label="Remover ${esc(item.label)}">${esc(item.label)} <b aria-hidden="true">×</b></button>`).join("")}` : "";
@@ -283,6 +335,7 @@ function writeUrl() {
   const params = new URLSearchParams();
   const values = {
     q: els.q.value.trim(),
+    scope: els.scope.value,
     area: els.area.value,
     brazil: els.brazil.value,
     download: els.download.value,
@@ -290,7 +343,7 @@ function writeUrl() {
     coverage: els.coverage.value,
     format: els.format.value,
     evidence: els.evidence.value,
-    sort: els.sort.value === "relevance" ? "" : els.sort.value
+    sort: els.sort.value === "brazil" ? "" : els.sort.value
   };
   Object.entries(values).forEach(([key, value]) => { if (value) params.set(key, value); });
   const query = params.toString();
@@ -306,6 +359,7 @@ function setSelectFromParam(element, value) {
 function readUrl() {
   const params = new URLSearchParams(location.search);
   els.q.value = params.get("q") || "";
+  setSelectFromParam(els.scope, params.get("scope"));
   setSelectFromParam(els.area, params.get("area"));
   setSelectFromParam(els.brazil, params.get("brazil"));
   setSelectFromParam(els.download, params.get("download"));
@@ -320,6 +374,7 @@ function filter(syncUrl = true) {
   const query = norm(els.q.value.trim());
   filtered = all.filter(resource =>
     (!query || searchText(resource).includes(query)) &&
+    (!els.scope.value || resource._scope.brazil_scope_class === els.scope.value) &&
     (!els.area.value || split(resource.research_areas).includes(els.area.value)) &&
     (!els.brazil.value || resource.covers_brazil === els.brazil.value) &&
     (!els.download.value || resource.free_download === els.download.value) &&
@@ -345,6 +400,12 @@ function setQuery(value) {
   goToCatalog();
 }
 
+function setScope(value) {
+  els.scope.value = value;
+  filter();
+  goToCatalog();
+}
+
 function renderAreas() {
   const counts = countValues(all.flatMap(resource => split(resource.research_areas)));
   els.areaLinks.innerHTML = [...counts.entries()]
@@ -361,6 +422,9 @@ function renderAreas() {
 }
 
 function populateFilters() {
+  const scopeOrder = scopeRegistry.tiers.map(tier => tier.brazil_scope_class);
+  const scopeLabels = Object.fromEntries(scopeRegistry.tiers.map(tier => [tier.brazil_scope_class, `${tier.priority_tier} — ${tier.display_label}`]));
+  populateSelect(els.scope, all.map(resource => resource._scope.brazil_scope_class), "Todas as prioridades", scopeOrder, scopeLabels);
   populateSelect(els.area, all.flatMap(resource => split(resource.research_areas)), "Todas as áreas");
   populateSelect(els.brazil, all.map(resource => resource.covers_brazil), "Qualquer situação", ENUM_ORDER, ENUM_LABELS);
   populateSelect(els.download, all.map(resource => resource.free_download), "Qualquer situação", ENUM_ORDER, ENUM_LABELS);
@@ -372,21 +436,27 @@ function populateFilters() {
 
 async function init() {
   try {
-    const response = await fetch("data/data_resources.json");
-    if (!response.ok) throw Error("Não foi possível carregar os dados.");
+    const [resourcesResponse, scopeResponse] = await Promise.all([
+      fetch("data/data_resources.json"),
+      fetch("data/brazil_scope_priorities.json")
+    ]);
+    if (!resourcesResponse.ok) throw Error("Não foi possível carregar os dados.");
+    if (!scopeResponse.ok) throw Error("Não foi possível carregar a política de prioridade Brasil.");
 
-    all = await response.json();
+    scopeRegistry = await scopeResponse.json();
+    all = attachScope(await resourcesResponse.json(), scopeRegistry);
     populateFilters();
     renderAreas();
     readUrl();
 
-    [els.q, els.area, els.brazil, els.download, els.programmatic, els.coverage, els.format, els.evidence, els.sort].forEach(element => element.addEventListener(element === els.q ? "input" : "change", () => filter()));
+    [els.q, els.scope, els.area, els.brazil, els.download, els.programmatic, els.coverage, els.format, els.evidence, els.sort].forEach(element => element.addEventListener(element === els.q ? "input" : "change", () => filter()));
     els.heroSearch.addEventListener("submit", event => { event.preventDefault(); filter(); goToCatalog(); });
     document.querySelectorAll("[data-query]").forEach(button => button.addEventListener("click", () => setQuery(button.dataset.query)));
+    document.querySelectorAll("[data-scope]").forEach(button => button.addEventListener("click", () => setScope(button.dataset.scope)));
     $("#clear").addEventListener("click", () => {
       $("#filters").reset();
       els.q.value = "";
-      els.sort.value = "relevance";
+      els.sort.value = "brazil";
       els.advancedFilters.open = false;
       filter();
       els.q.focus();
@@ -394,9 +464,9 @@ async function init() {
     window.addEventListener("popstate", () => { readUrl(); filter(false); });
 
     $("#n-total").textContent = all.length;
-    $("#n-free").textContent = all.filter(resource => resource.free_download === "sim").length;
-    $("#n-api").textContent = all.filter(resource => resource.programmatic_access === "sim").length;
-    $("#n-br").textContent = all.filter(resource => ["sim", "parcial"].includes(resource.covers_brazil)).length;
+    $("#n-brazilian").textContent = all.filter(resource => resource._scope.priority_tier === "P0").length;
+    $("#n-intl-br").textContent = all.filter(resource => resource._scope.priority_tier === "P1").length;
+    $("#n-secondary").textContent = all.filter(resource => ["P2", "P3"].includes(resource._scope.priority_tier)).length;
     $("#updated").textContent = all.map(resource => resource.last_verified).filter(Boolean).sort().at(-1) || "não informada";
     filter(false);
   } catch (error) {
