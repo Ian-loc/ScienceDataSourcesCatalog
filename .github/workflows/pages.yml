@@ -27,7 +27,9 @@ jobs:
       - name: Validar fila de candidatos
         run: python3 scripts/validate_candidate_queue.py
       - name: Validar prioridade territorial Brasil
-        run: python3 scripts/validate_brazil_scope.py
+        run: |
+          python3 -m py_compile scripts/validate_brazil_scope.py
+          python3 scripts/validate_brazil_scope.py
       - name: Validar catálogo de produtos
         run: python3 scripts/validate_product_catalog.py
       - name: Validar CSV e gerar artefatos
@@ -58,6 +60,7 @@ jobs:
           node --check assets/app.js
           node --check assets/products.js
           node --check assets/analytics.js
+          node --check assets/quality-summary.js
           node --check assets/build-meta.js
       - name: Confirmar artefatos publicáveis
         run: |
@@ -65,6 +68,8 @@ jobs:
           test -s products.html
           test -s analytics.html
           test -s about.html
+          test -s assets/brazil-scope.css
+          test -s assets/quality-summary.js
           test -s data/data_resources.csv
           test -s data/data_resources.json
           test -s data/data_products.json
@@ -84,6 +89,7 @@ jobs:
         run: |
           python3 scripts/apply_factual_remediation.py
           python3 scripts/apply_factual_remediation.py --check
+          python3 scripts/validate_candidate_queue.py
           python3 scripts/validate_brazil_scope.py
           python3 scripts/validate_product_catalog.py
           python3 scripts/build_catalog.py
