@@ -111,8 +111,8 @@ for tier in tiers:
         covers = canonical[resource_id]["covers_brazil"].strip()
         if priority in {"P0", "P1"} and covers != "sim":
             fail(f"{resource_id}: {priority} exige covers_brazil=sim")
-        if priority == "P2" and covers not in {"sim", "parcial"}:
-            fail(f"{resource_id}: P2 exige covers_brazil sim ou parcial")
+        if priority == "P2" and covers not in {"sim", "parcial", "não se aplica"}:
+            fail(f"{resource_id}: P2 exige covers_brazil sim, parcial ou não se aplica")
         if priority == "P3" and covers != "não":
             fail(f"{resource_id}: P3 exige covers_brazil=não")
 
