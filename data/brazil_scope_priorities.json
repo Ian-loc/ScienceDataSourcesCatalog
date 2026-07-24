@@ -1,0 +1,111 @@
+{
+  "registry_version": "1.0.0",
+  "scope_statement": "O catálogo prioriza fontes brasileiras e fontes que oferecem dados efetivos sobre o Brasil. Recursos sem cobertura brasileira direta são secundários e exigem justificativa estratégica explícita.",
+  "reviewed_at": "2026-07-24",
+  "tier_order": [
+    "P0",
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "tiers": [
+    {
+      "priority_tier": "P0",
+      "source_origin": "brasileira",
+      "brazil_scope_class": "fonte_brasileira",
+      "display_label": "Fonte brasileira",
+      "inclusion_role": "núcleo",
+      "description": "Núcleo do catálogo: fontes mantidas por instituições, programas ou redes brasileiras e com dados sobre o Brasil.",
+      "resource_ids": [
+        "DR0001",
+        "DR0002",
+        "DR0003",
+        "DR0004",
+        "DR0005",
+        "DR0006",
+        "DR0007",
+        "DR0008",
+        "DR0010",
+        "DR0011",
+        "DR0012",
+        "DR0013",
+        "DR0014",
+        "DR0015",
+        "DR0016",
+        "DR0017",
+        "DR0018"
+      ]
+    },
+    {
+      "priority_tier": "P1",
+      "source_origin": "internacional",
+      "brazil_scope_class": "cobertura_brasil_sistematica",
+      "display_label": "Cobertura Brasil",
+      "inclusion_role": "complementar",
+      "description": "Fontes internacionais com dados sobre o Brasil de forma sistemática ou diretamente pesquisável.",
+      "resource_ids": [
+        "DR0009",
+        "DR0019",
+        "DR0020",
+        "DR0021",
+        "DR0022",
+        "DR0023",
+        "DR0024",
+        "DR0025",
+        "DR0026",
+        "DR0027",
+        "DR0034",
+        "DR0037",
+        "DR0038",
+        "DR0041",
+        "DR0044",
+        "DR0045",
+        "DR0046",
+        "DR0047",
+        "DR0048"
+      ]
+    },
+    {
+      "priority_tier": "P2",
+      "source_origin": "internacional",
+      "brazil_scope_class": "cobertura_brasil_parcial",
+      "display_label": "Cobertura parcial/indireta",
+      "inclusion_role": "contextual",
+      "description": "Fontes em que dados brasileiros dependem do dataset, sítio, depósito, coleção ou serviço específico.",
+      "resource_ids": [
+        "DR0028",
+        "DR0030",
+        "DR0031",
+        "DR0032",
+        "DR0033",
+        "DR0035",
+        "DR0036",
+        "DR0039",
+        "DR0040",
+        "DR0042",
+        "DR0043",
+        "DR0049",
+        "DR0050",
+        "DR0051"
+      ]
+    },
+    {
+      "priority_tier": "P3",
+      "source_origin": "internacional",
+      "brazil_scope_class": "referencia_sem_cobertura_brasil",
+      "display_label": "Referência comparativa",
+      "inclusion_role": "comparativa",
+      "description": "Recursos mantidos apenas por valor metodológico, comparativo ou de infraestrutura; não devem dominar a expansão do catálogo.",
+      "resource_ids": [
+        "DR0029"
+      ]
+    }
+  ],
+  "rules": [
+    "fontes_brasileiras_recebem_prioridade_maxima",
+    "fontes_internacionais_exigem_cobertura_brasileira_demonstrável_ou_justificativa_estratégica",
+    "ausência_de_cobertura_brasileira_não_autoriza_exclusão_automática",
+    "prioridade_de_escopo_não_certifica_qualidade_científica_do_produto",
+    "classificação_é_curatorial_e_não_deve_ser_inferida_apenas_pelo_domínio_da_url"
+  ]
+}
