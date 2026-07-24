@@ -1,5 +1,18 @@
 # Histórico de mudanças
 
+## Não lançado — escopo Brasil-primeiro
+
+- definido o Brasil como escopo territorial central do catálogo;
+- criada classificação curatorial P0–P3 para todas as 51 fontes, sem alterar o CSV canônico 0.7.0;
+- adicionada ordenação padrão que apresenta primeiro fontes brasileiras e depois fontes internacionais com cobertura sistemática do Brasil;
+- adicionados filtro territorial, atalhos, indicadores públicos e marcas de prioridade nos cards;
+- adicionados detalhes de origem da fonte e papel no catálogo;
+- criada validação automática da cobertura integral dos 51 `resource_id` pela política territorial;
+- fortalecida a política de seleção para exigir vínculo com o Brasil ou justificativa estratégica explícita;
+- reordenada a fila de candidatos, reduzindo a prioridade de agregadores globais gerais;
+- adicionadas oito infraestruturas brasileiras de alta prioridade: Brazil Data Cube, SNIF, Flora e Funga do Brasil, GeoInfo Embrapa, SIAGAS, SiMCosta, SEEG e PPBio;
+- preservados o bloqueio de inclusões automáticas, a versão 0.7.0 e os portões de DOI.
+
 ## Não lançado — correções factuais e escala visual
 
 - corrigidos 11 registros com divergências confirmadas em autenticação, API, licença ou condições de acesso;
@@ -8,7 +21,6 @@
 - adicionada advertência pública sobre variabilidade por produto e distribuição;
 - reduzida moderadamente a escala tipográfica e o tamanho máximo dos títulos;
 - preservados número de fontes, esquema 0.7.0 e bloqueio do DOI.
-
 
 ## Não lançado — UX6 descoberta e comparação de produtos
 

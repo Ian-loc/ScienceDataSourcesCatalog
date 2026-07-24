@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validação estrutural, de acessibilidade e de peso da interface estática."""
+"""Validação estrutural, territorial, de acessibilidade e de peso da interface."""
 from __future__ import annotations
 
 import json
@@ -11,7 +11,11 @@ ROOT = Path(__file__).resolve().parents[1]
 CANONICAL_PRODUCT_NAME = "Science Data Sources Catalog"
 CANONICAL_SITE_URL = "https://ian-loc.github.io/ScienceDataSourcesCatalog/"
 CANONICAL_REPOSITORY_URL = "https://github.com/Ian-loc/ScienceDataSourcesCatalog"
-LEGACY_PUBLIC_TOKENS = ("Ecology Data Catalog", "Ian-loc/ecology-data-catalog", "github.io/ecology-data-catalog")
+LEGACY_PUBLIC_TOKENS = (
+    "Ecology Data Catalog",
+    "Ian-loc/ecology-data-catalog",
+    "github.io/ecology-data-catalog",
+)
 
 
 class PageParser(HTMLParser):
@@ -30,7 +34,6 @@ class PageParser(HTMLParser):
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
         self.tags.append(tag)
-
         if tag == "html":
             self.html_lang = values.get("lang") or ""
         if tag == "meta" and values.get("name") == "viewport":
@@ -72,7 +75,6 @@ def validate_page(filename: str, required_ids: set[str], require_noscript: bool 
     page_path = ROOT / filename
     if not page_path.exists():
         fail(f"página ausente: {filename}")
-
     content = page_path.read_text(encoding="utf-8")
     parser = PageParser()
     parser.feed(content)
@@ -80,11 +82,9 @@ def validate_page(filename: str, required_ids: set[str], require_noscript: bool 
     duplicates = sorted({item for item in parser.ids if parser.ids.count(item) > 1})
     if duplicates:
         fail(f"{filename}: IDs duplicados: {', '.join(duplicates)}")
-
     missing_ids = sorted(required_ids.difference(parser.ids))
     if missing_ids:
         fail(f"{filename}: IDs obrigatórios ausentes: {', '.join(missing_ids)}")
-
     if parser.html_lang != "pt-BR":
         fail(f"{filename}: atributo lang deve ser pt-BR")
     if not parser.has_viewport:
@@ -118,14 +118,12 @@ def validate_page(filename: str, required_ids: set[str], require_noscript: bool 
 def validate_public_identity() -> None:
     public_files = ("README.md", "index.html", "products.html", "analytics.html", "about.html", "CITATION.cff")
     contents = {filename: (ROOT / filename).read_text(encoding="utf-8") for filename in public_files}
-
     for filename, content in contents.items():
         if CANONICAL_PRODUCT_NAME not in content:
             fail(f"{filename}: nome canônico do produto ausente")
         stale = sorted(token for token in LEGACY_PUBLIC_TOKENS if token in content)
         if stale:
             fail(f"{filename}: identidade ou URL legada presente: {', '.join(stale)}")
-
     for filename in ("README.md", "about.html", "CITATION.cff"):
         if CANONICAL_SITE_URL not in contents[filename]:
             fail(f"{filename}: URL canônica do site ausente")
@@ -134,8 +132,7 @@ def validate_public_identity() -> None:
 
 
 def validate_catalog_fields() -> None:
-    app_path = ROOT / "assets" / "app.js"
-    content = app_path.read_text(encoding="utf-8")
+    content = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
     required_fields = {
         "resource_id", "resource_name", "acronym", "official_identity", "description",
         "homepage_url", "data_access_url", "research_areas", "keywords",
@@ -167,6 +164,46 @@ def validate_catalog_fields() -> None:
     missing_accessibility = sorted(token for token in required_accessibility if token not in content)
     if missing_accessibility:
         fail(f"assets/app.js perdeu garantias de acessibilidade: {', '.join(missing_accessibility)}")
+
+
+def validate_brazil_scope_interface() -> None:
+    registry_path = ROOT / "data" / "brazil_scope_priorities.json"
+    css_path = ROOT / "assets" / "brazil-scope.css"
+    quality_path = ROOT / "assets" / "quality-summary.js"
+    for path in (registry_path, css_path, quality_path):
+        if not path.exists() or path.stat().st_size == 0:
+            fail(f"artefato Brasil ausente: {path.relative_to(ROOT)}")
+
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    if registry.get("tier_order") != ["P0", "P1", "P2", "P3"]:
+        fail("interface Brasil exige prioridade P0–P3")
+    if sum(len(tier.get("resource_ids", [])) for tier in registry.get("tiers", [])) != 51:
+        fail("interface Brasil deve classificar as 51 fontes")
+
+    index = (ROOT / "index.html").read_text(encoding="utf-8")
+    app = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
+    css = css_path.read_text(encoding="utf-8")
+    required_index = {
+        "Brasil primeiro", 'id="scope"', 'value="brazil"', "assets/brazil-scope.css",
+        "assets/quality-summary.js", 'data-scope="fonte_brasileira"',
+        'data-scope="cobertura_brasil_sistematica"',
+    }
+    missing_index = sorted(token for token in required_index if token not in index)
+    if missing_index:
+        fail(f"index.html não materializa o escopo Brasil: {', '.join(missing_index)}")
+
+    required_app = {
+        "data/brazil_scope_priorities.json", "priority_order", "brazil_scope_class",
+        "scopeBadge", "n-brazilian", "n-intl-br", "n-secondary",
+    }
+    missing_app = sorted(token for token in required_app if token not in app)
+    if missing_app:
+        fail(f"assets/app.js não implementa prioridade Brasil: {', '.join(missing_app)}")
+
+    required_css = {".brazil-scope-summary", ".brazil-scope-grid", ".scope-badge", ".scope-p0", ".scope-p3"}
+    missing_css = sorted(token for token in required_css if token not in css)
+    if missing_css:
+        fail(f"assets/brazil-scope.css incompleto: {', '.join(missing_css)}")
 
 
 def validate_product_interface() -> None:
@@ -223,16 +260,18 @@ def validate_accessibility_css() -> None:
 
 def validate_size_budget() -> None:
     limits = {
-        "index.html": 20_000,
+        "index.html": 24_000,
         "products.html": 18_000,
         "analytics.html": 12_000,
-        "about.html": 22_000,
+        "about.html": 26_000,
         "assets/style.css": 30_000,
         "assets/products.css": 10_000,
         "assets/accessibility.css": 10_000,
-        "assets/app.js": 50_000,
+        "assets/brazil-scope.css": 6_000,
+        "assets/app.js": 55_000,
         "assets/products.js": 45_000,
         "assets/analytics.js": 15_000,
+        "assets/quality-summary.js": 8_000,
         "assets/build-meta.js": 5_000,
     }
     total = 0
@@ -242,19 +281,21 @@ def validate_size_budget() -> None:
         total += size
         if size > limit:
             fail(f"{filename}: {size} bytes excede o limite de {limit} bytes")
-    if total > 190_000:
-        fail(f"interface estática excede orçamento total: {total} > 190000 bytes")
+    if total > 210_000:
+        fail(f"interface estática excede orçamento total: {total} > 210000 bytes")
     print(f"OK: orçamento da interface = {total} bytes")
 
 
 validate_page(
     "index.html",
     {
-        "conteudo", "areas", "areas-heading", "area-links", "catalogo", "catalog-heading",
-        "hero-search", "search-help", "q", "filters", "filter-note", "area", "brazil",
-        "download", "programmatic", "coverage", "format", "evidence", "sort",
-        "advanced-filters", "advanced-count", "active-filters", "clear", "list", "empty",
-        "count", "n-total", "n-free", "n-api", "n-br", "updated",
+        "conteudo", "scope-heading", "qualidade", "quality-heading", "areas", "areas-heading",
+        "area-links", "catalogo", "catalog-heading", "hero-search", "search-help", "q",
+        "filters", "filter-note", "scope", "area", "brazil", "download", "programmatic",
+        "coverage", "format", "evidence", "sort", "advanced-filters", "advanced-count",
+        "active-filters", "clear", "list", "empty", "count", "n-total", "n-brazilian",
+        "n-intl-br", "n-secondary", "q-official-docs", "q-peer-reviewed",
+        "q-access-uncertain", "q-license-uncertain", "q-link-role-pending", "updated",
     },
 )
 validate_page(
@@ -283,8 +324,9 @@ validate_page(
 )
 validate_public_identity()
 validate_catalog_fields()
+validate_brazil_scope_interface()
 validate_product_interface()
 validate_accessibility_css()
 validate_size_budget()
 
-print("OK: HTML, produtos, acessibilidade estrutural, dependências, campos e desempenho validados")
+print("OK: HTML, escopo Brasil, produtos, acessibilidade, campos e desempenho validados")
