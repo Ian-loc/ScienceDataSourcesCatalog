@@ -2,38 +2,43 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Pesquise e compare fontes confiáveis de dados ambientais para pesquisa, ensino e extensão.">
+<meta name="description" content="Encontre e compare fontes brasileiras e internacionais com dados científicos sobre o Brasil para pesquisa, ensino e extensão.">
 <meta name="theme-color" content="#173f32"><meta name="color-scheme" content="light">
-<title>Science Data Sources Catalog · Fontes de dados ambientais</title><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/accessibility.css">
+<title>Science Data Sources Catalog · Dados científicos sobre o Brasil</title><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/accessibility.css">
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir ao conteúdo</a>
 <nav class="site-nav" aria-label="Navegação principal"><div class="wrap nav-inner">
-<a class="brand" href="index.html" aria-label="Science Data Sources Catalog — página inicial"><span>Science Data Sources Catalog</span><small>fontes de dados científicos</small></a>
+<a class="brand" href="index.html" aria-label="Science Data Sources Catalog — página inicial"><span>Science Data Sources Catalog</span><small>fontes de dados científicos sobre o Brasil</small></a>
 <div class="nav-links"><a href="#areas">Áreas</a><a href="#catalogo" aria-current="page">Fontes</a><a href="products.html">Produtos</a><a href="analytics.html">Análise</a><a href="about.html">Método e citação</a></div>
 </div></nav>
 <header class="hero"><div class="wrap hero-grid">
 <div class="hero-copy">
-<p class="eyebrow">Catálogo aberto para pesquisa, ensino e extensão</p>
-<h1>Encontre fontes confiáveis de dados ambientais</h1>
-<p class="lead">Pesquise plataformas, repositórios, redes e sistemas para ecologia, biodiversidade, clima, carbono, solos e áreas relacionadas. Compare cobertura, acesso, formatos, evidências e limitações antes de escolher uma fonte.</p>
+<p class="eyebrow">Catálogo Brasil · pesquisa, ensino e extensão</p>
+<h1>Encontre fontes de dados científicos sobre o Brasil</h1>
+<p class="lead">A prioridade máxima é registrar fontes brasileiras e fontes internacionais com dados efetivos sobre o território, a biodiversidade, o clima, os ecossistemas e a sociedade brasileira. Recursos sem cobertura direta do Brasil aparecem apenas como referências secundárias justificadas.</p>
 </div>
 <div class="hero-tool">
 <form class="hero-search" id="hero-search" role="search" aria-label="Busca principal do catálogo">
 <label for="q">Buscar no catálogo</label>
-<div class="search-row"><input id="q" type="search" autocomplete="off" enterkeyhint="search" aria-describedby="search-help" placeholder="Tema, fonte, instituição, formato ou finalidade…"><button type="submit">Buscar fontes</button></div>
-<p class="search-help" id="search-help">A busca considera nomes, temas, instituições, formatos, produtos, usos e limitações.</p>
+<div class="search-row"><input id="q" type="search" autocomplete="off" enterkeyhint="search" aria-describedby="search-help" placeholder="Fonte brasileira, tema, instituição, formato ou finalidade…"><button type="submit">Buscar fontes</button></div>
+<p class="search-help" id="search-help">A busca considera nomes, temas, instituições, formatos, produtos, usos, limitações e prioridade no escopo brasileiro.</p>
 </form>
-<div class="quick-search" aria-label="Buscas sugeridas"><span>Exemplos:</span><button type="button" data-query="biodiversidade">biodiversidade</button><button type="button" data-query="carbono">carbono</button><button type="button" data-query="Brasil">dados do Brasil</button><button type="button" data-query="API">API</button><button type="button" data-query="GeoTIFF">GeoTIFF</button></div>
+<div class="quick-search scope-shortcuts" aria-label="Atalhos de prioridade territorial"><span>Prioridade:</span><button type="button" data-scope="fonte_brasileira">fontes brasileiras</button><button type="button" data-scope="cobertura_brasil_sistematica">fontes internacionais com Brasil</button></div>
+<div class="quick-search" aria-label="Buscas sugeridas"><span>Exemplos:</span><button type="button" data-query="biodiversidade">biodiversidade</button><button type="button" data-query="carbono">carbono</button><button type="button" data-query="Amazônia">Amazônia</button><button type="button" data-query="API">API</button><button type="button" data-query="GeoTIFF">GeoTIFF</button></div>
 <div class="hero-links"><a href="#areas">Explorar por área</a><a href="products.html">Buscar produtos específicos</a><a href="analytics.html">Analisar o catálogo</a><a href="data/data_resources.csv" download>Baixar CSV</a></div>
 </div>
 </div></header>
-<section class="stats" aria-label="Resumo do catálogo"><div class="wrap stats-grid">
+<section class="stats" aria-label="Resumo do escopo territorial"><div class="wrap stats-grid">
 <div><strong id="n-total">—</strong><span>fontes catalogadas</span></div>
-<div><strong id="n-free">—</strong><span>com download gratuito</span></div>
-<div><strong id="n-api">—</strong><span>com API ou acesso automatizado</span></div>
-<div><strong id="n-br">—</strong><span>com dados para o Brasil</span></div>
+<div><strong id="n-brazilian">—</strong><span>fontes brasileiras prioritárias</span></div>
+<div><strong id="n-intl-br">—</strong><span>fontes internacionais com Brasil</span></div>
+<div><strong id="n-secondary">—</strong><span>fontes contextuais ou comparativas</span></div>
 </div></section>
+<section class="wrap brazil-scope-summary" aria-labelledby="scope-heading">
+<div><p class="eyebrow">Escopo territorial</p><h2 id="scope-heading">Brasil primeiro, cobertura internacional quando necessária</h2></div>
+<p>As fontes são classificadas em quatro níveis curatoriais: <strong>P0</strong>, fonte brasileira; <strong>P1</strong>, fonte internacional com cobertura sistemática do Brasil; <strong>P2</strong>, cobertura brasileira parcial ou dependente do produto; e <strong>P3</strong>, referência estratégica sem cobertura brasileira direta. Essa prioridade organiza a descoberta, mas não substitui a avaliação científica de cada produto.</p>
+</section>
 <aside class="verification-notice wrap" role="note" aria-label="Estado da verificação factual"><strong>Transparência factual:</strong> as datas exibidas indicam a revisão do registro. Elas não certificam automaticamente todos os produtos mantidos pela fonte. Acesso, licença, versão e resolução devem ser confirmados no produto específico.</aside>
 <main id="conteudo">
 <section class="wrap areas-section" id="qualidade" aria-labelledby="quality-heading">
@@ -53,11 +58,12 @@
 </section>
 <section class="wrap catalog" id="catalogo" aria-labelledby="catalog-heading">
 <div class="catalog-toolbar">
-<div class="heading"><div><p class="eyebrow">Busca e comparação</p><h2 id="catalog-heading" tabindex="-1">Encontre uma fonte adequada à sua pesquisa</h2></div><p id="count" role="status" aria-live="polite" aria-atomic="true">Carregando fontes…</p></div>
-<label class="sort-control" for="sort"><span>Ordenar resultados</span><select id="sort"><option value="relevance">Mais relevantes</option><option value="name">Nome de A a Z</option><option value="verified">Revisão do registro mais recente</option></select></label>
+<div class="heading"><div><p class="eyebrow">Busca e comparação</p><h2 id="catalog-heading" tabindex="-1">Encontre uma fonte adequada à sua pesquisa no Brasil</h2></div><p id="count" role="status" aria-live="polite" aria-atomic="true">Carregando fontes…</p></div>
+<label class="sort-control" for="sort"><span>Ordenar resultados</span><select id="sort"><option value="brazil">Prioridade Brasil</option><option value="relevance">Relevância da busca</option><option value="name">Nome de A a Z</option><option value="verified">Revisão do registro mais recente</option></select></label>
 </div>
 <form class="filters" id="filters" role="search" aria-label="Filtros do catálogo" aria-describedby="filter-note">
-<fieldset class="essential-grid"><legend class="sr-only">Filtros principais</legend>
+<fieldset class="essential-grid brazil-scope-grid"><legend class="sr-only">Filtros principais</legend>
+<label><span>Prioridade territorial</span><select id="scope"><option value="">Todas as prioridades</option></select></label>
 <label><span>Área de pesquisa</span><select id="area"><option value="">Todas as áreas</option></select></label>
 <label><span>Dados para o Brasil</span><select id="brazil"><option value="">Qualquer situação</option></select></label>
 <label><span>Download gratuito</span><select id="download"><option value="">Qualquer situação</option></select></label>
@@ -71,16 +77,17 @@
 <label><span>Tipo de evidência</span><select id="evidence"><option value="">Todos os tipos</option></select></label>
 </fieldset>
 </details>
-<div class="filter-footer"><p id="filter-note">As contagens mostram quantas fontes possuem cada atributo no catálogo completo.</p><button type="button" id="clear">Limpar busca e filtros</button></div>
+<div class="filter-footer"><p id="filter-note">A ordem padrão privilegia fontes brasileiras, depois fontes internacionais com dados sistemáticos sobre o Brasil.</p><button type="button" id="clear">Limpar busca e filtros</button></div>
 </form>
 <div class="active-filters" id="active-filters" role="region" aria-label="Filtros ativos" aria-live="polite" hidden></div>
 <div id="list" class="cards" role="list" aria-busy="true" aria-describedby="count"></div>
 <div id="empty" class="empty" role="status" hidden><h3>Nenhuma fonte corresponde à busca</h3><p>Remova um filtro ou tente um termo mais amplo.</p></div>
 <noscript><div class="noscript"><h3>O catálogo interativo requer JavaScript</h3><p>Você ainda pode <a href="data/data_resources.csv" download>baixar o CSV completo</a>, consultar a <a href="about.html">metodologia e citação</a> ou acessar o <a href="https://github.com/Ian-loc/ScienceDataSourcesCatalog">repositório no GitHub</a>.</p></div></noscript>
 </section>
-<section class="wrap about"><div><p class="eyebrow">Uso responsável</p><h2>Descubra e compare fontes — confirme o dataset antes de usar</h2></div><p>O catálogo apoia a triagem inicial. Antes de utilizar dados, confira a versão, licença, metodologia, resolução, cobertura, incerteza e adequação do produto à pergunta científica. Para o piloto já detalhado, use a <a href="products.html">busca por produtos</a>.</p></section>
+<section class="wrap about"><div><p class="eyebrow">Uso responsável</p><h2>Descubra e compare fontes — confirme o dataset antes de usar</h2></div><p>O catálogo apoia a triagem inicial, com prioridade territorial para o Brasil. Antes de utilizar dados, confira a versão, licença, metodologia, resolução, cobertura, incerteza e adequação do produto à pergunta científica. Para o piloto já detalhado, use a <a href="products.html">busca por produtos</a>.</p></section>
 </main>
-<footer class="wrap"><p><strong>Science Data Sources Catalog</strong> · Ian Lara · <a href="products.html">Produtos</a> · <a href="about.html">Método e citação</a> · <a href="analytics.html">Análise</a></p><p>Dados: CC BY 4.0 · Código: MIT · Verificação: <span id="updated">—</span> · Build: <span data-build-meta>—</span></p></footer>
+<footer class="wrap"><p><strong>Science Data Sources Catalog</strong> · Ian Lara · <a href="products.html">Produtos</a> · <a href="about.html">Método e citação</a> · <a href="analytics.html">Análise</a></p><p>Escopo prioritário: Brasil · Dados: CC BY 4.0 · Código: MIT · Revisão: <span id="updated">—</span> · Build: <span data-build-meta>—</span></p></footer>
 <script src="assets/app.js" defer></script>
+<script src="assets/analytics.js" defer></script>
 <script src="assets/build-meta.js" defer></script>
 </body></html>
