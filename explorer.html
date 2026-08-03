@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Visualize camadas científicas de diferentes fontes em um mapa comum, preservando autoria, versão, metodologia, licença e proveniência.">
+<meta name="theme-color" content="#173f32">
+<meta name="color-scheme" content="light">
+<title>Explorador Federado · Science Data Sources Catalog</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/accessibility.css">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.css">
+<link rel="stylesheet" href="assets/explorer.css">
+</head>
+<body>
+<a class="skip" href="#explorador">Ir ao explorador</a>
+<nav class="site-nav" aria-label="Navegação principal"><div class="wrap nav-inner">
+<a class="brand" href="index.html" aria-label="Science Data Sources Catalog — página inicial"><span>Science Data Sources Catalog</span><small>fontes de dados científicos sobre o Brasil</small></a>
+<div class="nav-links"><a href="index.html#catalogo">Fontes</a><a href="products.html">Produtos</a><a href="explorer.html" aria-current="page">Explorador</a><a href="analytics.html">Análise</a><a href="about.html">Método e citação</a></div>
+</div></nav>
+<header class="explorer-hero"><div class="wrap">
+<p class="eyebrow">Visualização federada com proveniência</p>
+<h1>Explorador Federado de Dados Científicos do Brasil</h1>
+<p class="lead">Sobreponha produtos de fontes independentes sem perder identidade, autoria, versão, metodologia, licença ou ligação para os dados originais.</p>
+<div class="explorer-actions"><button class="btn primary" type="button" id="share-view">Copiar link da visualização</button><button class="btn" type="button" id="download-manifest">Baixar manifesto de proveniência</button><button class="btn" type="button" id="reset-view">Restaurar visualização</button></div>
+</div></header>
+<aside class="verification-notice wrap" id="scientific-notice" role="note"><strong>Limite científico:</strong> esta versão executa apenas composição visual. Camadas sobrepostas não são automaticamente harmonizadas, comparáveis ou adequadas para cálculo conjunto.</aside>
+<main id="explorador" class="explorer-shell wrap">
+<section class="layer-panel" aria-labelledby="layers-heading">
+<div class="panel-heading"><div><p class="eyebrow">Camadas</p><h2 id="layers-heading">Produtos na visualização</h2></div><span id="visible-count" aria-live="polite">0 visíveis</span></div>
+<p class="panel-intro">Ative as camadas, ajuste a transparência e consulte os metadados mantidos por cada produtor.</p>
+<div id="layer-list" class="layer-list" role="list" aria-busy="true"></div>
+<div id="layer-empty" class="empty" hidden><p>Nenhuma camada foi carregada.</p></div>
+</section>
+<section class="map-panel" aria-labelledby="map-heading">
+<div class="map-toolbar"><div><p class="eyebrow">Composição visual</p><h2 id="map-heading">Mapa federado</h2></div><div id="map-status" role="status" aria-live="polite">Inicializando mapa…</div></div>
+<div id="map" role="application" aria-label="Mapa interativo com camadas científicas federadas"></div>
+<div class="map-attribution-panel"><strong>Dados visíveis:</strong> <span id="visible-attribution">nenhuma camada científica</span><br><span>Visualização articulada pelo Science Data Sources Catalog.</span></div>
+</section>
+<section class="inspection-panel" aria-labelledby="inspection-heading">
+<div class="panel-heading"><div><p class="eyebrow">Consulta e proveniência</p><h2 id="inspection-heading">Local e camadas ativas</h2></div></div>
+<div id="inspection-content"><p>Clique no mapa para registrar coordenadas e listar a proveniência das camadas visíveis. A consulta de atributos específicos por fonte será adicionada por adaptadores próprios.</p></div>
+<div id="compatibility-summary" class="compatibility-summary" role="status" aria-live="polite"></div>
+</section>
+</main>
+<section class="wrap explorer-about" aria-labelledby="mvp-heading"><div><p class="eyebrow">Escopo do MVP</p><h2 id="mvp-heading">O que já funciona</h2></div><ul><li>camadas raster por WMS e WMTS;</li><li>visibilidade, ordem e transparência independentes;</li><li>links distintos para fonte, produto, dados, método e metadados;</li><li>configuração compartilhável pela URL;</li><li>manifesto JSON com entradas, parâmetros e limitações;</li><li>registro explícito de falhas de carregamento de serviços externos.</li></ul></section>
+<noscript><div class="noscript wrap"><h2>O explorador requer JavaScript</h2><p>Consulte o <a href="data/federated_layers.json">registro público de camadas</a>, a <a href="products.html">página de produtos</a> ou o <a href="index.html#catalogo">catálogo de fontes</a>.</p></div></noscript>
+<footer class="wrap"><p><strong>Science Data Sources Catalog</strong> · Ian Clemente · <a href="index.html#catalogo">Fontes</a> · <a href="products.html">Produtos</a> · <a href="about.html">Método e citação</a></p><p>Composição visual, não harmonização analítica · Dados: licenças das fontes originais · Código: MIT</p></footer>
+<script src="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.js"></script>
+<script src="assets/explorer.js"></script>
+</body>
+</html>
