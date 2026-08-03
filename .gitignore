@@ -1,4 +1,5 @@
 data/data_resources.json
 data/build-meta.json
+_site/
 __pycache__/
 *.pyc
