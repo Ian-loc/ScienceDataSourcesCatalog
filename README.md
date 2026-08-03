@@ -102,7 +102,7 @@ Recursos bibliométricos podem ser elegíveis quando oferecem dados ou metadados
 
 ## Como citar
 
-> LARA, Ian. *Science Data Sources Catalog: catálogo de fontes de dados ambientais para pesquisa, ensino e extensão*. Versão 0.7.0. GitHub, 2026. https://ian-loc.github.io/ScienceDataSourcesCatalog/
+> CLEMENTE, Ian. *Science Data Sources Catalog: catálogo de fontes de dados ambientais para pesquisa, ensino e extensão*. Versão 0.7.0. GitHub, 2026. https://ian-loc.github.io/ScienceDataSourcesCatalog/
 
 ORCID: [0000-0003-1164-9318](https://orcid.org/0000-0003-1164-9318). A citação do catálogo não substitui a citação do dataset, produto e versão originais.
 
