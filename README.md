@@ -10,6 +10,7 @@ O projeto reúne e descreve plataformas, repositórios, redes, sistemas, produto
 - [Buscar e comparar produtos](https://ian-loc.github.io/ScienceDataSourcesCatalog/products.html)
 - [Analisar a composição do catálogo](https://ian-loc.github.io/ScienceDataSourcesCatalog/analytics.html)
 - [Consultar método, escopo e citação](https://ian-loc.github.io/ScienceDataSourcesCatalog/about.html)
+- [Código, dados e documentação](https://github.com/Ian-loc/ScienceDataSourcesCatalog)
 - [Baixar o CSV canônico](data/data_resources.csv)
 
 O catálogo é uma camada de descoberta e triagem. Ele não hospeda os datasets externos e não substitui a documentação, a licença, a versão ou a citação dos produtos originais.
