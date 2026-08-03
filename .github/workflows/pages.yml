@@ -1,59 +1,64 @@
-name: Publicar no GitHub Pages
+name: Validar e publicar catálogo
+
 on:
   push:
     branches: ["main"]
   pull_request:
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Aplicar correções factuais confirmadas
-        run: |
-          python3 -m py_compile scripts/apply_factual_remediation.py
-          python3 scripts/apply_factual_remediation.py
-          python3 scripts/apply_factual_remediation.py --check
-      - name: Validar workflow de correções de qualidade
+
+      - name: Validar workflow de qualidade
         run: python3 scripts/validate_quality_correction_plan.py
+
       - name: Validar fila de candidatos
         run: python3 scripts/validate_candidate_queue.py
+
       - name: Validar prioridade territorial Brasil
         run: |
           python3 -m py_compile scripts/validate_brazil_scope.py
           python3 scripts/validate_brazil_scope.py
+
       - name: Validar catálogo de produtos
         run: python3 scripts/validate_product_catalog.py
-      - name: Validar CSV e gerar artefatos
+
+      - name: Validar CSV e gerar artefatos derivados
         run: python3 scripts/build_catalog.py
+
       - name: Auditar papéis dos links
         run: python3 scripts/audit_link_roles.py
-      - name: Validar proposta de esquema
-        run: python3 scripts/validate_schema_draft.py
-      - name: Validar matriz de migração DATA1-B
-        run: python3 scripts/validate_migration_matrix.py
-      - name: Validar complemento DATA1-BX
+
+      - name: Validar evolução do esquema
         run: |
+          python3 scripts/validate_schema_draft.py
+          python3 scripts/validate_migration_matrix.py
           python3 scripts/validate_data1bx_matrix.py
           python3 scripts/load_data1bx_from_canonical.py
-      - name: Validar lotes de revisão DATA1-BR
+
+      - name: Validar lotes e evidências de revisão
         run: |
           python3 scripts/validate_br_batches.py
           python3 scripts/validate_br_completion.py
-      - name: Validar fechamento e evidências externas
-        run: |
           python3 scripts/validate_external_review_evidence.py
           python3 scripts/validate_external_review_queue.py
-      - name: Validar objetivos finais e prontidão para DOI
+
+      - name: Validar prontidão de release e DOI
         run: python3 scripts/validate_doi_readiness.py
+
       - name: Validar interface estática
         run: |
           python3 scripts/validate_frontend.py
@@ -62,19 +67,33 @@ jobs:
           node --check assets/analytics.js
           node --check assets/quality-summary.js
           node --check assets/build-meta.js
-      - name: Confirmar artefatos publicáveis
+
+      - name: Construir artefato público isolado
         run: |
-          test -s index.html
-          test -s products.html
-          test -s analytics.html
-          test -s about.html
-          test -s assets/brazil-scope.css
-          test -s assets/quality-summary.js
-          test -s data/data_resources.csv
-          test -s data/data_resources.json
-          test -s data/data_products.json
-          test -s data/brazil_scope_priorities.json
-          test -s data/build-meta.json
+          python3 -m py_compile scripts/build_site_artifact.py
+          python3 scripts/build_site_artifact.py
+
+      - name: Confirmar conteúdo publicável
+        run: |
+          test -s _site/index.html
+          test -s _site/products.html
+          test -s _site/analytics.html
+          test -s _site/about.html
+          test -s _site/assets/app.js
+          test -s _site/data/data_resources.csv
+          test -s _site/data/data_resources.json
+          test -s _site/data/data_products.json
+          test -s _site/data/brazil_scope_priorities.json
+          test -s _site/data/build-meta.json
+          test ! -e _site/WORKFLOW_STATUS.md
+          test ! -e _site/IMPLEMENTATION_WORKFLOW.md
+          test ! -e _site/migration
+          test ! -e _site/scripts
+          test ! -e _site/.github
+          test ! -e _site/audit
+          test ! -e _site/schema
+          test ! -e _site/release
+
   deploy:
     if: github.event_name != 'pull_request'
     needs: validate
@@ -85,24 +104,28 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Aplicar correções e gerar artefatos do site
+
+      - name: Gerar dados e artefato público
         run: |
-          python3 scripts/apply_factual_remediation.py
-          python3 scripts/apply_factual_remediation.py --check
           python3 scripts/validate_candidate_queue.py
           python3 scripts/validate_brazil_scope.py
           python3 scripts/validate_product_catalog.py
           python3 scripts/build_catalog.py
           python3 scripts/audit_link_roles.py
           python3 scripts/validate_frontend.py
+          python3 scripts/build_site_artifact.py
+
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
+
       - name: Enviar artefato do site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: _site
+
       - name: Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
       - name: Registrar endereço publicado
         run: echo "Site publicado em ${{ steps.deployment.outputs.page_url }}"
