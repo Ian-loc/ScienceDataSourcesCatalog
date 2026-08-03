@@ -17,6 +17,7 @@ REQUIRED_FILES = (
     "index.html",
     "products.html",
     "explorer.html",
+    "abordagens.html",
     "analytics.html",
     "about.html",
     "LICENSE",

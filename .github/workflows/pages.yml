@@ -63,6 +63,7 @@ jobs:
         run: |
           python3 scripts/validate_frontend.py
           python3 scripts/validate_federated_explorer.py
+          python3 scripts/validate_approaches_page.py
           node --check assets/app.js
           node --check assets/products.js
           node --check assets/explorer.js
@@ -80,11 +81,13 @@ jobs:
           test -s _site/index.html
           test -s _site/products.html
           test -s _site/explorer.html
+          test -s _site/abordagens.html
           test -s _site/analytics.html
           test -s _site/about.html
           test -s _site/assets/app.js
           test -s _site/assets/explorer.js
           test -s _site/assets/explorer.css
+          test -s _site/assets/approaches.css
           test -s _site/data/data_resources.csv
           test -s _site/data/data_resources.json
           test -s _site/data/data_products.json
@@ -120,6 +123,7 @@ jobs:
           python3 scripts/audit_link_roles.py
           python3 scripts/validate_frontend.py
           python3 scripts/validate_federated_explorer.py
+          python3 scripts/validate_approaches_page.py
           python3 scripts/build_site_artifact.py
 
       - name: Configurar GitHub Pages
