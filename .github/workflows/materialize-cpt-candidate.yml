@@ -1,0 +1,39 @@
+name: Materializar candidato CPT
+
+on:
+  push:
+    branches: ["agent/register-cpt-candidate"]
+    paths:
+      - "scripts/materialize_cpt_candidate.py"
+      - ".github/workflows/materialize-cpt-candidate.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/register-cpt-candidate
+          fetch-depth: 0
+
+      - name: Registrar candidato e validar fila
+        run: |
+          python3 scripts/materialize_cpt_candidate.py
+          python3 scripts/validate_candidate_queue.py
+
+      - name: Remover materializador temporário
+        run: |
+          rm scripts/materialize_cpt_candidate.py
+          rm .github/workflows/materialize-cpt-candidate.yml
+
+      - name: Consolidar alteração na branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add candidates/source_candidates.csv CHANGELOG.md scripts/materialize_cpt_candidate.py .github/workflows/materialize-cpt-candidate.yml
+          git commit -m "DATA: registrar Cerrado Plant Traits na fila de expansão"
+          git push origin HEAD:agent/register-cpt-candidate
