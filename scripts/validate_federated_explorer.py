@@ -13,15 +13,17 @@ HTML_PATH = ROOT / "explorer.html"
 REGISTRY_PATH = ROOT / "data" / "federated_layers.json"
 JS_PATH = ROOT / "assets" / "explorer.js"
 CSS_PATH = ROOT / "assets" / "explorer.css"
+CANONICAL_PATH = ROOT / "data" / "data_resources.csv"
 
 ALLOWED_LAYER_TYPES = {"wms_raster", "raster_tiles"}
+ALLOWED_CATALOG_STATUS = {"cataloged", "external_product_pending_registration"}
 REQUIRED_LAYER_FIELDS = {
-    "layer_id", "title", "short_title", "provider", "product", "resource_id",
-    "layer_type", "default_visible", "default_opacity", "min_zoom", "max_zoom",
-    "tile_size", "tiles", "period", "version", "spatial_resolution", "license",
-    "compatibility_class", "compatibility_label", "scientific_warning",
-    "official_source_url", "product_url", "data_access_url", "methodology_url",
-    "metadata_url", "citation_text", "attribution", "legend",
+    "layer_id", "title", "short_title", "provider", "product", "catalog_status",
+    "catalog_note", "resource_id", "layer_type", "default_visible", "default_opacity",
+    "min_zoom", "max_zoom", "tile_size", "tiles", "period", "version",
+    "spatial_resolution", "license", "compatibility_class", "compatibility_label",
+    "scientific_warning", "official_source_url", "product_url", "data_access_url",
+    "methodology_url", "metadata_url", "citation_text", "attribution", "legend",
 }
 REQUIRED_HTML_IDS = {
     "explorador", "scientific-notice", "share-view", "download-manifest", "reset-view",
@@ -76,9 +78,18 @@ class ExplorerParser(HTMLParser):
             self.external_assets.add(reference)
 
 
-for path in (HTML_PATH, REGISTRY_PATH, JS_PATH, CSS_PATH):
+for path in (HTML_PATH, REGISTRY_PATH, JS_PATH, CSS_PATH, CANONICAL_PATH):
     if not path.exists() or path.stat().st_size == 0:
         fail(f"artefato ausente ou vazio: {path.relative_to(ROOT)}")
+
+canonical_ids = set()
+with CANONICAL_PATH.open(encoding="utf-8-sig") as handle:
+    header = handle.readline().rstrip("\n").split(",")
+    resource_id_index = header.index("resource_id")
+    for line in handle:
+        if not line.strip():
+            continue
+        canonical_ids.add(line.split(",", resource_id_index + 1)[resource_id_index])
 
 registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
 if registry.get("operation_mode") != "visual_composition_only":
@@ -106,8 +117,18 @@ for index, layer in enumerate(layers, start=1):
         fail(f"camada {index}: campos ausentes: {', '.join(missing)}")
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]+", layer["layer_id"]):
         fail(f"camada {index}: layer_id inválido")
-    if not re.fullmatch(r"DR\d{4}", layer["resource_id"]):
-        fail(f"camada {index}: resource_id inválido")
+    if layer["catalog_status"] not in ALLOWED_CATALOG_STATUS:
+        fail(f"camada {index}: catalog_status inválido")
+    if not layer["catalog_note"].strip():
+        fail(f"camada {index}: catalog_note obrigatório")
+    resource_id = layer["resource_id"]
+    if layer["catalog_status"] == "cataloged":
+        if not isinstance(resource_id, str) or not re.fullmatch(r"DR\d{4}", resource_id):
+            fail(f"camada {index}: camada catalogada exige resource_id válido")
+        if resource_id not in canonical_ids:
+            fail(f"camada {index}: resource_id não encontrado no CSV canônico")
+    elif resource_id is not None:
+        fail(f"camada {index}: produto externo pendente deve usar resource_id nulo")
     if layer["layer_type"] not in ALLOWED_LAYER_TYPES:
         fail(f"camada {index}: layer_type não permitido")
     if not isinstance(layer["default_visible"], bool):
@@ -185,8 +206,10 @@ for path, limit in limits.items():
     if path.stat().st_size > limit:
         fail(f"{path.relative_to(ROOT)} excede o orçamento de {limit} bytes")
 
+cataloged = sum(1 for layer in layers if layer["catalog_status"] == "cataloged")
+external = len(layers) - cataloged
 print(
     "OK: explorador federado validado — "
-    f"{len(layers)} camadas, {len(providers)} provedores, composição visual C, "
-    "proveniência exportável e dependências externas fixadas"
+    f"{len(layers)} camadas, {len(providers)} provedores, {cataloged} catalogada(s), "
+    f"{external} externa(s) explicitamente pendente(s), composição visual C e proveniência exportável"
 )
