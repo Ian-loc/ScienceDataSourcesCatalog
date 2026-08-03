@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Alternativas de evolução do Science Data Sources Catalog, comparando catálogo, acesso executável, visualização federada e processamento reproduzível.">
+<meta name="theme-color" content="#173f32">
+<meta name="color-scheme" content="light">
+<title>Alternativas de evolução · Science Data Sources Catalog</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/accessibility.css">
+<link rel="stylesheet" href="assets/approaches.css">
+</head>
+<body>
+<a class="skip" href="#abordagens">Ir ao conteúdo</a>
+<nav class="site-nav" aria-label="Navegação da página de alternativas"><div class="wrap nav-inner">
+<a class="brand" href="index.html" aria-label="Voltar ao Science Data Sources Catalog"><span>Science Data Sources Catalog</span><small>página separada de alternativas</small></a>
+<div class="nav-links"><a href="index.html">Catálogo atual</a><a href="products.html">Produtos</a><a href="explorer.html">Explorador</a><a href="abordagens.html" aria-current="page">Alternativas</a></div>
+</div></nav>
+<header class="approaches-hero"><div class="wrap">
+<p class="eyebrow">Planejamento separado do produto público</p>
+<h1>Alternativas de evolução do catálogo</h1>
+<p class="lead">Esta página compara caminhos possíveis para ampliar a utilidade do projeto sem substituir nem interromper o catálogo público já estabelecido.</p>
+<div class="actions"><a class="btn primary" href="index.html">Abrir catálogo atual</a><a class="btn" href="explorer.html">Abrir explorador experimental</a></div>
+</div></header>
+<aside class="verification-notice wrap" role="note"><strong>Separação de ambientes:</strong> o catálogo principal permanece como produto público estável. As alternativas abaixo são opções de desenvolvimento, avaliação e priorização; não alteram a autoridade do CSV canônico nem prometem integração científica universal.</aside>
+<main id="abordagens" class="wrap approaches-main">
+<section class="approach-intro" aria-labelledby="decision-heading">
+<div><p class="eyebrow">Decisão arquitetural</p><h2 id="decision-heading">Quatro capacidades que não devem ser confundidas</h2></div>
+<p>Descobrir uma fonte, executar um acesso, sobrepor camadas e produzir um resultado derivado são operações diferentes. Cada etapa exige metadados, infraestrutura, validação e responsabilidade científica próprias.</p>
+</section>
+<section class="approach-grid" aria-label="Alternativas de evolução">
+<article class="approach-card current">
+<div class="approach-number">01</div><p class="approach-status">Produção atual</p><h2>Catálogo público preservado</h2>
+<p>Manter a busca de fontes e produtos como interface principal, com dados canônicos versionados, filtros, documentação e links oficiais.</p>
+<dl><div><dt>Entrega</dt><dd>Descoberta e triagem científica</dd></div><div><dt>Infraestrutura</dt><dd>GitHub Pages, CSV e JSON</dd></div><div><dt>Risco</dt><dd>Baixo</dd></div><div><dt>Decisão</dt><dd>Preservar como núcleo estável</dd></div></dl>
+<a href="index.html">Abrir produto atual</a>
+</article>
+<article class="approach-card">
+<div class="approach-number">02</div><p class="approach-status">Próximo incremento seguro</p><h2>Acesso executável e download assistido</h2>
+<p>Transformar links genéricos em ações específicas: abrir produto, copiar endpoint, baixar arquivo, gerar comando e produzir manifesto de acesso.</p>
+<dl><div><dt>Entrega</dt><dd>Acesso operacional confiável</dd></div><div><dt>Infraestrutura</dt><dd>Registro de ativos e adaptadores leves</dd></div><div><dt>Risco</dt><dd>Baixo a moderado</dd></div><div><dt>Decisão</dt><dd>Prioridade recomendada</dd></div></dl>
+</article>
+<article class="approach-card">
+<div class="approach-number">03</div><p class="approach-status">Protótipo separado</p><h2>Visualização federada</h2>
+<p>Sobrepor camadas externas em uma interface comum, preservando fonte, produto, versão, licença, metodologia, citação e acesso original.</p>
+<dl><div><dt>Entrega</dt><dd>Composição e inspeção visual</dd></div><div><dt>Infraestrutura</dt><dd>MapLibre, WMS, WMTS e registro de camadas</dd></div><div><dt>Risco</dt><dd>Moderado</dd></div><div><dt>Decisão</dt><dd>Avaliar em ambiente experimental</dd></div></dl>
+<a href="explorer.html">Abrir protótipo</a>
+</article>
+<article class="approach-card future">
+<div class="approach-number">04</div><p class="approach-status">Fase posterior</p><h2>Compositor territorial reproduzível</h2>
+<p>Selecionar território, período e produtos compatíveis para gerar recortes, tabelas, mapas, scripts, citações e proveniência por receitas aprovadas.</p>
+<dl><div><dt>Entrega</dt><dd>Produto derivado reproduzível</dd></div><div><dt>Infraestrutura</dt><dd>Backend, adaptadores, filas e armazenamento temporário</dd></div><div><dt>Risco</dt><dd>Alto</dd></div><div><dt>Decisão</dt><dd>Somente após pilotos anteriores</dd></div></dl>
+</article>
+</section>
+<section class="comparison" aria-labelledby="comparison-heading">
+<p class="eyebrow">Comparação operacional</p><h2 id="comparison-heading">O que cada alternativa realmente autoriza</h2>
+<div class="table-scroll"><table><thead><tr><th>Alternativa</th><th>Descobrir</th><th>Acessar</th><th>Visualizar junto</th><th>Processar</th><th>Gerar derivado</th></tr></thead><tbody>
+<tr><th>Catálogo atual</th><td>Sim</td><td>Por links</td><td>Não</td><td>Não</td><td>Não</td></tr>
+<tr><th>Download assistido</th><td>Sim</td><td>Sim</td><td>Não</td><td>Somente seleção e empacotamento</td><td>Manifesto de acesso</td></tr>
+<tr><th>Visualizador federado</th><td>Sim</td><td>Sim</td><td>Sim</td><td>Não</td><td>Configuração visual e proveniência</td></tr>
+<tr><th>Compositor territorial</th><td>Sim</td><td>Sim</td><td>Sim</td><td>Por receitas validadas</td><td>Sim, com método e proveniência</td></tr>
+</tbody></table></div>
+</section>
+<section class="architecture-options" aria-labelledby="architecture-heading">
+<div><p class="eyebrow">Duas arquiteturas técnicas</p><h2 id="architecture-heading">Execução no navegador ou serviço intermediário</h2></div>
+<div class="architecture-grid">
+<article><h3>Arquitetura estática</h3><p>O navegador consulta catálogos, serviços e arquivos compatíveis. É adequada para visualização, consultas tabulares e operações leves sem credenciais protegidas.</p><ul><li>menor custo operacional;</li><li>implantação simples no GitHub Pages;</li><li>limitada por CORS, memória e volume;</li><li>inadequada para processamento raster pesado.</li></ul></article>
+<article><h3>Serviço intermediário</h3><p>Uma API coordena adaptadores, cache, processamento, autenticação, filas e resultados temporários. É necessária para recortes grandes e receitas analíticas.</p><ul><li>maior capacidade e controle;</li><li>proveniência centralizada;</li><li>custos e manutenção permanentes;</li><li>exige segurança, monitoramento e governança.</li></ul></article>
+</div>
+</section>
+<section class="recommended-path" aria-labelledby="path-heading">
+<p class="eyebrow">Sequência recomendada</p><h2 id="path-heading">Evolução sem desestabilizar o catálogo</h2>
+<ol class="path-list"><li><strong>Preservar</strong><span>Manter o catálogo principal estável, público e canônico.</span></li><li><strong>Operacionalizar</strong><span>Detalhar ativos, endpoints e ações de download assistido.</span></li><li><strong>Experimentar</strong><span>Avaliar visualização federada em página separada e com proveniência explícita.</span></li><li><strong>Validar</strong><span>Criar poucas receitas territoriais cientificamente justificadas.</span></li><li><strong>Escalar</strong><span>Introduzir backend apenas quando volume, autenticação ou processamento exigirem.</span></li></ol>
+</section>
+<section class="guardrails" aria-labelledby="guardrails-heading">
+<div><p class="eyebrow">Limites permanentes</p><h2 id="guardrails-heading">O que nenhuma alternativa deve fazer silenciosamente</h2></div>
+<ul><li>tratar sobreposição cartográfica como comparabilidade científica;</li><li>generalizar resolução, versão ou licença da plataforma para todos os produtos;</li><li>reprojetar, reamostrar ou agregar sem registrar método e parâmetros;</li><li>redistribuir dados quando a licença não autorizar;</li><li>ocultar produtor, produto, data de acesso, citação ou limitações;</li><li>apresentar um resultado derivado sem receita e proveniência reproduzíveis.</li></ul>
+</section>
+<noscript><div class="noscript"><h2>Página disponível sem JavaScript</h2><p>Todo o conteúdo comparativo desta página é estático e permanece legível sem scripts.</p></div></noscript>
+</main>
+<footer class="wrap"><p><strong>Science Data Sources Catalog</strong> · página separada de planejamento · <a href="index.html">Voltar ao catálogo</a></p><p>Esta página não altera o conjunto canônico nem a interface principal.</p></footer>
+</body>
+</html>
