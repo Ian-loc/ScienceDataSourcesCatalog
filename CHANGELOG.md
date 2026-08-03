@@ -6,6 +6,10 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 
 ### Adicionado
 
+- Explorador Federado de Dados Científicos do Brasil com camadas WMS/WMTS, controle de visibilidade, ordem e transparência;
+- registro operacional `data/federated_layers.json` com proveniência, links oficiais, citação e avisos científicos por camada;
+- configuração compartilhável por URL e manifesto JSON de proveniência da composição visual;
+- validação automatizada específica para camadas, dependências, compatibilidade e limites do explorador;
 - registrado Cerrado Plant Traits (CPT) como candidato brasileiro P0 de alta prioridade, com decisão de inclusão e evidência científica;
 - classificação territorial Brasil-primeiro para todas as fontes;
 - camada pública de produtos e distribuições;
@@ -15,6 +19,7 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 
 ### Alterado
 
+- artefato público do GitHub Pages ampliado para incluir o explorador e seu registro governado de camadas;
 - identidade pública consolidada como **Science Data Sources Catalog**;
 - autoria e metadados de citação normalizados para **Ian Clemente**;
 - README reorganizado como entrada pública do produto;
