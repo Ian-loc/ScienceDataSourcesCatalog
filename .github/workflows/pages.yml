@@ -62,8 +62,10 @@ jobs:
       - name: Validar interface estática
         run: |
           python3 scripts/validate_frontend.py
+          python3 scripts/validate_federated_explorer.py
           node --check assets/app.js
           node --check assets/products.js
+          node --check assets/explorer.js
           node --check assets/analytics.js
           node --check assets/quality-summary.js
           node --check assets/build-meta.js
@@ -77,13 +79,17 @@ jobs:
         run: |
           test -s _site/index.html
           test -s _site/products.html
+          test -s _site/explorer.html
           test -s _site/analytics.html
           test -s _site/about.html
           test -s _site/assets/app.js
+          test -s _site/assets/explorer.js
+          test -s _site/assets/explorer.css
           test -s _site/data/data_resources.csv
           test -s _site/data/data_resources.json
           test -s _site/data/data_products.json
           test -s _site/data/brazil_scope_priorities.json
+          test -s _site/data/federated_layers.json
           test -s _site/data/build-meta.json
           test ! -e _site/WORKFLOW_STATUS.md
           test ! -e _site/IMPLEMENTATION_WORKFLOW.md
@@ -113,6 +119,7 @@ jobs:
           python3 scripts/build_catalog.py
           python3 scripts/audit_link_roles.py
           python3 scripts/validate_frontend.py
+          python3 scripts/validate_federated_explorer.py
           python3 scripts/build_site_artifact.py
 
       - name: Configurar GitHub Pages
