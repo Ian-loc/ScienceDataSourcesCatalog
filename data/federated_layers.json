@@ -1,0 +1,93 @@
+{
+  "registry_version": "0.1.0",
+  "title": "Explorador Federado de Dados Científicos do Brasil",
+  "operation_mode": "visual_composition_only",
+  "reviewed_at": "2026-08-03",
+  "default_view": {
+    "center": [-52.5, -14.5],
+    "zoom": 3.4,
+    "bearing": 0,
+    "pitch": 0
+  },
+  "base_map": {
+    "style_url": "https://tiles.openfreemap.org/styles/liberty",
+    "provider": "OpenFreeMap / OpenMapTiles / OpenStreetMap",
+    "attribution": "OpenFreeMap © OpenMapTiles · Dados © OpenStreetMap contributors",
+    "homepage_url": "https://openfreemap.org/"
+  },
+  "disclaimer": "As camadas são articuladas visualmente e permanecem independentes. Sobreposição não implica harmonização, comparabilidade científica ou validação cruzada.",
+  "layers": [
+    {
+      "layer_id": "prodes-brasil-inpe",
+      "title": "PRODES Brasil — classes de desmatamento",
+      "short_title": "PRODES Brasil",
+      "provider": "Instituto Nacional de Pesquisas Espaciais (INPE)",
+      "product": "PRODES Brasil",
+      "catalog_status": "cataloged",
+      "catalog_note": "Produto associado à infraestrutura TerraBrasilis registrada no catálogo canônico.",
+      "resource_id": "DR0011",
+      "layer_type": "wms_raster",
+      "default_visible": true,
+      "default_opacity": 0.82,
+      "min_zoom": 2,
+      "max_zoom": 14,
+      "tile_size": 256,
+      "tiles": [
+        "https://terrabrasilis.dpi.inpe.br/geoserver/prodes-brasil-nb/prodes_brasil/wms?service=WMS&version=1.1.1&request=GetMap&layers=prodes-brasil-nb%3Aprodes_brasil&styles=&format=image%2Fpng&transparent=true&srs=EPSG%3A3857&bbox={bbox-epsg-3857}&width=256&height=256"
+      ],
+      "period": "Série histórica anual; confirme o ano e a edição na fonte",
+      "version": "Serviço ativo do TerraBrasilis; versão do produto varia por publicação",
+      "spatial_resolution": "Produto raster; resolução e classes devem ser confirmadas nos metadados da edição usada",
+      "license": "Condições de uso mantidas pelo INPE/TerraBrasilis; confirmar no produto",
+      "compatibility_class": "C",
+      "compatibility_label": "Composição visual",
+      "scientific_warning": "Classes e períodos do PRODES não devem ser equiparados automaticamente a alertas, cobertura da terra ou outros conceitos de mudança ambiental.",
+      "official_source_url": "https://www.gov.br/inpe/pt-br",
+      "product_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=raster",
+      "data_access_url": "https://terrabrasilis.dpi.inpe.br/geoserver/ows?service=WMS&version=1.1.1&request=GetCapabilities",
+      "methodology_url": "https://terrabrasilis.dpi.inpe.br/",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=raster",
+      "citation_text": "Instituto Nacional de Pesquisas Espaciais (INPE). PRODES Brasil. Consultar a edição, os metadados e a forma de citação do produto utilizado.",
+      "attribution": "INPE / PRODES / TerraBrasilis",
+      "legend": [
+        {"label": "Consulte a legenda oficial da edição", "color": "#d95f02"}
+      ]
+    },
+    {
+      "layer_id": "modis-terra-truecolor-2026-07-25",
+      "title": "MODIS Terra — reflectância corrigida em cor verdadeira",
+      "short_title": "MODIS Terra — 25 jul. 2026",
+      "provider": "NASA Global Imagery Browse Services (GIBS)",
+      "product": "MODIS Terra Corrected Reflectance True Color",
+      "catalog_status": "external_product_pending_registration",
+      "catalog_note": "Camada externa validada para o MVP; o serviço GIBS ainda não possui registro canônico próprio e não é representado por AppEEARS ou ORNL DAAC.",
+      "resource_id": null,
+      "layer_type": "raster_tiles",
+      "default_visible": false,
+      "default_opacity": 0.72,
+      "min_zoom": 1,
+      "max_zoom": 9,
+      "tile_size": 256,
+      "tiles": [
+        "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/2026-07-25/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"
+      ],
+      "period": "2026-07-25",
+      "version": "GIBS best-available layer for the selected date",
+      "spatial_resolution": "Visualização em mosaicos WMTS; consultar a documentação do produto para resolução nominal e limitações",
+      "license": "NASA Earthdata; observar as políticas de uso e atribuição do produto",
+      "compatibility_class": "C",
+      "compatibility_label": "Composição visual",
+      "scientific_warning": "Imagem de reflectância em cor verdadeira é contexto visual e não uma classificação temática ou estimativa quantitativa de desmatamento.",
+      "official_source_url": "https://www.earthdata.nasa.gov/",
+      "product_url": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/",
+      "data_access_url": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/",
+      "methodology_url": "https://www.earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/gibs",
+      "metadata_url": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/1.0.0/WMTSCapabilities.xml",
+      "citation_text": "NASA EOSDIS Global Imagery Browse Services (GIBS). MODIS Terra Corrected Reflectance True Color, 2026-07-25.",
+      "attribution": "NASA EOSDIS GIBS / MODIS Terra",
+      "legend": [
+        {"label": "Composição de cor verdadeira", "color": "#667f61"}
+      ]
+    }
+  ]
+}

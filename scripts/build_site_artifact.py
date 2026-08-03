@@ -16,6 +16,7 @@ OUTPUT = ROOT / "_site"
 REQUIRED_FILES = (
     "index.html",
     "products.html",
+    "explorer.html",
     "analytics.html",
     "about.html",
     "LICENSE",
@@ -26,6 +27,7 @@ REQUIRED_FILES = (
     "data/data_products.json",
     "data/product_distributions.csv",
     "data/brazil_scope_priorities.json",
+    "data/federated_layers.json",
     "data/build-meta.json",
 )
 
