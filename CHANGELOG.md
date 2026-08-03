@@ -6,6 +6,8 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 
 ### Adicionado
 
+- Dynamic World V1 — Google/WRI como produto selecionado do Earth Engine Data Catalog, com quatro distribuições separando asset analítico, registro WRI, explorador visual e repositório de modelo;
+- dossiê técnico e estratégico sobre Dynamic World, WRI Data Explorer e uso governado de recursos GitHub na expansão do catálogo;
 - Explorador Federado de Dados Científicos do Brasil com camadas WMS/WMTS, controle de visibilidade, ordem e transparência;
 - registro operacional `data/federated_layers.json` com proveniência, links oficiais, citação e avisos científicos por camada;
 - configuração compartilhável por URL e manifesto JSON de proveniência da composição visual;
