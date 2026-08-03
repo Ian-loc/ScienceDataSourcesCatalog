@@ -6,6 +6,7 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 
 ### Adicionado
 
+- registrado Cerrado Plant Traits (CPT) como candidato brasileiro P0 de alta prioridade, com decisão de inclusão e evidência científica;
 - classificação territorial Brasil-primeiro para todas as fontes;
 - camada pública de produtos e distribuições;
 - busca, filtros compartilháveis e comparação de produtos;
