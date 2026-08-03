@@ -8,12 +8,28 @@ O projeto reúne e descreve plataformas, repositórios, redes, sistemas, produto
 
 - [Buscar fontes](https://ian-loc.github.io/ScienceDataSourcesCatalog/#catalogo)
 - [Buscar e comparar produtos](https://ian-loc.github.io/ScienceDataSourcesCatalog/products.html)
+- [Abrir o Explorador Federado](https://ian-loc.github.io/ScienceDataSourcesCatalog/explorer.html)
 - [Analisar a composição do catálogo](https://ian-loc.github.io/ScienceDataSourcesCatalog/analytics.html)
 - [Consultar método, escopo e citação](https://ian-loc.github.io/ScienceDataSourcesCatalog/about.html)
 - [Código, dados e documentação](https://github.com/Ian-loc/ScienceDataSourcesCatalog)
 - [Baixar o CSV canônico](data/data_resources.csv)
 
 O catálogo é uma camada de descoberta e triagem. Ele não hospeda os datasets externos e não substitui a documentação, a licença, a versão ou a citação dos produtos originais.
+
+## Explorador Federado
+
+O Explorador Federado permite sobrepor produtos científicos de diferentes provedores, mantendo separadamente fonte, produto, período, versão, método, licença, citação e acesso original.
+
+A versão inicial implementa:
+
+- camadas WMS e WMTS;
+- controle independente de visibilidade, ordem e transparência;
+- configuração compartilhável por URL;
+- manifesto JSON de proveniência;
+- registro de falhas de serviços externos;
+- aviso permanente de que sobreposição visual não significa harmonização analítica.
+
+O registro público das camadas está em `data/federated_layers.json`. Novas camadas precisam de links oficiais, citação, aviso científico e classificação de compatibilidade antes de serem publicadas.
 
 ## Escopo
 
@@ -44,6 +60,7 @@ Essa separação evita atribuir à infraestrutura inteira propriedades que perte
 
 - JSONs e metadados do site são gerados automaticamente.
 - `data/data_products.csv` e `data/product_distributions.csv` mantêm a camada de produtos e acessos.
+- `data/federated_layers.json` mantém o registro operacional das camadas publicadas no explorador.
 - Planilhas no Google Drive são espelhos derivados e devem ser regeneradas somente após integração e validação no GitHub.
 - Evidências e auditorias não alteram silenciosamente o CSV canônico.
 
@@ -61,8 +78,8 @@ Antes de usar um dataset, confirme no produto original:
 
 ## Estrutura do repositório
 
-- `data/`: dados canônicos e derivados públicos;
-- `assets/` e arquivos HTML: interface do catálogo;
+- `data/`: dados canônicos, produtos, distribuições e registro de camadas federadas;
+- `assets/` e arquivos HTML: interface do catálogo e do explorador;
 - `scripts/`: geração e validação;
 - `schema/`: contratos de esquema;
 - `docs/`: método, governança, manutenção e auditorias;
