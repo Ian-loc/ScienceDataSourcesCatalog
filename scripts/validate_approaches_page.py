@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the standalone alternatives page without coupling it to main navigation."""
+"""Validate the standalone scientific direction page."""
 from __future__ import annotations
 
 from html.parser import HTMLParser
@@ -17,13 +17,19 @@ REQUIRED_IDS = {
     "architecture-heading",
     "path-heading",
     "guardrails-heading",
+    "documents-heading",
 }
 REQUIRED_TOKENS = {
-    "Catálogo público preservado",
-    "Acesso executável e download assistido",
-    "Visualização federada",
-    "Compositor territorial reproduzível",
-    "Esta página não altera o conjunto canônico nem a interface principal.",
+    "Do catálogo ao Simbioscópio",
+    "Catálogo público canônico",
+    "Variáveis e passaportes científicos",
+    "Simbioscópio federado",
+    "Comparabilidade e Bússola de Evidências",
+    "N0",
+    "N5",
+    "A vida acontece em relação",
+    "As relações precisam ser investigadas com evidência",
+    "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md",
     'href="index.html"',
     'href="explorer.html"',
     'aria-current="page"',
@@ -128,9 +134,9 @@ missing_css = sorted(token for token in REQUIRED_CSS if token not in css)
 if missing_css:
     fail(f"assets/approaches.css incompleto: {', '.join(missing_css)}")
 
-if HTML_PATH.stat().st_size > 22_000:
-    fail("abordagens.html excede 22 KB")
+if HTML_PATH.stat().st_size > 26_000:
+    fail("abordagens.html excede 26 KB")
 if CSS_PATH.stat().st_size > 9_000:
     fail("assets/approaches.css excede 9 KB")
 
-print("OK: página separada de alternativas validada; catálogo principal permanece desacoplado")
+print("OK: página de direção científica validada; catálogo canônico preservado e evolução governada")
