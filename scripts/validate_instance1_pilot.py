@@ -45,6 +45,8 @@ def main() -> int:
         "migrated_product_rows": 7,
         "mapped_product_rows": 4,
         "migrated_distribution_rows": 5,
+        "mapped_distribution_rows": 14,
+        "pending_distribution_rows": 0,
     }
 
     with psycopg.connect(args.database_url) as connection:
@@ -113,6 +115,16 @@ def main() -> int:
                 "SELECT count(*) FROM staging.v_latest_distributions "
                 "WHERE migration_status = 'migrated'",
             ),
+            "mapped_distribution_rows": scalar(
+                connection,
+                "SELECT count(*) FROM staging.v_latest_distributions "
+                "WHERE migration_status = 'mapped'",
+            ),
+            "pending_distribution_rows": scalar(
+                connection,
+                "SELECT count(*) FROM staging.v_latest_distributions "
+                "WHERE migration_status = 'pending'",
+            ),
         }
 
         failures = [
@@ -148,6 +160,22 @@ def main() -> int:
         if incomplete_products:
             failures.append(
                 f"{incomplete_products} produto(s) sem significado científico mínimo"
+            )
+
+        unresolved_distribution_issues = scalar(
+            connection,
+            """
+            SELECT count(*)
+            FROM staging.migration_issues mi
+            JOIN staging.v_latest_successful_batch b
+              ON b.batch_id = mi.load_batch_id
+            WHERE mi.entity_type = 'distribution'
+              AND mi.resolution_status = 'open'
+            """,
+        )
+        if unresolved_distribution_issues:
+            failures.append(
+                f"{unresolved_distribution_issues} problema(s) aberto(s) de distribuição"
             )
 
         if failures:
