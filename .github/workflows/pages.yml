@@ -46,6 +46,11 @@ jobs:
           python3 -m py_compile scripts/validate_scientific_variable_registry.py
           python3 scripts/validate_scientific_variable_registry.py
 
+      - name: Validar casos dourados de comparabilidade
+        run: |
+          python3 -m py_compile scripts/validate_comparability_golden_cases.py
+          python3 scripts/validate_comparability_golden_cases.py
+
       - name: Validar CSV e gerar artefatos derivados
         run: python3 scripts/build_catalog.py
 
@@ -131,6 +136,7 @@ jobs:
           python3 scripts/validate_product_catalog.py
           python3 scripts/validate_scientific_direction.py
           python3 scripts/validate_scientific_variable_registry.py
+          python3 scripts/validate_comparability_golden_cases.py
           python3 scripts/build_catalog.py
           python3 scripts/audit_link_roles.py
           python3 scripts/validate_frontend.py
