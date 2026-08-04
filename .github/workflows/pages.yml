@@ -46,6 +46,7 @@ jobs:
           python3 -m py_compile scripts/load_instance1_staging.py
           python3 -m py_compile scripts/validate_instance1_database.py
           python3 -m py_compile scripts/promote_instance1_pilot.py
+          python3 -m py_compile scripts/resolve_instance1_pilot_distributions.py
           python3 -m py_compile scripts/validate_instance1_pilot.py
           python3 scripts/load_instance1_staging.py --check-only
 
@@ -157,6 +158,11 @@ jobs:
 
       - name: Comprovar idempotência da promoção
         run: python3 scripts/promote_instance1_pilot.py
+
+      - name: Resolver todas as distribuições piloto
+        run: |
+          python3 scripts/resolve_instance1_pilot_distributions.py
+          python3 scripts/resolve_instance1_pilot_distributions.py
 
       - name: Validar integridade do staging
         run: python3 scripts/validate_instance1_database.py
