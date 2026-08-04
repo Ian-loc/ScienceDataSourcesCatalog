@@ -54,7 +54,7 @@ def upsert_profiles(connection) -> tuple[int, int, int, int]:
           'MT-DW-V1', 'Dynamic World V1 inference',
           'remote_sensing_classification',
           'Classificação quase em tempo real de uso e cobertura da terra por imagem Sentinel-2 individual.',
-          'Sentinel-2 L1C com CLOUDY_PIXEL_PERCENTAGE <= 35%.',
+          'Sentinel-2 L1C com CLOUDY_PIXEL_PERCENTAGE <= 35%%.',
           'Produz nove probabilidades que somam 1 e um rótulo top-1; nuvens e sombras são mascaradas com S2 Cloud Probability, Cloud Displacement Index e Directional Distance Transform.',
           'Desenho de validação e métricas descritos no artigo científico do produto.',
           'V1', %s,
@@ -128,7 +128,7 @@ def upsert_profiles(connection) -> tuple[int, int, int, int]:
           true, 'class_probability',
           'Nove bandas de probabilidade entre 0 e 1; label é o índice da maior probabilidade.',
           'dynamicworld_algorithm_version; qa_algorithm_version',
-          'Nuvens e sombras são mascaradas; somente cenas com CLOUDY_PIXEL_PERCENTAGE <= 35% são processadas.',
+          'Nuvens e sombras são mascaradas; somente cenas com CLOUDY_PIXEL_PERCENTAGE <= 35%% são processadas.',
           'Baixa confiança em classes temporalmente dependentes e superfícies espectralmente ambíguas; o produtor recomenda limiar top-1.',
           'O rótulo top-1 não é verdade de campo e deve ser interpretado com probabilidade, data e contexto.',
           %s
