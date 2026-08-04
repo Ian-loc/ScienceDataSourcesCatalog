@@ -1,130 +1,447 @@
-# Dicionário de variáveis
+# Dicionário de dados
 
-## Esquema canônico 0.7.0
+## 1. Estado da transição
+
+O projeto possui dois níveis simultâneos:
+
+1. **esquema público atual 0.7.0**, baseado em CSVs;
+2. **modelo relacional de destino da Instância 1**, implementado em PostgreSQL/PostGIS.
+
+Os CSVs permanecem canônicos para a versão pública atual até o portão de promoção do banco relacional.
+
+## 2. CSV de fontes — esquema 0.7.0
+
+Arquivo: `data/data_resources.csv`
 
 | Campo | Definição |
 |---|---|
-| `resource_id` | Identificador estável DR0001… |
+| `resource_id` | Identificador estável da fonte, DR0001… |
 | `resource_name` | Nome oficial da fonte. |
 | `acronym` | Sigla ou nome curto. |
 | `official_identity` | Natureza declarada pela própria fonte. |
 | `description` | Síntese objetiva do propósito. |
-| `homepage_url` | Página institucional, página Sobre ou página oficial dedicada à fonte. |
-| `data_access_url` | Destino para pesquisar, visualizar, solicitar ou baixar dados. |
+| `homepage_url` | Página institucional ou página oficial da fonte. |
+| `data_access_url` | Página para pesquisar, visualizar, solicitar ou baixar dados. |
 | `research_areas` | Áreas condensadas usadas no filtro. |
-| `keywords` | Temas específicos pesquisáveis. |
-| `data_product_types` | Produtos disponibilizados. |
-| `data_formats` | Formatos de arquivo ou representação. |
-| `visualization_types` | Mapas, gráficos, dashboards e outras interfaces. |
-| `geographic_coverage` | Abrangência espacial declarada. |
+| `keywords` | Temas pesquisáveis. |
+| `data_product_types` | Resumo dos tipos de produtos. Não substitui a tabela de produtos. |
+| `data_formats` | Resumo de formatos. Pode variar por produto. |
+| `visualization_types` | Interfaces gerais disponíveis. |
+| `geographic_coverage` | Abrangência espacial geral da fonte. |
 | `covers_brazil` | Presença de dados aplicáveis ao Brasil. |
-| `spatial_resolution` | Escala, resolução ou suporte espacial, com ressalvas. |
-| `temporal_coverage` | Período coberto. |
-| `temporal_resolution` | Frequência ou granularidade temporal. |
+| `spatial_resolution` | Resumo da escala, resolução ou suporte; frequentemente varia por produto. |
+| `temporal_coverage` | Período geral coberto. |
+| `temporal_resolution` | Frequência ou granularidade geral. |
 | `data_sources` | Origem empírica ou institucional dos dados. |
-| `free_download` | Disponibilidade de download gratuito. |
+| `free_download` | Disponibilidade geral de download gratuito. |
 | `access_conditions` | Cadastro, solicitação, embargo, quota ou restrição. |
-| `programmatic_access` | Disponibilidade de acesso automatizado documentado. |
-| `access_protocols` | No 0.7.0, reúne protocolos, APIs e alguns clientes ou pacotes ainda não separados. |
-| `authentication_required` | Necessidade de conta, token, projeto ou credencial. |
+| `programmatic_access` | Acesso automatizado documentado. |
+| `access_protocols` | Protocolos e APIs no esquema atual. |
+| `authentication_required` | Necessidade de credencial. |
 | `access_documentation_url` | Documentação técnica do acesso. |
-| `license` | Licença ou condição declarada; pode variar por dataset ou produto. |
+| `license` | Licença geral ou condição declarada. |
 | `institutional_status` | Natureza institucional. |
-| `owner_or_manager` | Responsável pela fonte. |
+| `owner_or_manager` | Responsável. |
 | `academic_uses` | Usos relevantes para ensino e pesquisa. |
-| `limitations` | Restrições e riscos de interpretação. |
-| `academic_evidence_type` | Natureza da evidência externa ou técnica. |
+| `limitations` | Limitações gerais da fonte. |
+| `academic_evidence_type` | Natureza da evidência externa. |
 | `academic_evidence_url` | Artigo ou documento representativo. |
 | `academic_evidence_note` | O que a evidência sustenta. |
-| `verification_url` | Principal evidência oficial disponível. |
-| `last_verified` | Data da revisão do registro, AAAA-MM-DD; não certifica integralmente todos os produtos ou campos da fonte. |
+| `verification_url` | Evidência oficial principal. |
+| `last_verified` | Data da revisão do registro. Não certifica todos os produtos. |
 
-## Novos campos propostos para 0.8.0
+## 3. CSV de produtos — piloto atual
 
-- `resource_type`: função principal controlada;
-- `geographic_scope`: maior extensão geográfica geral;
-- `access_tools`: pacotes, clientes, exportadores e ambientes de processamento;
-- `citation_guidance_url`: instruções oficiais de citação.
+Arquivo: `data/data_products.csv`
 
-No 0.8.0, `access_protocols` conterá somente interfaces técnicas; pacotes e clientes migrarão para `access_tools`. `data_formats` não poderá conter protocolos ou visualizações.
+O arquivo continua operacional durante a migração, mas seus campos serão normalizados em entidades relacionais.
 
-## Extensões científicas paralelas
+Campos principais atuais:
 
-A direção do Simbioscópio não acrescenta imediatamente dezenas de campos ao CSV de fontes. Ela introduz entidades separadas para evitar misturar nível institucional, produto e significado científico da variável.
+- `product_id`;
+- `resource_id`;
+- `product_name`;
+- `product_acronym`;
+- `product_family`;
+- `product_kind`;
+- `product_description`;
+- `research_areas`;
+- `keywords`;
+- `geographic_coverage`;
+- `covers_brazil`;
+- `spatial_support`;
+- `spatial_resolution`;
+- `temporal_coverage`;
+- `temporal_resolution`;
+- `update_frequency`;
+- `product_status`;
+- `version_or_collection`;
+- `enumeration_scope`;
+- `product_page_url`;
+- `methodology_url`;
+- `primary_or_derived`;
+- `limitations`;
+- `last_verified`.
 
-### Passaporte de variável
+Limitação estrutural: o piloto mistura produtos científicos, catálogos e serviços. Essa mistura deverá ser corrigida na migração.
 
-Contrato: `schema/scientific-variable-passport-v0.1.json`.
+## 4. CSV de distribuições — piloto atual
 
-Campos conceituais principais:
+Arquivo: `data/product_distributions.csv`
 
-- `passport_id` — identificador estável do passaporte;
-- `variable_id` — identificador da variável;
-- `display_name` e `canonical_name` — nomes público e normalizado;
-- `definition` — significado científico;
-- `domain_tags` — múltiplos domínios aplicáveis;
-- `unit` e `unit_reference` — unidade e referência;
-- `data_type` — natureza estatística;
-- `object_observed` — fenômeno, entidade ou objeto observado;
-- `population_or_universe` — população ou universo de referência;
-- `unit_of_observation` — unidade de observação;
-- `spatial_support` — suporte, resolução, CRS e cobertura;
-- `temporal_support` — período, frequência e forma de representação;
-- `method_type` — medido, administrativo, declarado, modelado, derivado etc.;
-- `uncertainty` — informação de erro ou incerteza;
-- `provenance` — fonte, produto, versão e linhagem;
-- `sensitivity_class` — classificação de sensibilidade;
-- `limitations` — limitações de interpretação;
-- `review` — estado e revisão humana.
+Campos principais atuais:
 
-### Avaliação de comparabilidade
+- `distribution_id`;
+- `product_id`;
+- `distribution_name`;
+- `access_url`;
+- `format`;
+- `access_protocol`;
+- `access_tool`;
+- `free_download`;
+- `authentication_required`;
+- `access_conditions`;
+- `license`;
+- `provider_attribution_required`;
+- `subset_support`;
+- `notes`;
+- `last_verified`.
 
-Contrato: `schema/comparability-assessment-v0.1.json`.
+No modelo relacional, uma distribuição será vinculada a um release específico.
 
-Campos principais:
+## 5. Banco relacional da Instância 1
 
-- `operation_type` — operação efetivamente solicitada;
-- `input_variable_ids` — variáveis avaliadas;
-- `dimensions` — semântica, população/suporte, espaço, tempo, método, estatística, proveniência e jurídico-ética;
-- `compatibility_class` — A, B, C, D ou E;
-- `harmonization_steps` — transformações necessárias;
-- `diagnostics_required` — controles estatísticos exigidos;
-- `inference_ceiling` — N0 a N5;
-- `analytical_use_allowed` — autorização explícita;
-- `warnings` e `review` — limitações e revisão.
+Arquivo: `database/schema/001_instance1_core.sql`
 
-### Relação e evidência
+Schema PostgreSQL: `catalog`
 
-Contrato: `schema/scientific-relation-evidence-v0.1.json`.
+### `organizations`
 
-Campos principais:
+Instituições, consórcios e iniciativas responsáveis.
 
-- variáveis de origem e destino;
-- tipo e direção da relação;
-- mecanismo;
-- mediadores e confundidores;
-- aplicabilidade espacial, temporal e populacional;
-- registros de evidência favorável, contraditória ou inconclusiva;
-- síntese separada de concordância, certeza, aplicabilidade e suporte mecanístico;
-- teto de inferência;
-- revisão humana obrigatória.
+Campos essenciais:
 
-Esses contratos são rascunhos versionados. Eles não constituem ainda tabelas canônicas nem autorizam análise automatizada.
+- `organization_id`;
+- `stable_id`;
+- `official_name`;
+- `acronym`;
+- `organization_type`;
+- `country_code`;
+- `homepage_url`;
+- `description`.
 
-## Regra dos links
+### `sources`
 
-**Site oficial**, **Acessar dados** e **Documentação de acesso** têm papéis distintos. URLs iguais permanecem pendentes até confirmação oficial de que uma única página cumpre efetivamente os papéis. `data_access_url = não se aplica` é reservado a recursos sem dados próprios para consulta ou download.
+Portais, repositórios, catálogos, plataformas, redes, observatórios, programas ou infraestruturas.
 
-## Evidência externa
+Campos essenciais:
 
-A tabela `migration/external_review_evidence.csv` registra uma linha por fonte, dimensão e afirmação. Ela não acrescenta campos ao CSV canônico e não altera valores automaticamente.
+- `stable_id` — DR…;
+- `source_name`;
+- `source_type`;
+- `official_identity`;
+- `description`;
+- URLs institucionais e de acesso;
+- `geographic_scope`;
+- `covers_brazil`;
+- `active_status`;
+- `enumeration_strategy`.
 
-Essa evidência sobre fontes não deve ser confundida com a futura evidência sobre relações entre variáveis, que possuirá contrato e revisão próprios.
+### `product_families`
 
-## Valores controlados
+Agrupamentos de produtos relacionados.
 
-- `free_download`, `programmatic_access`, `authentication_required` e `covers_brazil`: sim, parcial, não, desconhecido, não se aplica;
-- campos multivalorados usam ` | `;
-- valores desconhecidos devem permanecer explícitos, nunca inferidos como negativos.
+Campos essenciais:
 
-Consulte [METHODOLOGY.md](METHODOLOGY.md), [PRODUCT_CATALOG_MODEL.md](PRODUCT_CATALOG_MODEL.md), [Direção científica](docs/PROJECT_SCIENTIFIC_DIRECTION.md) e [Política de comparabilidade](docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md).
+- `family_name`;
+- `source_id`;
+- `scientific_scope`;
+- `enumeration_scope`.
+
+### `products`
+
+Produtos científicos georreferenciados.
+
+Campos essenciais:
+
+- `stable_id` — DP…;
+- `product_name`;
+- `product_kind`;
+- `product_description`;
+- `scientific_object`;
+- `information_message`;
+- `intended_uses`;
+- `non_representations`;
+- `primary_or_derived`;
+- cobertura;
+- estado;
+- páginas oficiais;
+- limitações.
+
+`information_message` responde qual informação sobre o mundo real o produto comunica.
+
+`non_representations` registra interpretações que o produto não sustenta diretamente.
+
+### `product_releases`
+
+Versões, coleções, edições, cenários ou anos-base.
+
+Campos essenciais:
+
+- `version_label`;
+- `release_date`;
+- validade;
+- cobertura temporal;
+- `release_status`;
+- notas de mudança;
+- identificador ou checksum;
+- `is_current`.
+
+### `spatial_profiles`
+
+Campos essenciais:
+
+- `support_type`;
+- `support_description`;
+- geometria;
+- resolução nominal e unidade;
+- escala;
+- unidade mínima mapeável;
+- CRS;
+- grade;
+- agregação;
+- unidade geográfica;
+- cobertura textual;
+- geometria de cobertura PostGIS;
+- vieses e limitações espaciais.
+
+### `temporal_profiles`
+
+Campos essenciais:
+
+- tipo de representação;
+- descrição do suporte;
+- datas inicial e final;
+- resolução;
+- janela de observação;
+- frequência;
+- latência;
+- calendário;
+- agregação;
+- vieses e limitações temporais.
+
+### `methods`
+
+Descreve medição, sensoriamento remoto, registro administrativo, levantamento, classificação, modelagem, interpolação, agregação ou método misto.
+
+Campos essenciais:
+
+- nome e tipo;
+- descrição;
+- dados de entrada;
+- processamento;
+- validação;
+- versão;
+- documentação;
+- limitações.
+
+### `quality_profiles`
+
+Campos essenciais:
+
+- estado da documentação;
+- desenho de validação;
+- métricas de acurácia;
+- disponibilidade e tipo de incerteza;
+- flags;
+- dados ausentes;
+- viés de coleta;
+- artefatos;
+- limites de representatividade;
+- documentação.
+
+### `variables`
+
+Vocabulário de variáveis, indicadores, classes, bandas e métricas.
+
+Campos essenciais:
+
+- `stable_id` — VR…;
+- nome canônico;
+- nomes em português e inglês;
+- definição;
+- fenômeno;
+- objeto observado;
+- população ou universo;
+- tipo de dado;
+- unidade canônica;
+- vocabulário de referência;
+- sensibilidade.
+
+### `product_variables`
+
+Associação entre release e variável.
+
+Campos essenciais:
+
+- nome original no produto;
+- papel da variável;
+- definição original;
+- unidade;
+- tipo;
+- método;
+- perfis espacial, temporal e de qualidade;
+- interpretação;
+- potencial científico;
+- não-interpretações;
+- semântica de agregação;
+- legenda;
+- estado de revisão.
+
+Papéis controlados incluem:
+
+- observação principal;
+- estimativa principal;
+- variável derivada;
+- classe;
+- probabilidade;
+- qualidade;
+- incerteza;
+- coordenada;
+- dimensão;
+- identificador;
+- máscara;
+- auxiliar.
+
+### `distributions`
+
+Formas de acesso a releases.
+
+Campos essenciais:
+
+- `stable_id` — DD…;
+- nome;
+- papel;
+- URL;
+- formato;
+- media type;
+- protocolo;
+- ferramenta;
+- gratuidade;
+- autenticação;
+- condições;
+- licença;
+- atribuição;
+- suporte a recorte;
+- estado do acesso;
+- data do teste.
+
+### `data_assets`
+
+Arquivos, endpoints, camadas, tabelas, legendas, metadados e recursos concretos.
+
+### `access_capabilities`
+
+Capacidades controladas:
+
+- descobrir;
+- pré-visualizar;
+- visualizar;
+- consultar atributos;
+- recortar no espaço ou tempo;
+- baixar;
+- transmitir;
+- processar;
+- exportar;
+- abrir em QGIS, R, Python ou Earth Engine.
+
+### `taxonomy_terms`
+
+Vocabulários temáticos, científicos, territoriais e operacionais.
+
+### `citations`, `product_citations`, `release_citations`
+
+Citações de dataset, metodologia, validação, documentação, licença e ciência relacionada.
+
+### `metadata_assertions`
+
+Evidência por campo.
+
+Campos essenciais:
+
+- entidade;
+- identificador;
+- campo;
+- valor;
+- URL;
+- tipo de evidência;
+- nota de suporte;
+- confiança;
+- data de recuperação.
+
+### `curation_reviews`
+
+Estado, escores de completude e precisão, achados, correções e próxima revisão.
+
+## 6. Valores controlados importantes
+
+### Estado desconhecido
+
+O desconhecido deve permanecer explícito. Não deve ser convertido em `não`.
+
+### Natureza de produção
+
+- observação primária;
+- registro administrativo;
+- estimativa amostral;
+- classificado;
+- modelado;
+- interpolado;
+- derivado;
+- misto;
+- desconhecido.
+
+### Estratégia de enumeração
+
+- `complete`;
+- `family_level`;
+- `external_index`;
+- `representative_sample`;
+- `selective`.
+
+### Estado de revisão
+
+- `draft`;
+- `reviewed`;
+- `approved`;
+- `deprecated`.
+
+## 7. Regra dos links
+
+- página institucional;
+- página do produto;
+- acesso aos dados;
+- metodologia;
+- documentação de acesso;
+- licença;
+- citação;
+- visualizador.
+
+Esses papéis são distintos. URLs iguais só são aceitas quando a página cumpre efetivamente mais de uma função.
+
+## 8. Regra de autoridade
+
+Durante a transição:
+
+- CSVs atuais = autoridade da versão pública;
+- SQL relacional = arquitetura canônica de destino;
+- planilha do Drive = espelho derivado;
+- evidências não alteram silenciosamente os dados;
+- promoção exige auditoria.
+
+Consulte:
+
+- `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`;
+- `PRODUCT_CATALOG_MODEL.md`;
+- `database/README.md`;
+- `docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md`.
