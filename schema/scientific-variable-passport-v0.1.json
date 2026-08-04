@@ -21,25 +21,11 @@
     "review"
   ],
   "properties": {
-    "passport_id": {
-      "type": "string",
-      "pattern": "^SP[0-9]{6}$"
-    },
-    "variable_id": {
-      "type": "string",
-      "pattern": "^VR[0-9]{6}$"
-    },
-    "display_name": {
-      "type": "string",
-      "minLength": 3
-    },
-    "canonical_name": {
-      "type": ["string", "null"]
-    },
-    "definition": {
-      "type": "string",
-      "minLength": 20
-    },
+    "passport_id": {"type": "string", "pattern": "^SP[0-9]{6}$"},
+    "variable_id": {"type": "string", "pattern": "^VR[0-9]{6}$"},
+    "display_name": {"type": "string", "minLength": 3},
+    "canonical_name": {"type": ["string", "null"]},
+    "definition": {"type": "string", "minLength": 20},
     "domain_tags": {
       "type": "array",
       "minItems": 1,
@@ -47,71 +33,27 @@
       "items": {
         "type": "string",
         "enum": [
-          "environment",
-          "nature",
-          "biodiversity",
-          "ecological_processes",
-          "climate",
-          "water",
-          "soil",
-          "atmosphere",
-          "one_health",
-          "public_health",
-          "epidemiology",
-          "population",
-          "society",
-          "inequality",
-          "institutions",
-          "governance",
-          "political_articulation",
-          "economy",
-          "public_finance",
-          "work",
-          "agriculture",
-          "food_systems",
-          "food_security",
-          "education",
-          "knowledge_access",
-          "territory",
-          "infrastructure",
-          "planning"
+          "environment", "nature", "biodiversity", "ecological_processes", "climate",
+          "water", "soil", "atmosphere", "one_health", "public_health",
+          "epidemiology", "population", "society", "inequality", "institutions",
+          "governance", "political_articulation", "economy", "public_finance", "work",
+          "agriculture", "food_systems", "food_security", "education", "knowledge_access",
+          "territory", "infrastructure", "planning"
         ]
       }
     },
-    "unit": {
-      "type": ["string", "null"]
-    },
-    "unit_reference": {
-      "type": ["string", "null"],
-      "format": "uri"
-    },
+    "unit": {"type": ["string", "null"]},
+    "unit_reference": {"type": ["string", "null"], "format": "uri"},
     "data_type": {
       "type": "string",
       "enum": [
-        "continuous",
-        "integer",
-        "count",
-        "rate",
-        "proportion",
-        "percentage",
-        "index",
-        "ordinal",
-        "nominal",
-        "binary",
-        "geometry",
-        "text"
+        "continuous", "integer", "count", "rate", "proportion", "percentage", "index",
+        "ordinal", "nominal", "binary", "geometry", "text"
       ]
     },
-    "object_observed": {
-      "type": "string",
-      "minLength": 3
-    },
-    "population_or_universe": {
-      "type": ["string", "null"]
-    },
-    "unit_of_observation": {
-      "type": ["string", "null"]
-    },
+    "object_observed": {"type": "string", "minLength": 3},
+    "population_or_universe": {"type": ["string", "null"]},
+    "unit_of_observation": {"type": ["string", "null"]},
     "spatial_support": {
       "type": "object",
       "additionalProperties": false,
@@ -120,35 +62,15 @@
         "support_type": {
           "type": "string",
           "enum": [
-            "point",
-            "pixel",
-            "grid_cell",
-            "polygon",
-            "administrative_unit",
-            "household",
-            "individual",
-            "facility",
-            "farm",
-            "watershed",
-            "biome",
-            "network",
-            "non_spatial",
-            "mixed",
-            "unknown"
+            "point", "pixel", "grid_cell", "polygon", "administrative_unit", "household",
+            "individual", "facility", "farm", "watershed", "biome", "network",
+            "non_spatial", "mixed", "unknown"
           ]
         },
-        "description": {
-          "type": "string"
-        },
-        "resolution": {
-          "type": ["string", "null"]
-        },
-        "crs": {
-          "type": ["string", "null"]
-        },
-        "coverage": {
-          "type": ["string", "null"]
-        }
+        "description": {"type": "string"},
+        "resolution": {"type": ["string", "null"]},
+        "crs": {"type": ["string", "null"]},
+        "coverage": {"type": ["string", "null"]}
       }
     },
     "temporal_support": {
@@ -159,95 +81,59 @@
         "representation": {
           "type": "string",
           "enum": [
-            "instant",
-            "interval",
-            "annual",
-            "monthly",
-            "daily",
-            "event",
-            "cumulative",
-            "moving_average",
-            "multi_year_average",
-            "static",
-            "irregular",
-            "unknown"
+            "instant", "interval", "annual", "monthly", "daily", "event", "cumulative",
+            "moving_average", "multi_year_average", "static", "irregular", "unknown"
           ]
         },
-        "description": {
-          "type": "string"
-        },
-        "start": {
-          "type": ["string", "null"]
-        },
-        "end": {
-          "type": ["string", "null"]
-        },
-        "frequency": {
-          "type": ["string", "null"]
-        }
+        "description": {"type": "string"},
+        "start": {"type": ["string", "null"]},
+        "end": {"type": ["string", "null"]},
+        "frequency": {"type": ["string", "null"]}
       }
     },
     "method_type": {
       "type": "string",
       "enum": [
-        "measured",
-        "administrative_record",
-        "self_reported",
-        "survey_estimate",
-        "classified",
-        "modeled",
-        "interpolated",
-        "derived",
-        "composite_index",
-        "mixed",
-        "unknown"
+        "measured", "administrative_record", "self_reported", "survey_estimate", "classified",
+        "modeled", "interpolated", "derived", "composite_index", "mixed", "unknown"
       ]
+    },
+    "model_support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["available", "description"],
+      "properties": {
+        "available": {"type": "boolean"},
+        "type": {"type": ["string", "null"]},
+        "range": {"type": ["string", "null"]},
+        "description": {"type": "string", "minLength": 5}
+      }
     },
     "uncertainty": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "available": {
-          "type": "boolean"
-        },
-        "type": {
-          "type": ["string", "null"]
-        },
-        "description": {
-          "type": ["string", "null"]
-        }
+        "available": {"type": "boolean"},
+        "type": {"type": ["string", "null"]},
+        "description": {"type": ["string", "null"]}
       }
     },
-    "missing_data": {
-      "type": ["string", "null"]
-    },
+    "missing_data": {"type": ["string", "null"]},
     "provenance": {
       "type": "object",
       "additionalProperties": false,
       "required": ["resource_id", "product_id", "version_or_release"],
       "properties": {
-        "resource_id": {
-          "type": ["string", "null"],
-          "pattern": "^DR[0-9]{4}$"
-        },
-        "product_id": {
-          "type": ["string", "null"],
-          "pattern": "^DP[0-9]{6}$"
-        },
-        "version_or_release": {
-          "type": "string"
-        },
-        "source_variable_name": {
-          "type": ["string", "null"]
-        },
-        "lineage_note": {
-          "type": ["string", "null"]
-        }
+        "resource_id": {"type": ["string", "null"], "pattern": "^DR[0-9]{4}$"},
+        "product_id": {"type": ["string", "null"], "pattern": "^DP[0-9]{6}$"},
+        "version_or_release": {"type": "string"},
+        "source_variable_name": {"type": ["string", "null"]},
+        "lineage_note": {"type": ["string", "null"]},
+        "documentation_url": {"type": ["string", "null"], "format": "uri"},
+        "methodology_url": {"type": ["string", "null"], "format": "uri"}
       }
     },
-    "license": {
-      "type": ["string", "null"]
-    },
+    "license": {"type": ["string", "null"]},
     "sensitivity_class": {
       "type": "string",
       "enum": ["public", "restricted", "sensitive", "highly_sensitive", "unknown"],
@@ -256,27 +142,16 @@
     "limitations": {
       "type": "array",
       "minItems": 1,
-      "items": {
-        "type": "string",
-        "minLength": 5
-      }
+      "items": {"type": "string", "minLength": 5}
     },
     "review": {
       "type": "object",
       "additionalProperties": false,
       "required": ["status", "reviewed_at"],
       "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["draft", "reviewed", "approved", "deprecated"]
-        },
-        "reviewed_at": {
-          "type": "string",
-          "format": "date"
-        },
-        "reviewed_by": {
-          "type": ["string", "null"]
-        }
+        "status": {"type": "string", "enum": ["draft", "reviewed", "approved", "deprecated"]},
+        "reviewed_at": {"type": "string", "format": "date"},
+        "reviewed_by": {"type": ["string", "null"]}
       }
     }
   }
