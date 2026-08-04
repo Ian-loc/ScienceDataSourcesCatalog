@@ -212,6 +212,14 @@ Registrar:
 
 A existência de API não implica acesso sem autenticação, processamento gratuito ou visualização direta.
 
+### Papéis dos links no esquema público atual
+
+- **Site oficial** — campo `homepage_url`: página institucional principal ou página oficial que identifica a fonte;
+- **Acessar dados** — campo `data_access_url`: página em que os dados podem ser pesquisados, visualizados, solicitados ou baixados;
+- documentação de acesso — campo `access_documentation_url`: instruções técnicas, API, protocolo, autenticação ou cliente.
+
+`homepage_url` e `data_access_url` podem coincidir somente quando a mesma página cumpre comprovadamente os dois papéis. A igualdade permanece pendência de revisão quando isso não estiver demonstrado.
+
 ## 12. Taxonomias e filtros
 
 Os temas podem incluir múltiplos domínios:
