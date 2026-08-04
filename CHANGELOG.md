@@ -4,52 +4,48 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 
 ## Não lançado
 
-### Adicionado
+### Adicionado — Instância 1
 
-- direção científica formal para evolução do catálogo ao **Simbioscópio**;
-- assinatura científica: “A vida acontece em relação. As relações precisam ser investigadas com evidência.”;
-- política normativa de comparabilidade, evidência e inferência científica;
-- auditoria integral da transição científica e backlog P0–P3;
-- roadmap governado do Simbioscópio, com fases e portões de saída;
-- contratos JSON Schema v0.1 para passaporte científico, avaliação de comparabilidade e relações/evidências;
-- validador da direção científica integrado à CI;
-- teto de inferência N0, proibição de uso analítico e estado de evidência no registro federado e no manifesto;
-- Dynamic World V1 — Google/WRI como produto selecionado do Earth Engine Data Catalog, com quatro distribuições separando asset analítico, registro WRI, explorador visual e repositório de modelo;
-- dossiê técnico e estratégico sobre Dynamic World, WRI Data Explorer e uso governado de recursos GitHub na expansão do catálogo;
-- Explorador Federado de Dados Científicos do Brasil com camadas WMS/WMTS, controle de visibilidade, ordem e transparência;
-- registro operacional `data/federated_layers.json` com proveniência, links oficiais, citação e avisos científicos por camada;
-- configuração compartilhável por URL e manifesto JSON de proveniência da composição visual;
-- validação automatizada específica para camadas, dependências, compatibilidade e limites do explorador;
-- registrado Cerrado Plant Traits (CPT) como candidato brasileiro P0 de alta prioridade, com decisão de inclusão e evidência científica;
-- classificação territorial Brasil-primeiro para todas as fontes;
-- camada pública de produtos e distribuições;
-- busca, filtros compartilháveis e comparação de produtos;
-- documentação de governança, contribuição e política de releases;
-- geração de artefato público isolado para o GitHub Pages.
+- decisão estratégica que estabelece a **Instância 1 — Catálogo relacional científico-operacional** como foco ativo;
+- documentação canônica da Instância 1;
+- modelo PostgreSQL/PostGIS para organizações, fontes, famílias, produtos, releases, variáveis, métodos, perfis espaciais e temporais, qualidade, distribuições, ativos, capacidades, taxonomias, citações, evidências e revisões;
+- schema de staging para migração sem perda dos CSVs atuais;
+- registro de problemas e bloqueios de migração;
+- workflow contínuo de curadoria produto por produto;
+- portões de migração, aprofundamento, interface e promoção do banco;
+- definição de `information_message` para explicar qual informação sobre o mundo real o produto comunica;
+- definição de `non_representations` para registrar interpretações que o produto não sustenta;
+- evidência de metadados por entidade e campo.
 
-### Alterado
+### Alterado — direção do projeto
 
-- Explorador Federado apresentado como fundamento técnico do **Simbioscópio — Explorador das Interdependências**;
-- página de alternativas convertida em direção consolidada de evolução;
-- README, metodologia, codebook, modelo de produtos, governança e página Sobre ampliados para acomodar variáveis, Saúde Única, sociedade, economia, instituições e governança;
-- registro de camadas elevado para versão 0.2.0;
-- manifesto de visualização ampliado com política, teto de inferência, autorização analítica e estado de evidência;
-- artefato público do GitHub Pages ampliado para incluir o explorador e seu registro governado de camadas;
-- identidade pública do catálogo preservada durante a transição de marca;
-- autoria e metadados de citação normalizados para **Ian Clemente**;
-- README reorganizado como entrada pública do produto;
-- linguagem pública de verificação ajustada para não sugerir certificação integral dos registros;
-- estrutura de publicação preparada para expor somente arquivos destinados ao site.
+- projeto recentrado no aprofundamento do catálogo, antes de novas capacidades analíticas;
+- PostgreSQL/PostGIS definido como arquitetura canônica de destino;
+- CSVs mantidos como autoridade pública durante a transição e futura exportação do banco;
+- separação normativa reforçada entre organização, fonte, família, produto, release, distribuição, ativo e variável;
+- catálogos genéricos, serviços de processamento e visualizadores deixam de ser tratados como produtos científicos;
+- README, direção científica, roadmap, modelo de produtos e dicionário de dados harmonizados com a Instância 1;
+- Instâncias 2 e 3 registradas somente como ambições futuras;
+- política de comparabilidade e inferência movida para estado de guardrail futuro, sem workstream analítico ativo.
+
+### Preservado do desenvolvimento anterior
+
+- camada pública atual de fontes, produtos e distribuições;
+- Explorador Federado como protótipo N0, sem promoção a núcleo consolidado;
+- classificação territorial Brasil-primeiro;
+- Dynamic World V1 como produto piloto selecionado;
+- contratos experimentais de variáveis, comparabilidade e relações, mantidos sem promoção automática ao modelo canônico;
+- validações, governança, contribuição e política de releases;
+- separação de autoria, citação, licença e proveniência.
 
 ### Corrigido
 
-- ausência de uma separação normativa entre composição visual, associação, mecanismo e causalidade;
-- ausência de um teto de inferência legível por máquina no explorador atual;
-- tratamento implícito de evidência sobre fontes como se pudesse sustentar relações entre variáveis;
-- correções factuais confirmadas em registros com divergências de autenticação, API, licença ou condições de acesso;
-- URLs e referências remanescentes do nome anterior do repositório;
-- inconsistências entre identidade do projeto, citação e documentação pública;
-- acúmulo de múltiplas seções independentes de alterações não lançadas.
+- mistura entre produtos científicos, catálogos, serviços interoperáveis e infraestrutura computacional;
+- roadmap excessivamente orientado a comparabilidade, causalidade e visualização antes da consolidação dos dados;
+- ausência de releases explícitos entre produto e distribuição;
+- ausência de estrutura relacional para evidência por campo e revisão curatorial;
+- falta de distinção entre descrição do produto, mensagem científica e usos potenciais;
+- falta de uma estratégia executável de migração dos CSVs.
 
 ## 0.7.0 — 2026-07-18
 
