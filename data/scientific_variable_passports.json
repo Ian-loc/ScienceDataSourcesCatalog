@@ -4,7 +4,7 @@
     "variable_id": "VR000001",
     "display_name": "Dynamic World — rótulo de cobertura da terra",
     "canonical_name": "Dynamic World top-1 land-cover label",
-    "definition": "Classe de cobertura da terra com maior probabilidade prevista pelo modelo Dynamic World para cada pixel Sentinel-2 L1C elegível.",
+    "definition": "Índice da classe cuja banda apresenta a maior probabilidade estimada pelo modelo Dynamic World em cada pixel Sentinel-2 L1C elegível.",
     "domain_tags": ["environment", "nature", "territory"],
     "unit": null,
     "unit_reference": null,
@@ -14,7 +14,7 @@
     "unit_of_observation": "pixel de 10 m por aquisição elegível",
     "spatial_support": {
       "support_type": "pixel",
-      "description": "Pixel raster associado à aquisição Sentinel-2 de origem.",
+      "description": "Pixel raster associado à aquisição Sentinel-2 L1C de origem.",
       "resolution": "10 m",
       "crs": "definido pela imagem e pelo processamento no Earth Engine",
       "coverage": "global, incluindo o Brasil"
@@ -24,21 +24,29 @@
       "description": "Uma classificação por aquisição Sentinel-2 elegível, não uma síntese anual pronta.",
       "start": "2015-06-27",
       "end": null,
-      "frequency": "por aquisição elegível; revisita nominal de 2–5 dias"
+      "frequency": "por aquisição elegível; revisita nominal de 2–5 dias conforme latitude"
     },
     "method_type": "classified",
-    "uncertainty": {
+    "model_support": {
       "available": true,
-      "type": "probabilidades de classe produzidas pelo modelo",
-      "description": "As nove bandas de probabilidade permitem avaliar competição entre classes, mas não equivalem a acurácia local nem a incerteza estatística calibrada."
+      "type": "maior probabilidade estimada entre nove classes concorrentes",
+      "range": "0–1 para a probabilidade top-1 associada",
+      "description": "As bandas de probabilidade permitem examinar o suporte relativo à classe escolhida e a competição entre classes; não constituem acurácia local nem incerteza calibrada."
     },
-    "missing_data": "A disponibilidade depende das cenas Sentinel-2 elegíveis, máscaras de qualidade e condições de observação.",
+    "uncertainty": {
+      "available": false,
+      "type": null,
+      "description": "O produto não fornece uma medida calibrada de incerteza por pixel; as probabilidades de classe são registradas separadamente como suporte do modelo."
+    },
+    "missing_data": "A disponibilidade depende das cenas Sentinel-2 elegíveis, do limite de nebulosidade do produto, das máscaras de nuvens e sombras e das condições de observação.",
     "provenance": {
       "resource_id": "DR0019",
       "product_id": "DP000011",
       "version_or_release": "V1 | asset GOOGLE/DYNAMICWORLD/V1",
       "source_variable_name": "label",
-      "lineage_note": "Rótulo top-1 derivado das nove probabilidades de classe produzidas a partir de imagens Sentinel-2 L1C elegíveis."
+      "lineage_note": "Rótulo top-1 derivado deterministicamente das nove probabilidades de classe geradas para a mesma aquisição Sentinel-2 L1C.",
+      "documentation_url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1",
+      "methodology_url": "https://doi.org/10.1038/s41597-022-01307-4"
     },
     "license": "CC BY 4.0 para os dados Dynamic World; observar também o aviso legal dos dados Sentinel modificados",
     "sensitivity_class": "public",
@@ -58,17 +66,17 @@
     "variable_id": "VR000002",
     "display_name": "Dynamic World — probabilidade da classe árvores",
     "canonical_name": "Dynamic World trees class probability",
-    "definition": "Valor contínuo entre zero e um produzido pelo modelo Dynamic World para representar o suporte relativo à classe árvores em cada pixel e aquisição elegível.",
+    "definition": "Probabilidade estimada pelo modelo Dynamic World de cobertura completa do pixel pela classe árvores, registrada em escala contínua de zero a um para cada aquisição elegível.",
     "domain_tags": ["environment", "nature", "territory"],
     "unit": "probabilidade [0–1]",
     "unit_reference": null,
     "data_type": "continuous",
-    "object_observed": "probabilidade modelada de pertencimento do pixel à classe árvores",
+    "object_observed": "suporte probabilístico produzido pelo modelo para cobertura completa do pixel pela classe árvores",
     "population_or_universe": "pixels das imagens Sentinel-2 L1C elegíveis processadas pelo Dynamic World",
     "unit_of_observation": "pixel de 10 m por aquisição elegível",
     "spatial_support": {
       "support_type": "pixel",
-      "description": "Pixel raster associado à aquisição Sentinel-2 de origem.",
+      "description": "Pixel raster associado à aquisição Sentinel-2 L1C de origem.",
       "resolution": "10 m",
       "crs": "definido pela imagem e pelo processamento no Earth Engine",
       "coverage": "global, incluindo o Brasil"
@@ -78,28 +86,93 @@
       "description": "Uma probabilidade por aquisição Sentinel-2 elegível, não uma média anual pronta.",
       "start": "2015-06-27",
       "end": null,
-      "frequency": "por aquisição elegível; revisita nominal de 2–5 dias"
+      "frequency": "por aquisição elegível; revisita nominal de 2–5 dias conforme latitude"
     },
     "method_type": "modeled",
+    "model_support": {
+      "available": true,
+      "type": "probabilidade estimada de classe",
+      "range": "0–1; as nove probabilidades de classe somam 1 em cada pixel válido",
+      "description": "O valor expressa suporte relativo do classificador à classe árvores e deve ser interpretado junto às demais classes e à aquisição de origem."
+    },
     "uncertainty": {
       "available": false,
       "type": null,
       "description": "A própria probabilidade de classe é uma saída do modelo e não deve ser apresentada como medida calibrada de incerteza ou acurácia."
     },
-    "missing_data": "A disponibilidade depende das cenas Sentinel-2 elegíveis, máscaras de qualidade e condições de observação.",
+    "missing_data": "A disponibilidade depende das cenas Sentinel-2 elegíveis, do limite de nebulosidade do produto, das máscaras de nuvens e sombras e das condições de observação.",
     "provenance": {
       "resource_id": "DR0019",
       "product_id": "DP000011",
       "version_or_release": "V1 | asset GOOGLE/DYNAMICWORLD/V1",
       "source_variable_name": "trees",
-      "lineage_note": "Banda de probabilidade produzida pelo classificador Dynamic World a partir de imagens Sentinel-2 L1C elegíveis."
+      "lineage_note": "Banda de probabilidade produzida pelo mesmo classificador e pela mesma aquisição que geram o rótulo top-1 e as oito probabilidades concorrentes.",
+      "documentation_url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1",
+      "methodology_url": "https://doi.org/10.1038/s41597-022-01307-4"
     },
     "license": "CC BY 4.0 para os dados Dynamic World; observar também o aviso legal dos dados Sentinel modificados",
     "sensitivity_class": "public",
     "limitations": [
       "A probabilidade da classe árvores deve ser interpretada em conjunto com as demais classes e com a qualidade da observação.",
-      "O valor não equivale diretamente à porcentagem de cobertura arbórea, biomassa, densidade de árvores ou acurácia de classificação.",
+      "O valor não equivale diretamente à porcentagem de cobertura arbórea, biomassa, densidade de árvores, acurácia ou incerteza calibrada.",
       "Agregações temporais ou espaciais precisam declarar método, limiar, máscara e tratamento das probabilidades concorrentes."
+    ],
+    "review": {
+      "status": "draft",
+      "reviewed_at": "2026-08-04",
+      "reviewed_by": "Ian Clemente / curadoria do projeto"
+    }
+  },
+  {
+    "passport_id": "SP000003",
+    "variable_id": "VR000003",
+    "display_name": "PRODES Brasil — classe anual de supressão de vegetação nativa",
+    "canonical_name": "PRODES Brasil annual native-vegetation suppression class",
+    "definition": "Classe espacial do inventário anual incremental do PRODES que identifica supressão de vegetação nativa primária no ano de detecção, conforme protocolo, bioma, edição e distribuição utilizados.",
+    "domain_tags": ["environment", "nature", "territory", "planning"],
+    "unit": null,
+    "unit_reference": null,
+    "data_type": "nominal",
+    "object_observed": "classe de mapeamento espacial associada ao incremento anual de supressão de vegetação nativa",
+    "population_or_universe": "áreas dos biomas brasileiros cobertas pela edição específica do PRODES",
+    "unit_of_observation": "polígono ou célula raster da distribuição e edição selecionadas",
+    "spatial_support": {
+      "support_type": "mixed",
+      "description": "O produto familiar pode ser distribuído como polígonos vetoriais ou classes raster; a forma exata precisa ser fixada antes do uso.",
+      "resolution": "imagens de referência geralmente na faixa de 20–30 m; suporte final depende do bioma, edição e distribuição",
+      "crs": "definido na distribuição selecionada",
+      "coverage": "biomas brasileiros, conforme edição e coleção"
+    },
+    "temporal_support": {
+      "representation": "annual",
+      "description": "Inventário incremental anual; apenas novas áreas ou incrementos são mapeados em cada ciclo.",
+      "start": null,
+      "end": null,
+      "frequency": "anual; início e janela de referência variam por bioma e edição"
+    },
+    "method_type": "classified",
+    "uncertainty": {
+      "available": false,
+      "type": null,
+      "description": "Não há uma incerteza numérica uniforme por classe no registro familiar; notas de acurácia e controles precisam ser vinculados à edição e ao bioma usados."
+    },
+    "missing_data": "Nuvens, resíduos, áreas não observadas e classes auxiliares devem ser tratados segundo a legenda e as notas técnicas da edição selecionada.",
+    "provenance": {
+      "resource_id": "DR0011",
+      "product_id": "DP000001",
+      "version_or_release": "família de edições por bioma; edição obrigatória para análise",
+      "source_variable_name": "yearly_deforestation / classes dAAAA",
+      "lineage_note": "Mapeamento incremental por detecção de mudanças em imagens da mesma estação, com protocolos adaptados a cada bioma.",
+      "documentation_url": "https://data.inpe.br/biomasbr/prodes-monitoramento-anual-da-supressao-de-vegetacao-nativa/",
+      "methodology_url": "https://data.inpe.br/biomasbr/category/notas-tecnicas/documentos-interesse/"
+    },
+    "license": "condições de uso e citação do INPE/TerraBrasilis; confirmar na distribuição e edição utilizadas",
+    "sensitivity_class": "public",
+    "limitations": [
+      "A classe representa supressão anual incremental e não uma classe geral de cobertura atual da terra.",
+      "Protocolos, chaves de interpretação, séries históricas e camadas auxiliares variam entre biomas e edições.",
+      "O registro familiar não autoriza análise até que bioma, edição, ano, camada, formato, legenda e suporte espacial estejam definidos.",
+      "Classes de resíduo, nuvem, hidrografia e outras classes auxiliares não devem ser confundidas com incremento anual."
     ],
     "review": {
       "status": "draft",
