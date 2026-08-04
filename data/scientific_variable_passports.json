@@ -1,0 +1,110 @@
+[
+  {
+    "passport_id": "SP000001",
+    "variable_id": "VR000001",
+    "display_name": "Dynamic World — rótulo de cobertura da terra",
+    "canonical_name": "Dynamic World top-1 land-cover label",
+    "definition": "Classe de cobertura da terra com maior probabilidade prevista pelo modelo Dynamic World para cada pixel Sentinel-2 L1C elegível.",
+    "domain_tags": ["environment", "nature", "territory"],
+    "unit": null,
+    "unit_reference": null,
+    "data_type": "nominal",
+    "object_observed": "classe de cobertura da terra predita para um pixel Sentinel-2 elegível",
+    "population_or_universe": "pixels das imagens Sentinel-2 L1C elegíveis processadas pelo Dynamic World",
+    "unit_of_observation": "pixel de 10 m por aquisição elegível",
+    "spatial_support": {
+      "support_type": "pixel",
+      "description": "Pixel raster associado à aquisição Sentinel-2 de origem.",
+      "resolution": "10 m",
+      "crs": "definido pela imagem e pelo processamento no Earth Engine",
+      "coverage": "global, incluindo o Brasil"
+    },
+    "temporal_support": {
+      "representation": "event",
+      "description": "Uma classificação por aquisição Sentinel-2 elegível, não uma síntese anual pronta.",
+      "start": "2015-06-27",
+      "end": null,
+      "frequency": "por aquisição elegível; revisita nominal de 2–5 dias"
+    },
+    "method_type": "classified",
+    "uncertainty": {
+      "available": true,
+      "type": "probabilidades de classe produzidas pelo modelo",
+      "description": "As nove bandas de probabilidade permitem avaliar competição entre classes, mas não equivalem a acurácia local nem a incerteza estatística calibrada."
+    },
+    "missing_data": "A disponibilidade depende das cenas Sentinel-2 elegíveis, máscaras de qualidade e condições de observação.",
+    "provenance": {
+      "resource_id": "DR0019",
+      "product_id": "DP000011",
+      "version_or_release": "V1 | asset GOOGLE/DYNAMICWORLD/V1",
+      "source_variable_name": "label",
+      "lineage_note": "Rótulo top-1 derivado das nove probabilidades de classe produzidas a partir de imagens Sentinel-2 L1C elegíveis."
+    },
+    "license": "CC BY 4.0 para os dados Dynamic World; observar também o aviso legal dos dados Sentinel modificados",
+    "sensitivity_class": "public",
+    "limitations": [
+      "O rótulo top-1 não deve ser tratado como verdade territorial sem avaliar as probabilidades de classe e o contexto local.",
+      "Mudanças entre aquisições podem refletir nuvens, sazonalidade, qualidade da observação ou competição entre classes, e não mudança real de uso da terra.",
+      "Estatísticas de área exigem desenho de validação, referência amostral e tratamento do viés de classificação."
+    ],
+    "review": {
+      "status": "draft",
+      "reviewed_at": "2026-08-04",
+      "reviewed_by": "Ian Clemente / curadoria do projeto"
+    }
+  },
+  {
+    "passport_id": "SP000002",
+    "variable_id": "VR000002",
+    "display_name": "Dynamic World — probabilidade da classe árvores",
+    "canonical_name": "Dynamic World trees class probability",
+    "definition": "Valor contínuo entre zero e um produzido pelo modelo Dynamic World para representar o suporte relativo à classe árvores em cada pixel e aquisição elegível.",
+    "domain_tags": ["environment", "nature", "territory"],
+    "unit": "probabilidade [0–1]",
+    "unit_reference": null,
+    "data_type": "continuous",
+    "object_observed": "probabilidade modelada de pertencimento do pixel à classe árvores",
+    "population_or_universe": "pixels das imagens Sentinel-2 L1C elegíveis processadas pelo Dynamic World",
+    "unit_of_observation": "pixel de 10 m por aquisição elegível",
+    "spatial_support": {
+      "support_type": "pixel",
+      "description": "Pixel raster associado à aquisição Sentinel-2 de origem.",
+      "resolution": "10 m",
+      "crs": "definido pela imagem e pelo processamento no Earth Engine",
+      "coverage": "global, incluindo o Brasil"
+    },
+    "temporal_support": {
+      "representation": "event",
+      "description": "Uma probabilidade por aquisição Sentinel-2 elegível, não uma média anual pronta.",
+      "start": "2015-06-27",
+      "end": null,
+      "frequency": "por aquisição elegível; revisita nominal de 2–5 dias"
+    },
+    "method_type": "modeled",
+    "uncertainty": {
+      "available": false,
+      "type": null,
+      "description": "A própria probabilidade de classe é uma saída do modelo e não deve ser apresentada como medida calibrada de incerteza ou acurácia."
+    },
+    "missing_data": "A disponibilidade depende das cenas Sentinel-2 elegíveis, máscaras de qualidade e condições de observação.",
+    "provenance": {
+      "resource_id": "DR0019",
+      "product_id": "DP000011",
+      "version_or_release": "V1 | asset GOOGLE/DYNAMICWORLD/V1",
+      "source_variable_name": "trees",
+      "lineage_note": "Banda de probabilidade produzida pelo classificador Dynamic World a partir de imagens Sentinel-2 L1C elegíveis."
+    },
+    "license": "CC BY 4.0 para os dados Dynamic World; observar também o aviso legal dos dados Sentinel modificados",
+    "sensitivity_class": "public",
+    "limitations": [
+      "A probabilidade da classe árvores deve ser interpretada em conjunto com as demais classes e com a qualidade da observação.",
+      "O valor não equivale diretamente à porcentagem de cobertura arbórea, biomassa, densidade de árvores ou acurácia de classificação.",
+      "Agregações temporais ou espaciais precisam declarar método, limiar, máscara e tratamento das probabilidades concorrentes."
+    ],
+    "review": {
+      "status": "draft",
+      "reviewed_at": "2026-08-04",
+      "reviewed_by": "Ian Clemente / curadoria do projeto"
+    }
+  }
+]
