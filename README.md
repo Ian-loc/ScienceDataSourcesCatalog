@@ -14,6 +14,7 @@ Seu foco ativo é a **Instância 1 do Symbiotrama**: construir uma base profunda
 - [Buscar e comparar produtos](https://ian-loc.github.io/ScienceDataSourcesCatalog/products.html)
 - [Analisar a composição atual do catálogo](https://ian-loc.github.io/ScienceDataSourcesCatalog/analytics.html)
 - [Consultar método, escopo e citação](https://ian-loc.github.io/ScienceDataSourcesCatalog/about.html)
+- [Código, dados e documentação](https://github.com/Ian-loc/ScienceDataSourcesCatalog)
 - [Baixar o CSV canônico atual](data/data_resources.csv)
 
 A página pública atual permanece disponível durante a migração. Ela ainda representa uma versão simplificada do conhecimento que o novo modelo relacional deverá sustentar.
