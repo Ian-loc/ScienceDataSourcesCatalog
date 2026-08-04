@@ -6,6 +6,7 @@ import csv
 import json
 import re
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 VARIABLES_PATH = ROOT / "data" / "scientific_variables.csv"
@@ -40,6 +41,13 @@ def read_csv(path: Path) -> tuple[list[str], list[dict[str, str]]]:
         return reader.fieldnames, rows
 
 
+def is_https(value: object) -> bool:
+    if not isinstance(value, str):
+        return False
+    parsed = urlparse(value)
+    return parsed.scheme == "https" and bool(parsed.netloc)
+
+
 variable_header, variables = read_csv(VARIABLES_PATH)
 relation_header, relations = read_csv(RELATIONS_PATH)
 _, products = read_csv(PRODUCTS_PATH)
@@ -48,8 +56,8 @@ if set(variable_header) != VARIABLE_FIELDS:
     fail("scientific_variables.csv diverge do contrato inicial de campos")
 if set(relation_header) != RELATION_FIELDS:
     fail("product_variables.csv diverge do contrato inicial de campos")
-if len(variables) < 2:
-    fail("o piloto deve conter ao menos duas variáveis verificáveis")
+if len(variables) < 3:
+    fail("o piloto deve conter ao menos três variáveis verificáveis de dois produtos")
 
 product_index = {row["product_id"]: row for row in products}
 if len(product_index) != len(products):
@@ -57,6 +65,7 @@ if len(product_index) != len(products):
 
 variable_ids: set[str] = set()
 passport_ids: set[str] = set()
+products_represented: set[str] = set()
 for row_number, row in enumerate(variables, start=2):
     variable_id = row["variable_id"]
     passport_id = row["passport_id"]
@@ -68,9 +77,11 @@ for row_number, row in enumerate(variables, start=2):
         fail(f"scientific_variables.csv linha {row_number}: identificador duplicado")
     variable_ids.add(variable_id)
     passport_ids.add(passport_id)
-    if row["product_id"] not in product_index:
+    product_id = row["product_id"]
+    products_represented.add(product_id)
+    if product_id not in product_index:
         fail(f"{variable_id}: product_id não existe no catálogo de produtos")
-    if product_index[row["product_id"]]["resource_id"] != row["resource_id"]:
+    if product_index[product_id]["resource_id"] != row["resource_id"]:
         fail(f"{variable_id}: resource_id não coincide com o produto")
     if row["review_status"] not in {"draft", "reviewed", "approved", "deprecated"}:
         fail(f"{variable_id}: review_status inválido")
@@ -78,6 +89,9 @@ for row_number, row in enumerate(variables, start=2):
         fail(f"{variable_id}: reviewed_at deve usar AAAA-MM-DD")
     if not row["display_name"].strip() or not row["object_observed"].strip():
         fail(f"{variable_id}: nome e objeto observado são obrigatórios")
+
+if len(products_represented) < 2:
+    fail("o piloto deve representar pelo menos dois produtos com finalidades distintas")
 
 relation_pairs: set[tuple[str, str]] = set()
 related_variables: set[str] = set()
@@ -146,6 +160,21 @@ for index, passport in enumerate(passports, start=1):
         fail(f"{variable_id}: suporte espacial inválido")
     if passport["temporal_support"].get("representation") not in temporal_enum:
         fail(f"{variable_id}: suporte temporal inválido")
+
+    model_support = passport.get("model_support")
+    if model_support is not None:
+        if not isinstance(model_support, dict) or not isinstance(model_support.get("available"), bool):
+            fail(f"{variable_id}: model_support inválido")
+        if len(str(model_support.get("description", "")).strip()) < 5:
+            fail(f"{variable_id}: descrição de model_support insuficiente")
+
+    uncertainty = passport.get("uncertainty")
+    if uncertainty is not None:
+        if not isinstance(uncertainty, dict) or not isinstance(uncertainty.get("available"), bool):
+            fail(f"{variable_id}: uncertainty inválida")
+        if uncertainty.get("available") and not str(uncertainty.get("type") or "").strip():
+            fail(f"{variable_id}: incerteza disponível exige tipo explícito")
+
     review = passport["review"]
     if review.get("status") not in review_enum or not DATE_PATTERN.fullmatch(review.get("reviewed_at", "")):
         fail(f"{variable_id}: revisão inválida")
@@ -156,8 +185,26 @@ for index, passport in enumerate(passports, start=1):
         fail(f"{variable_id}: produto de proveniência inexistente")
     if product_index[product_id]["resource_id"] != resource_id:
         fail(f"{variable_id}: proveniência fonte–produto inconsistente")
+    for field in ("documentation_url", "methodology_url"):
+        value = provenance.get(field)
+        if value is not None and not is_https(value):
+            fail(f"{variable_id}: {field} deve usar HTTPS")
     if not passport["limitations"] or any(len(item.strip()) < 5 for item in passport["limitations"]):
         fail(f"{variable_id}: limitações insuficientes")
+
+    source_name = provenance.get("source_variable_name")
+    if product_id == "DP000011" and source_name in {"label", "trees"}:
+        if not model_support or not model_support.get("available"):
+            fail(f"{variable_id}: saída probabilística Dynamic World exige model_support explícito")
+        if uncertainty and uncertainty.get("available"):
+            fail(f"{variable_id}: probabilidade de classe não pode ser registrada como incerteza calibrada")
+
+    if variable_id == "VR000003":
+        if passport["spatial_support"].get("support_type") != "mixed":
+            fail("VR000003: registro familiar PRODES deve preservar suporte misto")
+        if "edição" not in passport["provenance"].get("version_or_release", ""):
+            fail("VR000003: edição específica deve permanecer obrigatória")
+
     passport_by_variable[variable_id] = passport
 
 for row in variables:
@@ -172,8 +219,11 @@ for row in variables:
         fail(f"{row['variable_id']}: product_id diverge entre CSV e JSON")
     if passport["provenance"]["source_variable_name"] != row["source_variable_name"]:
         fail(f"{row['variable_id']}: variável de origem diverge entre CSV e JSON")
+    if passport["review"]["status"] != row["review_status"]:
+        fail(f"{row['variable_id']}: status de revisão diverge entre CSV e JSON")
 
 print(
     "OK: registro científico de variáveis validado — "
-    f"{len(variables)} variáveis, {len(passports)} passaportes e {len(relations)} vínculos produto–variável"
+    f"{len(variables)} variáveis, {len(passports)} passaportes, {len(relations)} vínculos e "
+    f"{len(products_represented)} produtos representados"
 )
