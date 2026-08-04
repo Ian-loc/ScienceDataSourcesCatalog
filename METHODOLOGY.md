@@ -1,8 +1,18 @@
 # Metodologia de curadoria
 
-## Escopo
+## Escopo atual
 
-A unidade de registro é a **fonte**: plataforma, infraestrutura, repositório, rede, sistema, catálogo, software de publicação ou base de dados. O catálogo não registra cada dataset individual como uma linha.
+A unidade de registro do catálogo canônico 0.7.0 é a **fonte**: plataforma, infraestrutura, repositório, rede, sistema, catálogo, software de publicação ou base de dados. O CSV de fontes não registra cada dataset individual como uma linha.
+
+A camada de produtos acrescenta séries, coleções, catálogos e serviços reconhecíveis. A camada de distribuições registra formas concretas de acesso.
+
+## Direção científica
+
+O projeto evolui de forma controlada para o **Simbioscópio**, uma plataforma federada voltada à exploração de interdependências entre sociedade, saúde, economia, governança, território e natureza.
+
+Essa direção não altera silenciosamente a unidade canônica atual. Ela introduz, em paralelo, uma **camada de variáveis e passaportes científicos**, seguida por avaliações de comparabilidade, relações, evidências e receitas reproduzíveis.
+
+A [Direção científica do projeto](docs/PROJECT_SCIENTIFIC_DIRECTION.md) define a missão de longo prazo. A [Política de comparabilidade, evidência e inferência científica](docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md) define os limites obrigatórios para sobreposição, combinação e análise.
 
 ## Evidências
 
@@ -10,11 +20,17 @@ A revisão prioriza documentação oficial, páginas de acesso/API/licença/term
 
 Cada afirmação deve ser sustentada no nível adequado. Homepage pode comprovar identidade, mas não necessariamente API, formato, resolução, licença ou atualização. DATA1-EXT usa tabela longa, permitindo várias evidências por fonte e dimensão.
 
-## Áreas de pesquisa
+Evidência sobre a existência ou qualidade de uma fonte não equivale a evidência sobre uma relação entre variáveis. Relações científicas futuras deverão possuir fichas próprias com mecanismo, estudos favoráveis, contraditórios e inconclusivos, aplicabilidade e limites de inferência.
+
+## Áreas de pesquisa atuais
 
 `research_areas` usa nove categorias condensadas: Ciências Ambientais e Ecologia; Biodiversidade e Conservação; Clima e Ciências Atmosféricas; Geociências, Solos e Geografia Física; Recursos Hídricos e Oceanografia; Agricultura, Florestas e Uso da Terra; Sensoriamento Remoto e Geoinformação; Infraestruturas e Ciência de Dados; Planejamento Territorial e Políticas Públicas.
 
 A estrutura é inspirada, sem correspondência normativa, na CAPES e no Web of Science. Serve à navegação; temas específicos permanecem em `keywords`.
+
+Essas categorias permanecem válidas para o esquema atual, mas são insuficientes para a nova direção. A futura taxonomia deverá permitir múltiplos eixos, incluindo Saúde Única, saúde pública, epidemiologia, população, sociedade, desigualdade, instituições, governança, articulação política, economia, finanças, trabalho, alimentação, educação e infraestrutura.
+
+A nova taxonomia deverá ser introduzida em contrato paralelo antes de substituir ou ampliar valores canônicos.
 
 ## Acesso
 
@@ -41,12 +57,70 @@ URLs iguais entram em revisão. A igualdade só pode permanecer como exceção d
 
 `covers_brazil` usa `sim`, `parcial`, `não`, `não se aplica` e `desconhecido`, conforme a cobertura explícita e a aplicabilidade territorial.
 
+A existência de cobertura brasileira não demonstra aplicabilidade de uma relação científica ao Brasil. Aplicabilidade depende também de população, escala, período, contexto institucional, desenho dos estudos e mecanismo.
+
+## Passaporte científico
+
+Uma variável só poderá participar de combinação analítica automatizada quando possuir, no mínimo:
+
+- definição conceitual;
+- unidade;
+- tipo de dado;
+- população, objeto ou fenômeno observado;
+- unidade de observação e suporte espacial;
+- período e suporte temporal;
+- método de obtenção;
+- versão ou release;
+- incerteza ou qualidade disponível;
+- proveniência e linhagem;
+- limitações;
+- licença e sensibilidade.
+
+O contrato inicial está em `schema/scientific-variable-passport-v0.1.json`.
+
+## Comparabilidade
+
+Comparabilidade é avaliada para uma operação específica. Produtos adequados para visualização podem ser inadequados para correlação, regressão ou inferência causal.
+
+A avaliação deverá considerar separadamente:
+
+- semântica;
+- população e suporte;
+- espaço;
+- tempo;
+- método;
+- estatística;
+- proveniência;
+- licença, ética e privacidade.
+
+O contrato inicial está em `schema/comparability-assessment-v0.1.json`.
+
+## Relações e evidências
+
+A futura camada de relações deverá distinguir hipótese, coocorrência, associação, mecanismo, mediação, confundimento, influência bidirecional, evidência causal e discordância.
+
+A síntese não poderá reduzir consenso a uma nota única. Concordância, certeza, aplicabilidade, suporte mecanístico e discordância devem permanecer separados.
+
+O contrato inicial está em `schema/scientific-relation-evidence-v0.1.json`.
+
 ## Prioridade e execução
 
 A prioridade científica usa somente impacto e risco comparáveis. Número de alertas, número de dimensões, ausência de documentação e problemas de links não aumentam a prioridade científica.
 
 A ordem operacional é controlada por ondas. Portões de escopo, links e documentação podem antecipar o trabalho, mas não alteram a classificação científica.
 
+Na nova direção, uma funcionalidade de visualização não autoriza automaticamente análise. A ordem obrigatória é:
+
+1. metadados e passaporte;
+2. avaliação de comparabilidade;
+3. proveniência e independência;
+4. evidência e mecanismo;
+5. diagnósticos estatísticos;
+6. análise reproduzível;
+7. comunicação proporcional ao teto de inferência.
+
 ## Limite da auditoria
 
 “Verificado” significa confrontado com as evidências registradas na data indicada. Não certifica todos os datasets nem garante disponibilidade futura. CI verde demonstra coerência interna, não correção factual externa.
+
+Da mesma forma, uma avaliação automática de comparabilidade ou evidência permanece um artefato computacional até cumprir a revisão humana exigida pela governança.
