@@ -31,6 +31,8 @@ A versão inicial implementa:
 
 O registro público das camadas está em `data/federated_layers.json`. Novas camadas precisam de links oficiais, citação, aviso científico e classificação de compatibilidade antes de serem publicadas.
 
+Combinações, comparações e futuras análises são governadas pela [Política de comparabilidade, evidência e inferência científica](docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md). O projeto permite exploração visual ampla, mas exige controles progressivos antes de autorizar associação, explicação ou inferência causal.
+
 ## Escopo
 
 A curadoria segue uma orientação **Brasil primeiro**:
@@ -82,7 +84,7 @@ Antes de usar um dataset, confirme no produto original:
 - `assets/` e arquivos HTML: interface do catálogo e do explorador;
 - `scripts/`: geração e validação;
 - `schema/`: contratos de esquema;
-- `docs/`: método, governança, manutenção e auditorias;
+- `docs/`: método, governança, manutenção, políticas científicas e auditorias;
 - `.github/workflows/`: integração contínua e publicação.
 
 ## Documentação principal
@@ -90,6 +92,7 @@ Antes de usar um dataset, confirme no produto original:
 - [Metodologia](METHODOLOGY.md)
 - [Dicionário de variáveis](CODEBOOK.md)
 - [Política de seleção e cobertura](SELECTION_AND_COVERAGE_POLICY.md)
+- [Política de comparabilidade, evidência e inferência científica](docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md)
 - [Modelo fonte–produto–distribuição](PRODUCT_CATALOG_MODEL.md)
 - [Governança](docs/GOVERNANCE.md)
 - [Política de releases](docs/RELEASE_POLICY.md)
