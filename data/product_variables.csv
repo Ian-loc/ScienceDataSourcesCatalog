@@ -1,0 +1,3 @@
+product_id,variable_id,relationship_role,source_field_or_band,notes,last_verified
+DP000011,VR000001,primary_output,label,Rótulo top-1 derivado da maior probabilidade entre as nove classes do produto; não representa verdade territorial validada.,2026-08-04
+DP000011,VR000002,component_output,trees,Banda contínua de probabilidade da classe árvores; não deve ser interpretada isoladamente como acurácia ou incerteza calibrada.,2026-08-04
