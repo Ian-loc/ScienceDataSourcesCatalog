@@ -1,8 +1,17 @@
 {
-  "registry_version": "0.1.0",
-  "title": "Explorador Federado de Dados Científicos do Brasil",
+  "registry_version": "0.2.0",
+  "title": "Simbioscópio — Explorador Federado de Dados Científicos do Brasil",
   "operation_mode": "visual_composition_only",
-  "reviewed_at": "2026-08-03",
+  "inference_ceiling": "N0",
+  "analytical_use_allowed": false,
+  "evidence_status": "not_assessed",
+  "scientific_policy": {
+    "document_path": "docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md",
+    "comparability_model": "A-E",
+    "inference_model": "N0-N5",
+    "current_rule": "A versão atual permite composição visual livre, mas não autoriza harmonização, correlação, associação, mecanismo ou causalidade."
+  },
+  "reviewed_at": "2026-08-04",
   "default_view": {
     "center": [-52.5, -14.5],
     "zoom": 3.4,
@@ -15,7 +24,7 @@
     "attribution": "OpenFreeMap © OpenMapTiles · Dados © OpenStreetMap contributors",
     "homepage_url": "https://openfreemap.org/"
   },
-  "disclaimer": "As camadas são articuladas visualmente e permanecem independentes. Sobreposição não implica harmonização, comparabilidade científica ou validação cruzada.",
+  "disclaimer": "As camadas são articuladas visualmente e permanecem independentes. Sobreposição não implica harmonização, comparabilidade científica, associação estatística ou validação cruzada.",
   "layers": [
     {
       "layer_id": "prodes-brasil-inpe",
@@ -39,8 +48,12 @@
       "version": "Serviço ativo do TerraBrasilis; versão do produto varia por publicação",
       "spatial_resolution": "Produto raster; resolução e classes devem ser confirmadas nos metadados da edição usada",
       "license": "Condições de uso mantidas pelo INPE/TerraBrasilis; confirmar no produto",
+      "operation_scope": ["visual_overlay"],
       "compatibility_class": "C",
       "compatibility_label": "Composição visual",
+      "inference_ceiling": "N0",
+      "analytical_use_allowed": false,
+      "evidence_status": "not_assessed",
       "scientific_warning": "Classes e períodos do PRODES não devem ser equiparados automaticamente a alertas, cobertura da terra ou outros conceitos de mudança ambiental.",
       "official_source_url": "https://www.gov.br/inpe/pt-br",
       "product_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=raster",
@@ -75,8 +88,12 @@
       "version": "GIBS best-available layer for the selected date",
       "spatial_resolution": "Visualização em mosaicos WMTS; consultar a documentação do produto para resolução nominal e limitações",
       "license": "NASA Earthdata; observar as políticas de uso e atribuição do produto",
+      "operation_scope": ["visual_overlay"],
       "compatibility_class": "C",
       "compatibility_label": "Composição visual",
+      "inference_ceiling": "N0",
+      "analytical_use_allowed": false,
+      "evidence_status": "not_assessed",
       "scientific_warning": "Imagem de reflectância em cor verdadeira é contexto visual e não uma classificação temática ou estimativa quantitativa de desmatamento.",
       "official_source_url": "https://www.earthdata.nasa.gov/",
       "product_url": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/",
