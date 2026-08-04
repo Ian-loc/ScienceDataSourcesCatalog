@@ -41,6 +41,12 @@ jobs:
           python3 -m py_compile scripts/validate_scientific_direction.py
           python3 scripts/validate_scientific_direction.py
 
+      - name: Validar carga da Instância 1 sem banco
+        run: |
+          python3 -m py_compile scripts/load_instance1_staging.py
+          python3 -m py_compile scripts/validate_instance1_database.py
+          python3 scripts/load_instance1_staging.py --check-only
+
       - name: Validar CSV e gerar artefatos derivados
         run: python3 scripts/build_catalog.py
 
@@ -106,11 +112,50 @@ jobs:
           test ! -e _site/.github
           test ! -e _site/audit
           test ! -e _site/schema
+          test ! -e _site/database
           test ! -e _site/release
+
+  instance1-database:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgis/postgis:16-3.5
+        env:
+          POSTGRES_DB: science_data_catalog
+          POSTGRES_USER: catalog
+          POSTGRES_PASSWORD: catalog_dev_only
+          TZ: America/Sao_Paulo
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U catalog -d science_data_catalog"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgresql://catalog:catalog_dev_only@localhost:5432/science_data_catalog
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar cliente PostgreSQL
+        run: python3 -m pip install -r database/requirements.txt
+
+      - name: Criar esquema e carregar staging
+        run: python3 scripts/load_instance1_staging.py --initialize
+
+      - name: Comprovar idempotência
+        run: |
+          output="$(python3 scripts/load_instance1_staging.py)"
+          echo "$output"
+          echo "$output" | grep -q '"status": "no_op"'
+
+      - name: Validar integridade material
+        run: python3 scripts/validate_instance1_database.py
 
   deploy:
     if: github.event_name != 'pull_request'
-    needs: validate
+    needs: [validate, instance1-database]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -125,6 +170,7 @@ jobs:
           python3 scripts/validate_brazil_scope.py
           python3 scripts/validate_product_catalog.py
           python3 scripts/validate_scientific_direction.py
+          python3 scripts/load_instance1_staging.py --check-only
           python3 scripts/build_catalog.py
           python3 scripts/audit_link_roles.py
           python3 scripts/validate_frontend.py
