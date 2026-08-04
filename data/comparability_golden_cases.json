@@ -1,0 +1,108 @@
+[
+  {
+    "assessment_id": "CA000001",
+    "operation_type": "side_by_side_description",
+    "input_variable_ids": ["VR000001", "VR000002"],
+    "dimensions": {
+      "semantic": {"status": "pass", "rationale": "Rótulo top-1 e probabilidade da classe árvores são saídas distintas e explicitamente definidas do mesmo produto.", "required_action": null},
+      "population_support": {"status": "pass", "rationale": "Ambas se referem ao mesmo pixel e à mesma aquisição Sentinel-2 elegível.", "required_action": null},
+      "spatial": {"status": "pass", "rationale": "As duas bandas compartilham suporte raster de 10 m na mesma imagem Dynamic World.", "required_action": null},
+      "temporal": {"status": "pass", "rationale": "A comparação exige a mesma aquisição de origem e o mesmo identificador de imagem.", "required_action": "Fixar a mesma aquisição antes da descrição."},
+      "methodological": {"status": "conditional", "rationale": "O rótulo é derivado do máximo entre as probabilidades, portanto não representa evidência independente.", "required_action": "Apresentar a relação de derivação no resultado."},
+      "statistical": {"status": "pass", "rationale": "A operação é descritiva e não estima associação estatística.", "required_action": null},
+      "provenance": {"status": "pass", "rationale": "As variáveis compartilham produto, modelo, aquisição e linhagem explicitamente registrados.", "required_action": null},
+      "legal_ethical": {"status": "pass", "rationale": "Dados públicos; atribuição e licença do produto precisam ser preservadas.", "required_action": "Manter citação e licença do Dynamic World e dos dados Sentinel modificados."}
+    },
+    "compatibility_class": "B",
+    "compatibility_label": "Descrição conjunta condicionada à mesma aquisição e à explicitação da dependência",
+    "harmonization_steps": [
+      {"operation": "match_source_acquisition", "rationale": "As bandas precisam pertencer à mesma imagem Dynamic World.", "parameters": {"key": "system:index"}, "reproducible": true}
+    ],
+    "diagnostics_required": ["shared_lineage"],
+    "inference_ceiling": "N1",
+    "analytical_use_allowed": true,
+    "warnings": [
+      "A variável label é função das probabilidades de classe e não constitui observação independente da banda trees.",
+      "A descrição conjunta não mede acurácia, mudança territorial ou causalidade."
+    ],
+    "review": {"status": "automated_draft", "reviewed_at": "2026-08-04", "reviewed_by": "curadoria do Simbioscópio", "scientific_rationale": "Caso positivo condicionado para demonstrar descrição conjunta sem inferência estatística."}
+  },
+  {
+    "assessment_id": "CA000002",
+    "operation_type": "correlation",
+    "input_variable_ids": ["VR000001", "VR000002"],
+    "dimensions": {
+      "semantic": {"status": "fail", "rationale": "Uma variável é categórica e a outra é uma probabilidade de uma das classes que participa da escolha do rótulo.", "required_action": "Não aplicar correlação numérica direta."},
+      "population_support": {"status": "pass", "rationale": "As variáveis podem compartilhar os mesmos pixels e aquisições.", "required_action": null},
+      "spatial": {"status": "pass", "rationale": "O suporte espacial é coincidente quando a mesma imagem é utilizada.", "required_action": null},
+      "temporal": {"status": "pass", "rationale": "O suporte temporal é coincidente quando a mesma aquisição é utilizada.", "required_action": null},
+      "methodological": {"status": "fail", "rationale": "O rótulo é o índice da maior probabilidade entre classes e está deterministicamente acoplado às probabilidades.", "required_action": "Tratar a relação como linhagem matemática do produto, não como associação empírica."},
+      "statistical": {"status": "fail", "rationale": "Correlação entre um código nominal e uma probabilidade componente seria sem significado e induzida pela construção do produto.", "required_action": "Bloquear a operação."},
+      "provenance": {"status": "fail", "rationale": "As duas variáveis compartilham integralmente modelo, imagens e processamento, não sendo evidências independentes.", "required_action": "Registrar dependência total de linhagem."},
+      "legal_ethical": {"status": "pass", "rationale": "Não há impedimento jurídico específico, mas a inadequação científica permanece bloqueante.", "required_action": null}
+    },
+    "compatibility_class": "D",
+    "compatibility_label": "Operação analítica inadequada",
+    "harmonization_steps": [],
+    "diagnostics_required": ["shared_lineage"],
+    "inference_ceiling": "N0",
+    "analytical_use_allowed": false,
+    "warnings": [
+      "Qualquer correlação resultaria principalmente da definição algorítmica compartilhada, e não de uma relação científica independente.",
+      "Códigos nominais de classe não devem ser tratados como escala numérica contínua."
+    ],
+    "review": {"status": "automated_draft", "reviewed_at": "2026-08-04", "reviewed_by": "curadoria do Simbioscópio", "scientific_rationale": "Caso adversarial de correlação espúria por dependência matemática e codificação nominal."}
+  },
+  {
+    "assessment_id": "CA000003",
+    "operation_type": "visual_overlay",
+    "input_variable_ids": ["VR000001", "VR000003"],
+    "dimensions": {
+      "semantic": {"status": "conditional", "rationale": "Dynamic World representa cobertura predita por aquisição; PRODES representa incremento anual de supressão. Os conceitos são distintos.", "required_action": "Exibir definições e não rotular divergência como erro."},
+      "population_support": {"status": "conditional", "rationale": "O universo de pixels elegíveis do Dynamic World não coincide automaticamente com as áreas e máscaras da edição PRODES.", "required_action": "Explicitar máscaras e cobertura válida."},
+      "spatial": {"status": "conditional", "rationale": "Os produtos podem ser visualizados juntos, mas possuem suporte, geometria e resolução distintos.", "required_action": "Preservar cada camada sem reamostragem analítica silenciosa."},
+      "temporal": {"status": "conditional", "rationale": "Uma aquisição quase instantânea não representa automaticamente a janela anual do PRODES.", "required_action": "Exibir datas e janelas lado a lado."},
+      "methodological": {"status": "conditional", "rationale": "Classificador por aquisição e inventário incremental anual usam métodos e objetivos diferentes.", "required_action": "Manter metodologia e finalidade visíveis."},
+      "statistical": {"status": "pass", "rationale": "A operação é somente composição visual e não calcula concordância ou associação.", "required_action": null},
+      "provenance": {"status": "pass", "rationale": "Produtos têm produtores e linhagens distintas, preservados na interface.", "required_action": null},
+      "legal_ethical": {"status": "conditional", "rationale": "As condições de atribuição de ambos os produtos devem ser mantidas.", "required_action": "Exibir fontes, versões, licenças e citações."}
+    },
+    "compatibility_class": "C",
+    "compatibility_label": "Composição visual exploratória",
+    "harmonization_steps": [],
+    "diagnostics_required": [],
+    "inference_ceiling": "N0",
+    "analytical_use_allowed": false,
+    "warnings": [
+      "Sobreposição visual não demonstra concordância, erro, desmatamento, transição de classe ou relação causal.",
+      "Dynamic World e PRODES observam conceitos e janelas temporais diferentes."
+    ],
+    "review": {"status": "automated_draft", "reviewed_at": "2026-08-04", "reviewed_by": "curadoria do Simbioscópio", "scientific_rationale": "Caso permitido no MVP N0 com distinções semânticas e temporais explícitas."}
+  },
+  {
+    "assessment_id": "CA000004",
+    "operation_type": "spatial_join",
+    "input_variable_ids": ["VR000001", "VR000003"],
+    "dimensions": {
+      "semantic": {"status": "conditional", "rationale": "Os conceitos podem participar de uma pergunta de validação ou contexto, mas não são equivalentes.", "required_action": "Definir a pergunta e a interpretação esperada antes da junção."},
+      "population_support": {"status": "unknown", "rationale": "O registro PRODES ainda está no nível de família e não fixa bioma, edição, máscara nem distribuição.", "required_action": "Selecionar uma edição e distribuição específicas."},
+      "spatial": {"status": "unknown", "rationale": "Não foram fixados formato vetorial ou raster, CRS, resolução e regra de interseção do PRODES.", "required_action": "Definir suporte espacial e parâmetros de junção."},
+      "temporal": {"status": "unknown", "rationale": "Não foram fixados ano PRODES, aquisição ou composição Dynamic World e janela temporal comum.", "required_action": "Fixar ano, aquisição ou composição e regra temporal."},
+      "methodological": {"status": "conditional", "rationale": "A junção exigirá uma regra reproduzível que preserve as diferenças metodológicas.", "required_action": "Especificar máscara, reamostragem, agregação e tratamento de classes."},
+      "statistical": {"status": "unknown", "rationale": "A unidade analítica e a finalidade da junção ainda não estão definidas.", "required_action": "Definir a unidade de análise antes de qualquer resumo."},
+      "provenance": {"status": "pass", "rationale": "As fontes são identificadas, mas as versões específicas ainda precisam ser fixadas.", "required_action": "Registrar edições e identificadores dos ativos."},
+      "legal_ethical": {"status": "conditional", "rationale": "As condições de uso precisam ser verificadas na edição PRODES selecionada.", "required_action": "Fixar licença e citação das distribuições utilizadas."}
+    },
+    "compatibility_class": "E",
+    "compatibility_label": "Informação insuficiente para executar a junção",
+    "harmonization_steps": [],
+    "diagnostics_required": ["scale_stability", "shared_lineage", "missingness"],
+    "inference_ceiling": "N0",
+    "analytical_use_allowed": false,
+    "warnings": [
+      "O registro familiar do PRODES não contém detalhe suficiente para uma junção reproduzível.",
+      "A operação deve permanecer bloqueada até que produto, edição, ano, bioma, distribuição, suporte e parâmetros sejam especificados."
+    ],
+    "review": {"status": "automated_draft", "reviewed_at": "2026-08-04", "reviewed_by": "curadoria do Simbioscópio", "scientific_rationale": "Caso de bloqueio por metadados operacionais insuficientes."}
+  }
+]
