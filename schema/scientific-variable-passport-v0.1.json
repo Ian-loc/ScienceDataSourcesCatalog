@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ian-loc.github.io/ScienceDataSourcesCatalog/schema/scientific-variable-passport-v0.1.json",
+  "title": "Scientific Variable Passport v0.1",
+  "description": "Contrato inicial para descrever o significado científico e operacional de uma variável antes de qualquer combinação analítica.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "passport_id",
+    "variable_id",
+    "display_name",
+    "definition",
+    "domain_tags",
+    "data_type",
+    "object_observed",
+    "spatial_support",
+    "temporal_support",
+    "method_type",
+    "provenance",
+    "limitations",
+    "review"
+  ],
+  "properties": {
+    "passport_id": {
+      "type": "string",
+      "pattern": "^SP[0-9]{6}$"
+    },
+    "variable_id": {
+      "type": "string",
+      "pattern": "^VR[0-9]{6}$"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 3
+    },
+    "canonical_name": {
+      "type": ["string", "null"]
+    },
+    "definition": {
+      "type": "string",
+      "minLength": 20
+    },
+    "domain_tags": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "environment",
+          "nature",
+          "biodiversity",
+          "ecological_processes",
+          "climate",
+          "water",
+          "soil",
+          "atmosphere",
+          "one_health",
+          "public_health",
+          "epidemiology",
+          "population",
+          "society",
+          "inequality",
+          "institutions",
+          "governance",
+          "political_articulation",
+          "economy",
+          "public_finance",
+          "work",
+          "agriculture",
+          "food_systems",
+          "food_security",
+          "education",
+          "knowledge_access",
+          "territory",
+          "infrastructure",
+          "planning"
+        ]
+      }
+    },
+    "unit": {
+      "type": ["string", "null"]
+    },
+    "unit_reference": {
+      "type": ["string", "null"],
+      "format": "uri"
+    },
+    "data_type": {
+      "type": "string",
+      "enum": [
+        "continuous",
+        "integer",
+        "count",
+        "rate",
+        "proportion",
+        "percentage",
+        "index",
+        "ordinal",
+        "nominal",
+        "binary",
+        "geometry",
+        "text"
+      ]
+    },
+    "object_observed": {
+      "type": "string",
+      "minLength": 3
+    },
+    "population_or_universe": {
+      "type": ["string", "null"]
+    },
+    "unit_of_observation": {
+      "type": ["string", "null"]
+    },
+    "spatial_support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["support_type", "description"],
+      "properties": {
+        "support_type": {
+          "type": "string",
+          "enum": [
+            "point",
+            "pixel",
+            "grid_cell",
+            "polygon",
+            "administrative_unit",
+            "household",
+            "individual",
+            "facility",
+            "farm",
+            "watershed",
+            "biome",
+            "network",
+            "non_spatial",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "resolution": {
+          "type": ["string", "null"]
+        },
+        "crs": {
+          "type": ["string", "null"]
+        },
+        "coverage": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "temporal_support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["representation", "description"],
+      "properties": {
+        "representation": {
+          "type": "string",
+          "enum": [
+            "instant",
+            "interval",
+            "annual",
+            "monthly",
+            "daily",
+            "event",
+            "cumulative",
+            "moving_average",
+            "multi_year_average",
+            "static",
+            "irregular",
+            "unknown"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "start": {
+          "type": ["string", "null"]
+        },
+        "end": {
+          "type": ["string", "null"]
+        },
+        "frequency": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "method_type": {
+      "type": "string",
+      "enum": [
+        "measured",
+        "administrative_record",
+        "self_reported",
+        "survey_estimate",
+        "classified",
+        "modeled",
+        "interpolated",
+        "derived",
+        "composite_index",
+        "mixed",
+        "unknown"
+      ]
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": ["string", "null"]
+        },
+        "description": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "missing_data": {
+      "type": ["string", "null"]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource_id", "product_id", "version_or_release"],
+      "properties": {
+        "resource_id": {
+          "type": ["string", "null"],
+          "pattern": "^DR[0-9]{4}$"
+        },
+        "product_id": {
+          "type": ["string", "null"],
+          "pattern": "^DP[0-9]{6}$"
+        },
+        "version_or_release": {
+          "type": "string"
+        },
+        "source_variable_name": {
+          "type": ["string", "null"]
+        },
+        "lineage_note": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "license": {
+      "type": ["string", "null"]
+    },
+    "sensitivity_class": {
+      "type": "string",
+      "enum": ["public", "restricted", "sensitive", "highly_sensitive", "unknown"],
+      "default": "public"
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewed_at"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["draft", "reviewed", "approved", "deprecated"]
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "reviewed_by": {
+          "type": ["string", "null"]
+        }
+      }
+    }
+  }
+}

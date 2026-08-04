@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ian-loc.github.io/ScienceDataSourcesCatalog/schema/scientific-relation-evidence-v0.1.json",
+  "title": "Scientific Relation and Evidence v0.1",
+  "description": "Contrato inicial para representar relações propostas entre variáveis, mecanismos, evidências favoráveis e contraditórias e limites de inferência.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "relation_id",
+    "source_variable_id",
+    "target_variable_id",
+    "relation_type",
+    "mechanism_summary",
+    "spatial_applicability",
+    "temporal_applicability",
+    "evidence_records",
+    "synthesis",
+    "inference_ceiling",
+    "review"
+  ],
+  "properties": {
+    "relation_id": {
+      "type": "string",
+      "pattern": "^RL[0-9]{6}$"
+    },
+    "source_variable_id": {
+      "type": "string",
+      "pattern": "^VR[0-9]{6}$"
+    },
+    "target_variable_id": {
+      "type": "string",
+      "pattern": "^VR[0-9]{6}$"
+    },
+    "relation_type": {
+      "type": "string",
+      "enum": [
+        "hypothesis",
+        "cooccurrence",
+        "association",
+        "mechanistic_link",
+        "mediation",
+        "confounding",
+        "bidirectional_influence",
+        "causal_effect",
+        "contradictory_evidence",
+        "unknown"
+      ]
+    },
+    "expected_direction": {
+      "type": "string",
+      "enum": ["positive", "negative", "nonlinear", "threshold", "context_dependent", "bidirectional", "undetermined"]
+    },
+    "mechanism_summary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "mediator_variable_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^VR[0-9]{6}$"
+      }
+    },
+    "confounder_variable_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^VR[0-9]{6}$"
+      }
+    },
+    "spatial_applicability": {
+      "type": "string",
+      "minLength": 5
+    },
+    "temporal_applicability": {
+      "type": "string",
+      "minLength": 5
+    },
+    "population_applicability": {
+      "type": ["string", "null"]
+    },
+    "brazil_applicability": {
+      "type": "string",
+      "enum": ["direct", "partial", "indirect", "unknown", "not_applicable"]
+    },
+    "evidence_records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "stance",
+          "study_design",
+          "citation",
+          "population_context",
+          "main_finding",
+          "limitations"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "pattern": "^EV[0-9]{6}$"
+          },
+          "stance": {
+            "type": "string",
+            "enum": ["supports", "contradicts", "mixed", "inconclusive", "mechanistic_only"]
+          },
+          "study_design": {
+            "type": "string"
+          },
+          "citation": {
+            "type": "string"
+          },
+          "doi_or_url": {
+            "type": ["string", "null"]
+          },
+          "population_context": {
+            "type": "string"
+          },
+          "spatial_scale": {
+            "type": ["string", "null"]
+          },
+          "temporal_scale": {
+            "type": ["string", "null"]
+          },
+          "main_finding": {
+            "type": "string"
+          },
+          "limitations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "risk_of_bias": {
+            "type": "string",
+            "enum": ["low", "moderate", "high", "critical", "not_assessed"]
+          }
+        }
+      }
+    },
+    "synthesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agreement",
+        "certainty",
+        "applicability",
+        "mechanistic_support",
+        "disagreement_summary"
+      ],
+      "properties": {
+        "agreement": {
+          "type": "string",
+          "enum": ["high", "moderate", "low", "mixed", "unknown"]
+        },
+        "certainty": {
+          "type": "string",
+          "enum": ["high", "moderate", "low", "very_low", "not_assessed"]
+        },
+        "applicability": {
+          "type": "string",
+          "enum": ["high", "moderate", "low", "unknown"]
+        },
+        "mechanistic_support": {
+          "type": "string",
+          "enum": ["strong", "moderate", "weak", "contradictory", "unknown"]
+        },
+        "disagreement_summary": {
+          "type": "string"
+        },
+        "publication_bias_note": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "inference_ceiling": {
+      "type": "string",
+      "enum": ["N0", "N1", "N2", "N3", "N4", "N5"]
+    },
+    "communication_statement": {
+      "type": ["string", "null"]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewed_at", "human_review_required"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["draft", "reviewed", "approved", "disputed", "deprecated"]
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "reviewed_by": {
+          "type": ["string", "null"]
+        },
+        "human_review_required": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    }
+  }
+}

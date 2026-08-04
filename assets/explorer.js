@@ -1,7 +1,7 @@
 "use strict";
 
 const REGISTRY_URL = "data/federated_layers.json";
-const APP_VERSION = "0.1.0";
+const APP_VERSION = "0.2.0";
 
 const state = {
   registry: null,
@@ -138,6 +138,9 @@ function layerCard(layer, index) {
         <dt>Resolução</dt><dd>${escapeHTML(layer.spatial_resolution)}</dd>
         <dt>Licença</dt><dd>${escapeHTML(layer.license)}</dd>
         <dt>Compatibilidade</dt><dd>${escapeHTML(layer.compatibility_class)} — ${escapeHTML(layer.compatibility_label)}</dd>
+        <dt>Teto de inferência</dt><dd>${escapeHTML(layer.inference_ceiling)}</dd>
+        <dt>Uso analítico</dt><dd>${layer.analytical_use_allowed ? "permitido" : "não permitido"}</dd>
+        <dt>Estado da evidência</dt><dd>${escapeHTML(layer.evidence_status)}</dd>
         <dt>Citação</dt><dd>${escapeHTML(layer.citation_text)}</dd>
       </dl>
       <p class="layer-warning"><strong>Atenção:</strong> ${escapeHTML(layer.scientific_warning)}</p>
@@ -162,10 +165,10 @@ function updateSummary() {
 
   if (visible.length > 1) {
     elements.compatibility.className = "compatibility-summary is-warning";
-    elements.compatibility.innerHTML = `<strong>Composição de ${visible.length} camadas independentes</strong><span>Classe operacional C: apenas sobreposição visual. Nenhum cálculo, reamostragem, interseção ou validação cruzada foi realizado.</span>`;
+    elements.compatibility.innerHTML = `<strong>Composição N0 de ${visible.length} camadas independentes</strong><span>Classe operacional C: apenas sobreposição visual. Nenhum cálculo, reamostragem, interseção, correlação ou validação cruzada foi realizado.</span>`;
   } else if (visible.length === 1) {
     elements.compatibility.className = "compatibility-summary";
-    elements.compatibility.innerHTML = `<strong>Uma camada científica ativa</strong><span>A visualização preserva a fonte original e não modifica os dados.</span>`;
+    elements.compatibility.innerHTML = `<strong>Uma camada científica ativa — teto N0</strong><span>A visualização preserva a fonte original, não modifica os dados e não autoriza inferência analítica.</span>`;
   } else {
     elements.compatibility.className = "compatibility-summary";
     elements.compatibility.innerHTML = `<strong>Nenhuma camada científica ativa</strong><span>O mapa-base serve apenas como referência cartográfica.</span>`;
@@ -264,7 +267,7 @@ function inspectLocation(lngLat) {
   const list = visible.length
     ? `<ul class="inspection-layers">${visible.map((layer) => `<li><strong>${escapeHTML(layer.short_title)}</strong> — ${escapeHTML(layer.provider)}. <a href="${escapeHTML(layer.product_url)}" target="_blank" rel="noopener noreferrer">Abrir produto original</a></li>`).join("")}</ul>`
     : "<p>Nenhuma camada científica está visível.</p>";
-  elements.inspection.innerHTML = `<p>Coordenadas: <span class="inspection-coordinate">${coordinate}</span></p>${list}<p><small>Esta consulta registra contexto e proveniência. Ela não executa GetFeatureInfo nem interpreta valores de pixel.</small></p>`;
+  elements.inspection.innerHTML = `<p>Coordenadas: <span class="inspection-coordinate">${coordinate}</span></p>${list}<p><small>Esta consulta registra contexto e proveniência. Ela não executa GetFeatureInfo, não interpreta valores de pixel e permanece em N0.</small></p>`;
 
   new maplibregl.Popup({closeButton: true, maxWidth: "320px"})
     .setLngLat(lngLat)
@@ -276,12 +279,16 @@ function manifestData() {
   const center = state.map.getCenter();
   const visible = visibleLayers();
   return {
-    manifest_version: "1.0.0",
-    application: "Science Data Sources Catalog — Explorador Federado",
+    manifest_version: "1.1.0",
+    application: "Simbioscópio — Explorador Federado",
     application_version: APP_VERSION,
     generated_at: new Date().toISOString(),
     visualization_type: "federated_visualization",
     operation_mode: state.registry.operation_mode,
+    inference_ceiling: state.registry.inference_ceiling,
+    analytical_use_allowed: state.registry.analytical_use_allowed,
+    evidence_status: state.registry.evidence_status,
+    scientific_policy: state.registry.scientific_policy,
     analytical_harmonization_performed: false,
     operations: ["visual_overlay", "opacity_adjustment", "layer_ordering", "viewport_selection"],
     warning: state.registry.disclaimer,
@@ -302,7 +309,11 @@ function manifestData() {
       version: layer.version,
       opacity: state.opacity.get(layer.layer_id),
       layer_type: layer.layer_type,
+      operation_scope: layer.operation_scope,
       compatibility_class: layer.compatibility_class,
+      inference_ceiling: layer.inference_ceiling,
+      analytical_use_allowed: layer.analytical_use_allowed,
+      evidence_status: layer.evidence_status,
       official_source_url: layer.official_source_url,
       product_url: layer.product_url,
       data_access_url: layer.data_access_url,
@@ -322,12 +333,12 @@ function downloadManifest() {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = `federated-visualization-provenance-${new Date().toISOString().slice(0, 10)}.json`;
+  anchor.download = `simbioscope-visualization-provenance-${new Date().toISOString().slice(0, 10)}.json`;
   document.body.append(anchor);
   anchor.click();
   anchor.remove();
   URL.revokeObjectURL(url);
-  showToast("Manifesto de proveniência gerado.");
+  showToast("Manifesto de proveniência e inferência gerado.");
 }
 
 async function shareView() {
