@@ -12,7 +12,8 @@ O banco armazena **metadados, significado científico, versões, acesso, evidên
 
 ## Arquivos
 
-- `schema/001_instance1_core.sql` — criação do esquema `catalog` e das tabelas centrais.
+- `schema/001_instance1_core.sql` — criação do esquema normalizado `catalog` e das tabelas centrais;
+- `schema/002_legacy_staging.sql` — área de importação sem perda dos CSVs públicos atuais e registro de problemas de migração.
 
 ## Entidades centrais
 
@@ -60,21 +61,45 @@ PostGIS é usado principalmente para metadados espaciais, como a extensão geogr
 ```bash
 createdb science_data_catalog
 psql science_data_catalog -f database/schema/001_instance1_core.sql
+psql science_data_catalog -f database/schema/002_legacy_staging.sql
 ```
 
 Em ambientes conteinerizados, deve-se usar uma imagem PostgreSQL com PostGIS.
 
+## Staging e promoção
+
+O schema `staging` recebe os CSVs sem reinterpretá-los. Todos os valores permanecem textuais até que sejam resolvidos e validados.
+
+As tabelas são:
+
+- `staging.legacy_resources`;
+- `staging.legacy_products`;
+- `staging.legacy_distributions`;
+- `staging.migration_issues`.
+
+O campo `resolved_entity_type` permite registrar se uma linha antiga corresponde realmente a:
+
+- produto;
+- família;
+- fonte;
+- distribuição;
+- capacidade de acesso;
+- objeto ainda desconhecido.
+
+Nenhum registro deve ser promovido ao schema `catalog` enquanto houver problema bloqueante aberto.
+
 ## Estratégia de migração
 
 1. preservar os CSVs atuais;
-2. importar CSVs para tabelas de staging ainda não canônicas;
-3. separar fonte, produto, versão, distribuição e serviço;
-4. criar releases explícitos;
-5. mapear as colunas atuais para as tabelas relacionais;
-6. enriquecer produtos com perfis científicos;
-7. validar chaves, evidências e completude;
-8. promover o banco somente após auditoria;
-9. passar a gerar CSVs e planilhas a partir do banco.
+2. importar CSVs para `staging`;
+3. registrar hash e data de carregamento;
+4. separar fonte, produto, versão, distribuição e serviço;
+5. criar releases explícitos;
+6. mapear as colunas atuais para as tabelas relacionais;
+7. enriquecer produtos com perfis científicos;
+8. validar chaves, evidências e completude;
+9. promover registros aprovados;
+10. gerar CSVs e planilhas a partir do banco.
 
 ## Regras de modelagem
 
