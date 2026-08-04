@@ -36,6 +36,11 @@ jobs:
       - name: Validar catálogo de produtos
         run: python3 scripts/validate_product_catalog.py
 
+      - name: Validar direção científica e contratos
+        run: |
+          python3 -m py_compile scripts/validate_scientific_direction.py
+          python3 scripts/validate_scientific_direction.py
+
       - name: Validar CSV e gerar artefatos derivados
         run: python3 scripts/build_catalog.py
 
@@ -119,6 +124,7 @@ jobs:
           python3 scripts/validate_candidate_queue.py
           python3 scripts/validate_brazil_scope.py
           python3 scripts/validate_product_catalog.py
+          python3 scripts/validate_scientific_direction.py
           python3 scripts/build_catalog.py
           python3 scripts/audit_link_roles.py
           python3 scripts/validate_frontend.py
