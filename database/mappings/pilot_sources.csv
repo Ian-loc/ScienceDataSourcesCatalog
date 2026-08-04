@@ -1,0 +1,3 @@
+resource_id,source_type,enumeration_strategy
+DR0011,platform,family_level
+DR0019,catalog,external_index
