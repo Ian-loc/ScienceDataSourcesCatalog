@@ -1,126 +1,295 @@
 # Metodologia de curadoria
 
-## Escopo atual
+## 1. Escopo vigente
 
-A unidade de registro do catálogo canônico 0.7.0 é a **fonte**: plataforma, infraestrutura, repositório, rede, sistema, catálogo, software de publicação ou base de dados. O CSV de fontes não registra cada dataset individual como uma linha.
+O foco ativo é a **Instância 1 — Catálogo relacional científico-operacional**.
 
-A camada de produtos acrescenta séries, coleções, catálogos e serviços reconhecíveis. A camada de distribuições registra formas concretas de acesso.
+A unidade de trabalho deixa de ser apenas a fonte e passa a incluir o **produto científico georreferenciado**, suas versões, variáveis, métodos, perfis espaciais e temporais, qualidade, distribuições e evidências.
 
-## Direção científica
+Os CSVs atuais permanecem públicos durante a migração, mas o modelo de destino é PostgreSQL/PostGIS.
 
-O projeto evolui de forma controlada para o **Simbioscópio**, uma plataforma federada voltada à exploração de interdependências entre sociedade, saúde, economia, governança, território e natureza.
+## 2. Unidades de registro
 
-Essa direção não altera silenciosamente a unidade canônica atual. Ela introduz, em paralelo, uma **camada de variáveis e passaportes científicos**, seguida por avaliações de comparabilidade, relações, evidências e receitas reproduzíveis.
+### Fonte
 
-A [Direção científica do projeto](docs/PROJECT_SCIENTIFIC_DIRECTION.md) define a missão de longo prazo. A [Política de comparabilidade, evidência e inferência científica](docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md) define os limites obrigatórios para sobreposição, combinação e análise.
+Portal, repositório, catálogo, plataforma, rede, programa, observatório ou infraestrutura.
 
-## Evidências
+### Produto
 
-A revisão prioriza documentação oficial, páginas de acesso/API/licença/termos, documentação técnica do gestor e artigos revisados por pares que descrevem ou utilizam a fonte.
+Conjunto coerente e versionado de informações espaciais, com significado científico, método, cobertura, suporte, variáveis e formas de acesso identificáveis.
 
-Cada afirmação deve ser sustentada no nível adequado. Homepage pode comprovar identidade, mas não necessariamente API, formato, resolução, licença ou atualização. DATA1-EXT usa tabela longa, permitindo várias evidências por fonte e dimensão.
+### Release
 
-Evidência sobre a existência ou qualidade de uma fonte não equivale a evidência sobre uma relação entre variáveis. Relações científicas futuras deverão possuir fichas próprias com mecanismo, estudos favoráveis, contraditórios e inconclusivos, aplicabilidade e limites de inferência.
+Versão, coleção, edição, cenário ou ano-base.
 
-## Áreas de pesquisa atuais
+### Distribuição
 
-`research_areas` usa nove categorias condensadas: Ciências Ambientais e Ecologia; Biodiversidade e Conservação; Clima e Ciências Atmosféricas; Geociências, Solos e Geografia Física; Recursos Hídricos e Oceanografia; Agricultura, Florestas e Uso da Terra; Sensoriamento Remoto e Geoinformação; Infraestruturas e Ciência de Dados; Planejamento Territorial e Políticas Públicas.
+Forma de acesso ao release.
 
-A estrutura é inspirada, sem correspondência normativa, na CAPES e no Web of Science. Serve à navegação; temas específicos permanecem em `keywords`.
+### Ativo
 
-Essas categorias permanecem válidas para o esquema atual, mas são insuficientes para a nova direção. A futura taxonomia deverá permitir múltiplos eixos, incluindo Saúde Única, saúde pública, epidemiologia, população, sociedade, desigualdade, instituições, governança, articulação política, economia, finanças, trabalho, alimentação, educação e infraestrutura.
+Arquivo, endpoint, camada, coleção, tabela, legenda, metadado ou recurso concreto.
 
-A nova taxonomia deverá ser introduzida em contrato paralelo antes de substituir ou ampliar valores canônicos.
+### Variável
 
-## Acesso
+Propriedade, indicador, banda, classe, métrica, atributo ou flag com significado próprio.
 
-`programmatic_access` informa se existe consulta ou transferência automatizada documentada. Ausência de documentação resulta em `desconhecido`, não em `não`.
+## 3. Regra de escopo geográfico
 
-No esquema canônico **0.7.0**, `access_protocols` ainda reúne protocolos e alguns clientes ou pacotes porque `access_tools` não existe. Na proposta **0.8.0**:
+São incluídos produtos que possuam:
 
-- `access_protocols`: REST, OGC, STAC, S3, openEO, OData, WebDAV, OAI-PMH, DataONE API, Earthdata CMR API, Earth Engine API e mecanismos técnicos equivalentes;
-- `access_tools`: pacotes R/Python, clientes de linha de comando, Google Earth Engine, exportadores web e ambientes em nuvem;
-- `data_formats`: somente formatos de arquivo, serialização ou pacote;
-- `visualization_types`: somente formas de apresentação.
+- coordenadas;
+- geometrias;
+- pixels ou grades;
+- pontos, footprints ou trajetórias;
+- bacias, biomas ou unidades de conservação;
+- códigos territoriais;
+- séries por município, estado ou outra unidade geográfica.
 
-Pacote cliente não é, por si só, API do provedor. Serviço OGC não é REST API. Download manual não é acesso programático.
+Uma tabela territorial pode ser georreferenciável mesmo quando distribuída em CSV ou XLSX.
 
-### Papéis dos links
+## 4. Evidências
 
-- `homepage_url` — **Site oficial**: página institucional ou página Sobre;
-- `data_access_url` — **Acessar dados**: catálogo, busca, visualizador, solicitação ou download;
-- `access_documentation_url`: API, protocolo, autenticação ou instruções técnicas.
+A curadoria prioriza:
 
-URLs iguais entram em revisão. A igualdade só pode permanecer como exceção documentada quando uma única página cumpre realmente os dois papéis. `data_access_url = não se aplica` é reservado a recursos sem dados próprios.
+1. página oficial do produto;
+2. documentação oficial;
+3. metadados do release;
+4. metodologia técnica;
+5. licença e termos;
+6. documentação de API ou serviço;
+7. artigos revisados por pares que descrevem ou validam o produto;
+8. relatórios técnicos institucionais.
 
-## Cobertura do Brasil
+Cada evidência sustenta apenas as afirmações que efetivamente contém.
 
-`covers_brazil` usa `sim`, `parcial`, `não`, `não se aplica` e `desconhecido`, conforme a cobertura explícita e a aplicabilidade territorial.
+Exemplos:
 
-A existência de cobertura brasileira não demonstra aplicabilidade de uma relação científica ao Brasil. Aplicabilidade depende também de população, escala, período, contexto institucional, desenho dos estudos e mecanismo.
+- homepage comprova identidade, não necessariamente resolução;
+- página de download comprova disponibilidade, não necessariamente licença;
+- artigo de aplicação não substitui documentação oficial do produto;
+- resolução de visualização não comprova resolução científica;
+- data de atualização do portal não define a periodicidade do dado.
 
-## Passaporte científico
+Afirmações importantes são registradas em `metadata_assertions`.
 
-Uma variável só poderá participar de combinação analítica automatizada quando possuir, no mínimo:
+## 5. Identificação do objeto
 
-- definição conceitual;
-- unidade;
-- tipo de dado;
-- população, objeto ou fenômeno observado;
-- unidade de observação e suporte espacial;
-- período e suporte temporal;
-- método de obtenção;
-- versão ou release;
-- incerteza ou qualidade disponível;
-- proveniência e linhagem;
-- limitações;
-- licença e sensibilidade.
+Antes de preencher qualquer perfil, deve-se resolver:
 
-O contrato inicial está em `schema/scientific-variable-passport-v0.1.json`.
+1. quem é o produtor primário;
+2. qual é a fonte de acesso;
+3. se o objeto é família, produto, versão, distribuição ou serviço;
+4. se possui informação geográfica;
+5. se a enumeração será completa, por família, seletiva ou por índice externo.
 
-## Comparabilidade
+Catálogos, APIs genéricas, visualizadores e serviços de processamento não devem ser classificados como produtos científicos.
 
-Comparabilidade é avaliada para uma operação específica. Produtos adequados para visualização podem ser inadequados para correlação, regressão ou inferência causal.
+## 6. Significado científico
 
-A avaliação deverá considerar separadamente:
+Todo produto deve conter:
 
-- semântica;
-- população e suporte;
-- espaço;
-- tempo;
-- método;
-- estatística;
-- proveniência;
-- licença, ética e privacidade.
+- `scientific_object` — objeto ou fenômeno central;
+- `information_message` — informação sobre o mundo real que o produto comunica;
+- `non_representations` — interpretações que não são sustentadas diretamente;
+- variáveis e classes;
+- usos potenciais;
+- limitações.
 
-O contrato inicial está em `schema/comparability-assessment-v0.1.json`.
+A mensagem informacional deve ser objetiva e proporcional à documentação.
 
-## Relações e evidências
+Exemplo:
 
-A futura camada de relações deverá distinguir hipótese, coocorrência, associação, mecanismo, mediação, confundimento, influência bidirecional, evidência causal e discordância.
+```text
+Produto: alerta de alteração da cobertura
+Mensagem: localização, data de detecção e classe atribuída a uma evidência observada.
+Não representa: taxa anual consolidada, data exata do evento ou causalidade da mudança.
+```
 
-A síntese não poderá reduzir consenso a uma nota única. Concordância, certeza, aplicabilidade, suporte mecanístico e discordância devem permanecer separados.
+## 7. Natureza de produção
 
-O contrato inicial está em `schema/scientific-relation-evidence-v0.1.json`.
+O produto ou variável deve ser classificado como:
 
-## Prioridade e execução
+- observação primária;
+- registro administrativo;
+- censo;
+- levantamento amostral;
+- estimativa amostral;
+- classificação;
+- modelagem;
+- interpolação;
+- agregação;
+- índice composto;
+- produto derivado;
+- método misto;
+- desconhecido.
 
-A prioridade científica usa somente impacto e risco comparáveis. Número de alertas, número de dimensões, ausência de documentação e problemas de links não aumentam a prioridade científica.
+A classificação deve ser acompanhada de descrição do método, dados de entrada, processamento, validação e versão.
 
-A ordem operacional é controlada por ondas. Portões de escopo, links e documentação podem antecipar o trabalho, mas não alteram a classificação científica.
+## 8. Perfil espacial
 
-Na nova direção, uma funcionalidade de visualização não autoriza automaticamente análise. A ordem obrigatória é:
+Registrar:
 
-1. metadados e passaporte;
-2. avaliação de comparabilidade;
-3. proveniência e independência;
-4. evidência e mecanismo;
-5. diagnósticos estatísticos;
-6. análise reproduzível;
-7. comunicação proporcional ao teto de inferência.
+- tipo de suporte;
+- geometria;
+- resolução nominal e unidade;
+- escala, quando aplicável;
+- unidade mínima mapeável;
+- CRS;
+- grade;
+- agregação;
+- unidade geográfica;
+- extensão;
+- vieses e limitações espaciais.
 
-## Limite da auditoria
+Resolução, escala, suporte e unidade territorial não devem ser concatenados em um único campo no banco relacional.
 
-“Verificado” significa confrontado com as evidências registradas na data indicada. Não certifica todos os datasets nem garante disponibilidade futura. CI verde demonstra coerência interna, não correção factual externa.
+## 9. Perfil temporal
 
-Da mesma forma, uma avaliação automática de comparabilidade ou evidência permanece um artefato computacional até cumprir a revisão humana exigida pela governança.
+Registrar:
+
+- cobertura inicial e final;
+- instante, evento, intervalo ou agregado;
+- resolução temporal;
+- janela de observação;
+- frequência de atualização;
+- latência;
+- calendário;
+- forma de agregação;
+- vieses e limitações temporais.
+
+## 10. Qualidade, incerteza e viés
+
+Registrar, quando disponível:
+
+- desenho de validação;
+- acurácia;
+- incerteza;
+- erro;
+- probabilidades;
+- flags;
+- dados ausentes;
+- NoData;
+- cobertura de nuvens;
+- viés amostral;
+- detectabilidade;
+- erro de classificação;
+- artefatos;
+- representatividade.
+
+`desconhecido` não deve ser convertido em `ausente`.
+
+## 11. Acesso operacional
+
+Separar:
+
+- página institucional;
+- página do produto;
+- acesso aos dados;
+- metodologia;
+- documentação da API;
+- licença;
+- citação;
+- visualizador;
+- código.
+
+Registrar:
+
+- formato;
+- media type;
+- protocolo;
+- ferramenta;
+- gratuidade;
+- autenticação;
+- quotas;
+- recorte;
+- consulta;
+- visualização;
+- download;
+- processamento;
+- exportação;
+- estado atual do endpoint.
+
+A existência de API não implica acesso sem autenticação, processamento gratuito ou visualização direta.
+
+## 12. Taxonomias e filtros
+
+Os temas podem incluir múltiplos domínios:
+
+- ecologia;
+- socioecologia;
+- biodiversidade;
+- clima;
+- água;
+- saúde;
+- sociedade;
+- desigualdade;
+- agricultura;
+- agricultura familiar;
+- carbono;
+- uso da terra;
+- demografia;
+- economia;
+- governança;
+- infraestrutura.
+
+A busca pública deve usar filtros e linguagem comum. Sintaxe booleana não é requisito de interface.
+
+## 13. Estratégia de enumeração
+
+- `complete` — portfólio relevante enumerado;
+- `family_level` — famílias enumeradas, aprofundamento progressivo;
+- `external_index` — catálogo integral permanece externo;
+- `representative_sample` — piloto explicitamente incompleto;
+- `selective` — produtos escolhidos por relevância e cobertura do Brasil.
+
+A estratégia deve ser declarada para evitar falsa impressão de completude.
+
+## 14. Migração
+
+1. importar CSVs para `staging` sem transformação destrutiva;
+2. registrar hash e data;
+3. resolver entidade;
+4. registrar problemas;
+5. normalizar IDs e valores;
+6. criar releases;
+7. migrar distribuições;
+8. aprofundar perfis;
+9. auditar;
+10. promover registros aprovados.
+
+Nenhum problema bloqueante pode permanecer aberto na promoção.
+
+## 15. Auditoria
+
+A auditoria avalia:
+
+- completude;
+- precisão científica;
+- precisão operacional;
+- coerência;
+- evidência;
+- separação das entidades;
+- atualização;
+- clareza pública.
+
+“Verificado” significa confrontado com as evidências registradas na data indicada. Não garante disponibilidade futura nem certifica integralmente a fonte.
+
+## 16. Instâncias futuras
+
+### Instância 2
+
+Composição geográfica, transparência comparativa e executabilidade técnica.
+
+### Instância 3
+
+Síntese científica breve e auditável sobre fenômenos escolhidos pelo usuário.
+
+Essas instâncias permanecem fora do escopo ativo. A metodologia atual deve apenas manter os metadados necessários para que sejam possíveis no futuro.
+
+Consulte:
+
+- `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`;
+- `database/schema/001_instance1_core.sql`;
+- `PRODUCT_CATALOG_MODEL.md`;
+- `docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md`.
