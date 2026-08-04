@@ -41,10 +41,12 @@ jobs:
           python3 -m py_compile scripts/validate_scientific_direction.py
           python3 scripts/validate_scientific_direction.py
 
-      - name: Validar carga da Instância 1 sem banco
+      - name: Validar carga e promoção da Instância 1 sem banco
         run: |
           python3 -m py_compile scripts/load_instance1_staging.py
           python3 -m py_compile scripts/validate_instance1_database.py
+          python3 -m py_compile scripts/promote_instance1_pilot.py
+          python3 -m py_compile scripts/validate_instance1_pilot.py
           python3 scripts/load_instance1_staging.py --check-only
 
       - name: Validar CSV e gerar artefatos derivados
@@ -144,14 +146,23 @@ jobs:
       - name: Criar esquema e carregar staging
         run: python3 scripts/load_instance1_staging.py --initialize
 
-      - name: Comprovar idempotência
+      - name: Comprovar idempotência da carga
         run: |
           output="$(python3 scripts/load_instance1_staging.py)"
           echo "$output"
           echo "$output" | grep -q '"status": "no_op"'
 
-      - name: Validar integridade material
+      - name: Promover piloto resolvido
+        run: python3 scripts/promote_instance1_pilot.py
+
+      - name: Comprovar idempotência da promoção
+        run: python3 scripts/promote_instance1_pilot.py
+
+      - name: Validar integridade do staging
         run: python3 scripts/validate_instance1_database.py
+
+      - name: Validar catálogo normalizado piloto
+        run: python3 scripts/validate_instance1_pilot.py
 
   deploy:
     if: github.event_name != 'pull_request'
