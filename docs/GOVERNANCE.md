@@ -12,7 +12,8 @@ A autoridade canônica é composta por:
 2. `data/data_resources.csv` para o catálogo de fontes;
 3. `data/data_products.csv` e `data/product_distributions.csv` para produtos e acessos;
 4. contratos de esquema e validadores executáveis;
-5. releases identificadas e histórico de pull requests.
+5. políticas científicas e operacionais versionadas em `docs/policies/`;
+6. releases identificadas e histórico de pull requests.
 
 Em caso de divergência, os arquivos canônicos validados em `main` prevalecem sobre planilhas, cópias locais, documentos históricos e conversas de trabalho.
 
@@ -68,6 +69,12 @@ Uma mudança canônica deve percorrer:
 ## Decisões científicas e técnicas
 
 Decisões duradouras devem ser registradas em documentação estável, contrato de esquema, issue, pull request ou registro de decisão. Logs de sessão, tentativas temporárias e falhas operacionais podem ser arquivados, mas não devem dominar a documentação pública.
+
+### Comparabilidade, evidência e inferência
+
+A [Política de comparabilidade, evidência e inferência científica](policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md) é normativa para o Explorador Federado, a futura interface Simbioscópio, receitas de integração e qualquer produto derivado.
+
+Nenhuma funcionalidade pode tratar sobreposição como harmonização, correlação como mecanismo ou associação como causalidade sem os controles, metadados, diagnósticos, evidências e níveis de revisão definidos nessa política. Mudanças de interface, esquema ou processamento não podem enfraquecer silenciosamente seus avisos, bloqueios ou limites de inferência.
 
 ## Auditorias
 
