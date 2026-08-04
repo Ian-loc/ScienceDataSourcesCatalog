@@ -418,11 +418,11 @@ O desconhecido deve permanecer explícito. Não deve ser convertido em `não`.
 
 ## 7. Regra dos links
 
-- página institucional;
+- **Site oficial** — `homepage_url`: página institucional principal ou página oficial sobre a fonte;
+- **Acessar dados** — `data_access_url`: página em que os dados podem ser pesquisados, visualizados, solicitados ou baixados;
+- documentação de acesso — `access_documentation_url`: API, protocolo, autenticação ou instruções técnicas;
 - página do produto;
-- acesso aos dados;
 - metodologia;
-- documentação de acesso;
 - licença;
 - citação;
 - visualizador.
