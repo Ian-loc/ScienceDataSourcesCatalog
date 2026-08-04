@@ -14,6 +14,7 @@ REGISTRY_PATH = ROOT / "data" / "federated_layers.json"
 JS_PATH = ROOT / "assets" / "explorer.js"
 CSS_PATH = ROOT / "assets" / "explorer.css"
 CANONICAL_PATH = ROOT / "data" / "data_resources.csv"
+POLICY_PATH = ROOT / "docs" / "policies" / "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md"
 
 ALLOWED_LAYER_TYPES = {"wms_raster", "raster_tiles"}
 ALLOWED_CATALOG_STATUS = {"cataloged", "external_product_pending_registration"}
@@ -21,15 +22,17 @@ REQUIRED_LAYER_FIELDS = {
     "layer_id", "title", "short_title", "provider", "product", "catalog_status",
     "catalog_note", "resource_id", "layer_type", "default_visible", "default_opacity",
     "min_zoom", "max_zoom", "tile_size", "tiles", "period", "version",
-    "spatial_resolution", "license", "compatibility_class", "compatibility_label",
-    "scientific_warning", "official_source_url", "product_url", "data_access_url",
-    "methodology_url", "metadata_url", "citation_text", "attribution", "legend",
+    "spatial_resolution", "license", "operation_scope", "compatibility_class",
+    "compatibility_label", "inference_ceiling", "analytical_use_allowed",
+    "evidence_status", "scientific_warning", "official_source_url", "product_url",
+    "data_access_url", "methodology_url", "metadata_url", "citation_text",
+    "attribution", "legend",
 }
 REQUIRED_HTML_IDS = {
     "explorador", "scientific-notice", "share-view", "download-manifest", "reset-view",
     "layers-heading", "visible-count", "layer-list", "layer-empty", "map-heading", "map",
     "map-status", "visible-attribution", "inspection-heading", "inspection-content",
-    "compatibility-summary", "mvp-heading",
+    "compatibility-summary", "mvp-heading", "direction-heading",
 }
 EXTERNAL_ASSETS = {
     "https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.css",
@@ -78,7 +81,7 @@ class ExplorerParser(HTMLParser):
             self.external_assets.add(reference)
 
 
-for path in (HTML_PATH, REGISTRY_PATH, JS_PATH, CSS_PATH, CANONICAL_PATH):
+for path in (HTML_PATH, REGISTRY_PATH, JS_PATH, CSS_PATH, CANONICAL_PATH, POLICY_PATH):
     if not path.exists() or path.stat().st_size == 0:
         fail(f"artefato ausente ou vazio: {path.relative_to(ROOT)}")
 
@@ -94,8 +97,19 @@ with CANONICAL_PATH.open(encoding="utf-8-sig") as handle:
 registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
 if registry.get("operation_mode") != "visual_composition_only":
     fail("o MVP deve permanecer em visual_composition_only")
-if registry.get("registry_version") != "0.1.0":
-    fail("versão inicial do registro deve ser 0.1.0")
+if registry.get("registry_version") != "0.2.0":
+    fail("registro governado deve usar versão 0.2.0")
+if registry.get("inference_ceiling") != "N0":
+    fail("o MVP deve declarar teto de inferência N0")
+if registry.get("analytical_use_allowed") is not False:
+    fail("o MVP deve proibir uso analítico")
+if registry.get("evidence_status") != "not_assessed":
+    fail("o MVP deve declarar evidência not_assessed")
+policy = registry.get("scientific_policy", {})
+if policy.get("document_path") != "docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md":
+    fail("registro deve referenciar a política científica")
+if policy.get("comparability_model") != "A-E" or policy.get("inference_model") != "N0-N5":
+    fail("registro deve declarar modelos A-E e N0-N5")
 if not is_https(registry.get("base_map", {}).get("style_url", "")):
     fail("mapa-base deve usar URL HTTPS")
 if not registry.get("disclaimer"):
@@ -151,8 +165,16 @@ for index, layer in enumerate(layers, start=1):
     ):
         if not is_https(layer[field]):
             fail(f"camada {index}: {field} deve usar HTTPS")
+    if layer["operation_scope"] != ["visual_overlay"]:
+        fail(f"camada {index}: escopo atual deve ser somente visual_overlay")
     if layer["compatibility_class"] != "C":
         fail(f"camada {index}: MVP deve permanecer em compatibilidade C")
+    if layer["inference_ceiling"] != "N0":
+        fail(f"camada {index}: teto deve ser N0")
+    if layer["analytical_use_allowed"] is not False:
+        fail(f"camada {index}: uso analítico deve estar bloqueado")
+    if layer["evidence_status"] != "not_assessed":
+        fail(f"camada {index}: evidência deve permanecer not_assessed")
     if not layer["scientific_warning"].strip() or not layer["citation_text"].strip():
         fail(f"camada {index}: aviso científico e citação são obrigatórios")
 
@@ -175,10 +197,18 @@ for required in ("assets/style.css", "assets/accessibility.css", "assets/explore
         fail(f"explorer.html não carrega {required}")
 if "assets/explorer.js" not in parser.scripts:
     fail("explorer.html não carrega assets/explorer.js")
+for token in (
+    "Simbioscópio", "N0 — composição visual",
+    "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md",
+    "nenhuma inferência estatística ou causal",
+):
+    if token not in html:
+        fail(f"explorer.html perdeu controle científico: {token}")
 
 js = JS_PATH.read_text(encoding="utf-8")
 required_js = {
     "data/federated_layers.json", "visual_overlay", "analytical_harmonization_performed: false",
+    "inference_ceiling", "analytical_use_allowed", "evidence_status", "scientific_policy",
     "history.replaceState", "navigator.clipboard", "downloadManifest", "scientific_warning",
     "official_source_url", "product_url", "data_access_url", "methodology_url",
     "metadata_url", "raster-opacity", "setLayoutProperty", "moveLayer", "maplibregl.Popup",
@@ -197,10 +227,10 @@ if missing_css:
     fail(f"assets/explorer.css incompleto: {', '.join(missing_css)}")
 
 limits = {
-    HTML_PATH: 15_000,
-    JS_PATH: 35_000,
+    HTML_PATH: 18_000,
+    JS_PATH: 40_000,
     CSS_PATH: 16_000,
-    REGISTRY_PATH: 15_000,
+    REGISTRY_PATH: 18_000,
 }
 for path, limit in limits.items():
     if path.stat().st_size > limit:
@@ -209,7 +239,7 @@ for path, limit in limits.items():
 cataloged = sum(1 for layer in layers if layer["catalog_status"] == "cataloged")
 external = len(layers) - cataloged
 print(
-    "OK: explorador federado validado — "
+    "OK: Simbioscópio federado validado — "
     f"{len(layers)} camadas, {len(providers)} provedores, {cataloged} catalogada(s), "
-    f"{external} externa(s) explicitamente pendente(s), composição visual C e proveniência exportável"
+    f"{external} externa(s), composição visual C, teto N0 e proveniência exportável"
 )
