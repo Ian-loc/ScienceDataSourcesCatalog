@@ -1,305 +1,310 @@
-# Roadmap de implementação do Simbioscópio
+# Roadmap de implementação do Symbiotrama
 
-**Status:** roadmap governado da nova direção científica  
-**Princípio:** **A vida acontece em relação. As relações precisam ser investigadas com evidência.**
+**Status:** roadmap vigente  
+**Foco ativo:** Instância 1 — Catálogo relacional científico-operacional  
+**Instâncias 2 e 3:** registradas apenas como expansões futuras
 
 ## 1. Objetivo
 
-Transformar progressivamente o catálogo atual em uma plataforma federada capaz de descobrir, visualizar e investigar interdependências entre sociedade, saúde, economia, governança, território e natureza, sem produzir comparações ou inferências cientificamente indevidas.
+Transformar o catálogo atual, ainda majoritariamente tabular e superficial, em um banco relacional aprofundado de produtos de dados georreferenciados sobre o Brasil.
 
-O roadmap preserva o catálogo 0.7.0 e introduz novos componentes em paralelo. Cada fase possui um portão de saída; a fase seguinte não deve ser tratada como consolidada antes do cumprimento do portão anterior.
+A Instância 1 deve tornar explícitos:
+
+- o objeto científico de cada produto;
+- a informação que ele representa;
+- as variáveis e classes contidas;
+- a natureza observacional ou derivada;
+- os perfis espacial e temporal;
+- o método;
+- a qualidade, a incerteza e os vieses;
+- as versões;
+- as distribuições e capacidades de acesso;
+- as evidências que sustentam os metadados.
 
 ## 2. Regras de execução
 
-1. Nenhuma migração destrutiva do CSV canônico.
-2. Novas entidades começam como contratos e tabelas paralelas.
-3. Toda funcionalidade analítica deve declarar operação e teto de inferência.
-4. CI deve bloquear regressões em controles científicos.
-5. Dados sensíveis exigem governança ética antes de ingestão.
-6. Backend será introduzido apenas quando a operação exigir.
-7. Identidade visual não deve preceder contratos científicos fundamentais.
+1. Aprofundar antes de expandir funcionalidades.
+2. Produto científico, infraestrutura e serviço devem permanecer separados.
+3. Nenhuma migração destrutiva dos CSVs atuais durante a transição.
+4. O PostgreSQL/PostGIS é a arquitetura canônica de destino.
+5. CSVs e planilhas passarão a ser exportações após o portão de promoção.
+6. Toda afirmação material deve possuir evidência rastreável.
+7. Valores desconhecidos não devem ser inferidos.
+8. Instâncias 2 e 3 não devem orientar trabalho ativo antes da consolidação da Instância 1.
+9. A página pública atual permanece estável enquanto a base é reconstruída.
+10. A curadoria segue prioridade Brasil primeiro.
 
-## Fase 0 — consolidação normativa e arquitetura de transição
+## Fase I1.0 — consolidação normativa e relacional
 
 ### Entregas
 
-- direção científica formal;
-- política de comparabilidade e inferência;
-- auditoria integral do projeto;
-- contratos iniciais de passaporte, comparabilidade e evidência;
-- nível N0 explícito no explorador atual;
-- links públicos para a política;
-- validador de integridade da direção.
+- decisão formal de foco na Instância 1;
+- definição canônica de fonte, família, produto, release, distribuição, ativo e variável;
+- documento científico-operacional da Instância 1;
+- esquema PostgreSQL/PostGIS versionado;
+- estratégia de transição dos CSVs;
+- workflow de curadoria;
+- Instâncias 2 e 3 registradas como somente leitura conceitual.
 
 ### Portão de saída
 
-- documentos normativos integrados à governança;
-- CI valida contratos e limites atuais;
-- nenhuma função analítica é oferecida no explorador N0;
-- backlog P0 registrado.
+- documentação harmonizada;
+- esquema relacional executável;
+- nenhuma ambiguidade normativa entre produto e infraestrutura;
+- autoridade durante a transição definida.
 
-## Fase 1 — catálogo de variáveis e passaportes científicos
+## Fase I1.1 — staging e migração do piloto atual
 
 ### Objetivo
 
-Representar o significado científico de cada variável, indicador, banda, classe ou métrica.
+Migrar e reclassificar os registros atuais sem perda de informação.
 
 ### Entregas
 
-- tabela `variables`;
-- tabela `product_variables`;
-- tabela ou documento `scientific_passports`;
-- vocabulário multidimensional de domínios;
-- unidades normalizadas;
-- perfis espaciais e temporais;
-- registro de método, incerteza e limitações;
-- página pública de busca por variável;
-- casos dourados de variáveis ambientais, sociais, econômicas, de saúde e governança.
+- tabelas de staging para `data_resources.csv`, `data_products.csv` e `product_distributions.csv`;
+- mapeamento de colunas;
+- normalização de IDs;
+- criação de releases explícitos;
+- migração de distribuições para releases;
+- separação dos registros que são catálogos, serviços e infraestruturas;
+- relatório de inconsistências;
+- testes de integridade referencial.
 
-### Casos piloto recomendados
+### Correções obrigatórias do piloto
 
-1. cobertura e uso da terra;
-2. estoque de carbono;
-3. renda e desigualdade;
-4. segurança alimentar;
-5. expectativa de vida ou mortalidade agregada;
-6. estrutura produtiva agrícola;
-7. presença de organizações da sociedade civil;
-8. infraestrutura de saúde.
+- serviços interoperáveis TerraBrasilis não permanecem como produto científico;
+- Earth Engine Public Data Catalog não permanece como produto científico;
+- Publisher Catalogs não permanecem como produto científico;
+- Earth Engine Processing and Export Service não permanece como produto científico;
+- produtos por bioma e versão recebem escopo explícito;
+- produtos experimentais preservam status e versão.
 
 ### Portão de saída
 
-- 100% das variáveis piloto possuem passaporte válido;
-- unidade, população, escala, período e proveniência não dependem de texto livre ambíguo;
-- produtos multivariados não herdam indevidamente uma única definição.
+- todos os registros atuais resolvidos por entidade;
+- nenhuma distribuição órfã;
+- nenhuma versão implícita quando a documentação permite identificá-la;
+- relatório de migração aprovado.
 
-## Fase 2 — motor de comparabilidade
+## Fase I1.2 — perfis científicos piloto
 
 ### Objetivo
 
-Avaliar se uma combinação é adequada para uma operação específica.
+Demonstrar o nível de profundidade exigido pelo novo catálogo.
 
-### Entregas
+### Famílias piloto
 
-- registro `comparability_assessments`;
-- regras A–E;
-- avaliação por dimensão;
-- operações controladas: composição, comparação descritiva, junção, agregação, correlação e regressão;
-- recomendações de harmonização;
-- bloqueios para incompatibilidades evidentes;
-- relatório legível para usuários não especialistas;
-- casos de teste positivos, condicionais e negativos.
+1. PRODES;
+2. DETER;
+3. TerraClass;
+4. MapBiomas Cobertura e Uso da Terra;
+5. Dynamic World;
+6. produto municipal de saúde;
+7. produto municipal socioeconômico;
+8. produto de água ou clima.
 
-### Regras mínimas
+### Entregas por produto
 
-- semântica;
-- população e unidade de observação;
-- suporte e resolução espacial;
-- período e granularidade temporal;
-- método de obtenção;
-- distribuição, incerteza e dados ausentes;
-- proveniência e independência;
-- licença, ética e privacidade.
+- objeto científico;
+- mensagem informacional;
+- não-representações;
+- variáveis e classes;
+- método;
+- suporte espacial e temporal;
+- qualidade e incerteza;
+- versões;
+- distribuições e capacidades;
+- citação e licença;
+- evidências por campo;
+- revisão curatorial.
 
 ### Portão de saída
 
-- toda operação piloto recebe classe e justificativa;
-- classe D bloqueia execução;
-- classe E impede inferência e solicita metadados;
-- transformações de classe B são reproduzíveis;
-- classe C permanece restrita a visualização ou exploração preliminar.
+- perfis completos e auditados em múltiplos domínios;
+- linguagem científica consistente;
+- filtros básicos demonstráveis;
+- lacunas do esquema identificadas e corrigidas.
 
-## Fase 3 — linhagem, relações e Bússola de Evidências
+## Fase I1.3 — expansão de fontes prioritárias
+
+### Prioridade inicial
+
+1. MapBiomas;
+2. TerraBrasilis / INPE;
+3. IBGE;
+4. ANA / SNIRH;
+5. DATASUS;
+6. INMET;
+7. Embrapa;
+8. ICMBio e MMA;
+9. fontes internacionais com cobertura sistemática do Brasil.
+
+### Estratégias de enumeração
+
+- `complete`;
+- `family_level`;
+- `external_index`;
+- `representative_sample`;
+- `selective`.
+
+### Portão de saída
+
+- fontes prioritárias com estratégia definida;
+- produtos relevantes enumerados;
+- equilíbrio entre ecologia, ambiente, saúde, sociedade e território;
+- progresso medido por produtos aprovados, não apenas por linhas adicionadas.
+
+## Fase I1.4 — taxonomias, busca e interface
 
 ### Objetivo
 
-Representar como variáveis podem estar relacionadas e o que sustenta cada relação.
+Substituir a página simplificada por uma interface sustentada pelos dados relacionais.
 
 ### Entregas
 
-- `lineage_records` para dependência entre produtos;
-- `scientific_relations`;
-- `evidence_records`;
-- mecanismos, mediadores e confundidores;
-- evidência favorável, contrária e inconclusiva;
-- avaliação separada de concordância, certeza, aplicabilidade e suporte mecanístico;
-- interface da Bússola de Evidências;
-- revisão humana versionada.
+- filtros temáticos;
+- filtros por variável e objeto observado;
+- filtros espaciais e temporais;
+- filtros de método e qualidade;
+- filtros de acesso;
+- perfil público do produto;
+- perfil de release;
+- lista de distribuições e capacidades;
+- evidências e data de revisão;
+- busca textual em português e termos alternativos;
+- exportação de resultados.
 
 ### Portão de saída
 
-- produtos com origem compartilhada são identificados;
-- nenhuma relação usa porcentagem única de consenso;
-- evidência e discordância aparecem juntas;
-- cada ficha informa população, escala e território de aplicabilidade;
-- teto de inferência é derivado de regras explícitas e revisão.
+- interface não depende de campos agregados ambíguos;
+- usuário consegue distinguir fonte, produto, versão e acesso;
+- produto informa claramente o que representa e não representa;
+- filtros são derivados de valores estruturados.
 
-## Fase 4 — perfis territoriais e módulo de Saúde Única
+## Fase I1.5 — promoção do banco relacional
 
 ### Objetivo
 
-Demonstrar utilidade pública e científica sem iniciar por análises causais complexas.
+Tornar o PostgreSQL/PostGIS a fonte canônica.
 
 ### Entregas
 
-- perfis municipais ou regionais;
-- seleção de território e período;
-- painéis para natureza, saúde, sociedade, economia, produção e governança;
-- módulo de Saúde Única;
-- comparação descritiva com compatibilidade visível;
-- exportação de fontes, versões e limitações;
-- protocolo ético e de privacidade.
+- pipeline de importação e validação;
+- pipeline de exportação para CSV e planilha;
+- API ou camada de leitura;
+- backups e migrações;
+- controle de versões do esquema;
+- testes automáticos;
+- documentação operacional;
+- espelho do Drive regenerado a partir do banco.
 
 ### Portão de saída
 
-- perfis não confundem agregado territorial com indivíduo;
-- pequenas contagens e dados sensíveis são protegidos;
-- toda variável possui fonte, versão e período;
-- qualquer aproximação entre indicadores é rotulada por nível de inferência.
+- banco relacional canônico;
+- CSVs reproduzíveis;
+- planilhas derivadas;
+- página pública sincronizada;
+- integridade e evidências validadas automaticamente.
 
-## Fase 5 — Laboratório de Nexos
+## 3. Workstreams permanentes da Instância 1
 
-### Objetivo
+### Curadoria científica
 
-Permitir análises exploratórias e confirmatórias limitadas por regras científicas.
+- significado do produto;
+- variáveis;
+- método;
+- qualidade;
+- limitações;
+- literatura descritiva e de validação.
 
-### Entregas
+### Curadoria operacional
 
-- seleção explícita de exposição, resultado e covariáveis;
-- registro de pergunta e hipótese;
-- correlação e regressão com diagnósticos;
-- autocorrelação espacial;
-- estabilidade entre escalas;
-- tendências temporais e defasagens;
-- controle de múltiplas comparações;
-- análises de sensibilidade;
-- diagramas causais versionados;
-- receitas e ambientes reproduzíveis.
+- URLs;
+- formatos;
+- APIs;
+- serviços;
+- autenticação;
+- licenças;
+- testes de acesso.
 
-### Portão de saída
+### Arquitetura de dados
 
-- nenhum resultado é publicado sem relatório de diagnósticos;
-- número de testes permanece registrado;
-- limitações ausentes reduzem o teto de inferência;
-- N5 nunca é atribuído automaticamente;
-- resultados podem ser reproduzidos a partir de manifesto e código.
+- normalização;
+- migrações;
+- IDs;
+- chaves;
+- taxonomias;
+- importação e exportação.
 
-## Fase 6 — backend, API e processamento federado
+### Qualidade
 
-### Objetivo
-
-Escalar operações que não cabem de forma segura no navegador.
-
-### Condições para iniciar
-
-- volume ou duração inviável no cliente;
-- necessidade de autenticação protegida;
-- filas assíncronas;
-- cache e controle de quotas;
-- armazenamento temporário;
-- auditoria de execuções.
-
-### Entregas
-
-- PostgreSQL/PostGIS;
-- API do catálogo e dos passaportes;
-- serviço de comparabilidade;
-- registro de receitas e execuções;
-- adaptadores de fontes;
-- filas de processamento;
-- monitoramento e segurança;
-- política de retenção de resultados.
-
-### Portão de saída
-
-- operações são idempotentes ou versionadas;
-- credenciais não aparecem no cliente ou repositório;
-- falhas e custos são monitorados;
-- resultados temporários têm ciclo de vida definido;
-- API respeita as mesmas regras da interface.
-
-## Fase 7 — identidade, educação e expansão
-
-### Entregas possíveis
-
-- marca definitiva do projeto;
-- consolidação pública do nome Simbioscópio;
-- modo **Simbionauta** com percursos guiados;
-- materiais didáticos sobre correlação, causalidade e escala;
-- narrativas interativas de Saúde Única;
-- internacionalização;
-- parcerias institucionais e revisão interdisciplinar.
-
-## 3. Workstreams permanentes
-
-### Dados e curadoria
-
-- expansão Brasil-primeiro;
-- verificação periódica;
-- qualidade de links e licenças;
-- definição de variáveis;
-- linhagem e versões.
-
-### Ciência e evidência
-
-- critérios de relação;
-- síntese de literatura;
-- controvérsias;
-- mecanismos;
-- atualização de evidências.
-
-### Estatística e causalidade
-
-- diagnósticos;
-- modelos espaciais e temporais;
-- múltiplas comparações;
-- DAGs;
-- sensibilidade.
-
-### Ética e sociedade
-
-- privacidade;
-- reidentificação;
-- estigmatização territorial;
-- populações vulneráveis;
-- participação e governança dos dados.
-
-### Engenharia
-
-- contratos;
-- CI;
-- adaptadores;
-- API;
-- observabilidade;
-- segurança.
+- auditoria por lote;
+- evidência por campo;
+- detecção de duplicidade;
+- separação de entidades;
+- revisão de versões;
+- monitoramento de endpoints.
 
 ### Experiência do usuário
 
-- linguagem proporcional à evidência;
-- explicações acessíveis;
-- acessibilidade;
-- transparência de limitações;
-- prevenção de interpretação indevida.
+- linguagem acessível;
+- comparação de perfis;
+- filtros claros;
+- explicitação de desconhecidos;
+- acesso direto à fonte autoritativa.
 
-## 4. Primeira sequência executável
+## 4. Instância 2 — backlog de longo prazo
 
-1. consolidar Fase 0;
-2. escolher oito variáveis piloto;
-3. preencher passaportes;
-4. criar dez combinações douradas, incluindo incompatibilidades;
-5. implementar comparabilidade sem cálculo estatístico;
-6. publicar painel de justificativas;
-7. somente então testar perfis territoriais;
-8. manter Laboratório de Nexos bloqueado até diagnósticos P0.
+A composição geográfica poderá incluir:
 
-## 5. Critério de sucesso
+- camadas resolvidas;
+- mapas sobrepostos ou sincronizados;
+- perfis territoriais;
+- verificação de executabilidade;
+- transparência de escalas e métodos;
+- processamento seletivo.
 
-O sucesso não será medido pelo número de camadas que podem ser sobrepostas. Será medido pela capacidade de:
+Não iniciar implementação ampla antes do Portão I1.5.
 
-- encontrar dados adequados;
-- compreender o que representam;
-- saber quando podem ser comparados;
-- reconhecer incerteza e dependência;
-- acessar evidências favoráveis e contraditórias;
-- produzir resultados reproduzíveis;
-- evitar afirmações mais fortes que os dados permitem.
+O explorador existente pode permanecer como protótipo, sem ser tratado como núcleo consolidado nem receber funções analíticas novas.
+
+## 5. Instância 3 — backlog de longo prazo
+
+A contextualização científica poderá incluir:
+
+- recuperação de literatura por fenômeno, território, escala e período;
+- sínteses breves e auditáveis;
+- referências visíveis;
+- mecanismos e controvérsias;
+- distinção entre evidência direta e análoga;
+- comunicação proporcional à evidência.
+
+Não iniciar implementação antes de a Instância 1 fornecer perfis científicos consistentes e a Instância 2 possuir composições bem definidas.
+
+## 6. Primeira sequência executável
+
+1. consolidar a Fase I1.0;
+2. criar staging dos CSVs atuais;
+3. migrar e reclassificar o piloto;
+4. preencher oito perfis científicos piloto;
+5. auditar o esquema;
+6. aprofundar MapBiomas e TerraBrasilis;
+7. incorporar IBGE, ANA e DATASUS;
+8. construir filtros sobre dados relacionais;
+9. gerar nova interface de produtos;
+10. promover o banco após validação.
+
+## 7. Critério de sucesso
+
+O sucesso será medido pela capacidade de responder:
+
+- o que o produto representa;
+- qual variável está disponível;
+- como foi produzida;
+- qual é o suporte espacial e temporal;
+- qual versão está em uso;
+- quais limitações e incertezas existem;
+- como acessar;
+- qual evidência sustenta o registro.
+
+O número bruto de fontes, produtos ou camadas não é suficiente como métrica de qualidade.
