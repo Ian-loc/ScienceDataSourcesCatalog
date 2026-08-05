@@ -52,7 +52,7 @@ def main() -> int:
         "dynamic_world_spatial_profiles": 1,
         "dynamic_world_temporal_profiles": 1,
         "dynamic_world_quality_profiles": 1,
-        "dynamic_world_assertions": 15,
+        "dynamic_world_assertions": 17,
         "dynamic_world_citations": 1,
         "terraclass_variables": 1,
         "terraclass_product_variables": 1,
@@ -132,6 +132,8 @@ def main() -> int:
             "crops_agreement_expert_consensus",
             "merged_grass_shrub_agreement",
             "validation_limitations",
+            "required_attribution",
+            "upstream_notice",
         }
         actual_dw_assertions = {
             str(row[0])
