@@ -15,6 +15,11 @@ EXPECTED_ROLES = {
     "complete_map_raster",
     "complete_map_vector",
 }
+REQUIRED_EVIDENCE_IDS = {
+    "PRODES-OP-EV-001",
+    "PRODES-OP-EV-002",
+    "PRODES-OP-EV-003",
+}
 
 
 def fail(message: str) -> None:
@@ -36,8 +41,8 @@ def main() -> int:
         fail("timezone deve ser America/Sao_Paulo")
 
     sources = data.get("official_evidence")
-    if not isinstance(sources, list) or len(sources) < 2:
-        fail("ao menos duas fontes oficiais operacionais são obrigatórias")
+    if not isinstance(sources, list) or len(sources) < 3:
+        fail("ao menos três fontes oficiais operacionais são obrigatórias")
 
     evidence_ids: set[str] = set()
     for source in sources:
@@ -59,6 +64,10 @@ def main() -> int:
             fail(f"{evidence_id}: supports deve ser lista não vazia")
         if not isinstance(source.get("limitations"), list) or not source["limitations"]:
             fail(f"{evidence_id}: limitations deve ser lista não vazia")
+
+    if not REQUIRED_EVIDENCE_IDS.issubset(evidence_ids):
+        missing = sorted(REQUIRED_EVIDENCE_IDS - evidence_ids)
+        fail(f"evidências oficiais obrigatórias ausentes: {missing}")
 
     findings = data.get("resolved_operational_findings")
     if not isinstance(findings, dict):
@@ -93,6 +102,18 @@ def main() -> int:
     if "áreas não observadas" not in unresolved_cloud:
         fail("ajuste vigente para áreas não observadas deve permanecer não resolvido")
 
+    update_notice = findings.get("catalog_update_notice")
+    if not isinstance(update_notice, dict):
+        fail("aviso oficial de atualização deve ser objeto")
+    if update_notice.get("announced_update_date") != "2026-03-03":
+        fail("data do aviso oficial de atualização PRODES divergente")
+    if update_notice.get("evidence_ids") != ["PRODES-OP-EV-003"]:
+        fail("aviso de atualização deve citar exclusivamente PRODES-OP-EV-003")
+    interpretation = str(update_notice.get("interpretation", "")).casefold()
+    for required_term in ("não constitui identificador de release", "ativos"):
+        if required_term not in interpretation:
+            fail(f"limite do aviso de atualização ausente: {required_term}")
+
     unresolved = data.get("unresolved_before_promotion")
     if not isinstance(unresolved, list) or len(unresolved) < 6:
         fail("pendências pré-promoção devem permanecer explícitas")
@@ -103,8 +124,11 @@ def main() -> int:
             fail(f"pendência obrigatória ausente: {term}")
 
     prohibited = data.get("prohibited_inferences")
-    if not isinstance(prohibited, list) or len(prohibited) < 4:
+    if not isinstance(prohibited, list) or len(prohibited) < 5:
         fail("inferências proibidas devem ser explicitadas")
+    prohibited_text = " ".join(str(item) for item in prohibited).casefold()
+    if "3 de março de 2026" not in prohibited_text or "release_id" not in prohibited_text:
+        fail("aviso de atualização não está protegido contra uso como release_id")
 
     serialized = PATH.read_text(encoding="utf-8")
     forbidden_tokens = ('"promotion_authorized": true', '"release_id"', '"algorithm_version"')
