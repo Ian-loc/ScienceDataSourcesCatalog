@@ -39,7 +39,9 @@ jobs:
       - name: Validar direção científica e contratos
         run: |
           python3 -m py_compile scripts/validate_scientific_direction.py
+          python3 -m py_compile scripts/validate_dynamic_world_operational_contract.py
           python3 scripts/validate_scientific_direction.py
+          python3 scripts/validate_dynamic_world_operational_contract.py
 
       - name: Validar carga e promoção da Instância 1 sem banco
         run: |
@@ -204,6 +206,7 @@ jobs:
           python3 scripts/validate_brazil_scope.py
           python3 scripts/validate_product_catalog.py
           python3 scripts/validate_scientific_direction.py
+          python3 scripts/validate_dynamic_world_operational_contract.py
           python3 scripts/load_instance1_staging.py --check-only
           python3 scripts/validate_prodes_product_targets.py
           python3 scripts/build_catalog.py
