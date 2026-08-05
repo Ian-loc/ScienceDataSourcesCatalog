@@ -1,0 +1,71 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "scientific_target": "PD-PRODES-AMZ-ANNUAL-MAP",
+  "target_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
+  "retrieved_at": "2026-08-05",
+  "timezone": "America/Sao_Paulo",
+  "status": "aggregate_search_facets_verified_record_download_unresolved",
+  "promotion_authorized": false,
+  "official_search_evidence": {
+    "search_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=GeoPackage",
+    "provider": "TerraBrasilis catalogue",
+    "format_filter": "GeoPackage",
+    "record_count": 8,
+    "resource_type_count": {
+      "Dataset": 8
+    },
+    "available_action_count": {
+      "Downloadable": 1
+    },
+    "status_count": {
+      "Planned": 8
+    },
+    "representation_type_count": {
+      "Vector": 8
+    },
+    "target_record_title": "GeoPackage - PRODES Amazônia",
+    "target_record_present": true,
+    "target_record_direct_download_identified": false,
+    "target_record_downloadable_action_attributed": false,
+    "target_record_status_resolved": false
+  },
+  "assessment": {
+    "blocker_type": "aggregate_facet_attribution",
+    "severity": "medium",
+    "state": "accepted_limitation",
+    "interpretation": "As facetas da busca são contagens agregadas do conjunto filtrado. A existência de uma ação Downloadable entre oito registros não identifica qual registro oferece essa ação. O status Planned agregado também não resolve o estado operacional do GeoPackage PRODES Amazônia nem substitui a inspeção do registro individual.",
+    "safe_consequence": "Manter direct_download_url, endpoint_state, asset_state e release_id não resolvidos até evidência individual verificável do registro-alvo."
+  },
+  "normalization_rules": [
+    "faceta agregada não é atributo do registro individual",
+    "Downloadable (1) entre oito registros não autoriza atribuir download ao GeoPackage PRODES Amazônia",
+    "status Planned agregado não comprova planejamento, publicação ou disponibilidade do ativo individual",
+    "presença do título no resultado de busca comprova descoberta do registro, não acesso aos bytes",
+    "tamanho aproximado informado no resumo não é byte_size exato",
+    "formato GeoPackage e representação Vector não comprovam CRS, camadas, esquema ou integridade",
+    "não preencher direct_download_url sem link individual oficial verificável",
+    "não preencher endpoint_state como resolved sem resposta do endpoint do registro-alvo",
+    "não preencher asset_state como inspected sem recuperação e inspeção dos bytes",
+    "não inferir release_id de ano, data de atualização, status ou facetas de busca"
+  ],
+  "required_before_record_level_resolution": [
+    "identificador inequívoco do registro GeoPackage PRODES Amazônia",
+    "resposta oficial individual do registro",
+    "atribuição explícita da ação de download ao registro-alvo",
+    "URL direta oficial ou endpoint oficial que a forneça",
+    "status HTTP e cadeia de redirecionamentos",
+    "Content-Type e Content-Disposition",
+    "data e hora da verificação"
+  ],
+  "required_before_asset_promotion": [
+    "recuperação autorizada dos bytes",
+    "nome e tamanho exatos",
+    "checksum criptográfico",
+    "inventário das camadas do GeoPackage",
+    "CRS, geometria e esquema de atributos",
+    "cobertura territorial e temporal",
+    "licença, atribuição e citação",
+    "vínculo explícito com produto e release"
+  ]
+}
