@@ -7,11 +7,16 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 PATH = Path("database/mappings/prodes_asset_endpoint_contract_2026.json")
+REGISTRY_PATH = Path("database/mappings/prodes_geonetwork_metadata_registry_2026.json")
 EXPECTED_ROLES = {
     "annual_increment_vector": "Shapefile",
     "small_polygon_increment_vector": "Shapefile",
     "complete_map_raster": "GeoTIFF",
     "complete_map_vector": "GeoPackage",
+}
+VERIFIED_METADATA_ROLES = {
+    "annual_increment_vector",
+    "small_polygon_increment_vector",
 }
 
 
@@ -19,10 +24,25 @@ def fail(message: str) -> None:
     raise SystemExit(f"ERRO: {message}")
 
 
+def official_metadata_url(value: object) -> bool:
+    if not isinstance(value, str) or not value:
+        return False
+    parsed = urlparse(value)
+    return (
+        parsed.scheme == "https"
+        and (parsed.hostname or "").endswith("inpe.br")
+        and "/geonetwork/" in parsed.path
+        and "/metadata/" in value
+    )
+
+
 def main() -> int:
     if not PATH.is_file():
         fail(f"arquivo ausente: {PATH}")
+    if not REGISTRY_PATH.is_file():
+        fail(f"registro GeoNetwork ausente: {REGISTRY_PATH}")
     data = json.loads(PATH.read_text(encoding="utf-8"))
+    registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
 
     if data.get("family_stable_id") != "PF000001":
         fail("contrato deve permanecer vinculado a PF000001")
@@ -32,6 +52,16 @@ def main() -> int:
         fail("contrato não pode autorizar promoção")
     if data.get("timezone") != "America/Sao_Paulo":
         fail("timezone deve ser America/Sao_Paulo")
+
+    if registry.get("family_stable_id") != "PF000001":
+        fail("registro GeoNetwork deve permanecer vinculado a PF000001")
+    registry_by_role = {
+        record.get("expected_distribution_role"): record.get("metadata_url")
+        for record in registry.get("records", [])
+        if record.get("expected_distribution_role") in VERIFIED_METADATA_ROLES
+    }
+    if set(registry_by_role) != VERIFIED_METADATA_ROLES:
+        fail("registro GeoNetwork não contém os dois metadados exigidos pelos alvos")
 
     entry = data.get("catalog_entrypoint")
     if not isinstance(entry, dict):
@@ -73,8 +103,23 @@ def main() -> int:
             fail(f"{target_id}: endpoint não verificado deve permanecer unresolved")
         if target.get("asset_state") != "not_inspected":
             fail(f"{target_id}: ativo não inspecionado deve permanecer not_inspected")
-        if target.get("direct_download_url") is not None or target.get("metadata_url") is not None:
-            fail(f"{target_id}: URL específica não pode ser preenchida sem verificação direta")
+        if target.get("direct_download_url") is not None:
+            fail(f"{target_id}: download direto não pode ser preenchido sem verificação")
+
+        metadata_url = target.get("metadata_url")
+        metadata_state = target.get("metadata_state")
+        if role in VERIFIED_METADATA_ROLES:
+            expected_metadata_url = registry_by_role[role]
+            if metadata_url != expected_metadata_url:
+                fail(f"{target_id}: URL de metadado diverge do registro GeoNetwork")
+            if metadata_state != "verified_metadata_identifier":
+                fail(f"{target_id}: estado de metadado verificado divergente")
+            if not official_metadata_url(metadata_url):
+                fail(f"{target_id}: URL de metadado oficial inválida")
+        else:
+            if metadata_url is not None or metadata_state != "unresolved":
+                fail(f"{target_id}: metadado do pacote completo permanece não resolvido")
+
         checks = target.get("required_direct_checks")
         if not isinstance(checks, list) or len(checks) < 8:
             fail(f"{target_id}: checklist direto insuficiente")
@@ -87,10 +132,10 @@ def main() -> int:
         fail(f"papéis incompletos: {sorted(roles)}")
 
     rules = data.get("normalization_rules")
-    if not isinstance(rules, list) or len(rules) < 5:
+    if not isinstance(rules, list) or len(rules) < 6:
         fail("regras de normalização devem ser explícitas")
     rules_text = " ".join(str(item) for item in rules).casefold()
-    for term in ("catálogo", "metadado", "download", "checksums", "verified", "inspected"):
+    for term in ("catálogo", "metadado", "download", "uuid", "checksums", "verified", "inspected"):
         if term not in rules_text:
             fail(f"regra estrutural ausente: {term}")
 
@@ -107,7 +152,7 @@ def main() -> int:
         if token in serialized:
             fail(f"promoção ou verificação prematura detectada: {token}")
 
-    print("OK: contrato de ativos e endpoints PRODES validado sem promoção prematura")
+    print("OK: contrato PRODES distingue metadados verificados de endpoints e ativos não resolvidos")
     return 0
 
 
