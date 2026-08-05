@@ -16,10 +16,27 @@ EXPECTED_IDS = {
     "b75b83db-8026-43f9-9537-ee1dfa308158",
     "5f5cfb4c-e207-4932-9c93-2d51cea8adbc",
     "c6748fdf-a18e-41b9-a523-ea14bae92602",
+    "215be904-3828-41a9-a1bd-c7daa0133944",
+    "a8208a12-679b-432a-8a47-fc42d2279f9a",
     "00a728cb-8577-458a-9c38-082c1f3bca9e",
+    "63751b72-3e6a-4d15-8fc0-740e57bbc346",
     "1df78632-68e7-4e91-bca0-25305d3f831e",
+    "87fb6a32-01c1-4421-b7d0-a93568e1b079",
     "bed1276c-aa3d-4f5b-b560-1879617ef13d",
 }
+EXPECTED_ROLES = {
+    "annual_increment_vector",
+    "small_polygon_increment_vector",
+    "accumulated_suppression_mask_vector",
+    "accumulated_suppression_nonforest_mask_vector",
+    "annual_increment_nonforest_vector",
+    "annual_residue_vector",
+    "annual_residue_nonforest_vector",
+    "hydrography_reference_vector",
+    "hydrography_nonforest_reference_vector",
+    "nonforest_domain_mask_vector",
+}
+ALLOWED_DOMAINS = {"forest_domain", "nonforest_domain"}
 
 
 def fail(message: str) -> None:
@@ -44,10 +61,13 @@ def main() -> int:
         fail("catálogo deve permanecer em domínio oficial do INPE")
 
     records = data.get("records")
-    if not isinstance(records, list) or len(records) != 6:
-        fail("seis registros específicos são obrigatórios neste round")
+    if not isinstance(records, list) or len(records) != 10:
+        fail("dez registros específicos são obrigatórios para o pacote PRODES Amazônia documentado")
     uuids: set[str] = set()
     record_ids: set[str] = set()
+    roles: set[str] = set()
+    domains: set[str] = set()
+    nonforest_roles: set[str] = set()
     for record in records:
         record_id = record.get("record_id")
         uuid = record.get("uuid")
@@ -73,15 +93,39 @@ def main() -> int:
         formats = record.get("format_context")
         if not isinstance(formats, list) or not formats:
             fail(f"{record_id}: contexto de formato ausente")
+        role = record.get("expected_distribution_role")
+        if role not in EXPECTED_ROLES or role in roles:
+            fail(f"{record_id}: papel de distribuição ausente, inesperado ou duplicado")
+        roles.add(role)
+        domain = record.get("domain_context")
+        if domain not in ALLOWED_DOMAINS:
+            fail(f"{record_id}: domínio cartográfico inválido")
+        domains.add(domain)
+        if domain == "nonforest_domain":
+            nonforest_roles.add(role)
 
     if uuids != EXPECTED_IDS:
         fail("conjunto de UUIDs diverge do registro verificado")
+    if roles != EXPECTED_ROLES:
+        fail("papéis de distribuição divergem do contrato esperado")
+    if domains != ALLOWED_DOMAINS:
+        fail("domínios florestal e não floresta devem estar representados")
+    required_nonforest_roles = {
+        "accumulated_suppression_nonforest_mask_vector",
+        "annual_increment_nonforest_vector",
+        "annual_residue_nonforest_vector",
+        "hydrography_nonforest_reference_vector",
+        "nonforest_domain_mask_vector",
+    }
+    if nonforest_roles != required_nonforest_roles:
+        fail("componentes do domínio não floresta estão incompletos ou fundidos incorretamente")
+
     unresolved = " ".join(str(x) for x in data.get("unresolved_before_asset_promotion", [])).casefold()
     for term in ("checksum", "crs", "geometr", "licença", "citação", "release"):
         if term not in unresolved:
             fail(f"pendência obrigatória ausente: {term}")
     prohibited = " ".join(str(x) for x in data.get("prohibited_inferences", [])).casefold()
-    for term in ("uuid", "release", "metadado", "ativo", "geopackage"):
+    for term in ("uuid", "release", "metadado", "ativo", "geopackage", "não floresta"):
         if term not in prohibited:
             fail(f"inferência proibida ausente: {term}")
 
@@ -89,7 +133,7 @@ def main() -> int:
         fail(f"validador territorial ausente: {SCOPE_VALIDATOR}")
     subprocess.run([sys.executable, str(SCOPE_VALIDATOR)], check=True)
 
-    print("OK: UUIDs GeoNetwork PRODES registrados sem promoção prematura de ativos ou releases")
+    print("OK: dez UUIDs GeoNetwork PRODES registrados com separação dos domínios florestal e não floresta")
     return 0
 
 
