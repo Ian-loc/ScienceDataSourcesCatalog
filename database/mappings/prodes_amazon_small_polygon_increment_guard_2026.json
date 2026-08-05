@@ -1,0 +1,175 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-ANNUAL-INCREMENT-1-TO-6-25-HA-SHP",
+  "candidate_scientific_product_id": "PD-PRODES-AMZ-SMALL-POLYGON-INCREMENTS",
+  "parent_package_asset_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
+  "status": "metadata_identity_methodological_boundary_and_release_semantics_verified_endpoint_unresolved",
+  "observed_at": "2026-08-05T19:24:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "metadata_identifier": "5f5cfb4c-e207-4932-9c93-2d51cea8adbc",
+  "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/5f5cfb4c-e207-4932-9c93-2d51cea8adbc",
+  "catalog_url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+  "official_record_label": "Incremento anual no desmatamento (polígonos com área entre 1 e 6,25 ha) - Shapefile",
+  "declared_format": "ESRI Shapefile",
+  "scientific_identity": {
+    "represented_phenomenon": "polígonos de supressão da vegetação nativa detectados pelo PRODES no bioma Amazônia com área entre 1 e 6,25 hectares",
+    "monitoring_program": "PRODES Amazônia",
+    "spatial_scope": "bioma Amazônia no Brasil, conforme limite oficial utilizado pelo PRODES",
+    "product_boundary_state": "candidate_distinct_supplementary_scientific_product",
+    "must_not_be_collapsed_into": [
+      "PD-PRODES-AMZ-ANNUAL-MAP",
+      "PD-PRODES-AMZ-ANNUAL-RATE"
+    ],
+    "reason": "o conjunto possui limiar de área, regra de inclusão na taxa e semântica de substituição integral próprios"
+  },
+  "methodological_boundary": {
+    "historical_minimum_mappable_area_ha": 6.25,
+    "historical_reason": "na fase analógica, os incrementos eram delimitados manualmente sobre imagens impressas em escala 1:250.000",
+    "digital_mapping_scale": "1:75.000",
+    "small_polygon_storage_start_year": 2016,
+    "small_polygon_area_min_ha": 1.0,
+    "small_polygon_area_max_ha": 6.25,
+    "included_in_annual_rate_before_exceeding_6_25_ha": false,
+    "rate_inclusion_rule": "os polígonos não entram no cálculo da taxa até ultrapassarem 6,25 ha",
+    "classification_nature": "detecção e delimitação de polígonos de desmatamento por sensoriamento remoto no fluxo PRODES",
+    "base_method_reference_resolved": false,
+    "validation_profile_resolved": false,
+    "uncertainty_profile_resolved": false
+  },
+  "temporal_and_release_profile": {
+    "storage_start_year": 2016,
+    "cadence_label_in_catalog": "annual",
+    "current_release_resolved": false,
+    "last_scientific_year_resolved": false,
+    "publication_replacement_semantics": "integral_replacement_each_publication",
+    "replacement_warning": "o conjunto publicado é integralmente substituído a cada publicação; a data da página ou do arquivo não deve ser usada isoladamente como identificador científico de release",
+    "publication_or_file_update_date_is_scientific_period": false
+  },
+  "documented_partial_schema": [
+    {
+      "field": "uuid",
+      "type": "text",
+      "meaning": "identificador único universal de cada feição"
+    },
+    {
+      "field": "uid",
+      "type": "integer",
+      "meaning": "identificador numérico de exportação que pode mudar em revisões ou atualizações"
+    },
+    {
+      "field": "state",
+      "type": "text",
+      "meaning": "estado ou unidade da federação"
+    },
+    {
+      "field": "path_row",
+      "type": "text",
+      "meaning": "código da cena formado por linha e coluna da grade Landsat"
+    },
+    {
+      "field": "main_class",
+      "type": "text",
+      "meaning": "classe principal atribuída à feição"
+    },
+    {
+      "field": "class_name",
+      "type": "text",
+      "meaning": "classe específica; a documentação informa que não há distinção de classe neste conjunto"
+    },
+    {
+      "field": "def_cloud",
+      "type": "number",
+      "meaning": "ano que indica desde quando a área está coberta por nuvens"
+    }
+  ],
+  "official_evidence": [
+    {
+      "role": "metadata_and_scientific_definition",
+      "url": "https://data.inpe.br/geonetwork/srv/search?keyword=Amaz%C3%B4nia",
+      "publisher": "INPE / BIG BiomasBR",
+      "supports": [
+        "identidade do conjunto",
+        "histórico do limiar de 6,25 ha",
+        "armazenamento desde 2016",
+        "regra de exclusão da taxa",
+        "substituição integral a cada publicação",
+        "esquema parcial documentado"
+      ]
+    },
+    {
+      "role": "technical_note_and_citation",
+      "url": "https://data.inpe.br/biomasbr/notas-tecnicas/disponibilizacao-dos-poligonos-de-desmatamento-com-area-entre-1-e-625-ha-detectados-pelo-prodes-no-bioma-amazonia/",
+      "publisher": "INPE / BIG BiomasBR",
+      "citation": "INPE. Disponibilização dos polígonos de desmatamento com área entre 1 e 6,25 ha detectados pelo PRODES no bioma Amazônia. São José dos Campos: INPE, 2025.",
+      "supports": [
+        "existência de nota técnica específica",
+        "fronteira científica do produto suplementar",
+        "citação da nota técnica"
+      ]
+    },
+    {
+      "role": "catalog_distribution_presence",
+      "url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "presença da distribuição Shapefile",
+        "rótulo público da distribuição"
+      ]
+    }
+  ],
+  "verified_state": {
+    "catalog_presence": true,
+    "metadata_identifier_verified": true,
+    "component_relation_to_geopackage_verified": true,
+    "scientific_object_distinguished": true,
+    "historical_minimum_mapping_rule_documented": true,
+    "small_polygon_storage_start_year_documented": true,
+    "rate_exclusion_rule_documented": true,
+    "integral_replacement_semantics_documented": true,
+    "partial_schema_documented": true,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "redirect_chain_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_asset": false,
+    "citation_resolved_for_data_release": false
+  },
+  "normalization_rules": [
+    "não incorporar estes polígonos ao produto da taxa anual, pois a documentação declara exclusão até ultrapassarem 6,25 ha",
+    "não tratar o limiar de 6,25 ha como resolução espacial, tamanho de pixel ou unidade mínima universal do PRODES",
+    "não confundir possibilidade técnica de detecção no mapeamento digital com regra histórica de comparabilidade da série",
+    "não usar uid como identificador persistente, pois ele pode mudar em revisões e atualizações",
+    "preservar uuid como identificador de feição quando confirmado nos bytes, sem confundi-lo com o UUID do registro de metadados",
+    "não transformar a data de atualização do catálogo em período científico ou identificador de release",
+    "a substituição integral a cada publicação exige registro explícito do snapshot ou release acessado",
+    "um UUID de metadado não constitui URL direta nem ativo inspecionado",
+    "o esquema publicado é parcial até inspeção dos bytes e documentação integral dos atributos",
+    "endpoint_state deve permanecer unresolved até evidência oficial individual verificável",
+    "asset_state deve permanecer not_inspected até recuperação e inspeção dos bytes",
+    "promoção exige produto, release, distribuição, licença, citação e evidência por afirmação"
+  ],
+  "required_before_product_promotion": [
+    "resolver nome oficial estável e relação com o produto anual principal",
+    "resolver metodologia-base e procedimento específico de retenção e evolução dos polígonos",
+    "confirmar série temporal, último ano e release publicado",
+    "documentar variáveis, classes e esquema semântico integral",
+    "resolver perfil espacial, suporte, CRS e unidade mínima mapeável sem confundir conceitos",
+    "registrar validação, qualidade, incerteza, vieses, nuvens e dados ausentes",
+    "resolver licença, atribuição e citação do produto e da release",
+    "registrar evidência por afirmação e revisão curatorial"
+  ],
+  "required_before_asset_promotion": [
+    "URL direta oficial verificável",
+    "status HTTP e cadeia de redirecionamentos",
+    "nome, tamanho exato, Content-Type e Content-Disposition",
+    "checksum criptográfico",
+    "inventário completo do pacote Shapefile",
+    "CRS, geometria e esquema integral de atributos",
+    "cobertura territorial e temporal dos bytes",
+    "vínculo explícito com produto e release corretos"
+  ]
+}
