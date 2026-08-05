@@ -116,8 +116,7 @@ def main() -> int:
                 UPDATE catalog.curation_reviews SET
                   review_status='in_progress',
                   findings='Dez bandas, método, perfis espacial e temporal, qualidade, citação e métricas primárias de validação do artigo registrados.',
-                  corrections_required='Testar endpoints, ativos, licença operacional e comportamento de acesso antes da aprovação final.',
-                  updated_at=now()
+                  corrections_required='Testar endpoints, ativos, licença operacional e comportamento de acesso antes da aprovação final.'
                 WHERE entity_type='product' AND entity_stable_id='DP000011'
                 """
             )
