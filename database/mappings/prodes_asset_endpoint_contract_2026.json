@@ -1,0 +1,125 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "status": "pre_promotion_asset_resolution",
+  "retrieved_at": "2026-08-05",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "scope": "Contrato de inspeção de ativos e endpoints PRODES Amazônia. Registra apenas papéis operacionais e estados de verificação; não cria produtos, releases, distribuições ou ativos normalizados.",
+  "catalog_entrypoint": {
+    "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+    "publisher": "INPE / TerraBrasilis",
+    "role": "download_catalog",
+    "observed_state": "active",
+    "observed_on": "2026-08-05",
+    "is_direct_asset": false,
+    "is_release_identifier": false
+  },
+  "asset_targets": [
+    {
+      "target_id": "PRODES-ASSET-ANNUAL-INCREMENT-SHP",
+      "scientific_target": "PD-PRODES-AMZ-ANNUAL-MAP",
+      "distribution_role": "annual_increment_vector",
+      "expected_format": "Shapefile",
+      "catalog_presence": "confirmed",
+      "direct_download_url": null,
+      "metadata_url": null,
+      "endpoint_state": "unresolved",
+      "asset_state": "not_inspected",
+      "required_direct_checks": [
+        "URL direta estável",
+        "status HTTP e redirecionamentos",
+        "nome e tamanho do arquivo",
+        "checksum",
+        "CRS",
+        "tipo de geometria",
+        "esquema e semântica dos atributos",
+        "cobertura temporal e territorial",
+        "licença e citação"
+      ]
+    },
+    {
+      "target_id": "PRODES-ASSET-SMALL-POLYGONS-SHP",
+      "scientific_target": "PD-PRODES-AMZ-ANNUAL-MAP",
+      "distribution_role": "small_polygon_increment_vector",
+      "expected_format": "Shapefile",
+      "catalog_presence": "confirmed",
+      "direct_download_url": null,
+      "metadata_url": null,
+      "endpoint_state": "unresolved",
+      "asset_state": "not_inspected",
+      "required_direct_checks": [
+        "URL direta estável",
+        "status HTTP e redirecionamentos",
+        "nome e tamanho do arquivo",
+        "checksum",
+        "CRS",
+        "tipo de geometria",
+        "esquema e semântica dos atributos",
+        "relação explícita com a distribuição principal",
+        "licença e citação"
+      ]
+    },
+    {
+      "target_id": "PRODES-ASSET-COMPLETE-GEOTIFF",
+      "scientific_target": "PD-PRODES-AMZ-ANNUAL-MAP",
+      "distribution_role": "complete_map_raster",
+      "expected_format": "GeoTIFF",
+      "catalog_presence": "confirmed",
+      "direct_download_url": null,
+      "metadata_url": null,
+      "endpoint_state": "unresolved",
+      "asset_state": "not_inspected",
+      "required_direct_checks": [
+        "URL direta estável",
+        "status HTTP e redirecionamentos",
+        "nome e tamanho do arquivo",
+        "checksum",
+        "CRS",
+        "resolução e grade",
+        "tipo, valores e significado das bandas",
+        "nodata e máscara",
+        "cobertura temporal e territorial",
+        "licença e citação"
+      ]
+    },
+    {
+      "target_id": "PRODES-ASSET-COMPLETE-GPKG",
+      "scientific_target": "PD-PRODES-AMZ-ANNUAL-MAP",
+      "distribution_role": "complete_map_vector",
+      "expected_format": "GeoPackage",
+      "catalog_presence": "confirmed",
+      "direct_download_url": null,
+      "metadata_url": null,
+      "endpoint_state": "unresolved",
+      "asset_state": "not_inspected",
+      "required_direct_checks": [
+        "URL direta estável",
+        "status HTTP e redirecionamentos",
+        "nome e tamanho do arquivo",
+        "checksum",
+        "CRS",
+        "camadas e tipos de geometria",
+        "esquema e semântica dos atributos",
+        "cobertura temporal e territorial",
+        "licença e citação"
+      ]
+    }
+  ],
+  "normalization_rules": [
+    "a página de downloads é catálogo, não ativo nem distribuição direta",
+    "links de metadado e download devem permanecer em papéis distintos",
+    "um formato publicado não comprova CRS, resolução, geometria ou esquema de atributos",
+    "cada URL direta deve ser verificada separadamente e associada a um único papel operacional",
+    "checksums devem ser calculados sobre os bytes efetivamente recuperados, não inferidos de nomes ou datas",
+    "nenhum ativo pode ser promovido enquanto endpoint_state não for verified e asset_state não for inspected"
+  ],
+  "unresolved_before_asset_promotion": [
+    "URLs diretas e estáveis",
+    "metadados específicos de cada ativo",
+    "CRS, resolução, geometria e esquema de atributos",
+    "checksums e tamanhos dos arquivos",
+    "política de substituição e versionamento",
+    "licença e citação por ativo ou release"
+  ]
+}
