@@ -7,6 +7,8 @@ import re
 from pathlib import Path
 from urllib.parse import urlparse
 
+from validate_prodes_amazon_annual_increment_catalog_snapshot_guard import main as validate_annual_increment_snapshot
+
 PATH = Path("database/mappings/prodes_amazon_geopackage_composition_guard_2026.json")
 UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 EXPECTED_ROLES = {
@@ -106,7 +108,8 @@ def main() -> int:
         if token in serialized:
             fail(f"promoção prematura detectada: {token}")
 
-    print("OK: pacote GeoPackage PRODES Amazônia preserva composição, identidade e bloqueios de promoção")
+    validate_annual_increment_snapshot()
+    print("OK: pacote GeoPackage PRODES Amazônia preserva composição, identidade, volatilidade do catálogo e bloqueios de promoção")
     return 0
 
 
