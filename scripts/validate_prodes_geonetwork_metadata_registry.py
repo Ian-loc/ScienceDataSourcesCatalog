@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
 PATH = Path("database/mappings/prodes_geonetwork_metadata_registry_2026.json")
+SCOPE_VALIDATOR = Path("scripts/validate_prodes_scope_alignment_guard.py")
 UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
 EXPECTED_IDS = {
     "b75b83db-8026-43f9-9537-ee1dfa308158",
@@ -81,6 +84,11 @@ def main() -> int:
     for term in ("uuid", "release", "metadado", "ativo", "geopackage"):
         if term not in prohibited:
             fail(f"inferência proibida ausente: {term}")
+
+    if not SCOPE_VALIDATOR.is_file():
+        fail(f"validador territorial ausente: {SCOPE_VALIDATOR}")
+    subprocess.run([sys.executable, str(SCOPE_VALIDATOR)], check=True)
+
     print("OK: UUIDs GeoNetwork PRODES registrados sem promoção prematura de ativos ou releases")
     return 0
 
