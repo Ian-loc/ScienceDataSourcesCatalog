@@ -50,7 +50,9 @@ jobs:
           python3 -m py_compile scripts/enrich_instance1_terraclass.py
           python3 -m py_compile scripts/resolve_instance1_pilot_distributions.py
           python3 -m py_compile scripts/validate_instance1_pilot.py
+          python3 -m py_compile scripts/validate_prodes_product_targets.py
           python3 scripts/load_instance1_staging.py --check-only
+          python3 scripts/validate_prodes_product_targets.py
 
       - name: Validar CSV e gerar artefatos derivados
         run: python3 scripts/build_catalog.py
@@ -200,6 +202,7 @@ jobs:
           python3 scripts/validate_product_catalog.py
           python3 scripts/validate_scientific_direction.py
           python3 scripts/load_instance1_staging.py --check-only
+          python3 scripts/validate_prodes_product_targets.py
           python3 scripts/build_catalog.py
           python3 scripts/audit_link_roles.py
           python3 scripts/validate_frontend.py
