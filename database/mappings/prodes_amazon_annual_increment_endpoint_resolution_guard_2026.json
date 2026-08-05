@@ -1,0 +1,88 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-ANNUAL-INCREMENT-SHP",
+  "scientific_target": "PD-PRODES-AMZ-ANNUAL-MAP",
+  "retrieved_at": "2026-08-05",
+  "timezone": "America/Sao_Paulo",
+  "status": "metadata_resolved_direct_endpoint_blocked",
+  "promotion_authorized": false,
+  "metadata_identifier": "b75b83db-8026-43f9-9537-ee1dfa308158",
+  "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/b75b83db-8026-43f9-9537-ee1dfa308158",
+  "catalog_url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+  "official_record_label": "Incremento anual no desmatamento - Shapefile (desde 2008)",
+  "expected_format": "ESRI Shapefile",
+  "verified_state": {
+    "catalog_presence": true,
+    "metadata_identifier_verified": true,
+    "metadata_ui_url_resolved": true,
+    "metadata_api_response_verified": false,
+    "direct_download_url_verified": false,
+    "redirect_chain_verified": false,
+    "http_asset_status_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "release_resolved": false
+  },
+  "resolution_attempts": [
+    {
+      "endpoint": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/api/records/b75b83db-8026-43f9-9537-ee1dfa308158",
+      "endpoint_role": "geonetwork_record_api",
+      "observed_result": "HTTP 500 Internal Server Error",
+      "result_scope": "retrieval_client_observation",
+      "canonical_asset_evidence": false
+    },
+    {
+      "endpoint": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/b75b83db-8026-43f9-9537-ee1dfa308158",
+      "endpoint_role": "metadata_user_interface",
+      "observed_result": "record identifier and product-component relation discoverable; direct asset URL not recovered",
+      "result_scope": "official_metadata_navigation",
+      "canonical_asset_evidence": false
+    },
+    {
+      "endpoint": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+      "endpoint_role": "official_download_catalog",
+      "observed_result": "distribution listed as Shapefile since 2008; download target not exposed as a stable machine-readable URL in retrieved page content",
+      "result_scope": "official_catalog_snapshot",
+      "canonical_asset_evidence": false
+    }
+  ],
+  "assessment": {
+    "blocker_type": "external_endpoint_resolution",
+    "severity": "medium",
+    "state": "accepted_limitation",
+    "interpretation": "O UUID e a distribuição estão documentados, mas nenhuma URL direta estável foi recuperada e validada. O erro da rota de API não prova indisponibilidade permanente do ativo nem autoriza inferir um endpoint alternativo.",
+    "safe_consequence": "Manter endpoint_state como unresolved, asset_state como not_inspected e impedir promoção do ativo."
+  },
+  "normalization_rules": [
+    "um UUID de metadado não é uma URL direta de download",
+    "uma interface de metadados acessível não comprova que a API pública correspondente esteja operacional",
+    "HTTP 500 em uma rota de API é observação operacional datada e não prova remoção permanente do ativo",
+    "não construir URL de download por adivinhação de padrão de nome ou diretório",
+    "não promover status de endpoint com base apenas na marca Downloadable do catálogo agregado",
+    "endpoint_state deve permanecer unresolved até resposta direta verificável",
+    "asset_state deve permanecer not_inspected até recuperação e inspeção dos bytes",
+    "release_id não pode ser inferido da data exibida no catálogo ou da data da tentativa",
+    "a próxima tentativa deve registrar cadeia de redirecionamentos, status HTTP e identidade dos bytes"
+  ],
+  "required_before_endpoint_resolution": [
+    "URL direta fornecida por fonte oficial ou extraída de resposta oficial verificável",
+    "status HTTP da URL direta",
+    "cadeia completa de redirecionamentos",
+    "Content-Type e Content-Disposition",
+    "nome e tamanho exatos do arquivo",
+    "data e hora da verificação",
+    "evidência de que a URL corresponde ao UUID e ao componente anual",
+    "política de autenticação, se aplicável"
+  ],
+  "required_before_asset_promotion": [
+    "recuperação autorizada dos bytes",
+    "checksum criptográfico",
+    "inventário do pacote Shapefile",
+    "CRS e tipo de geometria",
+    "esquema e semântica dos atributos",
+    "cobertura territorial e temporal",
+    "licença, atribuição e citação aplicáveis ao ativo",
+    "vínculo explícito com produto e release"
+  ]
+}
