@@ -113,6 +113,10 @@ def main() -> int:
             fail(f"promoção ou precisão prematura detectada: {token}")
 
     subprocess.run(
+        [sys.executable, "scripts/validate_prodes_catalog_integrity_guard.py"],
+        check=True,
+    )
+    subprocess.run(
         [sys.executable, "scripts/validate_prodes_asset_endpoint_contract.py"],
         check=True,
     )
