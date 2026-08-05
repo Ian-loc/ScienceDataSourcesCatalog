@@ -7,6 +7,7 @@ import re
 from pathlib import Path
 from urllib.parse import urlparse
 
+from validate_prodes_amazon_accumulated_mask_guard import main as validate_accumulated_mask
 from validate_prodes_amazon_annual_increment_catalog_snapshot_guard import main as validate_annual_increment_snapshot
 from validate_prodes_amazon_annual_increment_endpoint_resolution_guard import main as validate_annual_increment_endpoint
 from validate_prodes_amazon_non_forest_increment_metadata_guard import main as validate_non_forest_increment
@@ -111,6 +112,7 @@ def main() -> int:
         if token in serialized:
             fail(f"promoção prematura detectada: {token}")
 
+    validate_accumulated_mask()
     validate_annual_increment_snapshot()
     validate_annual_increment_endpoint()
     validate_non_forest_increment()
