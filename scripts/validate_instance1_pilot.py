@@ -52,7 +52,7 @@ def main() -> int:
         "dynamic_world_spatial_profiles": 1,
         "dynamic_world_temporal_profiles": 1,
         "dynamic_world_quality_profiles": 1,
-        "dynamic_world_assertions": 6,
+        "dynamic_world_assertions": 15,
         "dynamic_world_citations": 1,
         "terraclass_variables": 1,
         "terraclass_product_variables": 1,
@@ -115,6 +115,45 @@ def main() -> int:
             f"{key}: atual={actual[key]} esperado={expected[key]}"
             for key in expected if actual[key] != expected[key]
         ]
+
+        required_dw_assertions = {
+            "nominal_resolution",
+            "coverage_start",
+            "source_imagery",
+            "class_structure",
+            "uncertainty",
+            "cloud_masking",
+            "validation_design",
+            "overall_agreement_expert_consensus",
+            "nonexpert_to_expert_agreement",
+            "validation_tiles",
+            "expert_consensus_pixels",
+            "grass_agreement_expert_consensus",
+            "crops_agreement_expert_consensus",
+            "merged_grass_shrub_agreement",
+            "validation_limitations",
+        }
+        actual_dw_assertions = {
+            str(row[0])
+            for row in connection.execute(
+                """
+                SELECT field_name FROM catalog.metadata_assertions
+                WHERE entity_stable_id IN ('PR000011','QP-DW-V1','MT-DW-V1')
+                """
+            ).fetchall()
+        }
+        missing_dw_assertions = sorted(required_dw_assertions - actual_dw_assertions)
+        unexpected_dw_assertions = sorted(actual_dw_assertions - required_dw_assertions)
+        if missing_dw_assertions:
+            failures.append(
+                "afirmações Dynamic World obrigatórias ausentes: "
+                + ", ".join(missing_dw_assertions)
+            )
+        if unexpected_dw_assertions:
+            failures.append(
+                "afirmações Dynamic World inesperadas no conjunto validado: "
+                + ", ".join(unexpected_dw_assertions)
+            )
 
         prohibited = scalar(connection, "SELECT count(*) FROM catalog.products WHERE stable_id IN ('DP000007','DP000008','DP000009','DP000010')")
         if prohibited:
