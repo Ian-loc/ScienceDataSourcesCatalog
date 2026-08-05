@@ -1,0 +1,83 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "scientific_target": "PD-PRODES-AMZ-ANNUAL-MAP",
+  "status": "catalog_package_composition_verified",
+  "observed_at": "2026-08-05T15:24:52-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "scope": "Registra a composição declarada do pacote GeoPackage PRODES Amazônia no catálogo oficial, preservando a distinção entre pacote de distribuição, conjuntos de dados componentes, metadados individuais e ativo efetivamente recuperado.",
+  "official_catalog_evidence": {
+    "publisher": "INPE / TerraBrasilis",
+    "catalog_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?any=2025&fast=index",
+    "record_title": "GeoPackage - PRODES Amazônia",
+    "approximate_size": "~820MB",
+    "format": "GeoPackage",
+    "representation_type": "Vector",
+    "update_frequency": "Annually",
+    "observed_catalog_year": 2026,
+    "direct_download_url": null,
+    "checksum": null,
+    "asset_inspected": false
+  },
+  "declared_components": [
+    {
+      "role": "accumulated_native_vegetation_suppression_mask",
+      "metadata_uuid": "c6748fdf-a18e-41b9-a523-ea14bae92602"
+    },
+    {
+      "role": "accumulated_non_forest_suppression_mask",
+      "metadata_uuid": "215be904-3828-41a9-a1bd-c7daa0133944"
+    },
+    {
+      "role": "annual_deforestation_increment",
+      "metadata_uuid": "b75b83db-8026-43f9-9537-ee1dfa308158"
+    },
+    {
+      "role": "annual_non_forest_suppression_increment",
+      "metadata_uuid": "a8208a12-679b-432a-8a47-fc42d2279f9a"
+    },
+    {
+      "role": "annual_deforestation_increment_1_to_6_25_ha",
+      "metadata_uuid": "5f5cfb4c-e207-4932-9c93-2d51cea8adbc"
+    },
+    {
+      "role": "annual_native_vegetation_suppression_residual",
+      "metadata_uuid": "00a728cb-8577-458a-9c38-082c1f3bca9e"
+    },
+    {
+      "role": "annual_non_forest_suppression_residual",
+      "metadata_uuid": "63751b72-3e6a-4d15-8fc0-740e57bbc346"
+    },
+    {
+      "role": "hydrography",
+      "metadata_uuid": "1df78632-68e7-4e91-bca0-25305d3f831e"
+    },
+    {
+      "role": "non_forest_hydrography",
+      "metadata_uuid": "87fb6a32-01c1-4421-b7d0-a93568e1b079"
+    },
+    {
+      "role": "non_forest_mask",
+      "metadata_uuid": "bed1276c-aa3d-4f5b-b560-1879617ef13d"
+    }
+  ],
+  "normalization_rules": [
+    "O GeoPackage é uma forma de distribuição agregada e não substitui a identidade científica dos conjuntos de dados componentes.",
+    "Cada componente mantém seu próprio UUID de metadado e deve preservar semântica, escopo, temporalidade e proveniência individuais.",
+    "O tamanho aproximado declarado no catálogo não constitui tamanho de bytes verificado.",
+    "A presença de ação classificável como downloadable no catálogo não constitui URL direta estável verificada.",
+    "A composição declarada não comprova nomes de camadas, CRS, geometria, esquema de atributos, checksum ou integridade dos bytes.",
+    "A frequência anual do registro de catálogo não constitui identificador de release nem política de versionamento do arquivo.",
+    "O pacote não pode ser promovido como ativo inspecionado antes da recuperação direta e validação de seus bytes e estrutura interna."
+  ],
+  "required_before_asset_promotion": [
+    "resolver URL direta estável e redirecionamentos",
+    "recuperar o pacote e registrar nome, tamanho em bytes e checksum",
+    "inspecionar tabelas/camadas, CRS e tipos de geometria",
+    "validar esquema e semântica dos atributos por componente",
+    "confirmar cobertura territorial e temporal",
+    "registrar licença, atribuição e citação aplicáveis",
+    "vincular o ativo ao produto e release corretos sem herança indevida"
+  ]
+}
