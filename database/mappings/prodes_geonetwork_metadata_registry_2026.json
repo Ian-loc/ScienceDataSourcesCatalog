@@ -1,0 +1,124 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "status": "verified_metadata_identifiers_pre_promotion",
+  "observed_at": "2026-08-05T07:21:41-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "catalog": {
+    "name": "TerraBrasilis GeoNetwork",
+    "operator": "Instituto Nacional de Pesquisas Espaciais",
+    "base_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/",
+    "role": "metadata_catalog"
+  },
+  "records": [
+    {
+      "record_id": "PRODES-AMZ-INCREMENT-METADATA",
+      "uuid": "b75b83db-8026-43f9-9537-ee1dfa308158",
+      "title": "Incremento anual no desmatamento",
+      "scientific_object": "incremento anual de supressão da vegetação nativa no domínio PRODES Amazônia",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/b75b83db-8026-43f9-9537-ee1dfa308158",
+      "expected_distribution_role": "annual_increment_vector",
+      "format_context": ["Shapefile", "GeoPackage"],
+      "verification_state": "metadata_identifier_verified",
+      "asset_state": "not_downloaded",
+      "direct_download_url": null,
+      "checksum_sha256": null,
+      "release_id": null
+    },
+    {
+      "record_id": "PRODES-AMZ-SMALL-INCREMENT-METADATA",
+      "uuid": "5f5cfb4c-e207-4932-9c93-2d51cea8adbc",
+      "title": "Incremento anual de desmatamento entre 1 e 6,25 ha",
+      "scientific_object": "distribuição complementar de polígonos anuais entre 1 e 6,25 ha",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/5f5cfb4c-e207-4932-9c93-2d51cea8adbc",
+      "expected_distribution_role": "small_polygon_increment_vector",
+      "format_context": ["Shapefile", "GeoPackage"],
+      "verification_state": "metadata_identifier_verified",
+      "asset_state": "not_downloaded",
+      "direct_download_url": null,
+      "checksum_sha256": null,
+      "release_id": null
+    },
+    {
+      "record_id": "PRODES-AMZ-ACCUMULATED-MASK-METADATA",
+      "uuid": "c6748fdf-a18e-41b9-a523-ea14bae92602",
+      "title": "Máscara de área acumulada de supressão da vegetação nativa",
+      "scientific_object": "máscara acumulada de supressão da vegetação nativa",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/c6748fdf-a18e-41b9-a523-ea14bae92602",
+      "expected_distribution_role": "complete_map_vector_component",
+      "format_context": ["GeoPackage"],
+      "verification_state": "metadata_identifier_verified",
+      "asset_state": "not_downloaded",
+      "direct_download_url": null,
+      "checksum_sha256": null,
+      "release_id": null
+    },
+    {
+      "record_id": "PRODES-AMZ-RESIDUE-METADATA",
+      "uuid": "00a728cb-8577-458a-9c38-082c1f3bca9e",
+      "title": "Resíduo anual na supressão da vegetação nativa",
+      "scientific_object": "resíduo anual de supressão da vegetação nativa",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/00a728cb-8577-458a-9c38-082c1f3bca9e",
+      "expected_distribution_role": "complete_map_vector_component",
+      "format_context": ["GeoPackage"],
+      "verification_state": "metadata_identifier_verified",
+      "asset_state": "not_downloaded",
+      "direct_download_url": null,
+      "checksum_sha256": null,
+      "release_id": null
+    },
+    {
+      "record_id": "PRODES-AMZ-HYDROGRAPHY-METADATA",
+      "uuid": "1df78632-68e7-4e91-bca0-25305d3f831e",
+      "title": "Hidrografia",
+      "scientific_object": "componente hidrográfico de apoio ao produto PRODES Amazônia",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/1df78632-68e7-4e91-bca0-25305d3f831e",
+      "expected_distribution_role": "complete_map_vector_component",
+      "format_context": ["GeoPackage"],
+      "verification_state": "metadata_identifier_verified",
+      "asset_state": "not_downloaded",
+      "direct_download_url": null,
+      "checksum_sha256": null,
+      "release_id": null
+    },
+    {
+      "record_id": "PRODES-AMZ-NONFOREST-METADATA",
+      "uuid": "bed1276c-aa3d-4f5b-b560-1879617ef13d",
+      "title": "Não Floresta",
+      "scientific_object": "máscara de áreas classificadas como não floresta no contexto PRODES Amazônia",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/bed1276c-aa3d-4f5b-b560-1879617ef13d",
+      "expected_distribution_role": "complete_map_vector_component",
+      "format_context": ["GeoPackage"],
+      "verification_state": "metadata_identifier_verified",
+      "asset_state": "not_downloaded",
+      "direct_download_url": null,
+      "checksum_sha256": null,
+      "release_id": null
+    }
+  ],
+  "resolved_findings": [
+    "O GeoPackage agregado é uma embalagem operacional composta por múltiplos objetos e classes documentados por registros de metadados específicos.",
+    "O registro de incremento anual é distinto do registro complementar de polígonos entre 1 e 6,25 ha.",
+    "UUID de metadado não é identificador de release nem checksum do ativo.",
+    "A presença de um formato no catálogo não comprova CRS, geometria, esquema de atributos ou estabilidade do endpoint de download."
+  ],
+  "unresolved_before_asset_promotion": [
+    "URL direta e estável de download por distribuição",
+    "resposta HTTP, redirecionamentos e tipo de conteúdo",
+    "bytes recuperados e checksum SHA-256",
+    "CRS e extensão espacial",
+    "tipo e validade das geometrias",
+    "contrato de campos e domínios de valores",
+    "data e identificador formal do release",
+    "licença aplicável ao ativo",
+    "citação específica do produto ou release"
+  ],
+  "prohibited_inferences": [
+    "Não tratar UUID do GeoNetwork como release_id.",
+    "Não tratar página de metadado como URL direta do ativo.",
+    "Não inferir propriedades geoespaciais somente pelo nome do formato.",
+    "Não interpretar o GeoPackage agregado como um único objeto científico homogêneo.",
+    "Não promover ativo sem recuperar e inspecionar os bytes correspondentes."
+  ]
+}
