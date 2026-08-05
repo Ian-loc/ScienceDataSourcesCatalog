@@ -233,6 +233,7 @@ def reconcile_asset(connection, contract: dict[str, Any]) -> None:
             updated_at=now()
         """,
         (
+            pk,
             canonical["catalog_url"],
             canonical["asset_id"],
             (
@@ -409,7 +410,7 @@ def main() -> int:
         reconcile_asset(connection, contract)
         reconcile_evidence(connection, contract)
         update_review(connection)
-        validate(connection)
+        validate(connection, contract)
 
     print("OK: contrato operacional Dynamic World reconciliado com o catálogo normalizado")
     return 0
