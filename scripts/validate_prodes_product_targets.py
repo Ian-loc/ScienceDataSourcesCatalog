@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse
 
+from validate_prodes_amazon_geopackage_composition_guard import main as validate_geopackage_composition
 from validate_prodes_operational_evidence import main as validate_operational_evidence
 
 PATH = Path("database/mappings/prodes_product_targets.json")
@@ -199,7 +200,8 @@ def main() -> int:
 
     validate_current_temporal_cycle_guard(targets)
     validate_operational_evidence()
-    print("OK: PRODES separado em mapa e taxa, com evidências oficiais, portão temporal vigente, operação validada e promoção bloqueada")
+    validate_geopackage_composition()
+    print("OK: PRODES separado em mapa e taxa, com evidências oficiais, portões temporal e de pacote, operação validada e promoção bloqueada")
     return 0
 
 
