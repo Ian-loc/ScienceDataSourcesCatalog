@@ -47,6 +47,7 @@ jobs:
           python3 -m py_compile scripts/validate_instance1_database.py
           python3 -m py_compile scripts/promote_instance1_pilot.py
           python3 -m py_compile scripts/enrich_instance1_dynamic_world.py
+          python3 -m py_compile scripts/enrich_instance1_dynamic_world_validation.py
           python3 -m py_compile scripts/enrich_instance1_terraclass.py
           python3 -m py_compile scripts/resolve_instance1_pilot_distributions.py
           python3 -m py_compile scripts/validate_instance1_pilot.py
@@ -167,6 +168,8 @@ jobs:
         run: |
           python3 scripts/enrich_instance1_dynamic_world.py
           python3 scripts/enrich_instance1_dynamic_world.py
+          python3 scripts/enrich_instance1_dynamic_world_validation.py
+          python3 scripts/enrich_instance1_dynamic_world_validation.py
 
       - name: Enriquecer TerraClass Amazônia 2020
         run: |
