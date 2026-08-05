@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "family_stable_id": "PF000001",
   "status": "pre_promotion_asset_resolution",
   "retrieved_at": "2026-08-05",
@@ -23,7 +23,8 @@
       "expected_format": "Shapefile",
       "catalog_presence": "confirmed",
       "direct_download_url": null,
-      "metadata_url": null,
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/b75b83db-8026-43f9-9537-ee1dfa308158",
+      "metadata_state": "verified_metadata_identifier",
       "endpoint_state": "unresolved",
       "asset_state": "not_inspected",
       "required_direct_checks": [
@@ -45,7 +46,8 @@
       "expected_format": "Shapefile",
       "catalog_presence": "confirmed",
       "direct_download_url": null,
-      "metadata_url": null,
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/5f5cfb4c-e207-4932-9c93-2d51cea8adbc",
+      "metadata_state": "verified_metadata_identifier",
       "endpoint_state": "unresolved",
       "asset_state": "not_inspected",
       "required_direct_checks": [
@@ -68,6 +70,7 @@
       "catalog_presence": "confirmed",
       "direct_download_url": null,
       "metadata_url": null,
+      "metadata_state": "unresolved",
       "endpoint_state": "unresolved",
       "asset_state": "not_inspected",
       "required_direct_checks": [
@@ -91,6 +94,7 @@
       "catalog_presence": "confirmed",
       "direct_download_url": null,
       "metadata_url": null,
+      "metadata_state": "unresolved",
       "endpoint_state": "unresolved",
       "asset_state": "not_inspected",
       "required_direct_checks": [
@@ -109,6 +113,7 @@
   "normalization_rules": [
     "a página de downloads é catálogo, não ativo nem distribuição direta",
     "links de metadado e download devem permanecer em papéis distintos",
+    "UUID e URL de metadado verificados não constituem endpoint direto, release ou ativo inspecionado",
     "um formato publicado não comprova CRS, resolução, geometria ou esquema de atributos",
     "cada URL direta deve ser verificada separadamente e associada a um único papel operacional",
     "checksums devem ser calculados sobre os bytes efetivamente recuperados, não inferidos de nomes ou datas",
@@ -116,7 +121,7 @@
   ],
   "unresolved_before_asset_promotion": [
     "URLs diretas e estáveis",
-    "metadados específicos de cada ativo",
+    "metadados específicos dos pacotes completos GeoTIFF e GeoPackage",
     "CRS, resolução, geometria e esquema de atributos",
     "checksums e tamanhos dos arquivos",
     "política de substituição e versionamento",
