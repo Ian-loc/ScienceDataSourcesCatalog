@@ -49,15 +49,28 @@
     },
     {
       "source_id": "PRODES-EV-004",
-      "url": "https://www.gov.br/aeb/pt-br/assuntos/noticias/inpe-divulga-resultado-final-do-projeto-prodes-2013/",
-      "publisher": "Agência Espacial Brasileira / INPE",
+      "url": "https://www.gov.br/aeb/pt-br/assuntos/noticias/desmatamento-na-amazonia-legal-cai-82-em-dez-anos/",
+      "publisher": "Agência Espacial Brasileira / MCTI / INPE",
       "evidence_type": "official_historical_release",
       "supports": [
         "período anual de agosto a julho",
         "unidade de reporte km²/ano",
-        "área mínima histórica de 6,25 ha para corte raso"
+        "área mínima histórica de 6,25 ha para corte raso",
+        "taxa consolidada usa mais cenas do que a estimativa preliminar"
       ],
       "currentness_caution": "Evidência histórica; unidade mínima deve ser confirmada na metodologia vigente antes da promoção de release atual."
+    },
+    {
+      "source_id": "PRODES-EV-005",
+      "url": "https://www.gov.br/mma/pt-br/noticias/noticia-acom-2017-08-2529",
+      "publisher": "Ministério do Meio Ambiente / INPE",
+      "evidence_type": "official_release_notice",
+      "supports": [
+        "taxa preliminar e taxa consolidada são estados distintos do resultado anual",
+        "o valor consolidado pode diferir do valor estimado",
+        "a consolidação ocorre após processamento adicional"
+      ],
+      "currentness_caution": "A notícia comprova a distinção operacional entre estimativa e consolidação, mas não define sozinha o procedimento vigente completo."
     }
   ],
   "targets": [
@@ -134,7 +147,11 @@
         "measurement_unit": "km²/ano",
         "territorial_levels": ["Amazônia Legal", "estado"],
         "series_start": 1988,
-        "derivation": "estimativa algorítmica baseada nos incrementos de desmatamento e informações auxiliares"
+        "derivation": "estimativa algorítmica baseada nos incrementos de desmatamento e informações auxiliares",
+        "result_states": ["preliminary_estimate", "consolidated_rate"],
+        "preliminary_estimate_semantics": "resultado anual antecipado produzido com subconjunto priorizado de imagens; não substitui a taxa consolidada",
+        "consolidated_rate_semantics": "resultado anual final após processamento mais completo e revisão; integra a série histórica oficial",
+        "revision_relation": "a taxa consolidada pode diferir da estimativa preliminar e deve substituí-la como estado final do mesmo ciclo anual"
       },
       "evidence_findings": [
         {
@@ -160,12 +177,24 @@
           "value": "1 de agosto a 31 de julho",
           "source_ids": ["PRODES-EV-004"],
           "confidence": "high"
+        },
+        {
+          "field": "result_states",
+          "value": ["preliminary_estimate", "consolidated_rate"],
+          "source_ids": ["PRODES-EV-004", "PRODES-EV-005"],
+          "confidence": "high"
+        },
+        {
+          "field": "revision_relation",
+          "value": "taxa consolidada substitui a estimativa preliminar como resultado final do ciclo anual",
+          "source_ids": ["PRODES-EV-005"],
+          "confidence": "high"
         }
       ],
       "required_evidence_before_promotion": [
         "procedimento de estimação vigente e versão",
-        "regras de extrapolação para áreas não observadas",
-        "regras de revisão entre estimativa e taxa consolidada",
+        "regras vigentes para cobertura incompleta e áreas não observadas",
+        "calendário operacional atual de publicação da estimativa e da consolidação",
         "distribuição estatística oficial e contrato de campos",
         "identificador e data do release",
         "licença e citação específicas"
@@ -173,8 +202,8 @@
       "unknown_fields": [
         "release_identifier",
         "current_estimation_algorithm_version",
-        "unobserved_area_adjustment",
-        "revision_policy",
+        "current_unobserved_area_adjustment",
+        "current_publication_calendar",
         "official_statistics_endpoint",
         "specific_license",
         "specific_citation"
@@ -184,6 +213,7 @@
         "taxa mensal",
         "alerta operacional",
         "probabilidade pixel a pixel",
+        "estimativa preliminar tratada como valor consolidado",
         "indicador municipal, de unidade de conservação ou de terra indígena produzido diretamente pelo PRODES"
       ]
     }
