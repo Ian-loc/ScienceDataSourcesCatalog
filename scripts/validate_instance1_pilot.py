@@ -39,7 +39,7 @@ def main() -> int:
         "releases": 2,
         "distributions": 5,
         "capabilities": 17,
-        "base_product_assertions": 6,
+        "base_product_assertions": 7,
         "reviews": 2,
         "migrated_product_rows": 7,
         "mapped_product_rows": 4,
