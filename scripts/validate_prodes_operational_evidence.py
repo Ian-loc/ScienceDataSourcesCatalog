@@ -121,6 +121,10 @@ def main() -> int:
         check=True,
     )
     subprocess.run(
+        [sys.executable, "scripts/validate_prodes_release_volatility_guard.py"],
+        check=True,
+    )
+    subprocess.run(
         [sys.executable, "scripts/validate_prodes_asset_endpoint_contract.py"],
         check=True,
     )
