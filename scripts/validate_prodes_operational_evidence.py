@@ -117,6 +117,10 @@ def main() -> int:
         check=True,
     )
     subprocess.run(
+        [sys.executable, "scripts/validate_prodes_geonetwork_metadata_registry.py"],
+        check=True,
+    )
+    subprocess.run(
         [sys.executable, "scripts/validate_prodes_asset_endpoint_contract.py"],
         check=True,
     )
