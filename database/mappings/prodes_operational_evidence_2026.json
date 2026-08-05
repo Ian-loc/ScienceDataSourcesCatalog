@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "family_stable_id": "PF000001",
   "status": "pre_promotion_evidence",
   "retrieved_at": "2026-08-05",
@@ -46,6 +46,24 @@
         "a página não especifica integralmente o ajuste atual para áreas não observadas",
         "a descrição de calendário é geral e não substitui datas oficiais de cada ciclo"
       ]
+    },
+    {
+      "evidence_id": "PRODES-OP-EV-003",
+      "url": "https://terrabrasilis.dpi.inpe.br/en/data-access/",
+      "publisher": "INPE / TerraBrasilis",
+      "evidence_type": "official_update_notice",
+      "observed_state": "active",
+      "observed_on": "2026-08-05",
+      "supports": [
+        "o Programa BiomasBR atualizou em 3 de março de 2026 os dados anuais de monitoramento da supressão da vegetação nativa no Brasil",
+        "o aviso declara que a atualização afeta todos os arquivos relacionados à supressão da vegetação nativa",
+        "o aviso recomenda que usuários atualizem suas bases locais"
+      ],
+      "limitations": [
+        "o aviso não fornece identificador formal, checksum ou inventário por ativo",
+        "o aviso não comprova que todas as distribuições PRODES Amazônia compartilham a mesma versão ou data de bytes",
+        "datas posteriores exibidas no catálogo podem representar substituições ou atualizações adicionais por distribuição"
+      ]
     }
   ],
   "resolved_operational_findings": {
@@ -82,6 +100,13 @@
       "resolved_statement": "a seleção combinada de imagens busca minimizar o problema de cobertura de nuvens",
       "evidence_ids": ["PRODES-OP-EV-002"],
       "not_resolved": "regra quantitativa vigente de ajuste da taxa para áreas não observadas"
+    },
+    "catalog_update_notice": {
+      "announced_update_date": "2026-03-03",
+      "announced_scope": "arquivos relacionados ao monitoramento anual da supressão da vegetação nativa no Brasil",
+      "recommended_user_action": "atualizar bases locais",
+      "evidence_ids": ["PRODES-OP-EV-003"],
+      "interpretation": "o aviso é um evento oficial de atualização e proveniência, mas não constitui identificador de release nem prova equivalência temporal ou binária entre ativos"
     }
   },
   "unresolved_before_promotion": [
@@ -99,6 +124,7 @@
     "inferir CRS ou contrato de campos apenas pelo formato do arquivo",
     "tratar polígonos de 1 a 6,25 ha como prova da unidade mínima vigente do produto principal",
     "modelar estimativa preliminar e taxa consolidada como séries científicas independentes sem relação de revisão",
-    "preencher ajuste de áreas não observadas sem documentação metodológica vigente"
+    "preencher ajuste de áreas não observadas sem documentação metodológica vigente",
+    "tratar o aviso de atualização de 3 de março de 2026 como release_id comum a todos os ativos"
   ]
 }
