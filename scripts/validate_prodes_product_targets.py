@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 from validate_prodes_operational_evidence import main as validate_operational_evidence
 
 PATH = Path("database/mappings/prodes_product_targets.json")
+TEMPORAL_GUARD_PATH = Path("database/mappings/prodes_current_temporal_cycle_guard_2026.json")
 EXPECTED_TYPES = {"map_series", "indicator_series"}
 ALLOWED_CONFIDENCE = {"high", "medium", "low", "historical_only"}
 REQUIRED_TARGET_FIELDS = {
@@ -27,6 +28,56 @@ def require_non_empty_list(candidate_id: str, target: dict, field: str) -> list:
     if not isinstance(value, list) or not value:
         fail(f"{candidate_id}: {field} deve ser lista não vazia")
     return value
+
+
+def validate_current_temporal_cycle_guard(targets: list[dict]) -> None:
+    if not TEMPORAL_GUARD_PATH.is_file():
+        fail(f"portão temporal vigente ausente: {TEMPORAL_GUARD_PATH}")
+
+    guard = json.loads(TEMPORAL_GUARD_PATH.read_text(encoding="utf-8"))
+    if guard.get("family_stable_id") != "PF000001":
+        fail("portão temporal deve permanecer vinculado à família PF000001")
+    if guard.get("status") != "current_method_confirmation_required":
+        fail("portão temporal deve exigir confirmação da metodologia vigente")
+    if guard.get("promotion_authorized") is not False:
+        fail("portão temporal não pode autorizar promoção")
+    if guard.get("timezone") != "America/Sao_Paulo":
+        fail("timezone do portão temporal deve ser America/Sao_Paulo")
+
+    affected = guard.get("affected_targets")
+    if not isinstance(affected, list) or len(affected) != 2:
+        fail("portão temporal deve abranger exatamente os dois produtos-alvo iniciais")
+
+    target_ids = {target["candidate_stable_id"] for target in targets}
+    guarded_ids: set[str] = set()
+    for item in affected:
+        candidate_id = item.get("candidate_stable_id")
+        if candidate_id not in target_ids:
+            fail(f"portão temporal referencia produto-alvo inexistente: {candidate_id}")
+        if candidate_id in guarded_ids:
+            fail(f"produto-alvo duplicado no portão temporal: {candidate_id}")
+        guarded_ids.add(candidate_id)
+        if item.get("field") != "temporal_cycle":
+            fail(f"{candidate_id}: portão deve atuar sobre temporal_cycle")
+        if item.get("current_evidence_state") != "historical_only":
+            fail(f"{candidate_id}: evidência atual deve permanecer historical_only")
+        if item.get("promotion_state") != "blocked_pending_current_method_confirmation":
+            fail(f"{candidate_id}: temporal_cycle deve permanecer bloqueado para promoção")
+
+    if guarded_ids != target_ids:
+        fail("portão temporal deve cobrir mapa anual e taxa anual")
+
+    evidence = guard.get("evidence")
+    if not isinstance(evidence, list) or not evidence:
+        fail("portão temporal deve registrar evidência")
+    for record in evidence:
+        if record.get("supports_current_method_contract") is not False:
+            fail("evidência histórica não pode declarar suporte ao método vigente")
+
+    for field in ("required_resolution", "normalization_rules", "prohibited_inferences"):
+        value = guard.get(field)
+        if not isinstance(value, list) or not value:
+            fail(f"portão temporal deve possuir {field} não vazio")
 
 
 def main() -> int:
@@ -146,8 +197,9 @@ def main() -> int:
         if token in serialized:
             fail(f"promoção prematura detectada: {token}")
 
+    validate_current_temporal_cycle_guard(targets)
     validate_operational_evidence()
-    print("OK: PRODES separado em mapa e taxa, com evidências oficiais, operação validada e promoção bloqueada")
+    print("OK: PRODES separado em mapa e taxa, com evidências oficiais, portão temporal vigente, operação validada e promoção bloqueada")
     return 0
 
 
