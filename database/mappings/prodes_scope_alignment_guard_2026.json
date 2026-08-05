@@ -1,0 +1,53 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "observed_at": "2026-08-05T08:24:18-03:00",
+  "timezone": "America/Sao_Paulo",
+  "status": "scope_mismatch_blocked",
+  "promotion_authorized": false,
+  "target_contract": {
+    "path": "database/mappings/prodes_product_targets.json",
+    "candidate_stable_ids": [
+      "PD-PRODES-AMZ-ANNUAL-MAP",
+      "PD-PRODES-AMZ-ANNUAL-RATE"
+    ],
+    "monitoring_domain": "Amazônia Legal"
+  },
+  "metadata_registry": {
+    "path": "database/mappings/prodes_geonetwork_metadata_registry_2026.json",
+    "catalog_title": "GeoPackage - PRODES Amazônia",
+    "interpreted_domain": "Bioma Amazônia",
+    "domain_evidence": "O catálogo oficial mantém registros distintos intitulados 'GeoPackage - PRODES Amazônia' e 'GeoPackage - PRODES Amazônia Legal', com conjuntos próprios de UUIDs.",
+    "compatibility_with_target_contract": false
+  },
+  "distinct_official_packages": [
+    {
+      "title": "GeoPackage - PRODES Amazônia",
+      "scope": "Bioma Amazônia",
+      "example_increment_uuid": "b75b83db-8026-43f9-9537-ee1dfa308158"
+    },
+    {
+      "title": "GeoPackage - PRODES Amazônia Legal",
+      "scope": "Amazônia Legal",
+      "example_increment_uuid": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"
+    }
+  ],
+  "required_corrections_before_linkage": [
+    "Não vincular os UUIDs do pacote PRODES Amazônia aos produtos-alvo definidos para Amazônia Legal.",
+    "Enumerar e inspecionar separadamente os registros do pacote PRODES Amazônia Legal.",
+    "Definir nomes e identificadores sem ambiguidade territorial, distinguindo Bioma Amazônia de Amazônia Legal.",
+    "Validar extensão, máscara de monitoramento, método, temporalidade e distribuições em cada domínio antes da promoção."
+  ],
+  "prohibited_inferences": [
+    "Não tratar 'Amazônia' e 'Amazônia Legal' como sinônimos.",
+    "Não reutilizar UUID, endpoint, release ou propriedades de um domínio no outro.",
+    "Não promover os seis registros atuais como evidência operacional dos produtos-alvo da Amazônia Legal.",
+    "Não inferir compatibilidade territorial apenas pela presença da sigla AMZ em identificadores internos."
+  ],
+  "residual_work": [
+    "Registrar o conjunto completo de UUIDs específicos da Amazônia Legal.",
+    "Revisar o identificador interno AMZ para eliminar ambiguidade entre bioma e Amazônia Legal.",
+    "Decidir se o piloto inclui um ou dois produtos cartográficos territoriais separados.",
+    "Somente após essa resolução, prosseguir para endpoints, bytes, checksums e inspeção geoespacial."
+  ]
+}
