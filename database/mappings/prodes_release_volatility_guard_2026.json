@@ -1,0 +1,66 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "status": "observed_catalog_state_pre_promotion",
+  "observed_at": "2026-08-05T09:21:31-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "source": {
+    "name": "TerraBrasilis Downloads",
+    "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+    "role": "download_catalog",
+    "trust_scope": "human-observed release recency and distribution labels only"
+  },
+  "observations": [
+    {
+      "distribution_role": "annual_increment_vector",
+      "catalog_label": "Incremento anual no desmatamento - Shapefile (desde 2008)",
+      "catalog_last_update": "2026-07-20",
+      "release_identity_state": "unresolved",
+      "direct_asset_state": "not_verified"
+    },
+    {
+      "distribution_role": "small_polygon_increment_vector",
+      "catalog_label": "Incremento anual no desmatamento (polígonos com área entre 1 e 6,25 ha) - Shapefile",
+      "catalog_last_update": "2026-07-20",
+      "release_identity_state": "unresolved",
+      "direct_asset_state": "not_verified"
+    },
+    {
+      "distribution_role": "complete_map_raster",
+      "catalog_label": "PRODES completo em formato matricial - GeoTIFF",
+      "catalog_last_update": "2026-04-07",
+      "release_identity_state": "unresolved",
+      "direct_asset_state": "not_verified"
+    },
+    {
+      "distribution_role": "complete_map_vector",
+      "catalog_label": "PRODES completo em formato vetorial - GeoPackage",
+      "catalog_last_update": "2026-07-20",
+      "release_identity_state": "unresolved",
+      "direct_asset_state": "not_verified"
+    }
+  ],
+  "resolved_findings": [
+    "As distribuições PRODES Amazônia não compartilham necessariamente a mesma data de atualização operacional.",
+    "A data exibida no catálogo é propriedade da distribuição observada e não comprova, isoladamente, um release científico comum.",
+    "Atualizações de arquivo podem ocorrer depois da publicação anual e exigem identificação e versionamento por ativo.",
+    "O mosaico Brasil e os recortes por bioma podem possuir calendários independentes e não devem ser sincronizados por suposição."
+  ],
+  "required_before_release_promotion": [
+    "identificador formal ou versão verificável do release",
+    "URL direta do ativo específico",
+    "data de recuperação e resposta HTTP",
+    "checksum SHA-256 dos bytes recuperados",
+    "relação explícita entre produto, release, distribuição e ativo",
+    "política documentada de substituição ou atualização",
+    "licença e citação aplicáveis ao ativo"
+  ],
+  "prohibited_inferences": [
+    "Não usar a data de atualização do catálogo como release_id.",
+    "Não atribuir uma data única a todas as distribuições da família PRODES.",
+    "Não considerar arquivos com datas diferentes como bytes equivalentes ou integrantes comprovados do mesmo release.",
+    "Não promover ativo somente porque o rótulo e a data aparecem no catálogo agregador.",
+    "Não generalizar o calendário do recorte Amazônia para PRODES Brasil ou outros biomas."
+  ]
+}
