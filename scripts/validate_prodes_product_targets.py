@@ -142,7 +142,10 @@ def main() -> int:
         fail("níveis territoriais da taxa devem ser Amazônia Legal e estado")
     if rate_fields.get("series_start") != 1988:
         fail("série de taxas deve iniciar em 1988")
-    if "município" not in " ".join(rate_target["non_representations"]).lower():
+
+    non_representations_text = " ".join(rate_target["non_representations"]).casefold()
+    municipal_exclusion_terms = ("município", "municipio", "municipal")
+    if not any(term in non_representations_text for term in municipal_exclusion_terms):
         fail("taxa deve excluir interpretação como indicador municipal direto")
 
     serialized = PATH.read_text(encoding="utf-8")
