@@ -1,25 +1,20 @@
 #!/usr/bin/env python3
-"""Validate the pre-promotion resolution contract for the PRODES family."""
+"""Validate the pre-promotion resolution contracts for the PRODES family."""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 from urllib.parse import urlparse
 
+from validate_prodes_operational_evidence import main as validate_operational_evidence
+
 PATH = Path("database/mappings/prodes_product_targets.json")
 EXPECTED_TYPES = {"map_series", "indicator_series"}
 ALLOWED_CONFIDENCE = {"high", "medium", "low", "historical_only"}
 REQUIRED_TARGET_FIELDS = {
-    "candidate_stable_id",
-    "name_pt",
-    "product_type",
-    "scientific_object",
-    "support_type",
-    "resolved_fields",
-    "evidence_findings",
-    "required_evidence_before_promotion",
-    "unknown_fields",
-    "non_representations",
+    "candidate_stable_id", "name_pt", "product_type", "scientific_object",
+    "support_type", "resolved_fields", "evidence_findings",
+    "required_evidence_before_promotion", "unknown_fields", "non_representations",
 }
 
 
@@ -129,7 +124,6 @@ def main() -> int:
     by_type = {target["product_type"]: target for target in targets}
     map_target = by_type["map_series"]
     rate_target = by_type["indicator_series"]
-
     if map_target["resolved_fields"].get("historical_availability") != "incrementos anuais individualizados a partir de 2008; 1988–2007 agregados":
         fail("contrato cartográfico deve preservar a descontinuidade histórica 1988–2007/2008+")
     if "current_minimum_mapping_unit" not in map_target["unknown_fields"]:
@@ -144,17 +138,16 @@ def main() -> int:
         fail("série de taxas deve iniciar em 1988")
 
     non_representations_text = " ".join(rate_target["non_representations"]).casefold()
-    municipal_exclusion_terms = ("município", "municipio", "municipal")
-    if not any(term in non_representations_text for term in municipal_exclusion_terms):
+    if not any(term in non_representations_text for term in ("município", "municipio", "municipal")):
         fail("taxa deve excluir interpretação como indicador municipal direto")
 
     serialized = PATH.read_text(encoding="utf-8")
-    forbidden = ("release_id\"", "promotion_authorized\": true")
-    for token in forbidden:
+    for token in ("release_id\"", "promotion_authorized\": true"):
         if token in serialized:
             fail(f"promoção prematura detectada: {token}")
 
-    print("OK: PRODES separado em mapa e taxa, com evidências oficiais e promoção bloqueada")
+    validate_operational_evidence()
+    print("OK: PRODES separado em mapa e taxa, com evidências oficiais, operação validada e promoção bloqueada")
     return 0
 
 
