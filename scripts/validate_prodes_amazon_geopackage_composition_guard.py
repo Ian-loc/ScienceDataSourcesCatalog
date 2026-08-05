@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 from validate_prodes_amazon_annual_increment_catalog_snapshot_guard import main as validate_annual_increment_snapshot
 from validate_prodes_amazon_annual_increment_endpoint_resolution_guard import main as validate_annual_increment_endpoint
 from validate_prodes_amazon_non_forest_increment_metadata_guard import main as validate_non_forest_increment
+from validate_prodes_amazon_small_polygon_increment_guard import main as validate_small_polygon_increment
 
 PATH = Path("database/mappings/prodes_amazon_geopackage_composition_guard_2026.json")
 UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
@@ -113,6 +114,7 @@ def main() -> int:
     validate_annual_increment_snapshot()
     validate_annual_increment_endpoint()
     validate_non_forest_increment()
+    validate_small_polygon_increment()
     print("OK: pacote GeoPackage PRODES Amazônia preserva composição e fronteiras científicas sem promoção prematura")
     return 0
 
