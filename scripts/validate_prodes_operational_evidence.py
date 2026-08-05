@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -110,6 +112,10 @@ def main() -> int:
         if token in serialized:
             fail(f"promoção ou precisão prematura detectada: {token}")
 
+    subprocess.run(
+        [sys.executable, "scripts/validate_prodes_asset_endpoint_contract.py"],
+        check=True,
+    )
     print("OK: evidência operacional PRODES validada sem promoção ou extrapolação metodológica")
     return 0
 
