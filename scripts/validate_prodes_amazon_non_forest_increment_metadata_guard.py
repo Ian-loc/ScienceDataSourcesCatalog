@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 
 PATH = Path("database/mappings/prodes_amazon_non_forest_increment_metadata_guard_2026.json")
 EXPECTED_UUID = "a8208a12-679b-432a-8a47-fc42d2279f9a"
+EXPECTED_IBI = "sid.inpe.br/mtc-m21d/2022/08.25.11.46-NTC"
 
 
 def fail(message: str) -> None:
@@ -34,7 +35,7 @@ def main() -> int:
         fail("candidato a produto inesperado")
     if data.get("parent_package_asset_id") != "PRODES-ASSET-AMAZON-GEOPACKAGE":
         fail("pacote agregador inesperado")
-    if data.get("status") != "metadata_identity_and_temporal_profile_verified_endpoint_unresolved":
+    if data.get("status") != "metadata_identity_temporal_profile_and_base_method_verified_endpoint_unresolved":
         fail("estado curatorial inesperado")
     if data.get("timezone") != "America/Sao_Paulo":
         fail("timezone deve ser America/Sao_Paulo")
@@ -64,8 +65,19 @@ def main() -> int:
         fail("methodological_profile deve ser objeto")
     if method.get("method_reference_in_metadata") != "Almeida et al. 2022":
         fail("referência metodológica declarada divergente")
-    if method.get("method_reference_fully_resolved") is not False:
-        fail("referência metodológica ainda não pode ser considerada resolvida")
+    if method.get("base_method_reference_resolved") is not True:
+        fail("metodologia-base Almeida et al. 2022 deve permanecer resolvida")
+    if method.get("adaptations_specific_method_document_resolved") is not False:
+        fail("adaptações específicas ainda não podem ser consideradas resolvidas")
+    if method.get("base_method_ibi") != EXPECTED_IBI:
+        fail("IBI da metodologia-base divergente")
+    if "Metodologia utilizada nos sistemas Prodes e Deter" not in str(method.get("base_method_citation", "")):
+        fail("citação completa da metodologia-base ausente")
+    if not official_https(method.get("base_method_evidence_url")):
+        fail("evidência oficial da metodologia-base deve usar HTTPS do INPE")
+    base_method_url = urlparse(str(method.get("base_method_url", "")))
+    if base_method_url.scheme not in {"http", "https"} or base_method_url.hostname != "urlib.net":
+        fail("URL persistente da metodologia-base inválida")
     if method.get("validation_profile_resolved") is not False:
         fail("validação não pode ser promovida prematuramente")
     if method.get("uncertainty_profile_resolved") is not False:
@@ -106,10 +118,12 @@ def main() -> int:
         "component_relation_to_geopackage_verified",
         "scientific_object_distinguished",
         "historical_temporal_phases_documented",
+        "base_method_reference_resolved",
     ):
         if state.get(key) is not True:
             fail(f"fato verificado ausente: {key}")
     for key in (
+        "adaptations_specific_method_document_resolved",
         "current_release_resolved",
         "direct_download_url_verified",
         "redirect_chain_verified",
@@ -125,7 +139,7 @@ def main() -> int:
     if not isinstance(rules, list) or len(rules) < 10:
         fail("regras de normalização insuficientes")
     rules_text = " ".join(str(item) for item in rules).casefold()
-    for token in ("não herdar", "bienal", "data de atualização", "uuid", "endpoint_state", "asset_state", "produto", "release"):
+    for token in ("não herdar", "bienal", "data de atualização", "metodologia-base", "adaptações específicas", "uuid", "endpoint_state", "asset_state", "produto", "release"):
         if token not in rules_text:
             fail(f"regra obrigatória ausente: {token}")
 
@@ -139,6 +153,7 @@ def main() -> int:
     serialized = PATH.read_text(encoding="utf-8")
     for forbidden in (
         '"promotion_authorized": true',
+        '"adaptations_specific_method_document_resolved": true',
         '"current_release_resolved": true',
         '"direct_download_url_verified": true',
         '"asset_bytes_inspected": true',
@@ -147,7 +162,7 @@ def main() -> int:
         if forbidden in serialized:
             fail(f"promoção prematura detectada: {forbidden}")
 
-    print("OK: incrementos PRODES em não floresta preservam identidade, temporalidade e bloqueios próprios")
+    print("OK: incrementos PRODES em não floresta preservam identidade, temporalidade, método-base e bloqueios próprios")
     return 0
 
 
