@@ -1,6 +1,6 @@
 # Auditoria da fronteira científica — incrementos PRODES em áreas não florestais da Amazônia
 
-**Data:** 2026-08-05 18:27–18:58, America/Sao_Paulo  
+**Data:** 2026-08-05 18:27–19:03, America/Sao_Paulo  
 **Escopo:** Instância 1 — individualização de produto, release, distribuição e ativo  
 **Família:** `PF000001`  
 **Componente operacional:** `PRODES-ASSET-NON-FOREST-INCREMENT-SHP`  
@@ -34,7 +34,21 @@ Fontes oficiais consultadas:
 
 - `https://www.terrabrasilis.dpi.inpe.br/downloads/`;
 - `https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?any=2026&fast=index`;
-- `https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=asNeeded`.
+- `https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=asNeeded`;
+- `https://data.inpe.br/biomasbr/prodes-monitoramento-anual-da-supressao-de-vegetacao-nativa/`.
+
+## Metodologia-base resolvida
+
+A referência abreviada `Almeida et al. 2022`, citada nos metadados, foi resolvida em fonte oficial do INPE:
+
+> ALMEIDA, C. A.; MAURANO, L. E. P.; VALERIANO, D. M.; CÂMARA, G.; VINHAS, L.; MOTTA, M.; GOMES, A. R.; MONTEIRO, A. M. V.; SOUZA, A. A. A.; MESSIAS, C. G.; RENNÓ, C. D.; ADAMI, M.; ESCADA, M. I. S.; SOLER, L. S.; AMARAL, S. *Metodologia utilizada nos sistemas Prodes e Deter – 2ª edição (atualizada).* 2. ed. São José dos Campos: INPE, 2022. 47 p.
+
+Identificadores persistentes registrados:
+
+- IBI: `sid.inpe.br/mtc-m21d/2022/08.25.11.46-NTC`;
+- URL: `http://urlib.net/ibi/8JMKD3MGP3W34T/47GAF6S`.
+
+Essa resolução confirma a metodologia-base. Ela **não resolve automaticamente** as adaptações e adequações específicas para o monitoramento de fitofisionomias não florestais. Essas adaptações permanecem como lacuna metodológica própria do candidato a produto.
 
 ## Achado científico principal
 
@@ -58,7 +72,7 @@ família PRODES
   └── candidato a produto de supressão em fitofisionomias não florestais
 ```
 
-A individualização final ainda depende de confirmação do nome oficial do produto, release vigente, metodologia completa, variáveis, classes, licença e citação.
+A individualização final ainda depende de confirmação do nome oficial do produto, release vigente, adaptações metodológicas específicas, variáveis, classes, licença e citação.
 
 ## Risco corrigido
 
@@ -67,7 +81,7 @@ Sem um portão explícito, a normalização poderia:
 1. herdar frequência anual para toda a série;
 2. apagar a fase bienal 2002–2018;
 3. omitir a exceção 2012/2013;
-4. atribuir o método florestal sem registrar adaptações;
+4. atribuir a metodologia-base sem registrar adaptações;
 5. converter uma data de atualização do catálogo em release;
 6. tratar o UUID como endpoint direto;
 7. promover o componente como ativo inspecionado sem bytes.
@@ -82,8 +96,9 @@ O contrato preserva:
 - identidade científica própria;
 - perfil temporal em duas fases;
 - perfil histórico de sensores;
-- referência metodológica ainda não integralmente resolvida;
-- estados negativos explícitos para release, endpoint, bytes, checksum, licença e citação;
+- citação e identificadores persistentes da metodologia-base;
+- separação entre metodologia-base resolvida e adaptações específicas não resolvidas;
+- estados negativos explícitos para release, endpoint, bytes, checksum, licença e citação do produto;
 - requisitos independentes para promoção do produto e do ativo.
 
 ## Ocorrência
@@ -94,15 +109,15 @@ O contrato preserva:
 | Categoria | herança científica indevida entre produtos PRODES |
 | Severidade | `high` para a promoção da unidade; não bloqueia trabalho independente |
 | Estado | `corrected` |
-| Evidência | catálogo e metadados oficiais TerraBrasilis |
-| Correção | fronteira de produto candidata, contrato declarativo e validador executável |
-| Teste | validação de identidade, temporalidade, sensores, estados e proibições |
-| Risco residual | produto, release, endpoint, licença, citação e bytes ainda não resolvidos |
+| Evidência | catálogo, metadados e página metodológica oficial do INPE |
+| Correção | fronteira de produto candidata, metodologia-base versionada, contrato declarativo e validador executável |
+| Teste | validação de identidade, temporalidade, sensores, citação, estados e proibições |
+| Risco residual | adaptações específicas, produto, release, endpoint, licença, citação do produto e bytes ainda não resolvidos |
 
 ## Decisão
 
 **Não promover o componente como parte indiferenciada de `PD-PRODES-AMZ-ANNUAL-MAP`.**
 
-Mantê-lo como candidato a produto científico distinto dentro da família PRODES até que a metodologia, a release, as classes, os perfis e as condições de uso estejam integralmente documentados.
+Mantê-lo como candidato a produto científico distinto dentro da família PRODES. A metodologia-base está resolvida, mas a promoção continua bloqueada até que as adaptações específicas, a release, as classes, os perfis e as condições de uso estejam integralmente documentados.
 
-A próxima unidade segura é localizar e versionar a metodologia completa citada como Almeida et al. (2022) ou, se a fonte não for recuperável, resolver outro componente PRODES independente sem enfraquecer este portão.
+A próxima unidade segura é localizar documentação oficial das adaptações metodológicas específicas ou, se ela não estiver publicamente recuperável, resolver outro componente PRODES independente sem enfraquecer este portão.
