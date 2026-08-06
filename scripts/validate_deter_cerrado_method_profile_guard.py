@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the 2024 DETER Cerrado method profile and its unresolved release state."""
+"""Validate the reconciled 2024 DETER Cerrado method profile."""
 from __future__ import annotations
 
 import json
@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 PATH = Path("database/mappings/deter_cerrado_method_profile_guard_2026.json")
+LEGEND_PATH = "database/mappings/deter_cerrado_operational_legend_latency_guard_2026.json"
 
 
 def fail(message: str) -> None:
@@ -18,9 +19,7 @@ def trusted_url(url: object) -> bool:
         return False
     parsed = urlparse(url)
     host = parsed.hostname or ""
-    return parsed.scheme == "https" and (
-        host.endswith("doi.org") or host.endswith("inpe.br")
-    )
+    return parsed.scheme == "https" and (host.endswith("doi.org") or host.endswith("inpe.br"))
 
 
 def main() -> int:
@@ -28,7 +27,7 @@ def main() -> int:
         fail(f"arquivo ausente: {PATH}")
     data = json.loads(PATH.read_text(encoding="utf-8"))
 
-    if data.get("contract_version") != "1.0.0":
+    if data.get("contract_version") != "1.1.0":
         fail("versão do contrato inesperada")
     if data.get("package_id") != "I1-M2A-DETER-CERRADO":
         fail("pacote inesperado")
@@ -36,7 +35,7 @@ def main() -> int:
         fail("família inesperada")
     if data.get("candidate_scientific_product_id") != "PD-DETER-CER-ALERTS":
         fail("produto candidato inesperado")
-    if data.get("status") != "cerrado_specific_2024_method_profile_resolved_release_and_accuracy_metrics_unresolved":
+    if data.get("status") != "cerrado_specific_2024_method_and_operational_legend_resolved_release_and_accuracy_metrics_unresolved":
         fail("estado curatorial inesperado")
     if data.get("timezone") != "America/Sao_Paulo":
         fail("timezone deve ser America/Sao_Paulo")
@@ -46,16 +45,17 @@ def main() -> int:
     document = data.get("method_document")
     if not isinstance(document, dict):
         fail("method_document deve ser objeto")
-    if document.get("title") != "Metodologia dos sistemas PRODES e DETER para o bioma Cerrado":
-        fail("título metodológico divergente")
-    if document.get("publisher") != "Instituto Nacional de Pesquisas Espaciais — INPE":
-        fail("produtor metodológico divergente")
-    if document.get("publication_year") != 2024 or document.get("updated_date") != "2024-03-28":
-        fail("data ou ano metodológico divergente")
-    if document.get("doi") != "10.13140/RG.2.2.24196.49281":
-        fail("DOI metodológico divergente")
-    if document.get("document_type") != "technical_methodology":
-        fail("tipo documental divergente")
+    expected_document = {
+        "title": "Metodologia dos sistemas PRODES e DETER para o bioma Cerrado",
+        "publisher": "Instituto Nacional de Pesquisas Espaciais — INPE",
+        "publication_year": 2024,
+        "updated_date": "2024-03-28",
+        "doi": "10.13140/RG.2.2.24196.49281",
+        "document_type": "technical_methodology",
+    }
+    for key, value in expected_document.items():
+        if document.get(key) != value:
+            fail(f"documento metodológico divergente: {key}")
     if document.get("method_version_resolved_for_document") is not True:
         fail("edição metodológica deve estar resolvida")
     for key in ("document_is_current_release_identifier", "document_is_asset_identifier"):
@@ -65,9 +65,8 @@ def main() -> int:
     purpose = data.get("scientific_purpose_and_boundaries")
     if not isinstance(purpose, dict):
         fail("scientific_purpose_and_boundaries deve ser objeto")
-    outputs = purpose.get("represented_outputs")
-    if not isinstance(outputs, list) or len(outputs) != 2:
-        fail("saídas científicas do DETER devem conter supressão total e alteração estrutural")
+    if len(purpose.get("represented_outputs", [])) != 2:
+        fail("saídas científicas devem conter supressão total e alteração estrutural")
     purpose_text = json.dumps(purpose, ensure_ascii=False).casefold()
     for token in ("daily operational alerts", "suppression", "alteration", "enforcement", "prodes cerrado"):
         if token not in purpose_text:
@@ -81,12 +80,9 @@ def main() -> int:
     sensor = data.get("sensor_and_detection_profile")
     if not isinstance(sensor, dict):
         fail("sensor_and_detection_profile deve ser objeto")
-    satellites = sensor.get("satellites")
-    if not isinstance(satellites, list) or len(satellites) != 3:
-        fail("perfil deve conter exatamente três satélites")
     observed = {
         (item.get("name"), item.get("sensor"), item.get("nominal_spatial_resolution_m"))
-        for item in satellites if isinstance(item, dict)
+        for item in sensor.get("satellites", []) if isinstance(item, dict)
     }
     expected = {
         ("Amazônia-1", "WFI", 64),
@@ -104,7 +100,7 @@ def main() -> int:
     if sensor.get("minimum_detectable_alert_area_is_complete_detection_guarantee") is not False:
         fail("limiar não pode ser garantia de detecção completa")
     if sensor.get("monitoring_continuity_supported_by_daily_biome_strip_coverage") is not True:
-        fail("cobertura diária do bioma deve estar documentada")
+        fail("continuidade de monitoramento ausente")
 
     mapping = data.get("mapping_method")
     if not isinstance(mapping, dict):
@@ -116,35 +112,45 @@ def main() -> int:
     if mapping.get("digitization_scale_denominator") != 100000:
         fail("escala de digitalização divergente")
     if mapping.get("digitization_scale_is_sensor_resolution") is not False:
-        fail("escala de digitalização não pode ser resolução do sensor")
+        fail("escala de digitalização não pode ser resolução")
     if set(mapping.get("interpretation_elements", [])) != {"tonality", "color", "shape", "texture", "context"}:
         fail("elementos de fotointerpretação divergentes")
     if mapping.get("standardized_legend_documented") is not True:
         fail("legenda padronizada deve estar documentada")
-    if mapping.get("complete_operational_legend_extracted") is not False:
-        fail("legenda operacional completa ainda não foi extraída")
+    if mapping.get("complete_operational_legend_extracted") is not True:
+        fail("legenda operacional reconciliada deve estar extraída")
+    if mapping.get("operational_legend_contract") != LEGEND_PATH:
+        fail("referência ao contrato de legenda divergente")
+    if not Path(LEGEND_PATH).is_file():
+        fail("contrato de legenda referenciado está ausente")
+    if mapping.get("validation_class_domain_extracted") is not False:
+        fail("classes de validação permanecem não extraídas")
 
     temporal = data.get("temporal_semantics")
     if not isinstance(temporal, dict):
         fail("temporal_semantics deve ser objeto")
     if temporal.get("alert_assigned_date") != "acquisition date of the image used for detection":
-        fail("semântica da data atribuída divergente")
+        fail("semântica de data divergente")
     if temporal.get("assigned_date_is_exact_event_date") is not False:
         fail("data da imagem não pode ser data exata do evento")
     if temporal.get("real_event_date_may_be_unknown") is not True:
         fail("data real desconhecida deve permanecer possível")
     if temporal.get("public_update_frequency") != "daily" or temporal.get("public_update_period") != "night":
-        fail("frequência/período de publicação divergente")
+        fail("publicação pública divergente")
     if temporal.get("public_data_lag_statement") != "validated data from the previous day":
-        fail("latência pública divergente")
+        fail("declaração de publicação divergente")
+    if temporal.get("typical_end_to_end_processing_latency_hours_range") != [48, 72]:
+        fail("faixa de latência divergente")
+    if temporal.get("processing_latency_is_universal_sla") is not False:
+        fail("latência não pode ser SLA universal")
     if temporal.get("enforcement_access_frequency") != "real time as alerts are produced":
         fail("acesso de fiscalização divergente")
     if temporal.get("enforcement_access_controlled") is not True:
         fail("acesso de fiscalização deve permanecer controlado")
     if temporal.get("monthly_consolidation_published_after_month_end") is not True:
-        fail("consolidação mensal pós-mês ausente")
+        fail("consolidação mensal ausente")
     if temporal.get("monthly_consolidation_is_monthly_rate") is not False:
-        fail("consolidação mensal não pode ser taxa mensal")
+        fail("consolidação mensal não pode ser taxa")
 
     comparison = data.get("comparison_guidance")
     if not isinstance(comparison, dict):
@@ -165,26 +171,21 @@ def main() -> int:
     validation = data.get("validation_process")
     if not isinstance(validation, dict):
         fail("validation_process deve ser objeto")
-    for key in (
-        "all_alert_polygons_validated",
-        "validated_alerts_sent_to_ibama_daily",
-        "validation_platform_documented",
-    ):
+    for key in ("all_alert_polygons_validated", "validated_alerts_sent_to_ibama_daily", "validation_platform_documented"):
         if validation.get(key) is not True:
             fail(f"processo de validação ausente: {key}")
     if validation.get("validation_frequency") != "daily":
         fail("frequência de validação divergente")
-    objectives = set(validation.get("validation_objectives", []))
     expected_objectives = {
         "calculate accuracy statistics",
         "eliminate detection errors and false alerts",
         "identify system improvement opportunities",
     }
-    if objectives != expected_objectives:
+    if set(validation.get("validation_objectives", [])) != expected_objectives:
         fail("objetivos de validação divergentes")
     for key in ("accuracy_metrics_extracted", "accuracy_values_resolved", "confusion_matrix_resolved", "validation_class_domain_extracted"):
         if validation.get(key) is not False:
-            fail(f"métrica de validação promovida prematuramente: {key}")
+            fail(f"métrica de validação prematura: {key}")
 
     timeline = data.get("timeline_semantics")
     if not isinstance(timeline, dict):
@@ -192,30 +193,30 @@ def main() -> int:
     if timeline.get("operational_start_or_creation_year_documented_elsewhere") != 2018:
         fail("ano de criação/série divergente")
     if timeline.get("method_document_launch_year") != 2019:
-        fail("ano de lançamento metodológico divergente")
+        fail("ano de lançamento divergente")
     if timeline.get("distribution_label_since_year") != 2018:
         fail("ano do rótulo de distribuição divergente")
     if timeline.get("years_are_same_event") is not False:
         fail("2018 e 2019 não podem ser colapsados")
     if timeline.get("current_release_year_resolved") is not False:
-        fail("ano da release atual não está resolvido")
-    timeline_text = str(timeline.get("timeline_interpretation", "")).casefold()
+        fail("release atual não está resolvida")
+    interpretation = str(timeline.get("timeline_interpretation", "")).casefold()
     for token in ("2018", "2019", "creation", "launch"):
-        if token not in timeline_text:
+        if token not in interpretation:
             fail(f"interpretação temporal incompleta: {token}")
 
     divergence = data.get("documentation_context_divergence")
     if not isinstance(divergence, dict):
         fail("documentation_context_divergence deve ser objeto")
     if divergence.get("specific_metadata_image_source_statement") != "Landsat or similar":
-        fail("declaração do metadado específico divergente")
+        fail("declaração do metadado divergente")
     method_statement = str(divergence.get("method_document_operational_sensor_statement", ""))
     for token in ("WFI", "Amazônia-1", "CBERS-4A", "AWFI", "CBERS-4"):
         if token not in method_statement:
             fail(f"declaração metodológica incompleta: {token}")
     for key in ("statements_are_silently_equivalent", "metadata_statement_is_overwritten", "method_statement_is_current_release_proof"):
         if divergence.get(key) is not False:
-            fail(f"divergência documental apagada indevidamente: {key}")
+            fail(f"divergência documental apagada: {key}")
 
     evidence = data.get("official_and_primary_evidence")
     if not isinstance(evidence, list) or len(evidence) < 4:
@@ -223,13 +224,13 @@ def main() -> int:
     for item in evidence:
         if not isinstance(item, dict):
             fail("item de evidência inválido")
-        url = item.get("doi") or item.get("url")
-        if not trusted_url(url):
-            fail(f"URL de evidência não confiável: {url}")
+        if not trusted_url(item.get("doi") or item.get("url")):
+            fail("URL de evidência não confiável")
     evidence_text = json.dumps(evidence, ensure_ascii=False).casefold()
     for token in (
-        "55–64", "five-day", "three-hectare", "1:100,000", "validation process",
-        "nightly", "2019 launch", "visual interpretation", "precise quantification", "2018",
+        "55–64", "five-day", "three-hectare", "1:100,000", "operational legend",
+        "48–72", "validation process", "nightly", "2019 launch", "visual interpretation",
+        "precise quantification", "2018",
     ):
         if token not in evidence_text:
             fail(f"cobertura de evidência ausente: {token}")
@@ -242,6 +243,8 @@ def main() -> int:
         "method_purpose_resolved",
         "sensor_resolution_and_threshold_profile_resolved_for_2024_method",
         "mapping_method_resolved_for_2024_method",
+        "complete_operational_legend_extracted",
+        "processing_latency_range_resolved",
         "temporal_semantics_resolved_for_2024_method",
         "comparison_guidance_resolved_for_2024_method",
         "validation_process_documented",
@@ -250,11 +253,10 @@ def main() -> int:
         "metadata_method_context_divergence_documented",
     ):
         if state.get(key) is not True:
-            fail(f"fato metodológico verificado ausente: {key}")
+            fail(f"fato metodológico ausente: {key}")
     for key in (
         "current_release_resolved",
         "current_release_method_profile_verified",
-        "complete_operational_legend_extracted",
         "accuracy_metrics_resolved",
         "validation_class_domain_resolved",
         "current_sensor_history_verified_from_asset",
@@ -263,13 +265,14 @@ def main() -> int:
             fail(f"estado metodológico prematuro: {key}")
 
     rules = data.get("normalization_rules")
-    if not isinstance(rules, list) or len(rules) < 16:
+    if not isinstance(rules, list) or len(rules) < 18:
         fail("regras metodológicas insuficientes")
     rules_text = " ".join(str(item) for item in rules).casefold()
     for token in (
         "proxy", "monthly", "image acquisition date", "three months", "55–64",
-        "three hectares", "1:100,000", "nightly", "monthly consolidation",
-        "accuracy", "2018", "2019", "landsat", "wfi/awfi", "current product release",
+        "three hectares", "1:100,000", "48–72", "nightly", "monthly consolidation",
+        "operational legend", "accuracy", "2018", "2019", "landsat", "wfi/awfi",
+        "current product release",
     ):
         if token not in rules_text:
             fail(f"regra metodológica ausente: {token}")
@@ -279,7 +282,6 @@ def main() -> int:
         '"promotion_authorized": true',
         '"current_release_resolved": true',
         '"current_release_method_profile_verified": true',
-        '"complete_operational_legend_extracted": true',
         '"accuracy_metrics_resolved": true',
         '"validation_class_domain_resolved": true',
         '"current_sensor_history_verified_from_asset": true',
@@ -288,8 +290,8 @@ def main() -> int:
             fail(f"promoção metodológica prematura: {forbidden}")
 
     print(
-        "OK: método DETER Cerrado 2024 preserva sensores, limiar, interpretação visual, "
-        "semântica temporal, validação e divergências documentais sem resolver release"
+        "OK: método DETER Cerrado 2024 reconciliado com legenda e latência, "
+        "sem resolver release, métricas de acurácia ou classes de validação"
     )
     return 0
 
