@@ -1,0 +1,16 @@
+{
+  "project": "Simbiotrama",
+  "instance": "Instance 1",
+  "milestone_id": "I1-M1",
+  "status": "INCORPORATED",
+  "date_local": "2026-08-06",
+  "timezone": "America/Sao_Paulo",
+  "source_pr": 54,
+  "audited_head_sha": "0c9acd2e255c53c73c5c8373470ee239740f8ec1",
+  "main_commit_sha": "3fd87900ee69d04f30bda8d085e848e990637295",
+  "merge_method": "squash",
+  "next_package": "I1-M2A-DETER-CERRADO",
+  "postgresql_canonical": false,
+  "public_csv_json_authority": true,
+  "instances_2_3_active": false
+}
