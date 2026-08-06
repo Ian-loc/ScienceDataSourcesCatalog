@@ -1,303 +1,181 @@
 # Metodologia de curadoria
 
-## 1. Escopo vigente
+## 1. Escopo
 
-O foco ativo é a **Instância 1 — Catálogo relacional científico-operacional**.
+O foco ativo é a Instância 1 simplificada: catálogo relacional de fontes e ofertas de dados científicos.
 
-A unidade de trabalho deixa de ser apenas a fonte e passa a incluir o **produto científico georreferenciado**, suas versões, variáveis, métodos, perfis espaciais e temporais, qualidade, distribuições e evidências.
+A unidade de trabalho é uma `catalog_entry`, não uma reconstrução obrigatória de família, produto, release, distribuição e ativo.
 
-Os CSVs atuais permanecem públicos durante a migração, mas o modelo de destino é PostgreSQL/PostGIS.
+## 2. Pergunta orientadora
 
-## 2. Unidades de registro
+Antes de iniciar a pesquisa, definir:
 
-### Fonte
+> Qual informação mínima o usuário precisa para descobrir, compreender e acessar esta oferta?
 
-Portal, repositório, catálogo, plataforma, rede, programa, observatório ou infraestrutura.
+O plano de coleta deve ser limitado a essa resposta.
 
-### Produto
+## 3. Delimitação da entrada
 
-Conjunto coerente e versionado de informações espaciais, com significado científico, método, cobertura, suporte, variáveis e formas de acesso identificáveis.
+Uma entrada pode representar:
 
-### Release
+- fonte;
+- plataforma;
+- coleção;
+- produto de dados;
+- serviço de dados.
 
-Versão, coleção, edição, cenário ou ano-base.
+A decisão deve considerar:
 
-### Distribuição
+- identidade usada pela própria fonte;
+- utilidade para descoberta;
+- coerência do resumo;
+- estabilidade do canal de acesso;
+- custo de manutenção.
 
-Forma de acesso ao release.
+Não criar entradas adicionais apenas por diferenças de arquivo, formato, layer, banda, endpoint, diretório ou data técnica.
 
-### Ativo
+## 4. Metadados essenciais
 
-Arquivo, endpoint, camada, coleção, tabela, legenda, metadado ou recurso concreto.
+Coletar, quando aplicável:
 
-### Variável
-
-Propriedade, indicador, banda, classe, métrica, atributo ou flag com significado próprio.
-
-## 3. Regra de escopo geográfico
-
-São incluídos produtos que possuam:
-
-- coordenadas;
-- geometrias;
-- pixels ou grades;
-- pontos, footprints ou trajetórias;
-- bacias, biomas ou unidades de conservação;
-- códigos territoriais;
-- séries por município, estado ou outra unidade geográfica.
-
-Uma tabela territorial pode ser georreferenciável mesmo quando distribuída em CSV ou XLSX.
-
-## 4. Evidências
-
-A curadoria prioriza:
-
-1. página oficial do produto;
-2. documentação oficial;
-3. metadados do release;
-4. metodologia técnica;
-5. licença e termos;
-6. documentação de API ou serviço;
-7. artigos revisados por pares que descrevem ou validam o produto;
-8. relatórios técnicos institucionais.
-
-Cada evidência sustenta apenas as afirmações que efetivamente contém.
-
-Exemplos:
-
-- homepage comprova identidade, não necessariamente resolução;
-- página de download comprova disponibilidade, não necessariamente licença;
-- artigo de aplicação não substitui documentação oficial do produto;
-- resolução de visualização não comprova resolução científica;
-- data de atualização do portal não define a periodicidade do dado.
-
-Afirmações importantes são registradas em `metadata_assertions`.
-
-## 5. Identificação do objeto
-
-Antes de preencher qualquer perfil, deve-se resolver:
-
-1. quem é o produtor primário;
-2. qual é a fonte de acesso;
-3. se o objeto é família, produto, versão, distribuição ou serviço;
-4. se possui informação geográfica;
-5. se a enumeração será completa, por família, seletiva ou por índice externo.
-
-Catálogos, APIs genéricas, visualizadores e serviços de processamento não devem ser classificados como produtos científicos.
-
-## 6. Significado científico
-
-Todo produto deve conter:
-
-- `scientific_object` — objeto ou fenômeno central;
-- `information_message` — informação sobre o mundo real que o produto comunica;
-- `non_representations` — interpretações que não são sustentadas diretamente;
-- variáveis e classes;
-- usos potenciais;
-- limitações.
-
-A mensagem informacional deve ser objetiva e proporcional à documentação.
-
-Exemplo:
-
-```text
-Produto: alerta de alteração da cobertura
-Mensagem: localização, data de detecção e classe atribuída a uma evidência observada.
-Não representa: taxa anual consolidada, data exata do evento ou causalidade da mudança.
-```
-
-## 7. Natureza de produção
-
-O produto ou variável deve ser classificado como:
-
-- observação primária;
-- registro administrativo;
-- censo;
-- levantamento amostral;
-- estimativa amostral;
-- classificação;
-- modelagem;
-- interpolação;
-- agregação;
-- índice composto;
-- produto derivado;
-- método misto;
-- desconhecido.
-
-A classificação deve ser acompanhada de descrição do método, dados de entrada, processamento, validação e versão.
-
-## 8. Perfil espacial
-
-Registrar:
-
-- tipo de suporte;
-- geometria;
-- resolução nominal e unidade;
-- escala, quando aplicável;
-- unidade mínima mapeável;
-- CRS;
-- grade;
-- agregação;
-- unidade geográfica;
-- extensão;
-- vieses e limitações espaciais.
-
-Resolução, escala, suporte e unidade territorial não devem ser concatenados em um único campo no banco relacional.
-
-## 9. Perfil temporal
-
-Registrar:
-
-- cobertura inicial e final;
-- instante, evento, intervalo ou agregado;
-- resolução temporal;
-- janela de observação;
+- organização;
+- nome e sigla;
+- tipo amplo;
+- resumo;
+- escopo científico;
+- modalidades de dados;
+- variáveis ou grupos;
+- cobertura espacial;
+- cobertura temporal;
+- resolução ou suporte material;
 - frequência de atualização;
-- latência;
-- calendário;
-- forma de agregação;
-- vieses e limitações temporais.
-
-## 10. Qualidade, incerteza e viés
-
-Registrar, quando disponível:
-
-- desenho de validação;
-- acurácia;
-- incerteza;
-- erro;
-- probabilidades;
-- flags;
-- dados ausentes;
-- NoData;
-- cobertura de nuvens;
-- viés amostral;
-- detectabilidade;
-- erro de classificação;
-- artefatos;
-- representatividade.
-
-`desconhecido` não deve ser convertido em `ausente`.
-
-## 11. Acesso operacional
-
-Separar:
-
-- página institucional;
-- página do produto;
-- acesso aos dados;
+- acesso, gratuidade e autenticação;
+- página oficial;
+- metadados;
 - metodologia;
-- documentação da API;
 - licença;
 - citação;
-- visualizador;
-- código.
+- data de verificação.
+
+## 5. Evidências
+
+Prioridade:
+
+1. página oficial;
+2. metadados diretos;
+3. página principal de acesso;
+4. metodologia;
+5. licença;
+6. citação;
+7. documentação de conector, quando aplicável.
+
+Cada evidência sustenta apenas o campo correspondente.
+
+Não é necessário copiar o documento nem examinar toda a árvore de páginas.
+
+## 6. Variáveis
+
+Registrar variáveis ou grupos úteis para busca.
+
+- preservar rótulos originais;
+- preservar definições quando disponíveis;
+- registrar unidade somente quando material;
+- usar grupo amplo para filtro;
+- não enumerar todas as bandas ou colunas sem necessidade;
+- não inferir equivalência sem evidência.
+
+## 7. Espaço e tempo
+
+Registrar no nível de detalhe necessário à interpretação da entrada.
+
+Não é obrigatório separar resolução, suporte, escala, grade, CRS, janela, latência e agregação em entidades próprias. Campos textuais são aceitáveis enquanto forem claros e sustentados.
+
+## 8. Acesso
+
+Priorizar um canal principal e poucos links essenciais.
 
 Registrar:
 
-- formato;
-- media type;
-- protocolo;
-- ferramenta;
+- acesso principal;
 - gratuidade;
 - autenticação;
-- quotas;
-- recorte;
-- consulta;
-- visualização;
-- download;
-- processamento;
-- exportação;
-- estado atual do endpoint.
+- condições relevantes;
+- formato ou protocolo quando útil;
+- conector selecionado, quando aprovado.
 
-A existência de API não implica acesso sem autenticação, processamento gratuito ou visualização direta.
+Não inventariar todos os downloads ou serviços.
 
-### Papéis dos links no esquema público atual
+## 9. Conectores
 
-- **Site oficial** — campo `homepage_url`: página institucional principal ou página oficial que identifica a fonte;
-- **Acessar dados** — campo `data_access_url`: página em que os dados podem ser pesquisados, visualizados, solicitados ou baixados;
-- documentação de acesso — campo `access_documentation_url`: instruções técnicas, API, protocolo, autenticação ou cliente.
+Conectores são opcionais.
 
-`homepage_url` e `data_access_url` podem coincidir somente quando a mesma página cumpre comprovadamente os dois papéis. A igualdade permanece pendência de revisão quando isso não estiver demonstrado.
+A investigação técnica deve ocorrer somente quando existir uma operação futura concreta, como visualizar uma coleção ou camada selecionada.
 
-## 12. Taxonomias e filtros
+Registrar apenas endpoint, identificador, autenticação, operação e estado do teste.
 
-Os temas podem incluir múltiplos domínios:
+## 10. Estados negativos
 
-- ecologia;
-- socioecologia;
-- biodiversidade;
-- clima;
-- água;
-- saúde;
-- sociedade;
-- desigualdade;
-- agricultura;
-- agricultura familiar;
-- carbono;
-- uso da terra;
-- demografia;
-- economia;
-- governança;
-- infraestrutura.
+Usar estados explícitos:
 
-A busca pública deve usar filtros e linguagem comum. Sintaxe booleana não é requisito de interface.
+- `unknown`;
+- `not_found_after_bounded_search`;
+- `not_applicable`;
+- `inaccessible_in_current_environment`;
+- `contradictory`.
 
-## 13. Estratégia de enumeração
+Não converter ausência de documentação em ausência da propriedade.
 
-- `complete` — portfólio relevante enumerado;
-- `family_level` — famílias enumeradas, aprofundamento progressivo;
-- `external_index` — catálogo integral permanece externo;
-- `representative_sample` — piloto explicitamente incompleto;
-- `selective` — produtos escolhidos por relevância e cobertura do Brasil.
+## 11. Critério de parada
 
-A estratégia deve ser declarada para evitar falsa impressão de completude.
+A pesquisa termina quando:
 
-## 14. Migração
+- os campos essenciais estão sustentados;
+- o usuário consegue compreender a oferta;
+- existe acesso oficial apropriado;
+- lacunas relevantes estão explícitas;
+- nova pesquisa produziria apenas inventário técnico ou genealogia.
 
-1. importar CSVs para `staging` sem transformação destrutiva;
-2. registrar hash e data;
-3. resolver entidade;
-4. registrar problemas;
-5. normalizar IDs e valores;
-6. criar releases;
-7. migrar distribuições;
-8. aprofundar perfis;
-9. auditar;
-10. promover registros aprovados.
+## 12. Revisão
 
-Nenhum problema bloqueante pode permanecer aberto na promoção.
+A revisão deve verificar:
 
-## 15. Auditoria
+- granularidade adequada;
+- fidelidade à fonte;
+- suficiência;
+- clareza;
+- utilidade para busca;
+- ausência de inferência;
+- ausência de replicação da plataforma;
+- ausência de armazenamento externo;
+- consistência com a política de escopo.
 
-A auditoria avalia:
+## 13. Exemplos
 
-- completude;
-- precisão científica;
-- precisão operacional;
-- coerência;
-- evidência;
-- separação das entidades;
-- atualização;
-- clareza pública.
+### GEDI
 
-“Verificado” significa confrontado com as evidências registradas na data indicada. Não garante disponibilidade futura nem certifica integralmente a fonte.
+Registrar uma entrada ampla que comunique LiDAR orbital, estrutura da vegetação, altura, biomassa, qualidade, cobertura e acesso oficial. Não reproduzir todos os níveis, versões e granules.
 
-## 16. Instâncias futuras
+### DETER Cerrado
 
-### Instância 2
+Registrar a oferta de alertas, propósito, variáveis ou classes amplas, cobertura, método resumido, acesso e limitações. Não exigir release, layer, checksum ou pacote como condição geral.
 
-Composição geográfica, transparência comparativa e executabilidade técnica.
+### IBGE
 
-### Instância 3
+Criar entradas específicas apenas quando a distinção melhora descoberta, como uma base estatística ou malha territorial claramente separada. Não enumerar cada tabela.
 
-Síntese científica breve e auditável sobre fenômenos escolhidos pelo usuário.
+### ANA/SNIRH
 
-Essas instâncias permanecem fora do escopo ativo. A metodologia atual deve apenas manter os metadados necessários para que sejam possíveis no futuro.
+Registrar plataforma ou coleção relevante, dados hidrológicos, cobertura e canal oficial. Arquivos e serviços permanecem na fonte.
 
-Consulte:
+## 14. Saída
 
-- `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`;
-- `database/schema/001_instance1_core.sql`;
-- `PRODUCT_CATALOG_MODEL.md`;
-- `docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md`.
+Cada unidade deve produzir:
+
+- entrada normalizada;
+- variáveis ou grupos;
+- evidências essenciais;
+- lacunas;
+- conector opcional;
+- verificação de escopo.
+
+Número de arquivos, endpoints ou links coletados não é produto da curadoria.
