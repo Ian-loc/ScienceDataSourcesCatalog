@@ -135,7 +135,7 @@ Moderada para governança; impacto material final nulo após reversão imediata.
 
 ## 9. Validação
 
-O novo gate `scripts/validate_scientific_direction.py` verifica:
+O gate `scripts/validate_scientific_direction.py` verifica:
 
 - documentos e decisões vigentes;
 - núcleo mínimo;
@@ -155,20 +155,21 @@ Uma tentativa de validação local por clone foi bloqueada por falha DNS do ambi
 - documentação normativa: revisada;
 - tarefa recorrente: atualizada;
 - PR #57: congelado;
-- PR #58: draft ativo;
+- PR #58: aberto e marcado como pronto para revisão;
 - plano de migração: documentado;
 - casos dourados: documentados;
-- schema SQL mínimo: ainda não implementado;
-- CI final: pendente;
+- schema SQL mínimo: ainda não implementado e corretamente reservado ao próximo pacote;
+- CI do head final: pendente de execução e verificação;
 - revisão do PR: pendente;
 - merge: não autorizado.
 
 ## 11. Próxima unidade
 
-Após CI verde e revisão do PR de direção:
-
-1. corrigir qualquer achado;
-2. congelar o head documental;
-3. solicitar autorização de merge;
-4. somente após incorporação, abrir pacote separado para migration aditiva do núcleo mínimo;
-5. materializar os quatro casos sem pesquisa forense adicional.
+1. verificar a execução do CI no novo head;
+2. corrigir qualquer falha no mesmo PR;
+3. solicitar ou aguardar revisão automatizada;
+4. corrigir achados e executar novamente o CI;
+5. confirmar zero threads acionáveis;
+6. congelar o head;
+7. solicitar autorização humana do SHA exato;
+8. somente após incorporação, abrir pacote separado para migration aditiva do núcleo mínimo.
