@@ -1,363 +1,195 @@
-# Modelo relacional do catálogo de produtos
+# Modelo relacional simplificado do catálogo
 
 ## 1. Decisão
 
-A camada de produtos é o núcleo científico da Instância 1 e não é redundante com o catálogo de fontes.
+A Instância 1 não reconstruirá a genealogia completa de plataformas externas. O núcleo deve representar entradas úteis para descoberta, compreensão e acesso.
 
-A fonte responde:
+A unidade central é `catalog_entry`, não uma cadeia obrigatória de família → produto → release → distribuição → ativo.
 
-- quem mantém;
-- qual é a infraestrutura;
-- qual papel institucional ou funcional possui;
-- quais tipos gerais de conteúdo e acesso oferece.
-
-O produto responde:
-
-- qual informação científica existe;
-- o que ela representa;
-- como foi produzida;
-- em qual versão;
-- quais variáveis contém;
-- qual é seu suporte espacial e temporal;
-- quais limitações possui;
-- como pode ser acessada.
-
-## 2. Hierarquia canônica
+## 2. Estrutura canônica
 
 ```text
-Organização
-  1 ─── N Fonte ou infraestrutura
-              1 ─── N Família de produtos
-                          1 ─── N Produto científico
-                                      1 ─── N Release, versão ou edição
-                                                  1 ─── N Distribuição
-                                                              1 ─── N Ativo
+organization
+  1 ─── N catalog_entry
+               ├── N entry_variable
+               ├── N entry_evidence
+               └── N connector_profile  [opcional]
 ```
 
-Relações científicas:
+## 3. Organização
 
-```text
-Release
-  N ─── N Variável, classe, indicador ou banda
-              ├── método
-              ├── perfil espacial
-              ├── perfil temporal
-              ├── perfil de qualidade
-              └── interpretação científica
-```
+Instituição, rede, consórcio ou iniciativa responsável pela oferta.
 
-## 3. Entidades
+Campos essenciais:
 
-### Organização
+- nome oficial;
+- sigla;
+- país;
+- página institucional;
+- descrição curta.
 
-Instituição, consórcio, rede ou iniciativa responsável.
+Uma entrada pode ter mais de uma organização associada em implementação futura, mas isso não é requisito do primeiro núcleo.
 
-### Fonte ou infraestrutura
+## 4. Entrada de catálogo
 
-Portal, repositório, catálogo, plataforma, programa, observatório, rede ou serviço que publica ou oferece acesso.
+Objeto público suficientemente estável e útil para o usuário.
 
-Uma fonte pode agregar produtos de produtores diferentes. O provedor primário deve permanecer explícito.
+Pode representar:
 
-### Família de produtos
-
-Agrupamento de produtos relacionados por missão, programa, método ou finalidade.
-
-A família não transfere automaticamente resolução, legenda, período, método, licença ou qualidade aos produtos membros.
-
-### Produto científico
-
-Conjunto coerente e versionado de informações espaciais, produzido por metodologia definida, com significado temático, cobertura, suporte espacial e temporal, variáveis e formas de distribuição identificáveis.
-
-Exemplos:
-
-- série anual de supressão de vegetação;
-- coleção de cobertura e uso da terra;
-- série de indicadores municipais;
-- produto de biomassa modelada;
-- conjunto de alertas;
-- mapa de referência territorial;
-- coleção de ocorrências georreferenciadas.
-
-Não são produtos científicos por si sós:
-
-- catálogo genérico;
-- API genérica;
-- serviço de processamento;
-- visualizador;
-- protocolo;
-- formato;
-- página de download.
-
-### Release, versão ou edição
-
-Manifestação identificável de um produto.
-
-Pertencem a esta entidade:
-
-- versão;
+- fonte;
+- plataforma;
 - coleção;
-- ano-base;
-- cenário;
-- edição;
-- data de release;
-- estado atual, substituído ou experimental;
-- notas de mudança.
+- produto de dados;
+- serviço de dados.
 
-Distribuições pertencem ao release, não ao produto abstrato, porque formatos, URLs e conteúdos podem mudar entre versões.
+A entrada deve responder:
 
-### Distribuição
+- o que é;
+- quem oferece;
+- que tipos de dados contém;
+- quais variáveis ou grupos são relevantes;
+- onde e quando se aplica;
+- como acessar;
+- quais condições de uso existem;
+- onde consultar os metadados oficiais.
 
-Forma de acesso ao release:
+## 5. Granularidade
 
-- download direto;
-- API;
-- serviço geoespacial;
-- registro de catálogo;
-- visualizador;
-- repositório de código;
-- formulário;
-- documentação.
+Criar nova entrada quando houver diferença material em:
 
-### Ativo
-
-Objeto concreto exposto pela distribuição:
-
-- arquivo;
-- tabela;
-- endpoint;
-- camada;
-- coleção;
-- legenda;
-- arquivo de qualidade;
-- metadado;
-- esquema;
-- recurso de incerteza.
-
-### Variável ou componente informacional
-
-Propriedade, indicador, banda, classe, métrica, atributo ou flag com significado próprio.
-
-A variável possui definição canônica, enquanto a associação produto–variável preserva:
-
-- nome original;
-- papel;
-- unidade;
-- tipo;
-- definição do produtor;
+- significado científico;
+- modalidade principal;
+- cobertura espacial;
+- cobertura temporal;
 - método;
-- suporte;
-- interpretação;
-- limitações.
+- finalidade;
+- acesso principal;
+- identidade oficial separada.
 
-### Método
+Não criar nova entrada apenas por existir outro arquivo, formato, layer, banda, endpoint, diretório, tabela ou atualização técnica.
 
-Descreve como a informação foi produzida:
+## 6. Variáveis
 
-- medição;
-- sensoriamento remoto;
-- registro administrativo;
-- censo;
-- levantamento amostral;
-- classificação;
-- modelagem;
-- interpolação;
-- agregação;
-- índice composto.
+`entry_variables` serve à descoberta.
 
-### Perfil espacial
+Cada registro pode preservar:
 
-Descreve:
+- rótulo da fonte;
+- definição da fonte;
+- unidade, quando material;
+- grupo amplo de busca;
+- nota de escopo.
 
-- suporte;
-- geometria;
-- resolução;
-- escala;
-- unidade mínima;
-- CRS;
-- grade;
-- extensão;
-- unidade geográfica;
-- agregação;
-- limitações espaciais.
+Não se exige inventário completo de bandas ou colunas. Não se cria taxonomia universal nesta fase.
 
-### Perfil temporal
+## 7. Evidências
 
-Descreve:
+`entry_evidence` vincula campos materiais a páginas oficiais ou documentos diretos.
 
-- período;
-- janela de observação;
-- resolução;
-- frequência;
-- latência;
-- calendário;
-- agregação;
-- limitações temporais.
+Campos mínimos:
 
-### Perfil de qualidade
-
-Descreve:
-
-- validação;
-- acurácia;
-- incerteza;
-- flags;
-- ausências;
-- viés de coleta;
-- artefatos;
-- representatividade.
-
-### Capacidade de acesso
-
-Registra se uma distribuição permite:
-
-- descobrir;
-- pré-visualizar;
-- visualizar;
-- consultar atributos;
-- recortar;
-- baixar;
-- processar;
-- exportar;
-- abrir em QGIS, R, Python ou Earth Engine.
-
-A capacidade pode ser disponível, condicional, indisponível ou desconhecida.
-
-### Evidência de metadados
-
-Afirmações importantes devem indicar a fonte que as sustenta.
-
-O modelo registra:
-
-- entidade;
-- campo;
-- valor;
+- entrada;
+- campo sustentado;
 - URL;
 - tipo de evidência;
 - nota de suporte;
 - data de recuperação;
-- confiança curatorial.
+- confiança.
 
-## 4. Esquema executável
+O catálogo não precisa copiar o documento. A URL e a nota devem permitir auditoria.
 
-O esquema de referência está em:
+## 8. Conectores
 
-`database/schema/001_instance1_core.sql`
+`connector_profiles` é opcional e prepara a Instância 2.
 
-O banco-alvo é PostgreSQL/PostGIS.
+Pode registrar:
 
-Os CSVs atuais permanecem canônicos durante a transição. O banco será promovido após migração, auditoria e geração reproduzível das exportações.
+- tipo do conector;
+- endpoint ou identificador externo;
+- autenticação;
+- operação selecionada;
+- configuração mínima;
+- estado e data do teste.
 
-## 5. Mensagem informacional
+Um conector não é inventário de ativos. O endpoint ou layer necessário à visualização não cria automaticamente nova entrada.
 
-Todo produto deve possuir uma descrição técnica e uma **mensagem informacional**.
+## 9. Links
 
-A descrição informa o que o produto é.
+Priorizar poucos papéis:
 
-A mensagem informacional responde:
+- página oficial;
+- metadados;
+- acesso principal;
+- metodologia;
+- licença;
+- citação.
 
-> Que informação sobre o mundo real este produto comunica?
+Não se deve cadastrar toda a árvore de links da fonte.
 
-Também deve existir `non_representations`, indicando interpretações que o produto não sustenta diretamente.
+## 10. Metadados adicionais
 
-Exemplo:
+Informações específicas podem permanecer em `additional_metadata_json` quando:
+
+- não justificam nova tabela;
+- não são filtro recorrente;
+- preservam estrutura fornecida pela fonte;
+- não comprometem validação dos campos essenciais.
+
+## 11. Dados externos
+
+Arquivos, datasets, layers, tabelas e serviços permanecem nas fontes originais.
+
+O Simbiotrama não:
+
+- hospeda;
+- arquiva;
+- replica;
+- promete preservação;
+- enumera integralmente;
+- assume custódia.
+
+## 12. Exemplo: GEDI
+
+Uma entrada suficiente pode registrar:
 
 ```text
-Produto: alertas DETER
-Mensagem: localização e classe de evidências detectadas de alteração da cobertura.
-Não representa: taxa anual consolidada, data exata da ocorrência ou legalidade da alteração.
+Nome: GEDI — Global Ecosystem Dynamics Investigation
+Organização: NASA
+Tipo: collection
+Modalidade: LiDAR orbital
+Conteúdo: estrutura vertical da vegetação, altura do dossel, biomassa, qualidade e geolocalização
+Cobertura: conforme metadados oficiais
+Acesso: portal oficial
+Variáveis: grupos amplos relevantes
+Conector: apenas quando uma visualização específica for aprovada
 ```
 
-## 6. Escala de enumeração
+Não é necessário reproduzir L1B, L2A, L2B, L4A, L4B, versões, granules e arquivos individuais como entradas independentes.
 
-- `complete`: portfólio relevante enumerado integralmente;
-- `family_level`: famílias registradas, com aprofundamento progressivo;
-- `external_index`: índice integral permanece externo;
-- `representative_sample`: amostra piloto explicitamente incompleta;
-- `selective`: seleção orientada por Brasil, relevância e utilidade.
+## 13. Migração
 
-Megacatálogos não devem ser copiados integralmente. Seus produtos prioritários podem ser curados seletivamente.
+Os CSVs atuais serão mapeados para `catalog_entries`.
 
-## 7. Regras de normalização
+- registros amplos de fonte podem permanecer como uma entrada;
+- registros de produtos úteis podem permanecer como entradas separadas;
+- distribuições antigas serão condensadas em links principais ou conectores selecionados;
+- nenhum ativo externo será materializado como entidade obrigatória;
+- o esquema profundo do Marco 1 será preservado como `LEGACY_TRANSITIONAL`.
 
-- organização não é fonte;
-- fonte não é produto;
-- família não é release;
-- produto não é arquivo;
-- distribuição não é variável;
-- formato não é protocolo;
-- serviço não é informação científica;
-- visualizador não é produto, exceto quando contém produto próprio claramente definido;
-- resolução pertence ao suporte que descreve;
-- versão pertence ao release;
-- URL de acesso pertence à distribuição ou ao ativo;
-- significado pertence ao produto e à variável;
-- método e qualidade devem ser vinculados no nível mais específico disponível;
-- licença deve ser registrada no nível mais específico sustentado pela evidência.
+## 14. Busca e website
 
-## 8. Busca e filtros
+Filtros iniciais:
 
-A Instância 1 deverá permitir filtros por:
-
+- organização;
+- tipo de entrada;
 - tema;
-- fenômeno;
-- objeto observado;
-- produto;
-- variável ou classe;
-- natureza de produção;
-- método;
-- unidade;
-- suporte espacial;
-- resolução;
-- unidade territorial;
+- modalidade;
+- variável ou grupo;
+- cobertura geográfica;
 - período;
-- resolução temporal;
-- incerteza disponível;
-- cobertura do Brasil;
-- gratuidade;
+- resolução;
+- acesso gratuito;
 - autenticação;
-- protocolo;
-- formato;
-- capacidade de visualização, recorte, consulta ou download;
-- versão e estado.
+- conector disponível.
 
-A interface não deve exigir operadores booleanos. A busca textual complementa os filtros estruturados.
-
-## 9. Migração dos dados atuais
-
-### Estado atual
-
-As três tabelas públicas são:
-
-- `data/data_resources.csv`;
-- `data/data_products.csv`;
-- `data/product_distributions.csv`.
-
-### Problema identificado
-
-O piloto de produtos mistura:
-
-- produtos científicos;
-- catálogos;
-- serviços interoperáveis;
-- infraestruturas de processamento.
-
-### Regra de correção
-
-- catálogos e infraestruturas migram para `sources`;
-- serviços genéricos migram para `distributions` e `access_capabilities`;
-- produtos científicos permanecem em `products`;
-- versões migram para `product_releases`;
-- variáveis migram para `variables` e `product_variables`;
-- URLs e formatos migram para `distributions` e `data_assets`.
-
-## 10. Instâncias futuras
-
-### Instância 2
-
-Consumirá releases, variáveis, distribuições e capacidades da Instância 1 para resolver camadas visualizáveis.
-
-### Instância 3
-
-Consumirá significado científico, taxonomias, escala, território e método para recuperar e sintetizar literatura relevante.
-
-Essas extensões não alteram a prioridade atual: o catálogo deve primeiro ser profundo, preciso, relacional e útil por si só.
+A interface deve ser simples e não exigir que o usuário compreenda a arquitetura interna da fonte.
