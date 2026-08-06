@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Instance 1 direction, relational contracts, and preserved N0 safeguards."""
+"""Validate Instance 1 direction, lifecycle classification, and legacy N0 safeguards."""
 from __future__ import annotations
 
 import json
@@ -7,12 +7,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+PROJECT_STATE = ROOT / "docs" / "PROJECT_STATE.md"
 DIRECTION = ROOT / "docs" / "PROJECT_SCIENTIFIC_DIRECTION.md"
 INSTANCE1 = ROOT / "docs" / "INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md"
 DECISION = ROOT / "docs" / "decisions" / "DEC-INSTANCE1-RELATIONAL-CORE.md"
 POLICY = ROOT / "docs" / "policies" / "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md"
 AUDIT = ROOT / "docs" / "audits" / "INSTANCE_1_CONSOLIDATION_AUDIT_2026-08-04.md"
-ROADMAP = ROOT / "docs" / "roadmap" / "SIMBIOSCOPE_IMPLEMENTATION_ROADMAP.md"
+ROADMAP = ROOT / "docs" / "roadmap" / "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md"
+ROADMAP_ALIAS = ROOT / "docs" / "roadmap" / "SIMBIOSCOPE_IMPLEMENTATION_ROADMAP.md"
 CURATION = ROOT / "docs" / "roadmap" / "INSTANCE_1_CURATION_WORKFLOW.md"
 DATABASE_README = ROOT / "database" / "README.md"
 CORE_SQL = ROOT / "database" / "schema" / "001_instance1_core.sql"
@@ -24,8 +26,10 @@ GOVERNANCE = ROOT / "docs" / "GOVERNANCE.md"
 METHODOLOGY = ROOT / "METHODOLOGY.md"
 PRODUCT_MODEL = ROOT / "PRODUCT_CATALOG_MODEL.md"
 CODEBOOK = ROOT / "CODEBOOK.md"
+MILESTONE_INDEX = ROOT / "docs" / "milestones" / "README.md"
+MILESTONE_STATUS = ROOT / "docs" / "milestones" / "MILESTONE_STATUS.json"
 
-SCHEMAS = (
+BACKLOG_SCHEMAS = (
     ROOT / "schema" / "scientific-variable-passport-v0.1.json",
     ROOT / "schema" / "comparability-assessment-v0.1.json",
     ROOT / "schema" / "scientific-relation-evidence-v0.1.json",
@@ -44,12 +48,14 @@ def require_tokens(path: Path, tokens: tuple[str, ...], label: str) -> None:
 
 
 required_files = (
+    PROJECT_STATE,
     DIRECTION,
     INSTANCE1,
     DECISION,
     POLICY,
     AUDIT,
     ROADMAP,
+    ROADMAP_ALIAS,
     CURATION,
     DATABASE_README,
     CORE_SQL,
@@ -61,20 +67,38 @@ required_files = (
     METHODOLOGY,
     PRODUCT_MODEL,
     CODEBOOK,
-    *SCHEMAS,
+    MILESTONE_INDEX,
+    MILESTONE_STATUS,
+    *BACKLOG_SCHEMAS,
 )
 for path in required_files:
     if not path.exists() or path.stat().st_size == 0:
         fail(f"arquivo ausente ou vazio: {path.relative_to(ROOT)}")
 
 require_tokens(
+    PROJECT_STATE,
+    (
+        "Simbiotrama",
+        "`ACTIVE`",
+        "`BACKLOG`",
+        "`LEGACY_OPERATIONAL`",
+        "`RETIRED`",
+        "`HISTORICAL_EVIDENCE`",
+        "PR #53",
+        "Marco 2A",
+    ),
+    "estado do projeto",
+)
+
+require_tokens(
     DIRECTION,
     (
         "Instância 1 — Catálogo relacional científico-operacional",
-        "Symbiotrama",
+        "Simbiotrama",
         "PostgreSQL",
         "Instância 2 — composição geográfica",
         "Instância 3 — contexto científico",
+        "`BACKLOG`",
     ),
     "direção científica",
 )
@@ -92,6 +116,18 @@ require_tokens(
 )
 
 require_tokens(
+    DECISION,
+    (
+        "núcleo ativo do Simbiotrama",
+        "PR #53",
+        "`BACKLOG`",
+        "`LEGACY_OPERATIONAL`",
+        "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md",
+    ),
+    "decisão da Instância 1",
+)
+
+require_tokens(
     POLICY,
     (
         "guardrail futuro",
@@ -104,12 +140,21 @@ require_tokens(
 )
 
 roadmap = ROADMAP.read_text(encoding="utf-8")
-for phase in ("I1.0", "I1.1", "I1.2", "I1.3", "I1.4", "I1.5"):
-    if f"Fase {phase}" not in roadmap:
-        fail(f"roadmap sem Fase {phase}")
-for token in ("Instância 2 — backlog de longo prazo", "Instância 3 — backlog de longo prazo"):
+for milestone in ("I1-M1", "I1-M1-SANITY", "I1-M2", "I1-M3", "I1-M4", "I1-M5", "I1-M6", "I1-M7"):
+    if milestone not in roadmap:
+        fail(f"roadmap sem marco {milestone}")
+for token in ("Instância 2 — composição geográfica", "Instância 3 — contexto científico"):
     if token not in roadmap:
-        fail(f"roadmap sem limite futuro: {token}")
+        fail(f"roadmap sem backlog: {token}")
+
+require_tokens(
+    ROADMAP_ALIAS,
+    (
+        "`RETIRED_ALIAS`",
+        "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md",
+    ),
+    "alias legado do roadmap",
+)
 
 require_tokens(
     CURATION,
@@ -151,7 +196,7 @@ require_tokens(
     "schema de staging",
 )
 
-for schema_path in SCHEMAS:
+for schema_path in BACKLOG_SCHEMAS:
     try:
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
@@ -166,27 +211,27 @@ for schema_path in SCHEMAS:
     if not schema["required"] or not isinstance(schema["required"], list):
         fail(f"{schema_path.name}: required deve ser lista não vazia")
 
-# The current explorer remains a restricted N0 prototype while Instance 1 is consolidated.
+# The published explorer remains a legacy N0 prototype while Instance 1 is consolidated.
 registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
 if registry.get("registry_version") != "0.2.0":
-    fail("registro federado deve permanecer na versão 0.2.0")
+    fail("registro federado legado deve permanecer na versão 0.2.0")
 if registry.get("operation_mode") != "visual_composition_only":
-    fail("explorador atual deve permanecer em visual_composition_only")
+    fail("explorador legado deve permanecer em visual_composition_only")
 if registry.get("inference_ceiling") != "N0":
-    fail("explorador atual deve declarar teto N0")
+    fail("explorador legado deve declarar teto N0")
 if registry.get("analytical_use_allowed") is not False:
-    fail("explorador atual deve proibir uso analítico")
+    fail("explorador legado deve proibir uso analítico")
 
 policy_reference = registry.get("scientific_policy", {})
 if policy_reference.get("document_path") != "docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md":
-    fail("registro não referencia a política científica")
+    fail("registro legado não referencia a política científica")
 
 layers = registry.get("layers", [])
 if not layers:
     fail("registro federado sem camadas")
 for layer in layers:
     if layer.get("compatibility_class") != "C":
-        fail(f"{layer.get('layer_id')}: camada atual deve permanecer em classe C")
+        fail(f"{layer.get('layer_id')}: artefato legado deve preservar classe C")
     if layer.get("inference_ceiling") != "N0":
         fail(f"{layer.get('layer_id')}: teto deve ser N0")
     if layer.get("analytical_use_allowed") is not False:
@@ -203,19 +248,35 @@ require_tokens(
         "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md",
         "nenhuma inferência estatística ou causal",
     ),
-    "explorer.html",
+    "explorer.html legado",
 )
 
 require_tokens(
     README,
     (
+        "Science Data Sources Catalog — Simbiotrama",
+        "docs/PROJECT_STATE.md",
         "docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md",
         "database/schema/001_instance1_core.sql",
         "docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md",
         "Instância 2 — composição geográfica",
         "Instância 3 — contexto científico",
+        "LEGACY_OPERATIONAL",
     ),
     "README",
+)
+
+require_tokens(
+    GOVERNANCE,
+    (
+        "Governança do Simbiotrama",
+        "docs/PROJECT_STATE.md",
+        "`ACTIVE`",
+        "`BACKLOG`",
+        "`LEGACY_OPERATIONAL`",
+        "gates humanos",
+    ),
+    "governança",
 )
 
 require_tokens(
@@ -253,14 +314,17 @@ require_tokens(
     "codebook",
 )
 
-# Governance must continue recognizing the active direction and the future guardrail.
-governance = GOVERNANCE.read_text(encoding="utf-8")
-if "PROJECT_SCIENTIFIC_DIRECTION.md" not in governance:
-    fail("governança não reconhece a direção científica")
-if "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md" not in governance:
-    fail("governança não reconhece a política científica")
+milestone_status = json.loads(MILESTONE_STATUS.read_text(encoding="utf-8"))
+if milestone_status.get("project") != "Simbiotrama":
+    fail("estado do marco com nome de projeto inconsistente")
+if milestone_status.get("status") != "INCORPORATED":
+    fail("Marco 1 deve permanecer INCORPORATED")
+if milestone_status.get("instances_2_3_active") is not False:
+    fail("Instâncias 2 e 3 não podem estar ativas")
+if milestone_status.get("legacy_n0_explorer_active_development") is not False:
+    fail("explorador legado não pode estar em desenvolvimento ativo")
 
 print(
-    "OK: Instância 1 validada — direção relacional, contratos, staging, "
-    "curadoria e explorador legado preservado em N0/classe C"
+    "OK: sanity pós-Marco 1 validado — autoridade, ciclo de vida, roadmap, "
+    "núcleo relacional e explorador legado N0 coerentes"
 )

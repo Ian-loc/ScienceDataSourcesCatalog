@@ -1,9 +1,0 @@
-{
-  "current_main_milestone": "I1-M1",
-  "active_execution_package": "I1-M2A-DETER-CERRADO",
-  "legacy_branch_closed": "agent/consolidate-instance-1-relational-catalog",
-  "active_branch": "agent/marco-2a-deter-cerrado",
-  "merge_authorized": true,
-  "continuous_execution_authorized": true,
-  "updated_local": "2026-08-06T07:48:00-03:00"
-}

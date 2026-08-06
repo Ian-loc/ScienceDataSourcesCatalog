@@ -4,8 +4,10 @@
 **Fuso de referência:** `America/Sao_Paulo`  
 **Repositório transitório:** `Ian-loc/ScienceDataSourcesCatalog`  
 **Pull request de consolidação:** #54  
+**Pull request de registro:** #55  
 **Head auditado antes da incorporação:** `0c9acd2e255c53c73c5c8373470ee239740f8ec1`  
-**Commit canônico resultante na `main`:** `3fd87900ee69d04f30bda8d085e848e990637295`  
+**Commit científico-arquitetural na `main`:** `3fd87900ee69d04f30bda8d085e848e990637295`  
+**Commit do registro do marco:** `bda7ab32261c7f52621722ef88cc7a113d2a5ede`  
 **Método de incorporação:** squash merge  
 **Estado:** `INCORPORATED`
 
@@ -44,6 +46,8 @@ O PR #54 foi encerrado com:
 - nenhuma thread de revisão aberta;
 - merge protegido pelo SHA exato do head auditado.
 
+O PR #55 registrou o marco e formalizou o regime de pacotes subsequentes.
+
 ## 4. Estado científico alcançado
 
 A arquitetura passou a impedir, por contrato e validação, colapsos indevidos entre:
@@ -61,8 +65,6 @@ Os produtos e famílias parcialmente modelados permanecem sob revisão. O marco 
 
 ## 5. Autoridade após o marco
 
-Após a incorporação:
-
 ```text
 main
 = autoridade material incorporada do repositório transitório
@@ -74,10 +76,10 @@ PostgreSQL/PostGIS
 = arquitetura canônica de destino, ainda não promovida a produção
 
 Instâncias 2 e 3
-= backlog conceitual, fora do escopo ativo
+= backlog, fora do escopo ativo
 ```
 
-A branch histórica `agent/consolidate-instance-1-relational-catalog` não deve receber novo desenvolvimento.
+As branches históricas do PR #54 não devem receber novo desenvolvimento.
 
 ## 6. Pendências preservadas
 
@@ -96,12 +98,10 @@ Permanecem fora da declaração de completude do Marco 1:
 
 ## 7. Regime de execução subsequente
 
-Para evitar novo acúmulo monolítico:
-
 1. todo desenvolvimento parte da `main` corrente;
 2. cada pacote coerente recebe branch e PR próprios;
 3. famílias independentes não são misturadas;
-4. mudanças estruturais transversais são isoladas;
+4. mudanças transversais são isoladas;
 5. cada PR possui critério explícito de completude;
 6. o delta é auditado antes de congelar o head;
 7. o CI deve estar verde no SHA exato;
@@ -109,9 +109,9 @@ Para evitar novo acúmulo monolítico:
 9. merges futuros exigem autorização humana explícita;
 10. squash merge é preferido para preservar legibilidade da `main`.
 
-## 8. Próximo marco operacional
+## 8. Próximo marco científico
 
-O próximo pacote é:
+Após a limpeza de sanidade pós-marco, o próximo pacote científico é:
 
 > **Marco 2A — fechamento científico-operacional do DETER Cerrado.**
 
@@ -121,4 +121,4 @@ DETER Amazônia, DETER Pantanal, PRODES, Clima Gerais, MapBiomas e outras famíl
 
 ## 9. Decisão de governança
 
-Este marco foi autorizado pelo responsável do projeto em 6 de agosto de 2026. O merge do PR #54 foi executado e verificado. A execução contínua da Instância 1 permanece autorizada dentro dos contratos científicos, técnicos e de governança vigentes.
+Este marco foi autorizado pelo responsável do projeto em 6 de agosto de 2026. Os merges dos PRs #54 e #55 foram executados e verificados. A execução contínua da Instância 1 permanece autorizada dentro dos contratos científicos, técnicos e de governança vigentes.

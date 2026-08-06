@@ -1,149 +1,143 @@
-# Governança do projeto
+# Governança do Simbiotrama
 
-## Finalidade
+## 1. Finalidade
 
-O Science Data Sources Catalog é um projeto científico contínuo de descoberta, descrição e comparação de fontes de dados com prioridade para o Brasil. Sua direção de longo prazo é evoluir, de forma controlada, para o **Simbioscópio**: uma plataforma federada capaz de explorar interdependências entre sociedade, saúde, economia, governança, território e natureza.
+O Simbiotrama é um catálogo relacional científico-operacional de produtos de dados georreferenciados sobre o Brasil. Sua fase ativa é a **Instância 1**, dedicada a identificar, definir, versionar, documentar, verificar e tornar acessíveis produtos de dados com rigor científico e operacional.
 
-A governança preserva rastreabilidade, revisão factual, limites de inferência e separação entre dados canônicos, artefatos derivados, documentação operacional e hipóteses científicas.
+Composição geográfica e contextualização por literatura permanecem como Instâncias 2 e 3 em backlog. Elas não constituem workstreams ativos.
 
-## Autoridade
+## 2. Autoridade
 
-A autoridade canônica é composta por:
+A hierarquia vigente é:
 
-1. branch `main` do repositório;
-2. `data/data_resources.csv` para o catálogo de fontes;
-3. `data/data_products.csv` e `data/product_distributions.csv` para produtos e acessos;
-4. contratos de esquema e validadores executáveis;
-5. [Direção científica do projeto](PROJECT_SCIENTIFIC_DIRECTION.md);
-6. políticas científicas e operacionais versionadas em `docs/policies/`;
-7. releases identificadas e histórico de pull requests.
+1. branch `main`;
+2. `docs/PROJECT_STATE.md`;
+3. `docs/PROJECT_SCIENTIFIC_DIRECTION.md`;
+4. decisões aprovadas em `docs/decisions/`;
+5. esquema relacional, migrações e validadores executáveis;
+6. dados públicos canônicos durante a transição;
+7. evidências, auditorias e revisões curatoriais;
+8. protótipos, espelhos e documentos históricos.
 
-Em caso de divergência, os arquivos canônicos validados em `main` prevalecem sobre planilhas, cópias locais, documentos históricos e conversas de trabalho. A direção científica e as políticas normativas prevalecem sobre conveniência de interface ou velocidade de expansão.
+Durante a transição:
 
-## Estado de transição
+- `data/data_resources.csv`, `data/data_products.csv` e `data/product_distributions.csv` sustentam a versão pública;
+- PostgreSQL/PostGIS é a arquitetura canônica de destino, mas ainda não a autoridade de produção;
+- planilhas do Google Drive são snapshots ou espelhos derivados;
+- branches não incorporadas, conversas e relatórios de sessão não constituem autoridade.
 
-O esquema 0.7.0 permanece canônico para fontes. Novas entidades científicas — variáveis, passaportes, comparabilidade, relações, evidências, linhagem e receitas — devem ser introduzidas inicialmente em contratos e tabelas paralelas.
+Em caso de divergência, a `main` e os documentos normativos vigentes prevalecem.
 
-Nenhuma migração destrutiva do catálogo atual pode ocorrer sem:
+## 3. Ciclo de vida dos artefatos
 
-- contrato versionado;
-- plano de migração;
-- casos de teste;
-- validação automatizada;
-- inspeção científica;
-- preservação de IDs e proveniência;
-- decisão explícita do responsável científico.
+Todo artefato deve ser classificado como:
 
-## Artefatos derivados
+- `ACTIVE` — pertence ao caminho crítico da Instância 1;
+- `BACKLOG` — direção futura preservada, sem implementação ativa;
+- `LEGACY_OPERATIONAL` — artefato funcional mantido apenas para continuidade ou regressão;
+- `RETIRED` / `SUPERSEDED` — não orienta trabalho novo;
+- `HISTORICAL_EVIDENCE` — preservado para rastreabilidade, sem autoridade normativa.
 
-São derivados:
+A disposição detalhada está em `docs/PROJECT_STATE.md`.
 
-- JSONs da interface;
-- metadados de build;
-- website publicado;
-- planilha nativa e arquivo XLSX no Google Drive;
-- relatórios, perfis, mapas ou visualizações produzidos a partir do catálogo;
-- avaliações automáticas ainda não revisadas;
-- produtos analíticos gerados por receitas.
+## 4. Regime de mudança
 
-Derivados devem registrar, quando aplicável, versão, commit-fonte, data de geração, entradas, parâmetros, código, limitações e teto de inferência. Eles não constituem uma segunda fonte de edição.
+Mudanças devem percorrer:
 
-## Papéis
+1. delimitação do pacote e do critério de completude;
+2. evidência e proposta explícita;
+3. branch derivada da `main` corrente;
+4. alterações limitadas ao escopo;
+5. validação automática e inspeção científica;
+6. auditoria do delta;
+7. pull request;
+8. congelamento do head;
+9. autorização humana quando exigida;
+10. incorporação em `main`, preferencialmente por squash merge;
+11. atualização de marco, estado ou changelog quando material.
+
+Cada PR deve representar uma família de produtos, um pequeno conjunto estreitamente relacionado ou uma alteração transversal indispensável. Não se devem misturar famílias independentes, limpeza de legado e mudanças arquiteturais amplas.
+
+## 5. Gates humanos
+
+Exigem autorização humana explícita:
+
+- merge de mudança científica, estrutural, executável ou pública;
+- promoção do PostgreSQL como autoridade;
+- publicação ou deploy deliberado;
+- mudança de visibilidade;
+- criação, encerramento ou migração de repositório;
+- modificação ou substituição de arquivos do Drive;
+- ação destrutiva ou irreversível;
+- decisão científica ambígua de alto impacto.
+
+Microdecisões reversíveis, cobertas por contrato, evidência e teste, podem ser executadas dentro de um pacote autorizado.
+
+## 6. Papéis
 
 ### Responsável científico e mantenedor
 
-- define escopo e critérios de inclusão;
-- decide interpretações científicas;
-- aprova mudanças canônicas, políticas e releases;
-- responde pela identidade, autoria e citação do projeto;
-- aprova qualquer atribuição de inferência causal;
-- decide quando uma extensão experimental pode tornar-se pública.
+- define missão, escopo e prioridades;
+- aprova interpretações científicas e mudanças canônicas;
+- autoriza merges e releases;
+- decide promoção de autoridade e publicação;
+- responde por identidade, autoria, licença e citação do projeto.
 
-### Contribuidores
+### Curadoria e contribuição
 
-- apresentam evidências e propostas rastreáveis;
-- limitam alterações ao escopo declarado;
-- executam ou documentam validações;
-- não tratam CI verde como prova de verdade factual externa;
-- distinguem observação, hipótese, associação, mecanismo e causalidade;
-- registram evidência contraditória quando relevante.
-
-### Revisores especializados
-
-A ampliação para saúde, sociedade, economia e governança exige revisão interdisciplinar. Conforme o conteúdo, devem ser envolvidos especialistas em:
-
-- saúde pública e epidemiologia;
-- estatística espacial, temporal e causal;
-- ciências sociais e antropologia;
-- economia, finanças e políticas públicas;
-- ética, privacidade e proteção de dados;
-- ecologia, clima, agricultura e sistemas naturais.
+- apresenta evidências rastreáveis;
+- preserva valores desconhecidos como desconhecidos;
+- separa fonte, família, produto, release, distribuição, ativo e capacidade;
+- registra limitações e evidência contraditória;
+- não trata CI verde como prova factual externa;
+- não generaliza metadados entre produtos, releases ou biomas.
 
 ### Automação
 
-- valida estrutura, contratos e consistência;
-- gera artefatos derivados;
-- sinaliza incompatibilidades e riscos;
-- publica somente o artefato público permitido;
-- não decide elegibilidade científica;
-- não altera silenciosamente valores canônicos;
-- não atribui N5 nem causalidade sem revisão humana.
+- valida estrutura, contratos, integridade e regressões;
+- gera artefatos derivados autorizados;
+- registra ocorrências e estados negativos;
+- não inventa metadados;
+- não promove unidades incompletas;
+- não atribui compatibilidade científica universal;
+- não executa gates humanos.
 
-## Ciclo de mudança
+## 7. Curadoria e promoção
 
-Uma mudança canônica deve percorrer:
+A unidade de trabalho é **um produto ou release integralmente inspecionado**.
 
-1. identificação da necessidade;
-2. evidência e proposta explícita;
-3. branch dedicada;
-4. alteração dos arquivos-fonte;
-5. validação automática e inspeção científica;
-6. pull request;
-7. integração em `main`;
-8. regeneração dos derivados;
-9. registro em changelog e, quando aplicável, release.
+Uma promoção requer, conforme aplicável:
 
-Mudanças científicas, estruturais, executáveis ou públicas devem declarar impacto sobre comparabilidade, proveniência, ética e inferência.
+- identidade e produtor;
+- significado científico;
+- variáveis e classes;
+- método versionado;
+- perfis espacial e temporal;
+- qualidade, incerteza e limitações;
+- distribuições, ativos, endpoints e capacidades;
+- licença e citação;
+- evidências por afirmação;
+- revisão curatorial;
+- integridade relacional e idempotência.
 
-## Decisões científicas e técnicas
+Presença em catálogo, URL conhecida ou CI verde não é suficiente para promoção.
 
-Decisões duradouras devem ser registradas em documentação estável, contrato de esquema, issue, pull request ou registro de decisão. Logs de sessão, tentativas temporárias e falhas operacionais podem ser arquivados, mas não devem dominar a documentação pública.
+## 8. Instâncias futuras
 
-A [Direção científica do projeto](PROJECT_SCIENTIFIC_DIRECTION.md) define missão, escopo e arquitetura de longo prazo. O [roadmap do Simbioscópio](roadmap/SIMBIOSCOPE_IMPLEMENTATION_ROADMAP.md) define a ordem de execução. A [auditoria de transição](audits/SCIENTIFIC_DIRECTION_TRANSITION_AUDIT_2026-08-04.md) registra lacunas e prioridades.
+A política `docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md` é um guardrail de backlog. Ela preserva limites para futuras composições e análises, mas não autoriza motores de compatibilidade, correlação, regressão ou causalidade durante a Instância 1.
 
-### Comparabilidade, evidência e inferência
+O explorador visual atual e `data/federated_layers.json` são `LEGACY_OPERATIONAL`, limitados a composição N0. Só podem receber correções de disponibilidade, segurança ou regressão enquanto a Instância 2 não for ativada.
 
-A [Política de comparabilidade, evidência e inferência científica](policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md) é normativa para o Explorador Federado, a futura interface Simbioscópio, receitas de integração e qualquer produto derivado.
+## 9. Evidência histórica
 
-Nenhuma funcionalidade pode tratar sobreposição como harmonização, correlação como mecanismo ou associação como causalidade sem os controles, metadados, diagnósticos, evidências e níveis de revisão definidos nessa política. Mudanças de interface, esquema, API ou processamento não podem enfraquecer silenciosamente avisos, bloqueios ou limites de inferência.
+Auditorias, ocorrências, PRs, commits e propostas de transição devem ser preservados. A limpeza do repositório deve remover duplicação normativa e ambiguidade, não rastreabilidade.
 
-### Saúde, dados sociais e privacidade
+Achados históricos não alteram automaticamente dados canônicos. Uma correção só se torna vigente quando incorporada no local autoritativo apropriado.
 
-Antes de incorporar microdados, pequenas contagens ou informações potencialmente sensíveis, o projeto deverá estabelecer política específica para:
+## 10. Releases, espelhos e publicação
 
-- minimização de dados;
-- agregação e supressão;
-- risco de reidentificação;
-- estigmatização territorial;
-- populações vulneráveis;
-- bases legais e termos de uso;
-- retenção e descarte;
-- revisão ética quando aplicável.
+Releases devem ser identificáveis, reproduzíveis e coerentes com `docs/RELEASE_POLICY.md`.
 
-## Auditorias
+Espelhos do Drive devem declarar versão, commit-fonte, data de geração e verificação de correspondência. Eles não devem ser editados como fonte independente.
 
-Auditorias são evidência de controle de qualidade, não componentes da interface pública. Devem informar:
-
-- escopo;
-- data;
-- método;
-- evidências consultadas;
-- achados;
-- correções aceitas;
-- limitações e pendências.
-
-Achados não alteram automaticamente os dados canônicos. Avaliações automáticas de comparabilidade ou evidência permanecem rascunhos até revisão exigida pela política.
-
-## Segurança editorial
-
-O GitHub Pages publica apenas arquivos copiados para `_site`. Scripts, workflows, matrizes de migração, auditorias e documentação interna permanecem acessíveis no repositório, mas não são incluídos no artefato do website, salvo decisão explícita de publicação.
+A página pública atual permanece transitória. Mudanças no núcleo relacional não implicam automaticamente promoção, deploy ou substituição da interface.
