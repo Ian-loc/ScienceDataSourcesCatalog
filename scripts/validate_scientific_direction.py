@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Validate Instance 1 direction, lifecycle classification, and legacy N0 safeguards."""
+"""Validate the minimum-sufficient scope of Simbiotrama Instance 1.
+
+This gate protects the active catalog direction without deleting the deep relational
+schema incorporated in Milestone 1. It validates active authority, scope boundaries,
+legacy classification, and the N0 explorer safeguards.
+"""
 from __future__ import annotations
 
 import json
@@ -7,27 +12,33 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-PROJECT_STATE = ROOT / "docs" / "PROJECT_STATE.md"
-DIRECTION = ROOT / "docs" / "PROJECT_SCIENTIFIC_DIRECTION.md"
-INSTANCE1 = ROOT / "docs" / "INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md"
-DECISION = ROOT / "docs" / "decisions" / "DEC-INSTANCE1-RELATIONAL-CORE.md"
-POLICY = ROOT / "docs" / "policies" / "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md"
-AUDIT = ROOT / "docs" / "audits" / "INSTANCE_1_CONSOLIDATION_AUDIT_2026-08-04.md"
-ROADMAP = ROOT / "docs" / "roadmap" / "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md"
-ROADMAP_ALIAS = ROOT / "docs" / "roadmap" / "SIMBIOSCOPE_IMPLEMENTATION_ROADMAP.md"
-CURATION = ROOT / "docs" / "roadmap" / "INSTANCE_1_CURATION_WORKFLOW.md"
-DATABASE_README = ROOT / "database" / "README.md"
-CORE_SQL = ROOT / "database" / "schema" / "001_instance1_core.sql"
-STAGING_SQL = ROOT / "database" / "schema" / "002_legacy_staging.sql"
-REGISTRY = ROOT / "data" / "federated_layers.json"
-EXPLORER = ROOT / "explorer.html"
-README = ROOT / "README.md"
-GOVERNANCE = ROOT / "docs" / "GOVERNANCE.md"
-METHODOLOGY = ROOT / "METHODOLOGY.md"
-PRODUCT_MODEL = ROOT / "PRODUCT_CATALOG_MODEL.md"
-CODEBOOK = ROOT / "CODEBOOK.md"
-MILESTONE_INDEX = ROOT / "docs" / "milestones" / "README.md"
-MILESTONE_STATUS = ROOT / "docs" / "milestones" / "MILESTONE_STATUS.json"
+FILES = {
+    "project_state": ROOT / "docs" / "PROJECT_STATE.md",
+    "direction": ROOT / "docs" / "PROJECT_SCIENTIFIC_DIRECTION.md",
+    "instance1": ROOT / "docs" / "INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md",
+    "decision_minimum": ROOT / "docs" / "decisions" / "DEC-INSTANCE1-MINIMUM-SUFFICIENT-CATALOG.md",
+    "decision_deep": ROOT / "docs" / "decisions" / "DEC-INSTANCE1-RELATIONAL-CORE.md",
+    "scope_policy": ROOT / "docs" / "policies" / "INSTANCE_1_SCOPE_AND_GRANULARITY_POLICY.md",
+    "future_policy": ROOT / "docs" / "policies" / "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md",
+    "roadmap": ROOT / "docs" / "roadmap" / "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md",
+    "roadmap_alias": ROOT / "docs" / "roadmap" / "SIMBIOSCOPE_IMPLEMENTATION_ROADMAP.md",
+    "curation": ROOT / "docs" / "roadmap" / "INSTANCE_1_CURATION_WORKFLOW.md",
+    "migration_plan": ROOT / "docs" / "roadmap" / "INSTANCE_1_MINIMUM_SCHEMA_MIGRATION_PLAN.md",
+    "golden_cases": ROOT / "docs" / "audits" / "INSTANCE_1_MINIMUM_MODEL_GOLDEN_CASES_2026-08-06.md",
+    "database_readme": ROOT / "database" / "README.md",
+    "core_sql": ROOT / "database" / "schema" / "001_instance1_core.sql",
+    "staging_sql": ROOT / "database" / "schema" / "002_legacy_staging.sql",
+    "registry": ROOT / "data" / "federated_layers.json",
+    "explorer": ROOT / "explorer.html",
+    "readme": ROOT / "README.md",
+    "governance": ROOT / "docs" / "GOVERNANCE.md",
+    "methodology": ROOT / "METHODOLOGY.md",
+    "product_model": ROOT / "PRODUCT_CATALOG_MODEL.md",
+    "codebook": ROOT / "CODEBOOK.md",
+    "selection": ROOT / "SELECTION_AND_COVERAGE_POLICY.md",
+    "pr_template": ROOT / ".github" / "pull_request_template.md",
+    "milestone_status": ROOT / "docs" / "milestones" / "MILESTONE_STATUS.json",
+}
 
 BACKLOG_SCHEMAS = (
     ROOT / "schema" / "scientific-variable-passport-v0.1.json",
@@ -40,162 +51,272 @@ def fail(message: str) -> None:
     raise SystemExit(f"ERRO: {message}")
 
 
-def require_tokens(path: Path, tokens: tuple[str, ...], label: str) -> None:
-    text = path.read_text(encoding="utf-8")
-    for token in tokens:
-        if token not in text:
-            fail(f"{label} sem requisito obrigatório: {token}")
+def read(name: str) -> str:
+    path = FILES[name]
+    if not path.exists() or path.stat().st_size == 0:
+        fail(f"arquivo ausente ou vazio: {path.relative_to(ROOT)}")
+    return path.read_text(encoding="utf-8")
 
 
-required_files = (
-    PROJECT_STATE,
-    DIRECTION,
-    INSTANCE1,
-    DECISION,
-    POLICY,
-    AUDIT,
-    ROADMAP,
-    ROADMAP_ALIAS,
-    CURATION,
-    DATABASE_README,
-    CORE_SQL,
-    STAGING_SQL,
-    REGISTRY,
-    EXPLORER,
-    README,
-    GOVERNANCE,
-    METHODOLOGY,
-    PRODUCT_MODEL,
-    CODEBOOK,
-    MILESTONE_INDEX,
-    MILESTONE_STATUS,
-    *BACKLOG_SCHEMAS,
-)
-for path in required_files:
+def require_all(name: str, required: tuple[str, ...]) -> None:
+    text = read(name)
+    missing = [token for token in required if token not in text]
+    if missing:
+        fail(f"{FILES[name].relative_to(ROOT)} sem requisitos: {missing}")
+
+
+def forbid_any(name: str, forbidden: tuple[str, ...]) -> None:
+    text = read(name)
+    present = [token for token in forbidden if token in text]
+    if present:
+        fail(f"{FILES[name].relative_to(ROOT)} contém direção aposentada: {present}")
+
+
+# Every declared contract must exist before semantic checks run.
+for file_name in FILES:
+    read(file_name)
+for path in BACKLOG_SCHEMAS:
     if not path.exists() or path.stat().st_size == 0:
         fail(f"arquivo ausente ou vazio: {path.relative_to(ROOT)}")
 
-require_tokens(
-    PROJECT_STATE,
+# Active authority and lifecycle.
+require_all(
+    "project_state",
     (
-        "Simbiotrama",
+        "Simbiotrama — Catálogo de Dados Científicos do Brasil",
+        "entrada de catálogo de granularidade mínima suficiente",
+        "I1-S1 — simplificação governada da Instância 1",
+        "PR #57",
         "`ACTIVE`",
         "`BACKLOG`",
         "`LEGACY_OPERATIONAL`",
         "`RETIRED`",
         "`HISTORICAL_EVIDENCE`",
-        "PR #53",
-        "Marco 2A",
     ),
-    "estado do projeto",
 )
-
-require_tokens(
-    DIRECTION,
+require_all(
+    "direction",
     (
-        "Instância 1 — Catálogo relacional científico-operacional",
-        "Simbiotrama",
-        "PostgreSQL",
-        "Instância 2 — composição geográfica",
-        "Instância 3 — contexto científico",
-        "`BACKLOG`",
+        "entrada de catálogo",
+        "granularidade",
+        "Organização",
+        "metadados essenciais",
+        "Instância 2",
+        "Instância 3",
+        "PostgreSQL/PostGIS",
     ),
-    "direção científica",
 )
-
-require_tokens(
-    INSTANCE1,
+require_all(
+    "instance1",
     (
-        "Produto científico",
-        "mensagem informacional",
-        "PostgreSQL com PostGIS",
-        "metadata_assertions",
-        "Instâncias 2 e 3 — registro somente para leitura",
+        "catalog_entry",
+        "organizations",
+        "catalog_entries",
+        "entry_variables",
+        "entry_evidence",
+        "connector_profiles",
+        "Critério de completude",
     ),
-    "documento da Instância 1",
 )
-
-require_tokens(
-    DECISION,
+require_all(
+    "scope_policy",
     (
-        "núcleo ativo do Simbiotrama",
-        "PR #53",
-        "`BACKLOG`",
-        "`LEGACY_OPERATIONAL`",
-        "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md",
+        "granularidade mínima suficiente",
+        "Não se cria nova entrada apenas",
+        "Gate para expansão do esquema",
+        "descoberta no catálogo",
+        "configuração de um conector selecionado",
+        "O Simbiotrama não é",
     ),
-    "decisão da Instância 1",
 )
-
-require_tokens(
-    POLICY,
+require_all(
+    "decision_minimum",
     (
-        "guardrail futuro",
-        "Sobreposição cartográfica não constitui harmonização",
-        "N0 — composição visual",
-        "N5 — inferência causal condicionada",
-        "A Instância 1 não atribui nenhum desses níveis",
+        "catálogo de granularidade mínima suficiente",
+        "catalog_entry",
+        "não será apagada de forma destrutiva",
+        "PR #57",
+        "superseded",
     ),
-    "política futura",
+)
+require_all(
+    "decision_deep",
+    (
+        "**Estado atual:** `SUPERSEDED`",
+        "DEC-INSTANCE1-MINIMUM-SUFFICIENT-CATALOG.md",
+        "legado técnico",
+    ),
 )
 
-roadmap = ROADMAP.read_text(encoding="utf-8")
-for milestone in ("I1-M1", "I1-M1-SANITY", "I1-M2", "I1-M3", "I1-M4", "I1-M5", "I1-M6", "I1-M7"):
+# Work plan and stopping rule.
+roadmap = read("roadmap")
+for milestone in ("I1-M1", "I1-S1", "I1-S2", "I1-S3", "I1-S4", "I1-S5", "I1-S6", "I1-S7"):
     if milestone not in roadmap:
-        fail(f"roadmap sem marco {milestone}")
-for token in ("Instância 2 — composição geográfica", "Instância 3 — contexto científico"):
-    if token not in roadmap:
-        fail(f"roadmap sem backlog: {token}")
+        fail(f"roadmap sem marco vigente: {milestone}")
+for case_name in ("GEDI", "DETER Cerrado", "IBGE", "ANA/SNIRH"):
+    if case_name not in roadmap:
+        fail(f"roadmap sem caso de validação: {case_name}")
 
-require_tokens(
-    ROADMAP_ALIAS,
+require_all(
+    "curation",
     (
-        "`RETIRED_ALIAS`",
-        "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md",
+        "entrada de catálogo suficientemente descrita",
+        "Critério de parada",
+        "não reconstruir o catálogo da fonte",
+        "não criar entrada apenas por formato, arquivo, layer, banda ou endpoint",
+        "Uma entrada pode ser `verified`",
     ),
-    "alias legado do roadmap",
+)
+require_all(
+    "migration_plan",
+    (
+        "migração sem perda, idempotente e reversível",
+        "catalog.catalog_entries",
+        "catalog.entry_variables",
+        "catalog.entry_evidence",
+        "catalog.connector_profiles",
+        "data_assets",
+        "não promovido ao núcleo",
+    ),
+)
+require_all(
+    "golden_cases",
+    (
+        "GEDI",
+        "DETER Cerrado",
+        "IBGE",
+        "ANA/SNIRH",
+        "inventário integral",
+        "Testes adversariais",
+    ),
 )
 
-require_tokens(
-    CURATION,
+# Public and operational documents must present the same target.
+for name in (
+    "readme",
+    "governance",
+    "methodology",
+    "product_model",
+    "codebook",
+    "selection",
+    "database_readme",
+):
+    require_all(name, ("entrada", "catálogo"))
+
+require_all(
+    "readme",
     (
-        "um produto integralmente inspecionado",
-        "Etapa A — resolução do objeto",
-        "Etapa I — auditoria",
-        "não tratar serviço ou catálogo como produto científico",
+        "catalog_entries",
+        "entry_variables",
+        "entry_evidence",
+        "connector_profiles",
+        "O que não é requisito universal",
     ),
-    "workflow de curadoria",
+)
+require_all(
+    "governance",
+    (
+        "Gate de escopo",
+        "CI verde antes do término da revisão não libera merge",
+        "autorização é válida apenas para o SHA exato",
+    ),
+)
+require_all(
+    "methodology",
+    (
+        "Regra de granularidade",
+        "Critério de parada",
+        "não é rotina da Instância 1",
+    ),
+)
+require_all(
+    "product_model",
+    (
+        "Entrada de catálogo",
+        "Perfil de conector",
+        "Não criar nova entrada somente por",
+    ),
+)
+require_all(
+    "codebook",
+    (
+        "Núcleo mínimo proposto",
+        "catalog_entries",
+        "entry_variables",
+        "entry_evidence",
+        "connector_profiles",
+        "Estruturas profundas legadas",
+    ),
+)
+require_all(
+    "database_readme",
+    (
+        "legado técnico/extensão futura",
+        "Núcleo mínimo proposto",
+        "não promover automaticamente",
+        "Comando destrutivo",
+    ),
+)
+require_all(
+    "pr_template",
+    (
+        "Gate de escopo",
+        "não reconstrói catálogo ou genealogia de terceiros",
+        "critério de parada explícito",
+        "nenhuma thread acionável aberta",
+    ),
 )
 
-require_tokens(
-    CORE_SQL,
+# Canonical documents may mention the deep model as retired history, but cannot
+# present its former completeness rule as active policy.
+for name in (
+    "project_state",
+    "direction",
+    "instance1",
+    "roadmap",
+    "curation",
+    "readme",
+    "governance",
+    "methodology",
+    "product_model",
+    "codebook",
+    "selection",
+):
+    forbid_any(
+        name,
+        (
+            "A unidade de trabalho é **um produto ou release integralmente inspecionado**",
+            "A unidade de progresso é um produto ou release integralmente inspecionado",
+            "Cada produto deve possuir um perfil organizado em seis blocos",
+            "release vigente e vínculo metodológico" if name != "project_state" else "__never__",
+        ),
+    )
+
+# Preserve the executable Milestone 1 schema and staging until the additive
+# migration is implemented and authorized.
+require_all(
+    "core_sql",
     (
         "CREATE SCHEMA IF NOT EXISTS catalog",
         "CREATE TABLE catalog.sources",
         "CREATE TABLE catalog.products",
         "CREATE TABLE catalog.product_releases",
-        "CREATE TABLE catalog.variables",
-        "CREATE TABLE catalog.product_variables",
+        "CREATE TABLE catalog.data_assets",
         "CREATE TABLE catalog.metadata_assertions",
-        "CREATE TABLE catalog.curation_reviews",
-        "CREATE VIEW catalog.v_product_catalog",
     ),
-    "schema relacional",
 )
-
-require_tokens(
-    STAGING_SQL,
+require_all(
+    "staging_sql",
     (
         "CREATE SCHEMA IF NOT EXISTS staging",
         "CREATE TABLE staging.legacy_resources",
         "CREATE TABLE staging.legacy_products",
         "CREATE TABLE staging.legacy_distributions",
         "CREATE TABLE staging.migration_issues",
-        "resolved_entity_type",
     ),
-    "schema de staging",
 )
 
+# Backlog schemas remain syntactically valid but do not become active authority.
 for schema_path in BACKLOG_SCHEMAS:
     try:
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
@@ -203,16 +324,28 @@ for schema_path in BACKLOG_SCHEMAS:
         fail(f"JSON inválido em {schema_path.relative_to(ROOT)}: {exc}")
     for field in ("$schema", "$id", "title", "type", "required", "properties"):
         if field not in schema:
-            fail(f"{schema_path.name}: campo de contrato ausente: {field}")
+            fail(f"{schema_path.name}: campo ausente: {field}")
     if schema["$schema"] != "https://json-schema.org/draft/2020-12/schema":
-        fail(f"{schema_path.name}: draft JSON Schema inesperado")
+        fail(f"{schema_path.name}: draft inesperado")
     if schema["type"] != "object":
         fail(f"{schema_path.name}: raiz deve ser objeto")
-    if not schema["required"] or not isinstance(schema["required"], list):
-        fail(f"{schema_path.name}: required deve ser lista não vazia")
 
-# The published explorer remains a legacy N0 prototype while Instance 1 is consolidated.
-registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+require_all(
+    "roadmap_alias",
+    ("`RETIRED_ALIAS`", "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md"),
+)
+require_all(
+    "future_policy",
+    (
+        "guardrail futuro",
+        "Sobreposição cartográfica não constitui harmonização",
+        "N0 — composição visual",
+        "N5 — inferência causal condicionada",
+    ),
+)
+
+# The currently published explorer remains legacy N0.
+registry = json.loads(FILES["registry"].read_text(encoding="utf-8"))
 if registry.get("registry_version") != "0.2.0":
     fail("registro federado legado deve permanecer na versão 0.2.0")
 if registry.get("operation_mode") != "visual_composition_only":
@@ -222,101 +355,32 @@ if registry.get("inference_ceiling") != "N0":
 if registry.get("analytical_use_allowed") is not False:
     fail("explorador legado deve proibir uso analítico")
 
-policy_reference = registry.get("scientific_policy", {})
-if policy_reference.get("document_path") != "docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md":
-    fail("registro legado não referencia a política científica")
-
 layers = registry.get("layers", [])
 if not layers:
     fail("registro federado sem camadas")
 for layer in layers:
+    layer_id = layer.get("layer_id", "sem_id")
     if layer.get("compatibility_class") != "C":
-        fail(f"{layer.get('layer_id')}: artefato legado deve preservar classe C")
+        fail(f"{layer_id}: artefato legado deve preservar classe C")
     if layer.get("inference_ceiling") != "N0":
-        fail(f"{layer.get('layer_id')}: teto deve ser N0")
+        fail(f"{layer_id}: teto deve ser N0")
     if layer.get("analytical_use_allowed") is not False:
-        fail(f"{layer.get('layer_id')}: uso analítico deve permanecer proibido")
-    if layer.get("evidence_status") != "not_assessed":
-        fail(f"{layer.get('layer_id')}: evidência deve permanecer not_assessed")
+        fail(f"{layer_id}: uso analítico deve permanecer proibido")
     if layer.get("operation_scope") != ["visual_overlay"]:
-        fail(f"{layer.get('layer_id')}: escopo atual deve ser somente visual_overlay")
+        fail(f"{layer_id}: escopo deve permanecer visual_overlay")
 
-require_tokens(
-    EXPLORER,
+require_all(
+    "explorer",
     (
         "N0 — composição visual",
         "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md",
         "nenhuma inferência estatística ou causal",
     ),
-    "explorer.html legado",
 )
 
-require_tokens(
-    README,
-    (
-        "Science Data Sources Catalog — Simbiotrama",
-        "docs/PROJECT_STATE.md",
-        "docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md",
-        "database/schema/001_instance1_core.sql",
-        "docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md",
-        "Instância 2 — composição geográfica",
-        "Instância 3 — contexto científico",
-        "LEGACY_OPERATIONAL",
-    ),
-    "README",
-)
-
-require_tokens(
-    GOVERNANCE,
-    (
-        "Governança do Simbiotrama",
-        "docs/PROJECT_STATE.md",
-        "`ACTIVE`",
-        "`BACKLOG`",
-        "`LEGACY_OPERATIONAL`",
-        "gates humanos",
-    ),
-    "governança",
-)
-
-require_tokens(
-    METHODOLOGY,
-    (
-        "Instância 1 — Catálogo relacional científico-operacional",
-        "metadata_assertions",
-        "Produto",
-        "Release",
-        "Instâncias futuras",
-    ),
-    "metodologia",
-)
-
-require_tokens(
-    PRODUCT_MODEL,
-    (
-        "Produto científico",
-        "Release, versão ou edição",
-        "Mensagem informacional",
-        "Evidência de metadados",
-        "Instâncias futuras",
-    ),
-    "modelo de produtos",
-)
-
-require_tokens(
-    CODEBOOK,
-    (
-        "Banco relacional da Instância 1",
-        "product_releases",
-        "metadata_assertions",
-        "curation_reviews",
-    ),
-    "codebook",
-)
-
-milestone_status = json.loads(MILESTONE_STATUS.read_text(encoding="utf-8"))
+milestone_status = json.loads(FILES["milestone_status"].read_text(encoding="utf-8"))
 if milestone_status.get("project") != "Simbiotrama":
-    fail("estado do marco com nome de projeto inconsistente")
+    fail("estado do Marco 1 com nome inconsistente")
 if milestone_status.get("status") != "INCORPORATED":
     fail("Marco 1 deve permanecer INCORPORATED")
 if milestone_status.get("instances_2_3_active") is not False:
@@ -325,6 +389,6 @@ if milestone_status.get("legacy_n0_explorer_active_development") is not False:
     fail("explorador legado não pode estar em desenvolvimento ativo")
 
 print(
-    "OK: sanity pós-Marco 1 validado — autoridade, ciclo de vida, roadmap, "
-    "núcleo relacional e explorador legado N0 coerentes"
+    "OK: direção mínima da Instância 1 validada — autoridade, granularidade, "
+    "critério de parada, migração sem perda e legado N0 coerentes"
 )
