@@ -1,0 +1,237 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-ANNUAL-NATIVE-VEGETATION-SUPPRESSION-RESIDUAL-SHP",
+  "candidate_scientific_product_id": "PD-PRODES-AMZ-ANNUAL-RESIDUAL",
+  "parent_package_asset_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
+  "status": "metadata_identity_retrospective_revision_semantics_and_partial_schema_verified_endpoint_unresolved",
+  "observed_at": "2026-08-05T21:43:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "metadata_identifier": "00a728cb-8577-458a-9c38-082c1f3bca9e",
+  "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/00a728cb-8577-458a-9c38-082c1f3bca9e",
+  "catalog_url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+  "official_record_label": "Resíduo anual na supressão da vegetação nativa - Shapefile",
+  "declared_format": "ESRI Shapefile",
+  "scientific_identity": {
+    "represented_phenomenon": "polígonos de supressão da vegetação nativa identificados em revisão dos levantamentos de anos anteriores ao ano corrente de mapeamento no bioma Amazônia",
+    "monitoring_program": "PRODES Amazônia",
+    "spatial_scope": "bioma Amazônia no Brasil, conforme limite oficial utilizado pelo PRODES",
+    "product_boundary_state": "candidate_distinct_retrospective_revision_scientific_product",
+    "interpretation_type": "retrospective_revision_polygons",
+    "is_statistical_residual": false,
+    "is_uncertainty_estimate": false,
+    "is_current_year_increment": false,
+    "must_not_be_collapsed_into": [
+      "PD-PRODES-AMZ-ANNUAL-MAP",
+      "PD-PRODES-AMZ-ANNUAL-RATE",
+      "PD-PRODES-AMZ-ACCUMULATED-MASK-2007",
+      "PD-PRODES-AMZ-SMALL-POLYGON-INCREMENTS",
+      "PD-PRODES-AMZ-NON-FOREST-ANNUAL-RESIDUAL"
+    ],
+    "reason": "resíduo representa correção retrospectiva de omissões ou revisões de levantamentos anteriores, não incremento do ano corrente, erro estatístico, incerteza ou máscara acumulada"
+  },
+  "methodological_profile": {
+    "imagery": "Landsat ou similares",
+    "minimum_mapped_area_ha": 6.25,
+    "classification_nature": "detecção e delimitação de áreas de supressão da vegetação nativa no fluxo PRODES",
+    "future_land_use_independent": true,
+    "biome_boundary_adjustment_documented": true,
+    "biome_boundary_reference": "limites de biomas do IBGE publicados em 2019, conforme documentação oficial",
+    "base_method_reference_resolved": false,
+    "residual_detection_procedure_version_resolved": false,
+    "validation_profile_resolved": false,
+    "uncertainty_profile_resolved": false
+  },
+  "temporal_and_release_profile": {
+    "temporal_semantics": "retrospective_revision_of_surveys_prior_to_current_mapping_year",
+    "class_name_pattern": "rYYYY",
+    "documented_example": "r2020",
+    "class_year_is_release_identifier": false,
+    "current_release_resolved": false,
+    "last_scientific_year_resolved": false,
+    "catalog_cadence_label": "annual",
+    "publication_or_file_update_date_is_scientific_period": false,
+    "pub_date_is_scientific_period": false,
+    "pub_date_semantics": "data de exportação/publicação atualizada automaticamente nos arquivos vetoriais"
+  },
+  "documented_partial_schema": [
+    {
+      "field": "uuid",
+      "type": "text",
+      "meaning": "identificador único universal de cada feição"
+    },
+    {
+      "field": "uid",
+      "type": "integer",
+      "meaning": "identificador numérico de exportação que pode mudar em revisões ou atualizações"
+    },
+    {
+      "field": "state",
+      "type": "text",
+      "meaning": "estado ou unidade da federação"
+    },
+    {
+      "field": "path_row",
+      "type": "text",
+      "meaning": "código da cena formado por linha e coluna da grade Landsat"
+    },
+    {
+      "field": "main_class",
+      "type": "text",
+      "meaning": "classe principal atribuída à feição"
+    },
+    {
+      "field": "class_name",
+      "type": "text",
+      "meaning": "classe específica do resíduo, documentada como rYYYY; exemplo r2020"
+    },
+    {
+      "field": "def_cloud",
+      "type": "number",
+      "meaning": "ano desde quando a área estava coberta por nuvens, quando aplicável"
+    },
+    {
+      "field": "julian_day",
+      "type": "number",
+      "meaning": "dia juliano da imagem, quando aplicável"
+    },
+    {
+      "field": "image_date",
+      "type": "text",
+      "meaning": "data da cena usada para obter a feição"
+    },
+    {
+      "field": "year",
+      "type": "number",
+      "meaning": "ano atribuído à feição para facilitar consultas; não constitui por si só release"
+    },
+    {
+      "field": "area_km",
+      "type": "number",
+      "meaning": "área calculada para a feição em km²"
+    },
+    {
+      "field": "scene_id",
+      "type": "number",
+      "meaning": "identificador da cena no banco de dados"
+    },
+    {
+      "field": "publish_year",
+      "type": "date",
+      "meaning": "campo usado para publicação no GeoServer com dimensão temporal"
+    },
+    {
+      "field": "source",
+      "type": "text",
+      "meaning": "origem institucional ou bioma do polígono quando incorporado de outro projeto"
+    },
+    {
+      "field": "satellite",
+      "type": "text",
+      "meaning": "nome do satélite utilizado"
+    },
+    {
+      "field": "sensor",
+      "type": "text",
+      "meaning": "nome do sensor que obteve a imagem"
+    },
+    {
+      "field": "geom",
+      "type": "geometry",
+      "meaning": "feição composta por um ou mais polígonos obtidos de imagem de satélite"
+    },
+    {
+      "field": "pub_date",
+      "type": "text",
+      "meaning": "data de publicação/exportação YYYYMMDD atualizada automaticamente; não é período científico"
+    }
+  ],
+  "official_evidence": [
+    {
+      "role": "metadata_scientific_definition_and_partial_schema",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?createDateYear=2026",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "definição de resíduo como revisão de levantamentos anteriores",
+        "limiar documentado de 6,25 ha",
+        "uso de imagens Landsat ou similares",
+        "padrão class_name rYYYY e exemplo r2020",
+        "esquema parcial e semântica de pub_date"
+      ]
+    },
+    {
+      "role": "catalog_distribution_presence",
+      "url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "presença da distribuição Shapefile",
+        "rótulo público do resíduo anual",
+        "data de atualização da interface que não deve ser usada como release"
+      ]
+    },
+    {
+      "role": "geopackage_component_relation",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?any=2026&fast=index",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "UUID do componente",
+        "relação com o pacote GeoPackage PRODES Amazônia",
+        "distinção em relação ao resíduo não florestal"
+      ]
+    }
+  ],
+  "verified_state": {
+    "catalog_presence": true,
+    "metadata_identifier_verified": true,
+    "component_relation_to_geopackage_verified": true,
+    "scientific_object_distinguished": true,
+    "retrospective_revision_semantics_documented": true,
+    "not_statistical_residual_documented": true,
+    "minimum_mapped_area_documented": true,
+    "partial_schema_documented": true,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "redirect_chain_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_asset": false,
+    "citation_resolved_for_data_release": false
+  },
+  "normalization_rules": [
+    "não interpretar resíduo como erro estatístico, incerteza, diferença aritmética ou classe residual genérica",
+    "não colapsar o resíduo retrospectivo no incremento do ano corrente",
+    "não colapsar o resíduo na máscara acumulada até 2007 ou na taxa anual",
+    "não colapsar o resíduo florestal/geral no resíduo de fitofisionomias não florestais",
+    "não tratar 6,25 ha como resolução espacial, tamanho de pixel ou regra universal de todos os produtos PRODES",
+    "não usar uid como identificador persistente, pois pode mudar em revisões e atualizações",
+    "preservar uuid como identificador de feição quando confirmado nos bytes, sem confundi-lo com o UUID do registro de metadados",
+    "não transformar class_name rYYYY ou year em identificador de release sem contrato explícito",
+    "não transformar pub_date, publish_year ou data da interface em período científico ou release",
+    "o esquema publicado é parcial até inspeção dos bytes e documentação integral dos atributos",
+    "endpoint_state deve permanecer unresolved até evidência oficial individual verificável",
+    "asset_state deve permanecer not_inspected até recuperação e inspeção dos bytes",
+    "promoção exige produto, release, distribuição, licença, citação e evidência por afirmação"
+  ],
+  "required_before_product_promotion": [
+    "resolver nome oficial estável e fronteira com incremento, taxa, máscara acumulada e resíduo não florestal",
+    "resolver metodologia-base e procedimento versionado de identificação das revisões retrospectivas",
+    "confirmar série temporal, último ano e release publicada",
+    "documentar variáveis, classes e esquema semântico integral",
+    "resolver perfil espacial, suporte, CRS, escala e unidade mínima mapeável sem confundir conceitos",
+    "registrar validação, qualidade, incerteza, vieses, nuvens e dados ausentes",
+    "resolver licença, atribuição e citação do produto e da release",
+    "registrar evidência por afirmação e revisão curatorial"
+  ],
+  "required_before_asset_promotion": [
+    "URL direta oficial verificável",
+    "status HTTP e cadeia de redirecionamentos",
+    "nome, tamanho exato, Content-Type e Content-Disposition",
+    "checksum criptográfico",
+    "inventário completo do pacote Shapefile",
+    "CRS, geometria e esquema integral de atributos",
+    "cobertura territorial e temporal dos bytes",
+    "vínculo explícito com produto e release corretos"
+  ]
+}
