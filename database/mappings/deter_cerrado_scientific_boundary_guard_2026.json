@@ -1,9 +1,10 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "2.0.0",
+  "package_id": "I1-M2A-DETER-CERRADO",
   "family_stable_id": "PF000003",
   "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
-  "status": "family_product_distribution_identity_and_alert_boundary_verified_release_unresolved",
-  "observed_at": "2026-08-06T02:22:00-03:00",
+  "status": "scientific_operational_audit_complete_with_bounded_external_incompleteness_promotion_blocked",
+  "observed_at": "2026-08-06T11:42:00-03:00",
   "timezone": "America/Sao_Paulo",
   "promotion_authorized": false,
   "scientific_identity": {
@@ -28,11 +29,16 @@
   "distribution_identity": {
     "official_record_label": "Avisos de supressão da vegetação nativa - Shapefile (desde 2018)",
     "declared_format": "ESRI Shapefile",
-    "metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
-    "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+    "current_metadata_identifier": "e6e15388-4ca9-49b9-aec9-03891339a35e",
+    "current_metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/e6e15388-4ca9-49b9-aec9-03891339a35e",
+    "superseded_published_citation_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+    "superseded_identifier_current_subject": "incrementos no desmatamento do PRODES Amazônia Legal",
     "catalog_url": "https://terrabrasilis.dpi.inpe.br/downloads/",
     "catalog_last_updated_displayed": "2026-07-28",
+    "metadata_identifier_reconciled": true,
     "catalog_display_date_is_release_identifier": false,
+    "metadata_identifier_is_product_identifier": false,
+    "metadata_identifier_is_release_identifier": false,
     "metadata_identifier_is_asset_identifier": false,
     "direct_download_url_verified": false,
     "http_status_verified": false,
@@ -40,128 +46,150 @@
     "asset_bytes_inspected": false,
     "checksum_computed": false
   },
-  "current_general_deter_context": {
-    "monitoring_cadence_label": "diário",
-    "minimum_mapped_alert_area_ha": 3,
-    "satellites_documented": [
-      "Amazônia-1",
-      "CBERS-4",
-      "CBERS-4A"
+  "resolved_scientific_operational_profiles": {
+    "specific_metadata_record_resolved": true,
+    "metadata_schema_inventory_documented": true,
+    "metadata_class_documented": "DESMATAMENTO_CR",
+    "method_edition_resolved": "INPE 2024-03-28",
+    "method_doi": "10.13140/RG.2.2.24196.49281",
+    "specific_sensor_context_documented": ["WFI", "AWFI"],
+    "specific_nominal_resolution_m": [55, 64],
+    "specific_interpretation_scale": "1:100.000",
+    "specific_minimum_alert_area_ha": 3,
+    "typical_processing_latency_hours": [48, 72],
+    "operational_classes_resolved": ["Alerta_cb4", "Alerta_amz1", "Alerta_cba", "Aviso"],
+    "validation_class_domain_resolved_for_method_edition": [
+      "Alerta",
+      "Falso Positivo",
+      "Resíduo",
+      "Não Observado",
+      "Sem condições de avaliação"
     ],
-    "sensor_documented": "WFI",
-    "cerrado_specific_method_version_resolved": false,
-    "cerrado_specific_spatial_resolution_resolved": false,
-    "cerrado_specific_public_latency_resolved": false,
-    "current_release_identifier_resolved": false,
-    "warning": "o contexto geral atual do DETER não deve ser herdado como perfil completo do produto Cerrado sem documentação específica da unidade"
+    "cycle_mask_semantics_resolved": true,
+    "program_level_license_resolved": "CC-BY-SA-4.0",
+    "published_citation_guidance_documented": true,
+    "generic_wfs_capability_documented": true,
+    "registered_download_channel_documented": true,
+    "official_qgis_wms_registry_inspected": true,
+    "peer_reviewed_operational_proximity_evidence_resolved": true,
+    "reported_proximity_percentage": 80,
+    "reported_buffer_radius_km": 10,
+    "proximity_result_is_accuracy_metric": false
   },
-  "temporal_and_interpretive_limitations": {
-    "alert_detection_time_is_exact_event_time": false,
-    "monthly_area_is_official_deforestation_rate": false,
-    "alert_area_is_precise_annual_inventory": false,
-    "official_annual_inventory_source": "PRODES Cerrado",
-    "operational_start_year_is_release_identifier": false,
-    "catalog_update_date_is_scientific_period": false,
-    "limitation": "alertas orientam resposta operacional e podem sustentar análise de tendências com cautela, mas não substituem o inventário anual consolidado"
+  "cross_domain_boundaries": {
+    "operational_aviso_is_validation_alerta": false,
+    "validation_alerta_is_metadata_desmatamento_cr": false,
+    "validation_residuo_is_prodes_annual_residual_product": false,
+    "method_class_domain_is_current_release_schema": false,
+    "program_license_is_release_or_asset_license": false,
+    "metadata_record_is_distribution_or_asset": false,
+    "qgis_wms_registry_is_complete_geoserver_or_wfs_catalog": false,
+    "absence_in_qgis_registry_proves_service_nonexistence": false,
+    "generic_wfs_capability_resolves_specific_cerrado_layer": false,
+    "ten_km_proximity_is_precision_or_recall": false,
+    "uncertainty_not_documented_means_no_uncertainty": false
   },
-  "official_evidence": [
+  "bounded_unresolved_state": {
+    "current_release_resolved": false,
+    "release_to_method_link_resolved": false,
+    "third_operational_type_positive_alert_semantics_resolved": false,
+    "complete_semantics_of_no_evaluation_conditions_resolved": false,
+    "crosswalk_to_current_release_schema_resolved": false,
+    "cerrado_specific_accuracy_metrics_resolved": false,
+    "current_release_validation_protocol_resolved": false,
+    "current_release_uncertainty_resolved": false,
+    "specific_wfs_workspace_resolved": false,
+    "specific_wfs_feature_type_resolved": false,
+    "describe_feature_type_verified": false,
+    "direct_download_url_verified": false,
+    "live_http_status_verified": false,
+    "asset_filename_and_headers_resolved": false,
+    "asset_bytes_inspected": false,
+    "package_inventory_complete": false,
+    "crs_geometry_schema_verified_from_bytes": false,
+    "checksum_computed": false,
+    "current_release_license_resolved": false,
+    "asset_specific_license_resolved": false,
+    "current_release_citation_resolved": false,
+    "product_release_or_asset_promotion_authorized": false
+  },
+  "curatorial_completion": {
+    "identity_review_complete": true,
+    "meaning_and_boundary_review_complete": true,
+    "method_review_complete": true,
+    "spatial_temporal_review_complete": true,
+    "class_and_variable_review_complete": true,
+    "quality_and_uncertainty_review_complete_with_explicit_negative_states": true,
+    "access_endpoint_and_asset_review_complete_with_explicit_negative_states": true,
+    "license_and_citation_review_complete_with_explicit_scope_limits": true,
+    "evidence_by_material_assertion_documented": true,
+    "occurrence_register_updated_through": "I1-20260806-058",
+    "bounded_external_incompleteness_is_fail_closed": true,
+    "scientific_audit_package_complete": true,
+    "product_profile_complete_for_promotion": false,
+    "release_profile_complete_for_promotion": false,
+    "asset_profile_complete_for_promotion": false,
+    "merge_ready_after_exact_head_ci_and_human_authorization": true,
+    "human_merge_authorization_required": true
+  },
+  "evidence_surfaces": [
     {
-      "role": "current_deter_program_definition",
-      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
-      "publisher": "INPE / BiomasBR",
-      "supports": [
-        "monitoramento diário",
-        "alertas de supressão no Cerrado",
-        "criação do DETER Cerrado em 2018",
-        "satélites Amazônia-1, CBERS-4 e CBERS-4A",
-        "sensor WFI",
-        "área mínima geral atual de 3 ha",
-        "metodologia-base Almeida et al. 2022",
-        "citação recomendada da distribuição Cerrado e UUID de metadado"
-      ]
+      "role": "current_metadata_record",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
+      "supports": ["current DETER Cerrado record", "specific class and schema", "current metadata UUID"]
     },
     {
-      "role": "catalog_distribution_presence",
+      "role": "current_download_listing",
       "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
-      "publisher": "INPE / TerraBrasilis",
-      "supports": [
-        "presença da distribuição Shapefile desde 2018",
-        "rótulo público",
-        "data exibida na interface em 28/07/2026"
-      ]
+      "supports": ["Shapefile listing since 2018", "displayed update date 2026-07-28", "download action without exposed href"]
     },
     {
-      "role": "alert_vs_inventory_boundary",
-      "url": "https://www.gov.br/mma/pt-br/assuntos/noticias/nota-sobre-alertas-de-desmatamento-do-deter-jan-abr",
-      "publisher": "Ministério do Meio Ambiente e Mudança do Clima",
-      "supports": [
-        "levantamento rápido de alertas no Cerrado",
-        "suporte à fiscalização",
-        "ausência de finalidade de medir precisamente áreas desmatadas",
-        "distinção em relação ao PRODES anual"
-      ]
+      "role": "current_program_definition",
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "supports": ["operational purpose", "current general DETER context", "published citation guidance"]
     },
     {
-      "role": "institutional_family_context",
-      "url": "https://data.inpe.br/biomasbr/sobre-o-biomas/",
-      "publisher": "INPE / BiomasBR",
-      "supports": [
-        "metodologias adaptadas às características de cada bioma",
-        "separação entre sistemas DETER e PRODES",
-        "acesso aberto e finalidade pública"
-      ]
+      "role": "method_edition",
+      "url": "https://doi.org/10.13140/RG.2.2.24196.49281",
+      "supports": ["Cerrado-specific method", "operational and validation classes", "latency", "cycle mask"]
+    },
+    {
+      "role": "peer_reviewed_operational_evidence",
+      "url": "https://doi.org/10.1080/25726838.2023.2265242",
+      "supports": ["data reference UUID", "patch-size range", "80 percent within 10 km", "surveillance utility"]
+    },
+    {
+      "role": "official_qgis_wms_registry",
+      "url": "https://github.com/terrabrasilis/terrabrasilis_datasource/blob/main/data/geoserver_terrabrasilis_info.json",
+      "supports": ["official WMS registry inspected", "PRODES Cerrado workspace observed", "no DETER entry in this bounded registry"]
     }
   ],
-  "verified_state": {
-    "family_identity_verified": true,
-    "operational_alert_product_boundary_verified": true,
-    "alert_vs_annual_inventory_boundary_documented": true,
-    "cerrado_operational_start_year_documented": true,
-    "distribution_catalog_presence_verified": true,
-    "metadata_identifier_verified": true,
-    "current_general_deter_context_documented": true,
-    "cerrado_specific_method_profile_resolved": false,
-    "current_release_resolved": false,
-    "direct_download_url_verified": false,
-    "asset_bytes_inspected": false,
-    "checksum_computed": false,
-    "complete_schema_verified_from_bytes": false,
-    "license_resolved_for_release": false,
-    "citation_resolved_for_current_release": false
-  },
   "normalization_rules": [
+    "usar e6e15388-4ca9-49b9-aec9-03891339a35e somente como identificador do registro de metadados corrente do DETER Cerrado",
+    "preservar a5220c18-f7fa-4e3-b39b-feeb3ccc4830 como referência publicada histórica e não como identidade corrente do DETER Cerrado",
     "não tratar alertas DETER Cerrado como taxa mensal ou anual de supressão",
     "não tratar o conjunto como inventário anual completo ou release PRODES Cerrado",
-    "não herdar classes, degradação, exploração madeireira, sensores históricos, resolução ou latência do DETER Amazônia",
-    "não herdar automaticamente todo o perfil geral atual do DETER para a unidade Cerrado",
-    "preservar 2018 como início operacional documentado, não como identificador de release",
-    "não transformar 28/07/2026 ou outra data da interface em período científico, release ou identidade dos bytes",
-    "UUID de metadado não constitui endpoint direto nem identificador do ativo",
-    "presença no catálogo não comprova resposta HTTP, estabilidade de endpoint ou conteúdo do pacote",
-    "não inferir esquema, CRS, geometria, classes ou domínios sem metadado específico ou inspeção dos bytes",
+    "não herdar classes, endpoints, métodos, métricas ou ativos do DETER Amazônia, DETER Pantanal ou PRODES",
+    "não transformar 2018, 2019, 2024 ou 28/07/2026 em release sem evidência específica",
+    "não colapsar classes operacionais, classes de validação e classname da distribuição",
+    "não colapsar Resíduo de validação em produto anual de resíduo PRODES",
+    "não tratar 80 por cento em 10 km como precisão, revocação ou coincidência geométrica",
+    "não tratar ausência no registro WMS do plugin como inexistência no GeoServer ou WFS",
+    "não tratar falha de DNS ou HTTP instrumental como indisponibilidade permanente da fonte",
+    "não inferir release, URL direta, schema físico, CRS, geometria, checksum, licença ou citação do pacote",
     "incerteza não documentada deve permanecer não documentada, não ausente",
-    "licença e citação devem ser resolvidas para a release efetivamente acessada",
-    "promoção exige produto, release, distribuição, ativo, perfis, evidência e revisão curatorial suficientes"
+    "pacote de auditoria completo não equivale a promoção de produto, release ou ativo",
+    "merge exige CI verde no SHA exato e autorização humana explícita"
   ],
-  "required_before_product_promotion": [
-    "resolver nome oficial estável e release vigente",
-    "resolver classes e variáveis específicas do Cerrado",
-    "documentar método versionado e adaptações ao bioma",
-    "resolver perfil espacial, resolução, suporte, CRS e unidade mínima",
-    "resolver perfil temporal, latência, revisão e substituição",
-    "registrar qualidade, validação, vieses, nuvens, ausências e incerteza",
-    "resolver licença, atribuição e citação da release",
-    "registrar evidência por afirmação",
-    "concluir revisão curatorial"
-  ],
-  "required_before_asset_promotion": [
-    "URL direta oficial verificável",
-    "status HTTP e cadeia de redirecionamentos",
-    "nome, tamanho exato, Content-Type e Content-Disposition",
-    "checksum criptográfico",
-    "inventário completo do pacote Shapefile",
-    "CRS, geometria e esquema integral de atributos",
-    "cobertura territorial e temporal confirmada nos bytes",
-    "vínculo explícito com produto e release corretos"
+  "required_before_future_product_release_or_asset_promotion": [
+    "identificar release vigente e vínculo metodológico",
+    "resolver crosswalk do esquema físico da release",
+    "resolver métricas de validação e incerteza aplicáveis à edição ou aceitar limitação em decisão científica própria",
+    "resolver workspace/layer WFS ou URL direta oficial",
+    "verificar HTTP, redirecionamentos e cabeçalhos",
+    "inspecionar bytes, pacote, CRS, geometria, esquema e cobertura",
+    "calcular checksum",
+    "resolver licença e citação da release e do ativo",
+    "registrar revisão curatorial de promoção específica"
   ]
 }
