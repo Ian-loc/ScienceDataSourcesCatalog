@@ -198,7 +198,7 @@ def main() -> int:
         ),
         "completude curatorial",
     )
-    if completion.get("occurrence_register_updated_through") != "I1-20260806-058":
+    if completion.get("occurrence_register_updated_through") != "I1-20260806-059":
         fail("cursor de ocorrências divergente")
     require_false(
         completion,
