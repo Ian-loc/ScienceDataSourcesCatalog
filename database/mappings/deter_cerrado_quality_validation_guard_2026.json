@@ -1,9 +1,9 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "family_stable_id": "PF000003",
   "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
-  "status": "quality_framework_documented_quantitative_cerrado_validation_unresolved",
-  "observed_at": "2026-08-06T08:18:00-03:00",
+  "status": "quantitative_operational_proximity_evidence_documented_accuracy_and_release_validation_unresolved",
+  "observed_at": "2026-08-06T11:07:00-03:00",
   "timezone": "America/Sao_Paulo",
   "promotion_authorized": false,
   "quality_scope": {
@@ -26,7 +26,33 @@
     "minimum_comparison_window_months": 3,
     "comparison_window_is_validation_design": false
   },
+  "peer_reviewed_operational_evidence": {
+    "evidence_found": true,
+    "study_doi": "10.1080/25726838.2023.2265242",
+    "study_year": 2023,
+    "study_title": "The near real-time deforestation detection system: case study of the DETER system for the Cerrado Biome",
+    "study_system_scope": "DETER Cerrado",
+    "reported_patch_size_scope": "inclui áreas menores que 10 ha e maiores que 1 ha, além de polígonos maiores",
+    "reported_proximity_percentage": 80,
+    "reported_buffer_radius_km": 10,
+    "reported_denominator": "desmatamento posteriormente detectado pelo PRODES Cerrado",
+    "reported_relationship": "concentração espacial do desmatamento posteriormente confirmado em uma zona de 10 km dos alertas DETER",
+    "supports_operational_surveillance_capability": true,
+    "is_confusion_matrix": false,
+    "is_precision": false,
+    "is_recall": false,
+    "is_sensitivity": false,
+    "is_specificity": false,
+    "is_omission_error": false,
+    "is_commission_error": false,
+    "is_area_adjusted_accuracy": false,
+    "is_geometry_uncertainty": false,
+    "is_current_release_validation": false,
+    "prodes_is_reference_inventory_not_ground_truth_for_all_alert_semantics": true,
+    "buffer_proximity_is_not_exact_coincidence": true
+  },
   "quantitative_validation_state": {
+    "cerrado_specific_operational_proximity_evidence_found": true,
     "cerrado_specific_accuracy_assessment_found": false,
     "cerrado_specific_confusion_matrix_found": false,
     "cerrado_specific_precision_found": false,
@@ -42,9 +68,11 @@
   "non_inheritance_rules": {
     "amazon_deter_validation_metrics_inherited": false,
     "prodes_accuracy_metrics_inherited": false,
+    "prodes_cerrado_accuracy_assessment_reclassified_as_deter_accuracy": false,
     "general_deter_program_description_is_cerrado_validation": false,
     "methodological_controls_are_accuracy_statistics": false,
-    "manual_interpretation_implies_ground_truth": false
+    "manual_interpretation_implies_ground_truth": false,
+    "ten_km_buffer_result_is_precision_or_recall": false
   },
   "known_biases_and_limitations": [
     "avisos abaixo do limiar operacional podem não ser mapeados",
@@ -52,36 +80,41 @@
     "a data da imagem não é necessariamente a data exata da supressão",
     "o DETER prioriza rapidez operacional e não substitui o inventário anual PRODES",
     "comparações em intervalos curtos podem refletir disponibilidade de imagens e latência operacional",
-    "incerteza e acurácia específicas da release permanecem não documentadas nas fontes oficiais recuperadas"
+    "a zona de 10 km é uma medida de proximidade espacial e não concordância geométrica exata",
+    "o resultado de 80% não fornece precisão, revocação, omissão, comissão ou matriz de confusão",
+    "incerteza e acurácia específicas da release permanecem não documentadas nas fontes recuperadas"
   ],
   "official_evidence": [
     {
       "role": "current_program_quality_context",
       "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
       "publisher": "INPE / BiomasBR",
-      "supports": [
-        "finalidade operacional dos avisos",
-        "área mínima geral atual de 3 ha",
-        "sensores e contexto metodológico geral",
-        "distinção entre DETER e inventário anual"
-      ]
+      "supports": ["finalidade operacional dos avisos", "área mínima geral atual de 3 ha", "distinção entre DETER e inventário anual"]
     },
     {
       "role": "biome_specific_method_adaptation",
       "url": "https://data.inpe.br/biomasbr/sobre-o-biomas/",
       "publisher": "INPE / BiomasBR",
-      "supports": [
-        "metodologias adaptadas às características de cada bioma",
-        "proibição de herança automática de métricas entre biomas"
-      ]
+      "supports": ["metodologias adaptadas às características de cada bioma", "proibição de herança automática de métricas entre biomas"]
     },
     {
       "role": "historical_amazon_validation_context_only",
       "url": "https://www.obt.inpe.br/OBT/assuntos/programas/amazonia/deter/deter/",
       "publisher": "INPE / OBT",
+      "supports": ["existência de validação histórica publicada para o DETER Amazônia", "necessidade de não transferir seus resultados ao DETER Cerrado"]
+    }
+  ],
+  "peer_reviewed_evidence": [
+    {
+      "role": "cerrado_operational_proximity_and_patch_size_evidence",
+      "url": "https://doi.org/10.1080/25726838.2023.2265242",
+      "publisher": "Pinheiro et al. / Applied Earth Science",
       "supports": [
-        "existência de validação histórica publicada para o DETER Amazônia",
-        "necessidade de não transferir seus resultados ao DETER Cerrado"
+        "DETER Cerrado como sistema de alerta precoce",
+        "detecção reportada de uma variedade de tamanhos de polígonos, incluindo >1 ha e <10 ha",
+        "80% do desmatamento posteriormente detectado pelo PRODES concentrado na zona de 10 km dos alertas",
+        "capacidade de apoio à fiscalização",
+        "referência de disponibilidade dos dados e6e15388-4ca9-49b9-aec9-03891339a35e"
       ]
     }
   ],
@@ -89,13 +122,14 @@
     "quality_framework_documented": true,
     "operational_limitations_documented": true,
     "non_inheritance_boundary_documented": true,
+    "cerrado_specific_operational_proximity_evidence_resolved": true,
     "cerrado_specific_quantitative_accuracy_resolved": false,
     "current_release_validation_resolved": false,
     "current_release_uncertainty_resolved": false,
     "quality_profile_complete": false
   },
   "required_before_quality_profile_completion": [
-    "localizar avaliação quantitativa específica do DETER Cerrado ou declarar limitação aceita após busca documentada",
+    "localizar avaliação de acurácia específica do DETER Cerrado ou aceitar formalmente a limitação documental após busca auditada",
     "resolver desenho amostral e universo de validação",
     "resolver métricas, classes e período avaliados",
     "vincular resultados à release ou edição correta",
@@ -105,6 +139,9 @@
     "concluir revisão curatorial"
   ],
   "normalization_rules": [
+    "registrar 80% em 10 km como evidência de proximidade e utilidade operacional, não como acurácia",
+    "não converter a zona de 10 km em coincidência geométrica, precisão, revocação, sensibilidade, omissão ou comissão",
+    "não tratar o PRODES como verdade de campo universal para todos os alertas e semânticas DETER",
     "não herdar métricas de validação do DETER Amazônia para o DETER Cerrado",
     "não herdar métricas de acurácia do PRODES para o DETER",
     "não tratar 3 ha como probabilidade de detecção ou garantia de completude",
