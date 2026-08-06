@@ -108,6 +108,7 @@
     "não atribuir o limiar geral atual de 3 ha ao metadado específico sem evidência individual",
     "não tratar data de detecção como data exata da supressão",
     "o esquema permanece parcial até DescribeFeatureType válido ou inspeção dos bytes",
+    "incerteza não documentada deve permanecer não documentada e não pode ser convertida em ausência de incerteza",
     "licença e citação devem ser resolvidas para a release efetivamente acessada",
     "promoção permanece bloqueada até produto, release, distribuição, ativo, perfis e evidências suficientes"
   ]
