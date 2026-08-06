@@ -1,0 +1,222 @@
+{
+  "contract_version": "1.0.0",
+  "package_id": "I1-M2A-DETER-CERRADO",
+  "family_stable_id": "PF000003",
+  "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
+  "status": "cerrado_specific_2024_method_profile_resolved_release_and_accuracy_metrics_unresolved",
+  "observed_at": "2026-08-06T08:46:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "method_document": {
+    "title": "Metodologia dos sistemas PRODES e DETER para o bioma Cerrado",
+    "publisher": "Instituto Nacional de Pesquisas Espaciais — INPE",
+    "publication_year": 2024,
+    "updated_date": "2024-03-28",
+    "doi": "10.13140/RG.2.2.24196.49281",
+    "document_type": "technical_methodology",
+    "method_version_resolved_for_document": true,
+    "document_is_current_release_identifier": false,
+    "document_is_asset_identifier": false
+  },
+  "scientific_purpose_and_boundaries": {
+    "represented_outputs": [
+      "daily operational alerts of evidence of total native vegetation suppression",
+      "daily operational alerts of evidence of alteration in native vegetation structure"
+    ],
+    "primary_purpose": "support environmental enforcement and strategic planning of inspection actions",
+    "is_prodes_proxy": false,
+    "is_monthly_deforestation_rate": false,
+    "is_annual_inventory": false,
+    "precise_annual_area_source": "PRODES Cerrado",
+    "alert_area_supports_enforcement_prioritization": true,
+    "alert_area_supports_precise_area_estimation": false
+  },
+  "sensor_and_detection_profile": {
+    "satellites": [
+      {
+        "name": "Amazônia-1",
+        "sensor": "WFI",
+        "nominal_spatial_resolution_m": 64
+      },
+      {
+        "name": "CBERS-4A",
+        "sensor": "WFI",
+        "nominal_spatial_resolution_m": 55
+      },
+      {
+        "name": "CBERS-4",
+        "sensor": "AWFI",
+        "nominal_spatial_resolution_m": 64
+      }
+    ],
+    "nominal_resolution_range_m": [55, 64],
+    "revisit_interval_approx_days": 5,
+    "minimum_detectable_alert_area_ha": 3,
+    "minimum_detectable_alert_area_is_complete_detection_guarantee": false,
+    "monitoring_continuity_supported_by_daily_biome_strip_coverage": true
+  },
+  "mapping_method": {
+    "detection_approach": "manual visual interpretation",
+    "digitization_mode": "manual polygon digitization",
+    "digitization_scale_denominator": 100000,
+    "digitization_scale_is_sensor_resolution": false,
+    "interpretation_elements": [
+      "tonality",
+      "color",
+      "shape",
+      "texture",
+      "context"
+    ],
+    "supporting_materials": [
+      "multitemporal Landsat image series",
+      "multitemporal CBERS image series",
+      "contextual high-resolution imagery and temporal vegetation information during validation"
+    ],
+    "standardized_legend_documented": true,
+    "complete_operational_legend_extracted": false
+  },
+  "temporal_semantics": {
+    "alert_assigned_date": "acquisition date of the image used for detection",
+    "assigned_date_is_exact_event_date": false,
+    "real_event_date_may_be_unknown": true,
+    "public_update_frequency": "daily",
+    "public_update_period": "night",
+    "public_data_lag_statement": "validated data from the previous day",
+    "enforcement_access_frequency": "real time as alerts are produced",
+    "enforcement_access_controlled": true,
+    "monthly_consolidation_published_after_month_end": true,
+    "monthly_consolidation_is_monthly_rate": false
+  },
+  "comparison_guidance": {
+    "consecutive_month_comparison_recommended": false,
+    "same_month_across_years_unconditionally_recommended": false,
+    "minimum_comparison_interval_months": 3,
+    "compare_same_interval_across_years_with_caution": true,
+    "image_availability_variability_must_be_considered": true,
+    "cloud_and_observation_opportunity_must_be_considered": true
+  },
+  "validation_process": {
+    "all_alert_polygons_validated": true,
+    "validation_frequency": "daily",
+    "validated_alerts_sent_to_ibama_daily": true,
+    "validation_objectives": [
+      "calculate accuracy statistics",
+      "eliminate detection errors and false alerts",
+      "identify system improvement opportunities"
+    ],
+    "validation_platform_documented": true,
+    "accuracy_metrics_extracted": false,
+    "accuracy_values_resolved": false,
+    "confusion_matrix_resolved": false,
+    "validation_class_domain_extracted": false
+  },
+  "timeline_semantics": {
+    "operational_start_or_creation_year_documented_elsewhere": 2018,
+    "method_document_launch_year": 2019,
+    "distribution_label_since_year": 2018,
+    "years_are_same_event": false,
+    "timeline_interpretation": "2018 is preserved as creation/series or distribution start documented by current program metadata, while 2019 is preserved as system launch stated by the 2024 method document",
+    "current_release_year_resolved": false
+  },
+  "documentation_context_divergence": {
+    "specific_metadata_image_source_statement": "Landsat or similar",
+    "method_document_operational_sensor_statement": "WFI on Amazônia-1 and CBERS-4A; AWFI on CBERS-4",
+    "statements_are_silently_equivalent": false,
+    "metadata_statement_is_overwritten": false,
+    "method_statement_is_current_release_proof": false,
+    "required_interpretation": "preserve both statements with their source and date; treat the 2024 method document as the resolved method profile for that edition, not as proof of the current release or a reason to rewrite the metadata record"
+  },
+  "official_and_primary_evidence": [
+    {
+      "role": "cerrado_specific_methodology_2024",
+      "title": "Metodologia dos sistemas PRODES e DETER para o bioma Cerrado",
+      "publisher": "INPE",
+      "doi": "https://doi.org/10.13140/RG.2.2.24196.49281",
+      "supports": [
+        "DETER Cerrado purpose and scientific boundaries",
+        "WFI and AWFI satellite profile",
+        "55–64 m nominal resolution range",
+        "approximately five-day revisit",
+        "three-hectare minimum detectable alert area",
+        "manual visual interpretation and polygon digitization at 1:100,000",
+        "image-date semantics",
+        "comparison restrictions",
+        "validation process",
+        "public nightly update and controlled real-time enforcement access",
+        "2019 launch statement"
+      ]
+    },
+    {
+      "role": "peer_reviewed_inpe_program_synthesis",
+      "title": "Official monitoring of Brazil's native vegetation using satellite images: the BiomasBR program and the Prodes, Deter and TerraClass systems",
+      "publisher": "Cadernos de Astronomia / INPE authors",
+      "doi": "https://doi.org/10.47456/Cad.Astro.v6n1.47411",
+      "supports": [
+        "visual interpretation for DETER Amazônia, Cerrado and Pantanal",
+        "daily image processing and auditing",
+        "enforcement purpose",
+        "DETER area is not suitable for precise quantification",
+        "same-period trend comparison and PRODES as precise annual source",
+        "citation of the 2024 Cerrado methodology"
+      ]
+    },
+    {
+      "role": "current_program_context",
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "publisher": "INPE / BiomasBR",
+      "supports": [
+        "current general DETER context",
+        "DETER Cerrado creation in 2018",
+        "daily monitoring",
+        "current general satellites, WFI and three-hectare threshold"
+      ]
+    },
+    {
+      "role": "specific_metadata_context",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
+      "publisher": "INPE / TerraBrasilis GeoNetwork",
+      "supports": [
+        "specific metadata title since 2018",
+        "Landsat or similar statement",
+        "daily maintenance",
+        "specific class and schema"
+      ]
+    }
+  ],
+  "verified_state": {
+    "specific_2024_method_document_resolved": true,
+    "method_purpose_resolved": true,
+    "sensor_resolution_and_threshold_profile_resolved_for_2024_method": true,
+    "mapping_method_resolved_for_2024_method": true,
+    "temporal_semantics_resolved_for_2024_method": true,
+    "comparison_guidance_resolved_for_2024_method": true,
+    "validation_process_documented": true,
+    "public_and_restricted_latency_documented": true,
+    "timeline_divergence_documented": true,
+    "metadata_method_context_divergence_documented": true,
+    "current_release_resolved": false,
+    "current_release_method_profile_verified": false,
+    "complete_operational_legend_extracted": false,
+    "accuracy_metrics_resolved": false,
+    "validation_class_domain_resolved": false,
+    "current_sensor_history_verified_from_asset": false
+  },
+  "normalization_rules": [
+    "do not treat DETER Cerrado as a proxy for PRODES Cerrado",
+    "do not treat alert area as a monthly or annual deforestation rate",
+    "do not assign the image acquisition date as the exact event date",
+    "do not compare consecutive months or the same month across years without accounting for image availability",
+    "when comparison is necessary, preserve the method guidance to compare the same interval of at least three months across years with caution",
+    "preserve 55–64 m as nominal sensor resolution range and do not convert it into mapping scale or minimum mapped polygon size",
+    "preserve three hectares as the method's minimum detectable alert area and not as a guarantee of complete detection",
+    "preserve 1:100,000 as manual digitization scale and not as raster resolution",
+    "preserve daily nightly public updates as validated previous-day publication, distinct from controlled real-time enforcement access",
+    "preserve monthly consolidation as aggregation after month end, not as monthly rate",
+    "preserve validation process as documented while accuracy values, confusion matrix and validation classes remain unresolved",
+    "preserve 2018 and 2019 as different documented timeline events instead of selecting one year silently",
+    "preserve the Landsat-or-similar metadata statement and the WFI/AWFI method statement as source-dated contexts",
+    "the 2024 method document resolves a method edition but does not resolve the current product release or current asset",
+    "do not infer current layer, endpoint, schema, bytes, license or citation from the method document",
+    "promotion remains blocked until release identity, current operational linkage, quality metrics where available, distribution and asset evidence are sufficient"
+  ]
+}
