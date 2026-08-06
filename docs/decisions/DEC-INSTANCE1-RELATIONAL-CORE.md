@@ -70,6 +70,7 @@ Permanece como ambição futura de literatura curada e contextualização audit�
 ## Disposições pós-Marco 1
 
 - a antiga “Fase 1 do Simbioscópio” foi substituída;
+- o PR #53 foi fechado como `superseded` e não deve ser mesclado ou reutilizado integralmente;
 - classes universais de compatibilidade não são modelo ativo;
 - registros de variáveis devem usar o núcleo relacional, não tabelas paralelas de protótipo;
 - o explorador visual atual é `LEGACY_OPERATIONAL` e limitado a N0;
