@@ -95,13 +95,13 @@ Para as três unidades permanecem pendentes:
 
 ## Ocorrência
 
-**ID:** `I1-20260805-038`  
-**Categoria:** colapso de camadas auxiliares em produtos de supressão e promoção prematura de máscara de domínio  
+**ID:** `I1-20260805-039`  
+**Categoria:** colapso de camadas auxiliares em produtos de supressão e herança indevida entre domínios  
 **Severidade:** `high` para promoção das unidades  
 **Estado:** `corrected`
 
-**Evidência:** metadados oficiais distinguem hidrografia geral, hidrografia em não floresta e máscara de não floresta, com objetos, classes e recortes próprios; a evidência da máscara sustenta papel auxiliar, não produto autônomo.  
-**Correção:** contrato e validador preservam três identidades, mantêm a máscara como entidade auxiliar, proíbem interpretações de supressão e bloqueiam herança automática de temporalidade, sensores, classes e release.  
+**Evidência:** metadados oficiais distinguem hidrografia geral, hidrografia em não floresta e máscara de não floresta, com objetos, classes e recortes próprios; a ocorrência `I1-20260805-038` já protege especificamente a máscara como entidade auxiliar, não produto autônomo.  
+**Correção:** contrato e validador transversal preservam três identidades, reutilizam a resolução auxiliar da máscara, proíbem interpretações de supressão e bloqueiam herança automática de temporalidade, sensores, classes e release.  
 **Teste:** `scripts/validate_prodes_amazon_ancillary_layers_guard.py`, complementado por `validate_prodes_amazon_non_forest_mask_entity_guard.py` e integrado ao gate agregado do GeoPackage PRODES Amazônia.  
 **Risco residual:** releases, métodos específicos, endpoints, bytes, perfis completos, licenças e citações ainda não foram resolvidos.
 
