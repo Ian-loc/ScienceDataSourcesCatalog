@@ -1,0 +1,124 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000002",
+  "parent_product_candidate_id": "PD-DETER-AMZ-ALERTS",
+  "status": "official_wfs_access_pattern_and_partial_schema_documented_live_state_unresolved",
+  "observed_at": "2026-08-06T01:24:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "service_capability": {
+    "source_id": "SRC-TERRABRASILIS",
+    "service_type": "OGC WFS",
+    "workspace": "deter-amz",
+    "service_url": "https://terrabrasilis.dpi.inpe.br/geoserver/deter-amz/wfs",
+    "documented_version": "2.0.0",
+    "documented_feature_type": "deter_public",
+    "documented_request_crs": "EPSG:4674",
+    "documented_output_format": "SHAPE-ZIP",
+    "supports_get_capabilities_documented": true,
+    "supports_describe_feature_type_documented": true,
+    "supports_get_feature_documented": true,
+    "supports_cql_temporal_filter_documented": true,
+    "service_is_scientific_product": false,
+    "service_is_release": false,
+    "service_is_distribution_asset": false
+  },
+  "documented_query_example": {
+    "filter_attribute": "date",
+    "filter_semantics": "intervalo da data usada no exemplo oficial de GetFeature",
+    "example_start": "2019-01-01",
+    "example_end": "2019-02-01",
+    "example_is_current_release_definition": false,
+    "example_is_complete_product_period": false
+  },
+  "partial_schema_from_current_metadata_search": {
+    "fields": [
+      "fid",
+      "class_name",
+      "area_km",
+      "view_date",
+      "create_date",
+      "audit_date",
+      "sensor",
+      "satellite",
+      "path_row",
+      "uuid"
+    ],
+    "fid_current_history_suffixes_documented": ["_curr", "_hist"],
+    "shapefile_column_name_truncation_documented": true,
+    "example_truncation": "create_date -> create_dat",
+    "schema_verified_by_live_describe_feature_type": false,
+    "complete_schema_verified_from_bytes": false
+  },
+  "live_verification_attempt": {
+    "attempted": true,
+    "client_environment": "automation HTTP retrieval clients",
+    "get_capabilities_verified": false,
+    "describe_feature_type_verified": false,
+    "get_feature_hits_verified": false,
+    "result": "instrumental_failure_or_bad_request_without_authoritative_service_response",
+    "interpretation": "a falha do cliente não prova indisponibilidade do WFS e não autoriza estado working ou unavailable"
+  },
+  "scientific_and_operational_boundaries": {
+    "source_capability_must_be_separate_from_product": true,
+    "feature_type_must_be_linked_to_correct_distribution_and_release_before_promotion": true,
+    "historical_documentation_does_not_prove_current_service_state": true,
+    "wfs_export_does_not_replace_shapefile_release_identity": true,
+    "date_filter_does_not_prove_exact_event_date": true,
+    "shapefile_truncated_fields_must_not_replace_canonical_field_names": true,
+    "forest_and_non_forest_wfs_layers_resolved_separately": true
+  },
+  "official_evidence": [
+    {
+      "role": "official_wfs_access_documentation",
+      "url": "https://terrabrasilis.dpi.inpe.br/download-de-dados/",
+      "supports": [
+        "WFS como forma oficial de acesso a dados PRODES e DETER",
+        "workspace deter-amz",
+        "operações GetCapabilities, DescribeFeatureType e GetFeature",
+        "feature type deter_public",
+        "CRS EPSG:4674",
+        "exportação SHAPE-ZIP",
+        "filtro CQL pelo atributo date",
+        "alerta sobre orientação de eixos nas versões WFS"
+      ]
+    },
+    {
+      "role": "current_daily_metadata_partial_schema",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
+      "supports": [
+        "campos fid, class_name, area_km, view_date, create_date, audit_date, sensor, satellite, path_row e uuid",
+        "sufixos _curr e _hist em fid",
+        "truncamento de nomes de colunas no Shapefile"
+      ]
+    },
+    {
+      "role": "current_data_access_context",
+      "url": "https://terrabrasilis.dpi.inpe.br/acesso-aos-dados/",
+      "supports": [
+        "downloads, metadados e serviços web como canais distintos da infraestrutura TerraBrasilis"
+      ]
+    }
+  ],
+  "normalization_rules": [
+    "registrar o WFS como capacidade da fonte e forma de acesso, não como produto científico",
+    "não promover deter_public como release ou ativo sem vínculo contemporâneo com distribuição e produto",
+    "não inferir estado working ou unavailable a partir da falha do cliente desta rodada",
+    "não transformar o intervalo do exemplo de 2019 em cobertura temporal do produto",
+    "não interpretar date como data exata do evento sem definição contemporânea do campo",
+    "preservar nomes canônicos de atributos e registrar truncamentos apenas no nível da distribuição Shapefile",
+    "não transferir automaticamente o esquema da camada florestal para a distribuição não florestal",
+    "não declarar CRS, geometria ou esquema integral verificados sem resposta viva ou inspeção dos bytes",
+    "resolver separadamente capacidade de serviço, camada, distribuição, ativo e release"
+  ],
+  "required_before_operational_promotion": [
+    "obter resposta viva datada de GetCapabilities",
+    "confirmar nome e namespace atuais das camadas florestal e não florestal",
+    "executar DescribeFeatureType e registrar esquema canônico",
+    "executar GetFeature mínimo ou resultType=hits sem transferência massiva",
+    "registrar status HTTP, redirecionamentos, Content-Type e eventual autenticação",
+    "confirmar CRS, tipos de geometria e semântica temporal dos campos",
+    "vincular cada camada WFS ao produto, release e distribuição corretos",
+    "resolver licença, atribuição, citação e limitações operacionais"
+  ]
+}
