@@ -1,38 +1,38 @@
-# DEC — Instância 1 como núcleo ativo do Symbiotrama
+# DEC — Instância 1 como núcleo ativo do Simbiotrama
 
 **Data:** 2026-08-04  
-**Status:** aprovada para implementação  
+**Status:** aprovada e incorporada no Marco 1  
 **Escopo:** direção científica, arquitetura de dados e prioridades do projeto
 
 ## Contexto
 
-A evolução recente do projeto misturou três capacidades distintas:
+A evolução inicial misturou três capacidades distintas:
 
 1. catálogo de fontes e produtos;
 2. composição e visualização de produtos georreferenciados;
-3. contextualização científica e síntese de literatura sobre composições.
+3. contextualização científica e literatura sobre composições.
 
-A tentativa de modelar simultaneamente essas capacidades ampliou prematuramente o escopo e desviou atenção da principal lacuna atual: a base ainda possui poucas famílias de produtos descritas em profundidade e mistura produtos científicos com catálogos, serviços e infraestruturas.
+Essa simultaneidade ampliou prematuramente o escopo e desviou atenção da principal lacuna: poucas famílias estavam descritas em profundidade e produtos científicos apareciam misturados a catálogos, serviços e infraestruturas.
 
 ## Decisão
 
-O foco ativo do projeto passa a ser a **Instância 1 — Catálogo relacional científico-operacional**.
+O foco ativo é a **Instância 1 — Catálogo relacional científico-operacional**.
 
-Ela será implementada sobre PostgreSQL/PostGIS e deverá descrever, com precisão:
+Ela é implementada sobre PostgreSQL/PostGIS e descreve:
 
-- fontes;
+- organizações e fontes;
 - famílias de produtos;
 - produtos científicos;
-- versões;
+- releases, versões e edições;
 - variáveis e classes;
 - significado científico;
 - métodos;
 - suporte espacial e temporal;
-- qualidade, incerteza e vieses;
+- qualidade, incerteza, vieses e limitações;
 - distribuições, ativos e capacidades de acesso;
-- citações, evidências e revisão curatorial.
+- licenças, citações, evidências e revisão curatorial.
 
-Os CSVs atuais serão preservados durante a migração. O banco relacional será promovido a fonte canônica somente após validação e geração reproduzível das exportações públicas.
+Os CSVs atuais permanecem como autoridade da versão pública durante a migração. O banco relacional somente será promovido a fonte canônica após validação transversal, exportações reproduzíveis e autorização humana.
 
 ## Consequências
 
@@ -43,37 +43,53 @@ Os CSVs atuais serão preservados durante a migração. O banco relacional será
 - permite expansão produto por produto;
 - torna o catálogo útil independentemente das visualizações futuras;
 - cria base para filtros científicos e operacionais;
-- preserva caminho técnico para API, composição e síntese científica.
+- preserva caminho técnico para API, composição e literatura curada.
 
 ### Custos
 
 - exige migração e normalização dos dados atuais;
 - aumenta o esforço de curadoria por produto;
-- requer evidência por campo para afirmações importantes;
-- demanda controle de versões, IDs e revisões.
+- requer evidência por afirmação;
+- demanda controle de versões, IDs, revisões e ocorrências;
+- posterga funcionalidades visuais e analíticas não essenciais.
 
-## Instâncias adiadas
+## Disposição das Instâncias 2 e 3
 
 ### Instância 2 — composição geográfica
 
-Permanece documentada, mas não deve liderar a modelagem nem receber novas capacidades analíticas antes da consolidação da Instância 1.
+**Estado:** `BACKLOG`.
+
+Permanece documentada, mas não deve liderar a modelagem nem receber capacidades analíticas antes da consolidação e promoção da Instância 1.
 
 ### Instância 3 — contexto científico
 
-Permanece documentada como ambição futura de síntese breve e auditável de literatura associada a composições escolhidas pelo usuário. Não será implementada nesta fase.
+**Estado:** `BACKLOG`.
+
+Permanece como ambição futura de literatura curada e contextualização auditável. Não é implementada na fase atual.
+
+## Disposições pós-Marco 1
+
+- a antiga “Fase 1 do Simbioscópio” foi substituída;
+- classes universais de compatibilidade não são modelo ativo;
+- registros de variáveis devem usar o núcleo relacional, não tabelas paralelas de protótipo;
+- o explorador visual atual é `LEGACY_OPERATIONAL` e limitado a N0;
+- auditorias e protótipos anteriores são `HISTORICAL_EVIDENCE`;
+- a nomenclatura ativa do projeto é **Simbiotrama**.
 
 ## Regra operacional
 
-Toda intervenção atual deve responder primeiro:
+Toda intervenção deve responder:
 
 > Esta mudança melhora a capacidade de descobrir, compreender, verificar e acessar produtos de dados georreferenciados?
 
-Se a resposta for negativa e a mudança servir apenas às Instâncias 2 ou 3, ela deve permanecer no backlog de longo prazo.
+Se a resposta for negativa e a mudança servir apenas às Instâncias 2 ou 3, ela permanece no backlog.
 
 ## Referências internas
 
+- `docs/PROJECT_STATE.md`;
+- `docs/PROJECT_SCIENTIFIC_DIRECTION.md`;
 - `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`;
 - `database/schema/001_instance1_core.sql`;
 - `database/README.md`;
 - `PRODUCT_CATALOG_MODEL.md`;
-- `docs/roadmap/SIMBIOSCOPE_IMPLEMENTATION_ROADMAP.md`.
+- `docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md`.
