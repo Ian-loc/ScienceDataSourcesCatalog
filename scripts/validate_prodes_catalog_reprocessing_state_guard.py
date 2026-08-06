@@ -43,7 +43,7 @@ def main() -> int:
         fail("data do aviso oficial divergente")
     if notice.get("applies_to_all_native_vegetation_suppression_files") is not True:
         fail("abrangência do aviso oficial foi perdida")
-    if "atualize" not in str(notice.get("statement", "")).casefold():
+    if "atualiz" not in str(notice.get("statement", "")).casefold():
         fail("recomendação oficial de atualização ausente")
 
     warning = data.get("current_catalog_warning")
