@@ -1,0 +1,143 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-ACCUMULATED-SUPPRESSION-MASK-2007-SHP",
+  "candidate_scientific_product_id": "PD-PRODES-AMZ-ACCUMULATED-MASK-2007",
+  "parent_package_asset_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
+  "status": "metadata_identity_temporal_boundary_and_partial_schema_verified_endpoint_unresolved",
+  "observed_at": "2026-08-06T00:10:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "metadata_identifier": "c6748fdf-a18e-41b9-a523-ea14bae92602",
+  "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/c6748fdf-a18e-41b9-a523-ea14bae92602",
+  "catalog_url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+  "official_record_label": "Máscara de área acumulada de supressão da vegetação nativa - Shapefile (2007)",
+  "declared_format": "ESRI Shapefile",
+  "scientific_identity": {
+    "represented_phenomenon": "área acumulada de supressão da vegetação nativa no bioma Amazônia medida até 2007",
+    "monitoring_program": "PRODES Amazônia",
+    "spatial_scope": "bioma Amazônia no Brasil conforme recorte oficial utilizado pelo PRODES",
+    "product_boundary_state": "candidate_distinct_baseline_scientific_product",
+    "must_not_be_collapsed_into": [
+      "PD-PRODES-AMZ-ANNUAL-MAP",
+      "PD-PRODES-AMZ-ANNUAL-RATE",
+      "PD-PRODES-AMZ-SMALL-POLYGON-INCREMENTS"
+    ],
+    "reason": "a máscara representa um acumulado consolidado até 2007 e não uma observação anual, uma taxa ou a série de incrementos iniciada em 2008"
+  },
+  "methodological_profile": {
+    "sensor_family": "Landsat ou similares",
+    "minimum_mapped_area_ha": 6.25,
+    "classification_nature": "interpretação visual de imagens de satélite e delimitação vetorial de polígonos de supressão",
+    "deforestation_definition": "supressão da vegetação nativa independentemente do uso subsequente",
+    "base_method_reference_resolved": false,
+    "validation_profile_resolved": false,
+    "uncertainty_profile_resolved": false
+  },
+  "temporal_and_release_profile": {
+    "scientific_cutoff_year": 2007,
+    "temporal_semantics": "accumulated_baseline_through_2007",
+    "annual_increment_series_starts_after_cutoff_year": 2008,
+    "current_release_resolved": false,
+    "publication_or_file_update_date_is_scientific_period": false,
+    "revision_warning": "o conjunto pode sofrer ajustes por revisão; data de atualização do catálogo não substitui release científica nem altera automaticamente o corte temporal de 2007"
+  },
+  "documented_partial_schema": [
+    {"field": "uuid", "type": "text", "meaning": "identificador único universal de cada feição"},
+    {"field": "uid", "type": "integer", "meaning": "identificador numérico de exportação que pode mudar em revisões ou atualizações"},
+    {"field": "state", "type": "text", "meaning": "estado ou unidade da federação"},
+    {"field": "path_row", "type": "text", "meaning": "código da cena na grade Landsat"},
+    {"field": "main_class", "type": "text", "meaning": "valor único DESMATAMENTO para a máscara"},
+    {"field": "class_name", "type": "text", "meaning": "valor único d2007 para a máscara"},
+    {"field": "year", "type": "number", "meaning": "valor 2007 usado para consultas"},
+    {"field": "area_km", "type": "number", "meaning": "área calculada da feição em km²"},
+    {"field": "source", "type": "text", "meaning": "origem do polígono quando aplicável"},
+    {"field": "geom", "type": "multipolygon", "meaning": "geometria obtida por interpretação visual de imagem de satélite"},
+    {"field": "pub_date", "type": "text", "meaning": "data automática de exportação no formato YYYYMMDD; não é período científico"}
+  ],
+  "official_evidence": [
+    {
+      "role": "metadata_scientific_definition_and_schema",
+      "url": "https://data.inpe.br/geonetwork/srv/search?createDateYear=2026",
+      "publisher": "INPE / BIG BiomasBR",
+      "supports": [
+        "acumulado de supressão até 2007",
+        "limiar de 6,25 ha",
+        "definição de desmatamento",
+        "recorte do bioma Amazônia",
+        "esquema parcial documentado",
+        "possibilidade de revisão"
+      ]
+    },
+    {
+      "role": "catalog_distribution_presence",
+      "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "presença da distribuição Shapefile",
+        "rótulo público com corte temporal de 2007"
+      ]
+    },
+    {
+      "role": "package_component_relation",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=GeoPackage",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "relação da máscara com o pacote GeoPackage PRODES Amazônia",
+        "UUID individual do componente"
+      ]
+    }
+  ],
+  "verified_state": {
+    "catalog_presence": true,
+    "metadata_identifier_verified": true,
+    "component_relation_to_geopackage_verified": true,
+    "scientific_object_distinguished": true,
+    "scientific_cutoff_year_documented": true,
+    "annual_increment_boundary_documented": true,
+    "partial_schema_documented": true,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "redirect_chain_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_asset": false,
+    "citation_resolved_for_data_release": false
+  },
+  "normalization_rules": [
+    "não tratar a máscara acumulada até 2007 como série anual de incrementos",
+    "não tratar o valor 2007 como data de publicação ou atualização do arquivo",
+    "não combinar a máscara e os incrementos sem preservar a fronteira acumulado até 2007 versus incrementos desde 2008",
+    "não interpretar 6,25 ha como tamanho de pixel ou resolução espacial",
+    "não usar uid como identificador persistente entre revisões",
+    "não confundir uuid da feição com UUID do registro de metadados",
+    "não transformar pub_date em período científico",
+    "não herdar release, licença, checksum ou estado de endpoint do pacote GeoPackage",
+    "um UUID de metadado não constitui URL direta nem ativo inspecionado",
+    "o esquema publicado permanece parcial até inspeção dos bytes",
+    "endpoint_state deve permanecer unresolved até evidência oficial individual verificável",
+    "asset_state deve permanecer not_inspected até recuperação e inspeção dos bytes",
+    "promoção exige produto, release, distribuição, licença, citação e evidência por afirmação"
+  ],
+  "required_before_product_promotion": [
+    "resolver nome oficial estável e relação com o produto anual principal",
+    "resolver metodologia-base e regras de revisão da máscara",
+    "confirmar release vigente preservando o corte científico de 2007",
+    "documentar esquema semântico integral e domínios de classe",
+    "resolver perfil espacial, CRS, suporte e unidade mínima mapeável",
+    "registrar validação, qualidade, incerteza, vieses, nuvens e dados ausentes",
+    "resolver licença, atribuição e citação do produto e da release",
+    "registrar evidência por afirmação e revisão curatorial"
+  ],
+  "required_before_asset_promotion": [
+    "URL direta oficial verificável",
+    "status HTTP e cadeia de redirecionamentos",
+    "nome, tamanho exato, Content-Type e Content-Disposition",
+    "checksum criptográfico",
+    "inventário completo do pacote Shapefile",
+    "CRS, geometria e esquema integral de atributos",
+    "cobertura territorial e corte temporal confirmado nos bytes",
+    "vínculo explícito com produto e release corretos"
+  ]
+}

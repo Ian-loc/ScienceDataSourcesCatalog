@@ -1,0 +1,63 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-ANNUAL-INCREMENT-SHP",
+  "scientific_target": "PD-PRODES-AMZ-ANNUAL-MAP",
+  "status": "catalog_snapshot_volatility_detected",
+  "retrieved_at": "2026-08-05",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "metadata_identifier": "b75b83db-8026-43f9-9537-ee1dfa308158",
+  "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/b75b83db-8026-43f9-9537-ee1dfa308158",
+  "distribution_role": "annual_increment_vector",
+  "expected_format": "Shapefile",
+  "verified_facts": {
+    "catalog_presence": true,
+    "metadata_identifier_present_in_official_catalog": true,
+    "distribution_label": "Incremento anual no desmatamento - Shapefile (desde 2008)",
+    "direct_download_url_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "release_resolved": false
+  },
+  "official_catalog_snapshots": [
+    {
+      "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+      "observed_catalog_date": "2026-06-16",
+      "evidence_role": "official_catalog_snapshot",
+      "canonical_for_release": false
+    },
+    {
+      "url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+      "observed_catalog_date": "2026-07-20",
+      "evidence_role": "official_catalog_snapshot",
+      "canonical_for_release": false
+    }
+  ],
+  "catalog_snapshot_assessment": {
+    "dates_conflict": true,
+    "interpretation": "As datas exibidas em snapshots oficiais do catálogo não podem ser usadas isoladamente como release_id, período científico, checksum ou prova de identidade dos bytes.",
+    "required_action": "Resolver a URL direta vigente e inspecionar os bytes recuperados antes de registrar estado verificado do endpoint ou do ativo."
+  },
+  "normalization_rules": [
+    "a data exibida pelo catálogo pertence à apresentação da distribuição e não define automaticamente o release científico",
+    "diferenças entre host com e sem www não autorizam tratar os registros como distribuições distintas",
+    "o UUID de metadado identifica um registro de metadados, não os bytes de um arquivo",
+    "a presença da distribuição no catálogo não comprova estabilidade do endpoint direto",
+    "nenhum valor de data conflitante pode ser promovido como canônico sem evidência oficial versionada adicional",
+    "endpoint_state deve permanecer unresolved e asset_state deve permanecer not_inspected"
+  ],
+  "required_before_resolution": [
+    "URL direta vigente",
+    "cadeia de redirecionamentos",
+    "status HTTP",
+    "nome e tamanho exatos do arquivo",
+    "checksum dos bytes recuperados",
+    "conteúdo do pacote Shapefile",
+    "CRS e geometria",
+    "esquema e semântica dos atributos",
+    "cobertura temporal e territorial",
+    "licença, atribuição e citação",
+    "relação explícita com produto e release"
+  ]
+}

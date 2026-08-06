@@ -1,0 +1,145 @@
+{
+  "contract_id": "DW-OPERATIONAL-2026-08-05",
+  "timezone": "America/Sao_Paulo",
+  "checked_at": "2026-08-05T12:25:00-03:00",
+  "product_stable_id": "DP000011",
+  "release_stable_id": "PR000011",
+  "promotion_authorized": false,
+  "canonical_asset": {
+    "asset_id": "GOOGLE/DYNAMICWORLD/V1",
+    "asset_type": "Earth Engine ImageCollection",
+    "catalog_url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1",
+    "status_url": "https://developers.google.com/earth-engine/datasets/status",
+    "status_at_check": "OK",
+    "availability_start": "2015-06-27",
+    "availability_end_semantics": "continuously updated; do not persist the catalog crawl timestamp as the scientific end date",
+    "spatial_coverage": "global",
+    "nominal_pixel_size_m": 10,
+    "bands": [
+      "water",
+      "trees",
+      "grass",
+      "flooded_vegetation",
+      "crops",
+      "shrub_and_scrub",
+      "built",
+      "bare",
+      "snow_and_ice",
+      "label"
+    ],
+    "image_properties": [
+      "dynamicworld_algorithm_version",
+      "qa_algorithm_version"
+    ],
+    "authentication_required": true,
+    "access_requirement": "registered Google Cloud project with Earth Engine access and API enabled",
+    "direct_file_download": false,
+    "subset_support": [
+      "spatial",
+      "temporal",
+      "band",
+      "class_probability"
+    ]
+  },
+  "scientific_access_constraints": [
+    "Each Dynamic World image corresponds to an eligible Sentinel-2 L1C acquisition rather than to an annual land-cover map.",
+    "The nine probability bands sum to one; label is the index of the largest estimated probability.",
+    "Top-1 label must not be interpreted as field truth or as a universally calibrated correctness probability.",
+    "Temporal composites and final class assignments require explicit user-defined processing rules.",
+    "Masked clouds and shadows create missing observations that must not be interpreted as absence of a land-cover class."
+  ],
+  "license": {
+    "dataset_license": "CC BY 4.0",
+    "required_attribution": "This dataset is produced for the Dynamic World Project by Google in partnership with National Geographic Society and the World Resources Institute.",
+    "upstream_notice": "Contains modified Copernicus Sentinel data [2015-present]; Sentinel Data Legal Notice also applies.",
+    "software_license_separate": true
+  },
+  "citation": {
+    "doi": "10.1038/s41597-022-01307-4",
+    "title": "Dynamic World, Near real-time global 10 m land use land cover mapping",
+    "year": 2022
+  },
+  "distributions": [
+    {
+      "legacy_distribution_id": "DD000016",
+      "role": "canonical_machine_access",
+      "url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1",
+      "state": "verified",
+      "promotion_target": "release_distribution"
+    },
+    {
+      "legacy_distribution_id": "DD000017",
+      "role": "secondary_metadata_record",
+      "url": "https://datasets.wri.org/datasets/dynamic-world",
+      "state": "catalog_record_only",
+      "promotion_target": "release_distribution",
+      "restriction": "must not be represented as hosting the raster assets"
+    },
+    {
+      "legacy_distribution_id": "DD000018",
+      "role": "visual_explorer",
+      "url": "https://dynamicworld.app/explore/",
+      "state": "verified_visualization",
+      "promotion_target": "release_distribution",
+      "restriction": "visual inspection is not equivalent to reproducible analytical access"
+    },
+    {
+      "legacy_distribution_id": "DD000019",
+      "role": "software_and_model",
+      "url": "https://github.com/google/dynamicworld",
+      "state": "complementary_software",
+      "promotion_target": "release_distribution",
+      "restriction": "Apache-2.0 software licensing must remain separate from CC-BY-4.0 dataset licensing"
+    }
+  ],
+  "required_before_curatorial_approval": [
+    "Verify that normalized distribution records preserve the four distinct roles.",
+    "Verify that the canonical asset identifier is stored independently from the catalog page URL.",
+    "Verify license, attribution, DOI and Sentinel upstream notice in normalized records.",
+    "Verify that access requirements are not described as anonymous direct download.",
+    "Verify that continuously updated availability is not frozen to a transient catalog timestamp.",
+    "Run the normalized database validator after applying the operational enrichment."
+  ],
+  "evidence": [
+    {
+      "url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1",
+      "type": "official_dataset_catalog",
+      "supports": [
+        "asset identity",
+        "bands",
+        "pixel size",
+        "availability semantics",
+        "license",
+        "attribution",
+        "citation",
+        "access model"
+      ]
+    },
+    {
+      "url": "https://developers.google.com/earth-engine/datasets/status",
+      "type": "official_ingestion_status",
+      "supports": [
+        "operational ingestion status at check time"
+      ]
+    },
+    {
+      "url": "https://www.dynamicworld.app/about/index.html",
+      "type": "official_project_documentation",
+      "supports": [
+        "intended use",
+        "ImageCollection identifier",
+        "license and attribution",
+        "separation of dataset and model/code"
+      ]
+    },
+    {
+      "url": "https://doi.org/10.1038/s41597-022-01307-4",
+      "type": "peer_reviewed_data_descriptor",
+      "supports": [
+        "scientific method",
+        "validation",
+        "citation"
+      ]
+    }
+  ]
+}

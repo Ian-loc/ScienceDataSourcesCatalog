@@ -1,0 +1,278 @@
+{
+  "contract_version": "1.1.0",
+  "family_stable_id": "PF000001",
+  "parent_package_asset_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
+  "status": "ancillary_cartographic_layer_identities_and_boundaries_verified_endpoints_unresolved",
+  "observed_at": "2026-08-05T22:00:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "scope": "Preserva as identidades e fronteiras de três componentes cartográficos auxiliares do PRODES Amazônia sem convertê-los em observações de supressão, incrementos, taxas, incertezas ou produtos autônomos sem evidência suficiente.",
+  "layers": [
+    {
+      "target_id": "PRODES-ASSET-AMAZON-HYDROGRAPHY-SHP",
+      "candidate_scientific_product_id": "PD-PRODES-AMZ-HYDROGRAPHY",
+      "metadata_identifier": "1df78632-68e7-4e91-bca0-25305d3f831e",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/1df78632-68e7-4e91-bca0-25305d3f831e",
+      "official_record_label": "Hidrografia - Shapefile",
+      "product_type": "candidate_ancillary_cartographic_water_body_product",
+      "represented_object": "corpos hídricos, incluindo rios, lagos, barramentos e represamentos, mapeados no recorte amazônico utilizado pelo PRODES",
+      "temporal_semantics": "annual_mapping_cadence_declared_release_unresolved",
+      "declared_cadence": "annual",
+      "class_values_documented": [
+        "HIDROGRAFIA"
+      ],
+      "scientific_boundary": {
+        "is_native_vegetation_suppression": false,
+        "is_deforestation_increment": false,
+        "is_deforestation_rate": false,
+        "is_accumulated_deforestation": false,
+        "is_uncertainty_or_residual": false,
+        "must_not_be_collapsed_into": [
+          "PD-PRODES-AMZ-ANNUAL-MAP",
+          "PD-PRODES-AMZ-ANNUAL-RATE",
+          "PD-PRODES-AMZ-ACCUMULATED-MASK-2007",
+          "PD-PRODES-AMZ-ANNUAL-RESIDUAL",
+          "PD-PRODES-AMZ-NON-FOREST-HYDROGRAPHY"
+        ]
+      },
+      "spatial_context": {
+        "biome_boundary_adjustment_documented": true,
+        "biome_boundary_reference_year": 2019,
+        "coverage_geometry_verified_from_bytes": false,
+        "crs_verified_from_bytes": false
+      },
+      "partial_schema_profile": {
+        "expected_main_class": "HIDROGRAFIA",
+        "expected_class_name": "HIDROGRAFIA",
+        "standardized_schema_only_when_applicable": true
+      }
+    },
+    {
+      "target_id": "PRODES-ASSET-AMAZON-NON-FOREST-HYDROGRAPHY-SHP",
+      "candidate_scientific_product_id": "PD-PRODES-AMZ-NON-FOREST-HYDROGRAPHY",
+      "metadata_identifier": "87fb6a32-01c1-4421-b7d0-a93568e1b079",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/87fb6a32-01c1-4421-b7d0-a93568e1b079",
+      "official_record_label": "Hidrografia em não floresta - Shapefile",
+      "product_type": "candidate_ancillary_cartographic_water_body_product_within_non_forest_domain",
+      "represented_object": "corpos hídricos, incluindo rios, lagos, barramentos e represamentos, situados no domínio de não floresta do bioma Amazônia",
+      "temporal_semantics": "support_layer_for_non_forest_monitoring_release_unresolved",
+      "declared_cadence": "as_needed_in_metadata_search_facet_not_promoted_as_individual_release_policy",
+      "non_forest_program_context": {
+        "systematic_operation_announced_from_year": 2023,
+        "historical_series_objective_start_year": 2000,
+        "approximate_domain_area_km2": 280000,
+        "approximate_domain_share_percent": 6.6,
+        "base_method_reference": "Almeida et al. 2022",
+        "specific_adaptations_version_resolved": false,
+        "sensor_history_belongs_to_non_forest_monitoring_program_not_automatically_to_hydrography_asset": true
+      },
+      "scientific_boundary": {
+        "is_native_vegetation_suppression": false,
+        "is_non_forest_suppression_increment": false,
+        "is_deforestation_rate": false,
+        "is_non_forest_domain_mask": false,
+        "is_uncertainty_or_residual": false,
+        "must_not_be_collapsed_into": [
+          "PD-PRODES-AMZ-HYDROGRAPHY",
+          "PD-PRODES-AMZ-NON-FOREST-SUPPRESSION-INCREMENTS",
+          "PD-PRODES-AMZ-NON-FOREST-ACCUMULATED-MASK-2000",
+          "PD-PRODES-AMZ-NON-FOREST-ANNUAL-RESIDUAL",
+          "AX-PRODES-AMZ-NON-FOREST-DOMAIN-MASK"
+        ]
+      },
+      "spatial_context": {
+        "non_forest_domain_metadata_reference": "bed1276c-aa3d-4f5b-b560-1879617ef13d",
+        "biome_boundary_adjustment_documented": true,
+        "biome_boundary_reference_year": 2019,
+        "coverage_geometry_verified_from_bytes": false,
+        "crs_verified_from_bytes": false
+      },
+      "partial_schema_profile": {
+        "schema_is_standardized_with_deforestation_data": true,
+        "fields_are_filled_only_when_applicable": true,
+        "actual_values_and_nullability_verified_from_bytes": false
+      }
+    },
+    {
+      "target_id": "PRODES-ASSET-NON-FOREST-MASK-SHP",
+      "candidate_entity_id": "AX-PRODES-AMZ-NON-FOREST-DOMAIN-MASK",
+      "candidate_entity_type": "auxiliary_domain_mask",
+      "candidate_scientific_product_id": null,
+      "standalone_scientific_product_supported": false,
+      "metadata_identifier": "bed1276c-aa3d-4f5b-b560-1879617ef13d",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/bed1276c-aa3d-4f5b-b560-1879617ef13d",
+      "official_record_label": "Não floresta - Shapefile",
+      "product_type": "auxiliary_domain_mask_and_classification_support_layer",
+      "represented_object": "tipologias de vegetação não enquadradas na classe de Floresta adotada no mapeamento PRODES",
+      "temporal_semantics": "domain_mask_reference_release_unresolved",
+      "declared_cadence": "not_promoted_from_aggregate_catalog_facets",
+      "class_values_documented": [
+        "NAO_FLORESTA",
+        "NAO_FLORESTA2"
+      ],
+      "scientific_boundary": {
+        "is_suppression_observation": false,
+        "is_non_forest_suppression_increment": false,
+        "is_accumulated_non_forest_suppression": false,
+        "is_hydrography": false,
+        "is_absence_of_data": false,
+        "must_not_be_collapsed_into": [
+          "PD-PRODES-AMZ-NON-FOREST-SUPPRESSION-INCREMENTS",
+          "PD-PRODES-AMZ-NON-FOREST-ACCUMULATED-MASK-2000",
+          "PD-PRODES-AMZ-NON-FOREST-ANNUAL-RESIDUAL",
+          "PD-PRODES-AMZ-NON-FOREST-HYDROGRAPHY",
+          "PD-PRODES-AMZ-ANNUAL-MAP"
+        ]
+      },
+      "interpretive_warning": "não floresta é uma classe auxiliar de domínio cartográfico relativa à definição de Floresta adotada no mapeamento; não significa área sem vegetação, ausência de dado ou supressão ocorrida",
+      "partial_schema_profile": {
+        "expected_main_class": "NAO_FLORESTA",
+        "documented_class_names": [
+          "NAO_FLORESTA",
+          "NAO_FLORESTA2"
+        ],
+        "standardized_schema_only_when_applicable": true,
+        "actual_values_and_nullability_verified_from_bytes": false
+      },
+      "companion_guard": "database/mappings/prodes_amazon_non_forest_mask_entity_guard_2026.json"
+    }
+  ],
+  "shared_documented_partial_schema": [
+    "uuid",
+    "uid",
+    "state",
+    "path_row",
+    "main_class",
+    "class_name",
+    "def_cloud",
+    "julian_day",
+    "image_date",
+    "year",
+    "area_km",
+    "scene_id",
+    "publish_year",
+    "source",
+    "satellite",
+    "sensor",
+    "geom",
+    "pub_date"
+  ],
+  "identifier_and_temporal_rules": {
+    "uid_is_persistent_identifier": false,
+    "feature_uuid_is_metadata_uuid": false,
+    "year_is_release_identifier": false,
+    "publish_year_is_scientific_period": false,
+    "pub_date_is_scientific_period": false,
+    "pub_date_semantics": "data de publicação ou exportação atualizada automaticamente nos arquivos vetoriais",
+    "catalog_update_date_is_release_identifier": false
+  },
+  "official_evidence": [
+    {
+      "role": "hydrography_definition_schema_and_boundary_update",
+      "url": "https://www.terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=vetorial",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "mapeamento anual de corpos hídricos",
+        "classes HIDROGRAFIA",
+        "ajuste aos limites de biomas do IBGE de 2019",
+        "esquema parcial padronizado e aplicabilidade condicional"
+      ]
+    },
+    {
+      "role": "non_forest_hydrography_definition_and_program_context",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=asNeeded",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "corpos hídricos no domínio de não floresta",
+        "operação não florestal desde 2023 e série pretendida desde 2000",
+        "contexto territorial e referência à máscara de não floresta",
+        "esquema parcial padronizado"
+      ]
+    },
+    {
+      "role": "non_forest_domain_mask_definition_and_classes",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=vetorial",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "definição da máscara auxiliar de não floresta",
+        "classes NAO_FLORESTA e NAO_FLORESTA2",
+        "esquema parcial"
+      ]
+    },
+    {
+      "role": "catalog_distribution_presence",
+      "url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "presença separada das três distribuições Shapefile",
+        "rótulos públicos",
+        "datas da interface que não constituem release"
+      ]
+    },
+    {
+      "role": "prodes_product_class_context",
+      "url": "https://data.inpe.br/biomasbr/prodes-monitoramento-anual-da-supressao-de-vegetacao-nativa/",
+      "publisher": "INPE / BIG BiomasBR",
+      "supports": [
+        "hidrografia e não floresta como classes e camadas específicas no produto completo",
+        "separação entre camadas auxiliares, desmatamento anual e resíduo",
+        "metodologia incremental do monitoramento de supressão"
+      ]
+    }
+  ],
+  "verified_state": {
+    "all_three_catalog_entries_present": true,
+    "all_three_metadata_identifiers_verified": true,
+    "all_three_component_relations_to_geopackage_verified": true,
+    "ancillary_layer_role_documented": true,
+    "hydrography_object_documented": true,
+    "non_forest_domain_mask_semantics_documented": true,
+    "non_forest_mask_auxiliary_entity_role_verified": true,
+    "non_forest_mask_standalone_product_supported": false,
+    "general_and_non_forest_hydrography_distinguished": true,
+    "partial_schema_documented": true,
+    "individual_current_releases_resolved": false,
+    "direct_download_urls_verified": false,
+    "asset_bytes_inspected": false,
+    "checksums_computed": false,
+    "complete_schemas_verified_from_bytes": false,
+    "licenses_resolved_for_assets": false,
+    "citations_resolved_for_data_releases": false
+  },
+  "normalization_rules": [
+    "não promover hidrografia ou máscara de não floresta como observação de supressão, incremento, taxa ou incerteza",
+    "não promover a máscara de não floresta como produto científico autônomo enquanto a evidência sustentar apenas papel auxiliar de domínio",
+    "não interpretar a classe não floresta como ausência de vegetação, ausência de dados ou desmatamento",
+    "não colapsar hidrografia geral e hidrografia em não floresta sem evidência de identidade de produto, release e bytes",
+    "não herdar automaticamente sensores, cadência ou método do monitoramento de supressão para o ativo hidrográfico",
+    "não herdar automaticamente atributos do registro geral de hidrografia para a hidrografia em não floresta",
+    "não usar facetas agregadas de frequência ou status como atributos individuais",
+    "não usar 2019 como ano científico do produto; ele identifica a referência de limite de bioma documentada",
+    "não usar 2023 como início da série da máscara ou da hidrografia não florestal; é contexto operacional do programa",
+    "não usar uid como identificador persistente e não confundir uuid de feição com UUID de metadado",
+    "não transformar year, publish_year, pub_date ou data da interface em release ou período científico",
+    "não promover todos os campos padronizados como preenchidos em todas as camadas sem inspeção dos bytes",
+    "endpoint_state deve permanecer unresolved e asset_state not_inspected até evidência direta",
+    "promoção exige papel de entidade, produto quando aplicável, release, distribuição, licença, citação, bytes e evidência por afirmação"
+  ],
+  "required_before_entity_resolution_or_product_promotion": [
+    "resolver nome oficial estável e tipo de entidade ou produto de cada camada auxiliar",
+    "resolver release, temporalidade e política de revisão individuais",
+    "documentar método de produção específico de cada camada sem herança indevida",
+    "resolver perfil espacial, cobertura, suporte, CRS e geometria",
+    "confirmar classes efetivamente presentes, nulos e esquema semântico integral",
+    "registrar qualidade, validação, incerteza, vieses e limitações",
+    "resolver licença, atribuição e citação de cada entidade, produto e release aplicável",
+    "registrar evidência por afirmação e revisão curatorial"
+  ],
+  "required_before_asset_promotion": [
+    "URLs diretas oficiais verificáveis",
+    "status HTTP e cadeias de redirecionamentos",
+    "nomes, tamanhos exatos, Content-Type e Content-Disposition",
+    "checksums criptográficos",
+    "inventários completos dos pacotes Shapefile",
+    "CRS, geometrias e esquemas integrais observados nos bytes",
+    "cobertura territorial e temporal dos bytes",
+    "vínculos explícitos com entidades, produtos e releases corretos"
+  ]
+}

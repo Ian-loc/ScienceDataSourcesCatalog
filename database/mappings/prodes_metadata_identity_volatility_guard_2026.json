@@ -1,0 +1,73 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "status": "observed_metadata_identity_conflict_pre_promotion",
+  "observed_at": "2026-08-05T10:24:46-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "source": {
+    "name": "TerraBrasilis GeoNetwork",
+    "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=GeoPackage",
+    "role": "metadata_catalog_search",
+    "trust_scope": "current human-observed catalogue records; not a stable release registry"
+  },
+  "conflicts": [
+    {
+      "distribution_role": "accumulated_suppression_mask_vector",
+      "registered_uuid": "c6748fdf-a18e-41b9-a523-ea14bae92602",
+      "currently_observed_uuid": "415220fc-3013-4258-bd21-83014865cee5",
+      "identity_state": "multiple_metadata_records_observed",
+      "resolution_state": "unresolved"
+    },
+    {
+      "distribution_role": "annual_increment_vector",
+      "registered_uuid": "b75b83db-8026-43f9-9537-ee1dfa308158",
+      "currently_observed_uuid": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+      "identity_state": "multiple_metadata_records_observed",
+      "resolution_state": "unresolved"
+    },
+    {
+      "distribution_role": "hydrography_reference_vector",
+      "registered_uuid": "1df78632-68e7-4e91-bca0-25305d3f831e",
+      "currently_observed_uuid": "d18f51fd-f7fa-4e22-a6c3-485a06a29276",
+      "identity_state": "multiple_metadata_records_observed",
+      "resolution_state": "unresolved"
+    },
+    {
+      "distribution_role": "annual_residue_vector",
+      "registered_uuid": "00a728cb-8577-458a-9c38-082c1f3bca9e",
+      "currently_observed_uuid": "2c99c167-05cd-4596-bc32-f0abf9da0dae",
+      "identity_state": "multiple_metadata_records_observed",
+      "resolution_state": "unresolved"
+    },
+    {
+      "distribution_role": "nonforest_domain_mask_vector",
+      "registered_uuid": "bed1276c-aa3d-4f5b-b560-1879617ef13d",
+      "currently_observed_uuid": "ab81b88d-b089-4d0f-8185-e34cbfb52464",
+      "identity_state": "multiple_metadata_records_observed",
+      "resolution_state": "unresolved"
+    }
+  ],
+  "resolved_findings": [
+    "Um papel científico-operacional pode aparecer associado a mais de um UUID do GeoNetwork ao longo do tempo.",
+    "UUID de metadado identifica um registro do catálogo, não necessariamente uma identidade científica permanente do produto ou release.",
+    "O conjunto registrado anteriormente não deve ser sobrescrito até que relações de substituição, duplicação ou escopo sejam verificadas registro a registro.",
+    "A divergência de UUIDs reforça a necessidade de separar identidade do produto, identidade do release, registro de metadado, distribuição e ativo."
+  ],
+  "required_resolution_evidence": [
+    "conteúdo completo de cada registro de metadado conflitante",
+    "datas de criação, revisão e publicação dos registros",
+    "links de distribuição e serviço associados",
+    "título, resumo, extensão, escopo e responsáveis",
+    "relação explícita de substituição, supersessão, duplicação ou coexistência",
+    "identidade e checksum dos ativos associados quando recuperáveis",
+    "decisão curatorial versionada por papel de distribuição"
+  ],
+  "prohibited_inferences": [
+    "Não substituir automaticamente o UUID registrado pelo UUID mais recentemente observado.",
+    "Não tratar UUID mais recente como release mais recente sem evidência específica.",
+    "Não fundir registros somente porque compartilham título ou papel operacional semelhante.",
+    "Não promover nenhum dos UUIDs conflitantes como identidade canônica do produto, release ou ativo.",
+    "Não excluir registros anteriores antes de preservar evidência e relação de proveniência."
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "family_stable_id": "PF000001",
+  "family_name": "PRODES",
+  "resolution_status": "pre_promotion",
+  "promotion_authorized": false,
+  "scope_note": "Contrato curatorial para separar objetos científicos distintos antes de criar produtos e releases no catálogo normalizado.",
+  "evidence_policy": {
+    "official_sources_required": true,
+    "historical_evidence_does_not_define_current_method": true,
+    "retrieved_at": "2026-08-05",
+    "timezone": "America/Sao_Paulo"
+  },
+  "evidence_sources": [
+    {
+      "source_id": "PRODES-EV-001",
+      "url": "https://terrabrasilis.dpi.inpe.br/faq/",
+      "publisher": "INPE / TerraBrasilis",
+      "evidence_type": "official_faq",
+      "supports": [
+        "taxas são estimativas calculadas a partir de incrementos",
+        "incrementos anuais individualizados estão disponíveis a partir de 2008",
+        "dados de 1988 a 2007 estão agregados em uma camada",
+        "taxas não são disponibilizadas para município, unidade de conservação ou terra indígena",
+        "dados geográficos da Amazônia Legal estão disponíveis em Shapefile"
+      ]
+    },
+    {
+      "source_id": "PRODES-EV-002",
+      "url": "https://www.gov.br/inpe/pt-br/acesso-a-informacao/perguntas-frequentes/principais-produtos-e-servicos-do-inpe/monitoramento-do-territorio-florestas/como-se-monitora-o-desmatamento",
+      "publisher": "INPE",
+      "evidence_type": "official_faq",
+      "supports": [
+        "PRODES produz estimativas anuais desde 1988",
+        "taxas são divididas por estados da Amazônia Legal",
+        "imagens Landsat são usadas no monitoramento"
+      ]
+    },
+    {
+      "source_id": "PRODES-EV-003",
+      "url": "https://terrabrasilis.dpi.inpe.br/en/home-page/",
+      "publisher": "INPE / TerraBrasilis",
+      "evidence_type": "official_platform",
+      "supports": [
+        "mapa interativo de polígonos de supressão",
+        "dashboard de taxas anuais e supressão",
+        "downloads vetoriais e raster",
+        "metadados e serviços web são capacidades distintas"
+      ]
+    },
+    {
+      "source_id": "PRODES-EV-004",
+      "url": "https://www.gov.br/aeb/pt-br/assuntos/noticias/desmatamento-na-amazonia-legal-cai-82-em-dez-anos/",
+      "publisher": "Agência Espacial Brasileira / MCTI / INPE",
+      "evidence_type": "official_historical_release",
+      "supports": [
+        "período anual de agosto a julho",
+        "unidade de reporte km²/ano",
+        "área mínima histórica de 6,25 ha para corte raso",
+        "taxa consolidada usa mais cenas do que a estimativa preliminar"
+      ],
+      "currentness_caution": "Evidência histórica; unidade mínima deve ser confirmada na metodologia vigente antes da promoção de release atual."
+    },
+    {
+      "source_id": "PRODES-EV-005",
+      "url": "https://www.gov.br/mma/pt-br/noticias/noticia-acom-2017-08-2529",
+      "publisher": "Ministério do Meio Ambiente / INPE",
+      "evidence_type": "official_release_notice",
+      "supports": [
+        "taxa preliminar e taxa consolidada são estados distintos do resultado anual",
+        "o valor consolidado pode diferir do valor estimado",
+        "a consolidação ocorre após processamento adicional"
+      ],
+      "currentness_caution": "A notícia comprova a distinção operacional entre estimativa e consolidação, mas não define sozinha o procedimento vigente completo."
+    }
+  ],
+  "targets": [
+    {
+      "candidate_stable_id": "PD-PRODES-AMZ-ANNUAL-MAP",
+      "name_pt": "PRODES Amazônia — mapeamento anual de desflorestamento",
+      "product_type": "map_series",
+      "scientific_object": "Incrementos espacialmente interpretados como desflorestamento por corte raso segundo o protocolo PRODES aplicável ao período e à distribuição.",
+      "support_type": "spatial_feature_or_raster",
+      "resolved_fields": {
+        "monitoring_domain": "Amazônia Legal",
+        "phenomenon": "remoção completa da cobertura florestal / corte raso",
+        "temporal_cycle": "anual, com período de referência de 1 de agosto a 31 de julho",
+        "historical_availability": "incrementos anuais individualizados a partir de 2008; 1988–2007 agregados",
+        "documented_distribution_format": "Shapefile",
+        "source_imagery_family": "Landsat"
+      },
+      "evidence_findings": [
+        {
+          "field": "temporal_cycle",
+          "value": "1 de agosto a 31 de julho",
+          "source_ids": ["PRODES-EV-004"],
+          "confidence": "high"
+        },
+        {
+          "field": "minimum_mapping_unit",
+          "value": "6,25 ha",
+          "source_ids": ["PRODES-EV-004"],
+          "confidence": "historical_only",
+          "promotion_status": "requires_current_method_confirmation"
+        },
+        {
+          "field": "historical_availability",
+          "value": "incrementos anuais a partir de 2008; camada agregada 1988–2007",
+          "source_ids": ["PRODES-EV-001"],
+          "confidence": "high"
+        }
+      ],
+      "required_evidence_before_promotion": [
+        "metodologia e versão vigentes",
+        "unidade mínima de mapeamento confirmada para o release",
+        "extensão geográfica e máscara de monitoramento",
+        "distribuição específica, geometria, CRS e formato",
+        "política de revisão e substituição de arquivos",
+        "licença e citação específicas"
+      ],
+      "unknown_fields": [
+        "release_identifier",
+        "nominal_resolution",
+        "crs",
+        "grid_or_geometry_contract",
+        "current_minimum_mapping_unit",
+        "specific_download_endpoint",
+        "revision_policy"
+      ],
+      "non_representations": [
+        "alerta em tempo real",
+        "data exata da ocorrência",
+        "causa ou legalidade do desmatamento",
+        "taxa mensal",
+        "observação de campo",
+        "taxa anual calculada sem aplicação do algoritmo oficial"
+      ]
+    },
+    {
+      "candidate_stable_id": "PD-PRODES-AMZ-ANNUAL-RATE",
+      "name_pt": "PRODES Amazônia — taxa anual de desflorestamento",
+      "product_type": "indicator_series",
+      "scientific_object": "Estimativa anual oficial da área desflorestada, calculada por algoritmo a partir dos incrementos interpretados e demais informações do procedimento PRODES.",
+      "support_type": "territorial_unit_and_reference_period",
+      "resolved_fields": {
+        "monitoring_domain": "Amazônia Legal",
+        "temporal_cycle": "anual, com período de referência de 1 de agosto a 31 de julho",
+        "measurement_unit": "km²/ano",
+        "territorial_levels": ["Amazônia Legal", "estado"],
+        "series_start": 1988,
+        "derivation": "estimativa algorítmica baseada nos incrementos de desmatamento e informações auxiliares",
+        "result_states": ["preliminary_estimate", "consolidated_rate"],
+        "preliminary_estimate_semantics": "resultado anual antecipado produzido com subconjunto priorizado de imagens; não substitui a taxa consolidada",
+        "consolidated_rate_semantics": "resultado anual final após processamento mais completo e revisão; integra a série histórica oficial",
+        "revision_relation": "a taxa consolidada pode diferir da estimativa preliminar e deve substituí-la como estado final do mesmo ciclo anual"
+      },
+      "evidence_findings": [
+        {
+          "field": "derivation",
+          "value": "taxa estimada por algoritmo a partir de incrementos; não equivale ao incremento cartográfico bruto",
+          "source_ids": ["PRODES-EV-001"],
+          "confidence": "high"
+        },
+        {
+          "field": "territorial_levels",
+          "value": ["Amazônia Legal", "estado"],
+          "source_ids": ["PRODES-EV-001", "PRODES-EV-002"],
+          "confidence": "high"
+        },
+        {
+          "field": "measurement_unit",
+          "value": "km²/ano",
+          "source_ids": ["PRODES-EV-004"],
+          "confidence": "high"
+        },
+        {
+          "field": "temporal_cycle",
+          "value": "1 de agosto a 31 de julho",
+          "source_ids": ["PRODES-EV-004"],
+          "confidence": "high"
+        },
+        {
+          "field": "result_states",
+          "value": ["preliminary_estimate", "consolidated_rate"],
+          "source_ids": ["PRODES-EV-004", "PRODES-EV-005"],
+          "confidence": "high"
+        },
+        {
+          "field": "revision_relation",
+          "value": "taxa consolidada substitui a estimativa preliminar como resultado final do ciclo anual",
+          "source_ids": ["PRODES-EV-005"],
+          "confidence": "high"
+        }
+      ],
+      "required_evidence_before_promotion": [
+        "procedimento de estimação vigente e versão",
+        "regras vigentes para cobertura incompleta e áreas não observadas",
+        "calendário operacional atual de publicação da estimativa e da consolidação",
+        "distribuição estatística oficial e contrato de campos",
+        "identificador e data do release",
+        "licença e citação específicas"
+      ],
+      "unknown_fields": [
+        "release_identifier",
+        "current_estimation_algorithm_version",
+        "current_unobserved_area_adjustment",
+        "current_publication_calendar",
+        "official_statistics_endpoint",
+        "specific_license",
+        "specific_citation"
+      ],
+      "non_representations": [
+        "soma necessariamente idêntica de qualquer arquivo vetorial",
+        "taxa mensal",
+        "alerta operacional",
+        "probabilidade pixel a pixel",
+        "estimativa preliminar tratada como valor consolidado",
+        "indicador municipal, de unidade de conservação ou de terra indígena produzido diretamente pelo PRODES"
+      ]
+    }
+  ]
+}

@@ -1,220 +1,363 @@
-# Modelo de catálogo de produtos
+# Modelo relacional do catálogo de produtos
 
-## Decisão
+## 1. Decisão
 
-A camada de produtos **não é redundante** com `data/data_resources.csv`.
+A camada de produtos é o núcleo científico da Instância 1 e não é redundante com o catálogo de fontes.
 
-O CSV atual tem uma linha por fonte e responde perguntas institucionais e gerais: quem mantém, qual é o papel da infraestrutura, quais temas cobre e quais formas de acesso podem existir. Campos como `data_product_types`, `data_formats`, `spatial_resolution` e `temporal_resolution` precisam resumir fontes heterogêneas e, por isso, frequentemente contêm valores como “varia conforme o produto”.
+A fonte responde:
 
-O modelo de produtos responde perguntas científicas e operacionais que não podem ser respondidas com precisão no nível da fonte:
+- quem mantém;
+- qual é a infraestrutura;
+- qual papel institucional ou funcional possui;
+- quais tipos gerais de conteúdo e acesso oferece.
 
-- qual produto ou série contém o fenômeno de interesse;
-- o que o produto representa e como foi derivado;
-- qual é sua cobertura, suporte espacial, resolução e periodicidade;
-- qual versão, coleção, cenário ou edição deve ser citada;
-- por quais arquivos, APIs ou serviços o mesmo produto pode ser obtido.
+O produto responde:
 
-## Relação entre as tabelas atuais
+- qual informação científica existe;
+- o que ela representa;
+- como foi produzida;
+- em qual versão;
+- quais variáveis contém;
+- qual é seu suporte espacial e temporal;
+- quais limitações possui;
+- como pode ser acessada.
+
+## 2. Hierarquia canônica
 
 ```text
-Fonte / infraestrutura
-  1 ─── N Produto ou série
-              1 ─── N Distribuição ou forma de acesso
+Organização
+  1 ─── N Fonte ou infraestrutura
+              1 ─── N Família de produtos
+                          1 ─── N Produto científico
+                                      1 ─── N Release, versão ou edição
+                                                  1 ─── N Distribuição
+                                                              1 ─── N Ativo
 ```
 
-### Fonte
+Relações científicas:
 
-Permanece em `data/data_resources.csv`. É a unidade institucional e funcional: portal, base, repositório, plataforma, rede ou serviço.
+```text
+Release
+  N ─── N Variável, classe, indicador ou banda
+              ├── método
+              ├── perfil espacial
+              ├── perfil temporal
+              ├── perfil de qualidade
+              └── interpretação científica
+```
 
-### Produto
+## 3. Entidades
 
-Fica em `data/data_products.csv`. É uma unidade científica ou informacional reconhecível: uma série anual, coleção de imagens, família de indicadores, produto modelado, conjunto de alertas, catálogo federado ou serviço de processamento.
+### Organização
+
+Instituição, consórcio, rede ou iniciativa responsável.
+
+### Fonte ou infraestrutura
+
+Portal, repositório, catálogo, plataforma, programa, observatório, rede ou serviço que publica ou oferece acesso.
+
+Uma fonte pode agregar produtos de produtores diferentes. O provedor primário deve permanecer explícito.
+
+### Família de produtos
+
+Agrupamento de produtos relacionados por missão, programa, método ou finalidade.
+
+A família não transfere automaticamente resolução, legenda, período, método, licença ou qualidade aos produtos membros.
+
+### Produto científico
+
+Conjunto coerente e versionado de informações espaciais, produzido por metodologia definida, com significado temático, cobertura, suporte espacial e temporal, variáveis e formas de distribuição identificáveis.
+
+Exemplos:
+
+- série anual de supressão de vegetação;
+- coleção de cobertura e uso da terra;
+- série de indicadores municipais;
+- produto de biomassa modelada;
+- conjunto de alertas;
+- mapa de referência territorial;
+- coleção de ocorrências georreferenciadas.
+
+Não são produtos científicos por si sós:
+
+- catálogo genérico;
+- API genérica;
+- serviço de processamento;
+- visualizador;
+- protocolo;
+- formato;
+- página de download.
+
+### Release, versão ou edição
+
+Manifestação identificável de um produto.
+
+Pertencem a esta entidade:
+
+- versão;
+- coleção;
+- ano-base;
+- cenário;
+- edição;
+- data de release;
+- estado atual, substituído ou experimental;
+- notas de mudança.
+
+Distribuições pertencem ao release, não ao produto abstrato, porque formatos, URLs e conteúdos podem mudar entre versões.
 
 ### Distribuição
 
-Fica em `data/product_distributions.csv`. Representa a forma concreta de acesso a um produto: arquivo, endpoint, protocolo, API, cliente ou exportação. Formato e protocolo pertencem aqui porque um mesmo produto pode ser oferecido simultaneamente como Shapefile, GeoTIFF, CSV, WMS, WFS ou API.
+Forma de acesso ao release:
 
-## Extensão para o Simbioscópio
+- download direto;
+- API;
+- serviço geoespacial;
+- registro de catálogo;
+- visualizador;
+- repositório de código;
+- formulário;
+- documentação.
 
-A nova direção científica exige acrescentar uma camada entre produtos e análises. Fonte, produto e distribuição permanecem necessários, mas não são suficientes para avaliar relações entre dados.
+### Ativo
+
+Objeto concreto exposto pela distribuição:
+
+- arquivo;
+- tabela;
+- endpoint;
+- camada;
+- coleção;
+- legenda;
+- arquivo de qualidade;
+- metadado;
+- esquema;
+- recurso de incerteza.
+
+### Variável ou componente informacional
+
+Propriedade, indicador, banda, classe, métrica, atributo ou flag com significado próprio.
+
+A variável possui definição canônica, enquanto a associação produto–variável preserva:
+
+- nome original;
+- papel;
+- unidade;
+- tipo;
+- definição do produtor;
+- método;
+- suporte;
+- interpretação;
+- limitações.
+
+### Método
+
+Descreve como a informação foi produzida:
+
+- medição;
+- sensoriamento remoto;
+- registro administrativo;
+- censo;
+- levantamento amostral;
+- classificação;
+- modelagem;
+- interpolação;
+- agregação;
+- índice composto.
+
+### Perfil espacial
+
+Descreve:
+
+- suporte;
+- geometria;
+- resolução;
+- escala;
+- unidade mínima;
+- CRS;
+- grade;
+- extensão;
+- unidade geográfica;
+- agregação;
+- limitações espaciais.
+
+### Perfil temporal
+
+Descreve:
+
+- período;
+- janela de observação;
+- resolução;
+- frequência;
+- latência;
+- calendário;
+- agregação;
+- limitações temporais.
+
+### Perfil de qualidade
+
+Descreve:
+
+- validação;
+- acurácia;
+- incerteza;
+- flags;
+- ausências;
+- viés de coleta;
+- artefatos;
+- representatividade.
+
+### Capacidade de acesso
+
+Registra se uma distribuição permite:
+
+- descobrir;
+- pré-visualizar;
+- visualizar;
+- consultar atributos;
+- recortar;
+- baixar;
+- processar;
+- exportar;
+- abrir em QGIS, R, Python ou Earth Engine.
+
+A capacidade pode ser disponível, condicional, indisponível ou desconhecida.
+
+### Evidência de metadados
+
+Afirmações importantes devem indicar a fonte que as sustenta.
+
+O modelo registra:
+
+- entidade;
+- campo;
+- valor;
+- URL;
+- tipo de evidência;
+- nota de suporte;
+- data de recuperação;
+- confiança curatorial.
+
+## 4. Esquema executável
+
+O esquema de referência está em:
+
+`database/schema/001_instance1_core.sql`
+
+O banco-alvo é PostgreSQL/PostGIS.
+
+Os CSVs atuais permanecem canônicos durante a transição. O banco será promovido após migração, auditoria e geração reproduzível das exportações.
+
+## 5. Mensagem informacional
+
+Todo produto deve possuir uma descrição técnica e uma **mensagem informacional**.
+
+A descrição informa o que o produto é.
+
+A mensagem informacional responde:
+
+> Que informação sobre o mundo real este produto comunica?
+
+Também deve existir `non_representations`, indicando interpretações que o produto não sustenta diretamente.
+
+Exemplo:
 
 ```text
-Fonte
-  └── Produto
-        └── Distribuição ou ativo
-              └── Variável
-                    └── Passaporte científico
-
-Variáveis selecionadas
-  └── Avaliação de comparabilidade por operação
-        └── Relação e evidência
-              └── Receita e execução reproduzível
+Produto: alertas DETER
+Mensagem: localização e classe de evidências detectadas de alteração da cobertura.
+Não representa: taxa anual consolidada, data exata da ocorrência ou legalidade da alteração.
 ```
 
-### Ativo de dados
+## 6. Escala de enumeração
 
-`data_assets` deverá representar o objeto efetivamente acessível: arquivo, camada, coleção, endpoint, tabela, banda, API, serviço ou recurso de metadados.
+- `complete`: portfólio relevante enumerado integralmente;
+- `family_level`: famílias registradas, com aprofundamento progressivo;
+- `external_index`: índice integral permanece externo;
+- `representative_sample`: amostra piloto explicitamente incompleta;
+- `selective`: seleção orientada por Brasil, relevância e utilidade.
 
-A distribuição descreve uma forma de acesso. O ativo descreve aquilo que essa forma de acesso entrega ou expõe.
+Megacatálogos não devem ser copiados integralmente. Seus produtos prioritários podem ser curados seletivamente.
 
-### Variável
+## 7. Regras de normalização
 
-`variables` deverá representar variável, indicador, banda, classe, métrica ou atributo com significado científico próprio.
+- organização não é fonte;
+- fonte não é produto;
+- família não é release;
+- produto não é arquivo;
+- distribuição não é variável;
+- formato não é protocolo;
+- serviço não é informação científica;
+- visualizador não é produto, exceto quando contém produto próprio claramente definido;
+- resolução pertence ao suporte que descreve;
+- versão pertence ao release;
+- URL de acesso pertence à distribuição ou ao ativo;
+- significado pertence ao produto e à variável;
+- método e qualidade devem ser vinculados no nível mais específico disponível;
+- licença deve ser registrada no nível mais específico sustentado pela evidência.
 
-A mesma variável conceitual poderá ocorrer em produtos distintos, mas cada associação produto–variável deverá preservar nome original, unidade, método, resolução, período e versão.
+## 8. Busca e filtros
 
-### Passaporte científico
+A Instância 1 deverá permitir filtros por:
 
-O **Passaporte científico** descreve o significado necessário para combinar uma variável com outras:
-
-- definição;
-- domínio ou domínios;
-- unidade;
-- tipo de dado;
-- população ou objeto observado;
-- unidade de observação;
-- suporte espacial e temporal;
+- tema;
+- fenômeno;
+- objeto observado;
+- produto;
+- variável ou classe;
+- natureza de produção;
 - método;
-- incerteza;
-- proveniência;
-- sensibilidade e limitações.
-
-O contrato inicial está em `schema/scientific-variable-passport-v0.1.json`.
-
-### Avaliação de comparabilidade
-
-A **Avaliação de comparabilidade** é específica da operação solicitada. Ela verifica dimensões semânticas, populacionais, espaciais, temporais, metodológicas, estatísticas, de proveniência e jurídico-éticas.
-
-Ela produz:
-
-- classe A–E;
-- transformações exigidas;
-- diagnósticos necessários;
-- avisos;
-- autorização ou bloqueio de uso analítico;
-- teto de inferência N0–N5.
-
-O contrato inicial está em `schema/comparability-assessment-v0.1.json`.
-
-### Relação e evidência
-
-A entidade **Relação e evidência** representa uma relação científica proposta entre variáveis sem confundir hipótese, associação, mecanismo e causalidade.
-
-Ela deverá registrar:
-
-- direção esperada;
-- mecanismo;
-- mediadores e confundidores;
-- escalas de aplicabilidade;
-- estudos favoráveis, contraditórios e inconclusivos;
-- concordância;
-- certeza;
-- aplicabilidade;
-- suporte mecanístico;
-- teto de inferência e revisão humana.
-
-O contrato inicial está em `schema/scientific-relation-evidence-v0.1.json`.
-
-## O que não deve ser duplicado
-
-- proprietário, governança e identidade institucional permanecem na fonte;
-- descrição científica, versão, resolução e cobertura específicas permanecem no produto;
-- formato, URL, protocolo, autenticação e condições de download permanecem na distribuição;
-- arquivo, endpoint, camada ou banda efetivamente acessível permanece no ativo;
-- significado, unidade, população e suporte permanecem na variável e no passaporte;
-- compatibilidade permanece na avaliação vinculada à operação;
-- mecanismo e literatura permanecem na relação e evidência;
-- a licença é registrada no nível mais específico que a evidência permitir;
-- valores gerais no nível da fonte podem ser derivados dos produtos verificados, mas não devem sobrescrever detalhes mais precisos.
-
-## Escala de enumeração
-
-Nem todas as fontes devem ser tratadas da mesma maneira.
-
-- `complete`: todos os produtos relevantes e estáveis foram enumerados;
-- `family_level`: a fonte é representada por famílias de produtos, evitando uma linha para cada arquivo anual ou recorte;
-- `external_index`: a fonte é um catálogo muito grande ou mutável; o catálogo local registra sua estrutura e produtos selecionados, enquanto o índice integral permanece na fonte;
-- `representative_sample`: amostra explicitamente incompleta, usada apenas em piloto ou demonstração.
-
-Isso evita tentar copiar milhares de registros do Google Earth Engine, Zenodo, DataONE ou PANGAEA e, ao mesmo tempo, permite uma descrição detalhada de fontes com portfólio controlado, como TerraBrasilis ou MapBiomas.
-
-## Piloto incorporado
-
-O piloto usa fontes já presentes no catálogo:
-
-- `DR0011` TerraBrasilis: PRODES, DETER por domínio, TerraClass, vegetação secundária e serviços OGC;
-- `DR0019` Google Earth Engine Data Catalog: catálogo público, catálogos de publicadores, serviço de processamento/exportação e Dynamic World.
-
-O contraste testa os dois extremos do modelo: uma plataforma com famílias explicitamente listadas e um megacatálogo cuja enumeração integral deve permanecer externa.
-
-## Busca e filtros atuais
-
-A interface deve indexar conjuntamente:
-
-`nome da fonte + nome do produto + família + descrição do produto + áreas de pesquisa + palavras-chave + cobertura + formato + protocolo`.
-
-Filtros prioritários:
-
-1. conteúdo/fenômeno do produto;
-2. área de pesquisa;
-3. cobertura do Brasil;
-4. suporte e resolução espacial;
-5. resolução temporal e frequência de atualização;
-6. formato e protocolo;
-7. download gratuito e autenticação;
-8. versão e estado do produto.
-
-O filtro por descrição deve usar busca textual e palavras-chave normalizadas. O campo descritivo não substitui filtros estruturados: ele amplia descoberta sem transformar frases livres em categorias inconsistentes.
-
-## Busca e filtros futuros
-
-O Simbioscópio deverá permitir busca por:
-
-- variável e definição;
 - unidade;
-- população ou objeto observado;
 - suporte espacial;
+- resolução;
+- unidade territorial;
 - período;
-- método de obtenção;
-- incerteza;
-- sensibilidade;
-- domínio científico;
-- compatibilidade com uma operação;
-- relações e mecanismos documentados.
+- resolução temporal;
+- incerteza disponível;
+- cobertura do Brasil;
+- gratuidade;
+- autenticação;
+- protocolo;
+- formato;
+- capacidade de visualização, recorte, consulta ou download;
+- versão e estado.
 
-## Regras científicas
+A interface não deve exigir operadores booleanos. A busca textual complementa os filtros estruturados.
 
-- alerta operacional não é sinônimo de desmatamento anual consolidado;
-- resolução espacial não deve ser inferida pelo zoom do visualizador;
-- periodicidade do dado não é frequência de atualização do portal;
-- agregadores devem preservar o provedor primário;
-- produtos derivados devem registrar método, coleção e versão;
-- arquivos de formatos diferentes podem representar o mesmo produto e não devem gerar produtos duplicados;
-- megacatálogos devem ser referenciados por índice externo, com ingestão seletiva de produtos relevantes;
-- duas variáveis com unidades iguais não são necessariamente comparáveis;
-- duas versões ou produtos derivados da mesma fonte não constituem evidência independente;
-- combinação visual não autoriza estatística conjunta;
-- compatibilidade deve ser avaliada para a operação solicitada;
-- relações científicas devem preservar evidência contraditória e limites de aplicação.
+## 9. Migração dos dados atuais
 
-## Estratégia de migração
+### Estado atual
 
-1. preservar as três tabelas atuais;
-2. validar contratos v0.1 em paralelo;
-3. selecionar variáveis piloto de múltiplos domínios;
-4. criar casos dourados de comparação A–E;
-5. implementar tabelas novas somente após estabilizar os contratos;
-6. manter IDs estáveis e relações explícitas;
-7. não promover rascunhos de evidência a conteúdo público sem revisão.
+As três tabelas públicas são:
 
-## Próxima integração
+- `data/data_resources.csv`;
+- `data/data_products.csv`;
+- `data/product_distributions.csv`.
 
-A próxima integração estrutural não deve ser um botão de correlação. Deve ser:
+### Problema identificado
 
-1. registro de variáveis;
-2. passaportes científicos;
-3. painel de comparabilidade;
-4. linhagem de produtos;
-5. ficha de relações e evidências.
+O piloto de produtos mistura:
 
-Somente depois desses componentes o projeto poderá oferecer análises quantitativas sem comprometer sua integridade científica.
+- produtos científicos;
+- catálogos;
+- serviços interoperáveis;
+- infraestruturas de processamento.
+
+### Regra de correção
+
+- catálogos e infraestruturas migram para `sources`;
+- serviços genéricos migram para `distributions` e `access_capabilities`;
+- produtos científicos permanecem em `products`;
+- versões migram para `product_releases`;
+- variáveis migram para `variables` e `product_variables`;
+- URLs e formatos migram para `distributions` e `data_assets`.
+
+## 10. Instâncias futuras
+
+### Instância 2
+
+Consumirá releases, variáveis, distribuições e capacidades da Instância 1 para resolver camadas visualizáveis.
+
+### Instância 3
+
+Consumirá significado científico, taxonomias, escala, território e método para recuperar e sintetizar literatura relevante.
+
+Essas extensões não alteram a prioridade atual: o catálogo deve primeiro ser profundo, preciso, relacional e útil por si só.

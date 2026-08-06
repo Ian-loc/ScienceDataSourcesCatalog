@@ -1,0 +1,167 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000003",
+  "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
+  "status": "family_product_distribution_identity_and_alert_boundary_verified_release_unresolved",
+  "observed_at": "2026-08-06T02:22:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "scientific_identity": {
+    "official_family_name": "DETER Cerrado",
+    "represented_phenomenon": "avisos espaciais de evidências de supressão da vegetação nativa no bioma Cerrado",
+    "primary_operational_purpose": "apoio à fiscalização e ao controle ambiental",
+    "product_boundary_state": "candidate_operational_alert_product",
+    "operational_start_year_documented": 2018,
+    "is_annual_deforestation_rate": false,
+    "is_monthly_deforestation_rate": false,
+    "is_complete_annual_inventory": false,
+    "is_prodes_release": false,
+    "is_deter_amazon_distribution": false,
+    "must_not_be_collapsed_into": [
+      "PD-DETER-AMZ-ALERTS",
+      "PD-DETER-PAN-ALERTS",
+      "PD-PRODES-CER-ANNUAL-MAP",
+      "PD-PRODES-CER-ANNUAL-RATE",
+      "PF000003"
+    ]
+  },
+  "distribution_identity": {
+    "official_record_label": "Avisos de supressão da vegetação nativa - Shapefile (desde 2018)",
+    "declared_format": "ESRI Shapefile",
+    "metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+    "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+    "catalog_url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+    "catalog_last_updated_displayed": "2026-07-28",
+    "catalog_display_date_is_release_identifier": false,
+    "metadata_identifier_is_asset_identifier": false,
+    "direct_download_url_verified": false,
+    "http_status_verified": false,
+    "redirect_chain_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false
+  },
+  "current_general_deter_context": {
+    "monitoring_cadence_label": "diário",
+    "minimum_mapped_alert_area_ha": 3,
+    "satellites_documented": [
+      "Amazônia-1",
+      "CBERS-4",
+      "CBERS-4A"
+    ],
+    "sensor_documented": "WFI",
+    "cerrado_specific_method_version_resolved": false,
+    "cerrado_specific_spatial_resolution_resolved": false,
+    "cerrado_specific_public_latency_resolved": false,
+    "current_release_identifier_resolved": false,
+    "warning": "o contexto geral atual do DETER não deve ser herdado como perfil completo do produto Cerrado sem documentação específica da unidade"
+  },
+  "temporal_and_interpretive_limitations": {
+    "alert_detection_time_is_exact_event_time": false,
+    "monthly_area_is_official_deforestation_rate": false,
+    "alert_area_is_precise_annual_inventory": false,
+    "official_annual_inventory_source": "PRODES Cerrado",
+    "operational_start_year_is_release_identifier": false,
+    "catalog_update_date_is_scientific_period": false,
+    "limitation": "alertas orientam resposta operacional e podem sustentar análise de tendências com cautela, mas não substituem o inventário anual consolidado"
+  },
+  "official_evidence": [
+    {
+      "role": "current_deter_program_definition",
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "publisher": "INPE / BiomasBR",
+      "supports": [
+        "monitoramento diário",
+        "alertas de supressão no Cerrado",
+        "criação do DETER Cerrado em 2018",
+        "satélites Amazônia-1, CBERS-4 e CBERS-4A",
+        "sensor WFI",
+        "área mínima geral atual de 3 ha",
+        "metodologia-base Almeida et al. 2022",
+        "citação recomendada da distribuição Cerrado e UUID de metadado"
+      ]
+    },
+    {
+      "role": "catalog_distribution_presence",
+      "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "presença da distribuição Shapefile desde 2018",
+        "rótulo público",
+        "data exibida na interface em 28/07/2026"
+      ]
+    },
+    {
+      "role": "alert_vs_inventory_boundary",
+      "url": "https://www.gov.br/mma/pt-br/assuntos/noticias/nota-sobre-alertas-de-desmatamento-do-deter-jan-abr",
+      "publisher": "Ministério do Meio Ambiente e Mudança do Clima",
+      "supports": [
+        "levantamento rápido de alertas no Cerrado",
+        "suporte à fiscalização",
+        "ausência de finalidade de medir precisamente áreas desmatadas",
+        "distinção em relação ao PRODES anual"
+      ]
+    },
+    {
+      "role": "institutional_family_context",
+      "url": "https://data.inpe.br/biomasbr/sobre-o-biomas/",
+      "publisher": "INPE / BiomasBR",
+      "supports": [
+        "metodologias adaptadas às características de cada bioma",
+        "separação entre sistemas DETER e PRODES",
+        "acesso aberto e finalidade pública"
+      ]
+    }
+  ],
+  "verified_state": {
+    "family_identity_verified": true,
+    "operational_alert_product_boundary_verified": true,
+    "alert_vs_annual_inventory_boundary_documented": true,
+    "cerrado_operational_start_year_documented": true,
+    "distribution_catalog_presence_verified": true,
+    "metadata_identifier_verified": true,
+    "current_general_deter_context_documented": true,
+    "cerrado_specific_method_profile_resolved": false,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_release": false,
+    "citation_resolved_for_current_release": false
+  },
+  "normalization_rules": [
+    "não tratar alertas DETER Cerrado como taxa mensal ou anual de supressão",
+    "não tratar o conjunto como inventário anual completo ou release PRODES Cerrado",
+    "não herdar classes, degradação, exploração madeireira, sensores históricos, resolução ou latência do DETER Amazônia",
+    "não herdar automaticamente todo o perfil geral atual do DETER para a unidade Cerrado",
+    "preservar 2018 como início operacional documentado, não como identificador de release",
+    "não transformar 28/07/2026 ou outra data da interface em período científico, release ou identidade dos bytes",
+    "UUID de metadado não constitui endpoint direto nem identificador do ativo",
+    "presença no catálogo não comprova resposta HTTP, estabilidade de endpoint ou conteúdo do pacote",
+    "não inferir esquema, CRS, geometria, classes ou domínios sem metadado específico ou inspeção dos bytes",
+    "incerteza não documentada deve permanecer não documentada, não ausente",
+    "licença e citação devem ser resolvidas para a release efetivamente acessada",
+    "promoção exige produto, release, distribuição, ativo, perfis, evidência e revisão curatorial suficientes"
+  ],
+  "required_before_product_promotion": [
+    "resolver nome oficial estável e release vigente",
+    "resolver classes e variáveis específicas do Cerrado",
+    "documentar método versionado e adaptações ao bioma",
+    "resolver perfil espacial, resolução, suporte, CRS e unidade mínima",
+    "resolver perfil temporal, latência, revisão e substituição",
+    "registrar qualidade, validação, vieses, nuvens, ausências e incerteza",
+    "resolver licença, atribuição e citação da release",
+    "registrar evidência por afirmação",
+    "concluir revisão curatorial"
+  ],
+  "required_before_asset_promotion": [
+    "URL direta oficial verificável",
+    "status HTTP e cadeia de redirecionamentos",
+    "nome, tamanho exato, Content-Type e Content-Disposition",
+    "checksum criptográfico",
+    "inventário completo do pacote Shapefile",
+    "CRS, geometria e esquema integral de atributos",
+    "cobertura territorial e temporal confirmada nos bytes",
+    "vínculo explícito com produto e release corretos"
+  ]
+}

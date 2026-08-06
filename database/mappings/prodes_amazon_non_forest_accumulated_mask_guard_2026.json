@@ -1,0 +1,130 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-NON-FOREST-ACCUMULATED-MASK-2000-SHP",
+  "candidate_scientific_product_id": "PD-PRODES-AMZ-NON-FOREST-ACCUMULATED-MASK-2000",
+  "parent_package_asset_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
+  "status": "catalog_identity_temporal_boundary_and_method_relation_verified_endpoint_unresolved",
+  "observed_at": "2026-08-05T21:26:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "metadata_identifier": "215be904-3828-41a9-a1bd-c7daa0133944",
+  "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/215be904-3828-41a9-a1bd-c7daa0133944",
+  "catalog_url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+  "official_record_label": "Máscara de área acumulada de supressão da vegetação nativa não florestal - Shapefile (2000)",
+  "declared_format": "ESRI Shapefile",
+  "scientific_identity": {
+    "represented_phenomenon": "linha de base acumulada de supressão da vegetação nativa em fitofisionomias não florestais do bioma Amazônia até o ano 2000",
+    "monitoring_program": "PRODES Amazônia fitofisionomias não florestais",
+    "spatial_scope": "porção brasileira do bioma Amazônia em áreas classificadas como não floresta",
+    "product_boundary_state": "candidate_distinct_non_forest_baseline_scientific_product",
+    "must_not_be_collapsed_into": [
+      "PD-PRODES-AMZ-ACCUMULATED-MASK-2007",
+      "PD-PRODES-AMZ-NON-FOREST-SUPPRESSION-INCREMENTS",
+      "PD-PRODES-AMZ-ANNUAL-MAP",
+      "PD-PRODES-AMZ-ANNUAL-RATE"
+    ],
+    "reason": "a máscara representa uma linha de base acumulada não florestal com corte em 2000, enquanto os incrementos não florestais começam posteriormente e o produto florestal usa outra identidade e outro corte temporal"
+  },
+  "methodological_profile": {
+    "method_basis": "metodologia PRODES com adaptações e adequações para fitofisionomias não florestais",
+    "base_method_reference_resolved": true,
+    "adaptations_specific_method_document_resolved": false,
+    "base_method_citation": "ALMEIDA, C. A.; MAURANO, L. E. P.; VALERIANO, D. M.; CÂMARA, G.; VINHAS, L.; MOTTA, M.; GOMES, A. R.; MONTEIRO, A. M. V.; SOUZA, A. A. A.; MESSIAS, C. G.; RENNÓ, C. D.; ADAMI, M.; ESCADA, M. I. S.; SOLER, L. S.; AMARAL, S. Metodologia utilizada nos sistemas Prodes e Deter – 2ª edição (atualizada). 2. ed. São José dos Campos: INPE, 2022. 47 p.",
+    "base_method_ibi": "sid.inpe.br/mtc-m21d/2022/08.25.11.46-NTC",
+    "base_method_url": "http://urlib.net/ibi/8JMKD3MGP3W34T/47GAF6S",
+    "classification_nature": "detecção e mapeamento por interpretação de imagens de sensoriamento remoto",
+    "validation_profile_resolved": false,
+    "uncertainty_profile_resolved": false
+  },
+  "temporal_and_release_profile": {
+    "scientific_cutoff_year": 2000,
+    "temporal_semantics": "accumulated_non_forest_baseline_through_2000",
+    "subsequent_increment_series_starts_after_cutoff_year": 2002,
+    "subsequent_increment_initial_cadence": "biennial",
+    "current_release_resolved": false,
+    "publication_or_file_update_date_is_scientific_period": false,
+    "revision_warning": "a data de atualização do catálogo não substitui release científica nem altera automaticamente o corte temporal de 2000"
+  },
+  "official_evidence": [
+    {
+      "role": "catalog_distribution_presence_and_label",
+      "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "presença da distribuição Shapefile",
+        "identidade explícita como máscara acumulada não florestal",
+        "corte temporal público em 2000"
+      ]
+    },
+    {
+      "role": "package_component_relation",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=GeoPackage",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "relação da máscara com o pacote GeoPackage PRODES Amazônia",
+        "UUID individual do componente"
+      ]
+    },
+    {
+      "role": "non_forest_method_and_temporal_context",
+      "url": "https://data.inpe.br/biomasbr/prodes-monitoramento-anual-da-supressao-de-vegetacao-nativa/",
+      "publisher": "INPE / BIG BiomasBR",
+      "supports": [
+        "metodologia PRODES com adaptações para fitofisionomias não florestais",
+        "mapa-base no ano 2000",
+        "incrementos posteriores iniciados em 2002"
+      ]
+    }
+  ],
+  "verified_state": {
+    "catalog_presence": true,
+    "metadata_identifier_verified": true,
+    "component_relation_to_geopackage_verified": true,
+    "scientific_object_distinguished": true,
+    "scientific_cutoff_year_documented": true,
+    "boundary_with_non_forest_increments_documented": true,
+    "base_method_reference_resolved": true,
+    "adaptations_specific_method_document_resolved": false,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "redirect_chain_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_asset": false,
+    "citation_resolved_for_data_release": false
+  },
+  "normalization_rules": [
+    "não tratar a máscara acumulada não florestal até 2000 como série de incrementos",
+    "não colapsar a máscara não florestal de 2000 na máscara florestal ou geral de 2007",
+    "não tratar o ano 2000 como data de publicação ou atualização do arquivo",
+    "não transformar a data de atualização do catálogo em período científico ou release",
+    "a metodologia-base Almeida et al. 2022 não substitui a documentação das adaptações específicas para fitofisionomias não florestais",
+    "um UUID de metadado não constitui URL direta nem ativo inspecionado",
+    "não herdar release, licença, checksum, esquema ou estado de endpoint do pacote GeoPackage",
+    "endpoint_state deve permanecer unresolved até evidência oficial individual verificável",
+    "asset_state deve permanecer not_inspected até recuperação e inspeção dos bytes",
+    "a promoção exige produto, release, distribuição, licença, citação e evidência por afirmação"
+  ],
+  "required_before_product_promotion": [
+    "resolver nome oficial estável e fronteira do produto científico",
+    "localizar e versionar a documentação das adaptações metodológicas específicas",
+    "confirmar release vigente preservando o corte científico de 2000",
+    "documentar classes, variáveis e esquema semântico integral",
+    "resolver perfil espacial, escala, suporte, CRS e unidade mínima mapeável",
+    "registrar validação, qualidade, incerteza, vieses e dados ausentes",
+    "resolver licença, atribuição e citação específicas",
+    "registrar evidência por afirmação e revisão curatorial"
+  ],
+  "required_before_asset_promotion": [
+    "URL direta oficial verificável",
+    "status HTTP e cadeia de redirecionamentos",
+    "nome, tamanho exato, Content-Type e Content-Disposition",
+    "checksum criptográfico",
+    "inventário completo do pacote Shapefile",
+    "CRS, geometria e esquema integral de atributos",
+    "cobertura territorial e corte temporal confirmado nos bytes",
+    "vínculo explícito com produto e release corretos"
+  ]
+}

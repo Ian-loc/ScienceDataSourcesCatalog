@@ -1,269 +1,108 @@
 # Política de comparabilidade, evidência e inferência científica
 
-**Status:** diretriz normativa do projeto  
-**Aplicação:** catálogo, Explorador Federado, futura interface Simbioscópio, receitas analíticas, produtos derivados e comunicação pública  
-**Princípio orientador:** **A vida acontece em relação. As relações precisam ser investigadas com evidência.**
+**Status:** guardrail futuro; documento somente para leitura nesta fase  
+**Aplicação ativa atual:** nenhuma operação analítica nova  
+**Dependência:** consolidação da Instância 1 e definição posterior da Instância 2
 
-## 1. Finalidade
+## 1. Situação
 
-Esta política estabelece limites científicos e requisitos computacionais para a seleção, sobreposição, combinação, comparação e análise de produtos de dados provenientes de fontes, disciplinas, escalas, períodos e métodos distintos.
+Esta política preserva limites científicos para futuras capacidades de composição, comparação e análise. Ela não constitui um workstream ativo e não autoriza a implementação imediata de motores de compatibilidade, correlação, regressão, causalidade ou síntese automática de relações.
 
-O projeto reconhece que variáveis ambientais, ecológicas, sociais, epidemiológicas, econômicas, institucionais, políticas e territoriais podem representar dimensões interdependentes do mundo real. Essa interdependência, entretanto, não torna automaticamente comparáveis os respectivos conjuntos de dados e não autoriza inferências causais a partir de coincidências visuais ou correlações estatísticas.
+O foco vigente do projeto é a **Instância 1 — Catálogo relacional científico-operacional**.
 
-A plataforma deve permitir exploração e descoberta sem transformar sobreposições cartográficas ou associações observadas em conclusões científicas indevidas.
+A Instância 1 deve fornecer os metadados necessários para que decisões futuras sejam possíveis:
 
-## 2. Princípios obrigatórios
+- definição do produto;
+- variáveis e classes;
+- população ou objeto observado;
+- suporte espacial e temporal;
+- método;
+- qualidade e incerteza;
+- versão;
+- proveniência;
+- licença;
+- acesso operacional.
 
-1. **Sobreposição não é harmonização.** Camadas exibidas juntas permanecem cientificamente independentes até que sua comparabilidade seja avaliada.
-2. **Correlação não é mecanismo.** Uma associação estatística não demonstra como ou por que dois fenômenos se relacionam.
-3. **Mecanismo plausível não é causalidade demonstrada.** A existência de uma explicação teórica ou biológica coerente não elimina confundimento, viés ou explicações alternativas.
-4. **Metadados são condição de análise.** Produtos sem definição, escala, período, unidade, proveniência ou método suficientes não podem sustentar combinações analíticas automatizadas.
-5. **A inferência deve ser proporcional à evidência.** A linguagem apresentada ao usuário não pode exceder o desenho dos dados, os diagnósticos realizados e a literatura disponível.
-6. **Exploração livre e inferência científica são operações distintas.** A primeira pode ser ampla; a segunda exige controles progressivamente mais rigorosos.
-7. **Proveniência e dependência entre produtos devem permanecer visíveis.** Releases, indicadores ou produtos derivados da mesma fonte não constituem observações independentes apenas por possuírem nomes diferentes.
-8. **Discordância científica deve ser preservada.** A plataforma não deve resumir debates complexos em uma falsa nota única de consenso.
-9. **Automação não substitui julgamento científico.** Regras computacionais podem bloquear incompatibilidades evidentes, sinalizar riscos e documentar pressupostos, mas não decidem sozinhas validade causal ou relevância científica.
+## 2. Princípios preservados
 
-## 3. Escopo
+1. Sobreposição cartográfica não constitui harmonização.
+2. Coincidência espacial não constitui associação estatística.
+3. Associação não demonstra mecanismo ou causalidade.
+4. Compatibilidade depende da operação e da pergunta, não é atributo absoluto de um par de produtos.
+5. Escala, suporte, período, método e população fazem parte do significado do dado.
+6. Produtos derivados da mesma fonte podem compartilhar dependências.
+7. Evidência contraditória e limitações devem permanecer visíveis.
+8. Automação não substitui julgamento científico.
+9. Dados sociais e de saúde exigem proteção ética e contra reidentificação.
+10. A linguagem pública deve ser proporcional à evidência.
 
-Esta política é obrigatória para:
+## 3. Instância 2 — composição geográfica futura
 
-- inclusão de camadas no Explorador Federado;
-- futuras funções do Simbioscópio;
-- comparação de produtos e releases;
-- recortes, reprojeções, reamostragens, agregações e junções;
-- cálculo de correlações, regressões, índices e indicadores compostos;
-- receitas de integração e produtos derivados;
-- visualizações que aproximem variáveis de diferentes domínios;
-- relatórios, mapas, tabelas, APIs e manifestos produzidos pelo projeto;
-- afirmações sobre associação, mecanismo, explicação ou causalidade.
+Uma futura Instância 2 poderá permitir:
 
-## 4. Passaporte científico de produtos e variáveis
+- composição visual;
+- mapas sincronizados;
+- perfis territoriais;
+- recortes e transformações documentadas;
+- verificação de executabilidade técnica;
+- transparência de diferenças entre produtos.
 
-Nenhuma combinação analítica deve ser automatizada sem um conjunto mínimo de metadados legíveis por máquina.
+A Instância 2 não deverá atribuir compatibilidade científica universal.
 
-Cada produto ou variável deverá registrar, quando aplicável:
+A execução técnica poderá considerar:
 
-- definição conceitual;
-- unidade e possibilidade de conversão;
-- tipo de dado: contínuo, categórico, ordinal, contagem, taxa ou proporção;
-- população, fenômeno ou objeto observado;
-- unidade de observação e suporte espacial;
-- resolução, extensão e sistema de referência espacial;
-- período representado, data de observação e frequência temporal;
-- método de obtenção: medido, administrativo, declarado, classificado, modelado, interpolado ou derivado;
-- versão ou release;
-- incerteza, erro ou qualidade disponível;
-- tratamento de valores ausentes e NoData;
-- fonte primária e linhagem de derivação;
-- limitações declaradas;
-- licença e permissões para processamento e redistribuição.
+- georreferenciamento;
+- CRS;
+- formato;
+- extensão;
+- disponibilidade do endpoint;
+- licença;
+- recursos computacionais;
+- necessidade de processamento.
 
-Ausências críticas devem gerar estado **informação insuficiente**, e não preenchimento presumido.
+Diferenças científicas deverão ser comunicadas por perfis e sinalizadores, não convertidas automaticamente em aprovação ou reprovação total.
 
-## 5. Níveis de operação
+## 4. Instância 3 — contexto científico futuro
 
-### 5.1 Composição visual livre
+Uma futura Instância 3 poderá apresentar sínteses breves e auditáveis da literatura sobre os fenômenos representados em uma composição escolhida pelo usuário.
 
-O usuário pode sobrepor produtos sem harmonização analítica.
+Ela deverá:
 
-Requisitos:
+- usar os perfis estruturados da Instância 1;
+- considerar território, escala e período;
+- priorizar literatura aplicável ao Brasil;
+- distinguir evidência direta, análoga e metodológica;
+- comunicar mecanismos discutidos, controvérsias e confundidores;
+- não gerar perguntas para o usuário;
+- não usar a visualização como evidência de associação;
+- ligar afirmações a referências verificáveis.
 
-- identidade, fonte, versão, período e licença de cada camada visíveis;
-- aviso permanente de que composição visual não implica comparabilidade;
-- proibição de apresentar estatísticas combinadas como resultado validado;
-- manifesto de proveniência para visualizações compartilhadas ou exportadas.
+## 5. Níveis conceituais preservados
 
-### 5.2 Comparação orientada
+Para comunicação futura, permanecem úteis as distinções:
 
-O sistema avalia compatibilidade e, quando defensável, sugere período comum, unidade, resolução, território e transformações necessárias.
+- **N0 — composição visual:** produtos exibidos conjuntamente;
+- **N1 — coocorrência descritiva:** coincidência espacial ou temporal descrita;
+- **N2 — associação exploratória:** associação estimada em dados selecionados;
+- **N3 — associação robusta condicionada:** persistência após diagnósticos;
+- **N4 — mecanismo sustentado:** evidência teórica e empírica consistente;
+- **N5 — inferência causal condicionada:** desenho e pressupostos explícitos.
 
-Toda transformação deve ser explicitada e reproduzível.
+A Instância 1 não atribui nenhum desses níveis. Ela apenas registra os metadados que poderão sustentar avaliações futuras.
 
-### 5.3 Análise exploratória
+## 6. Condições para reativação desta política
 
-Correlação, regressão ou comparação quantitativa exploratória só pode ocorrer após avaliação técnica mínima e deve ser rotulada como exploratória.
+A política somente deve voltar ao estado ativo quando:
 
-O sistema deve registrar a pergunta, as variáveis, a escala, o período, os filtros, as transformações e o número de testes realizados.
+1. o PostgreSQL/PostGIS for promovido a fonte canônica;
+2. produtos prioritários possuírem perfis científicos aprovados;
+3. variáveis, métodos, escalas e incertezas estiverem estruturados;
+4. a Instância 2 possuir escopo e operações explicitamente definidos;
+5. casos de teste forem aprovados;
+6. revisão científica humana estiver incorporada à governança.
 
-### 5.4 Inferência científica condicionada
+## 7. Regra vigente
 
-Interpretações explicativas ou causais exigem desenho científico explícito, pressupostos documentados, avaliação de confundidores, mecanismos e evidência publicada. Não devem ser liberadas automaticamente por uma correlação ou por um modelo estatístico isolado.
+> Durante a consolidação da Instância 1, esta política serve apenas para impedir que o modelo de dados feche caminhos futuros ou autorize prematuramente interpretações analíticas.
 
-## 6. Semáforo de comparabilidade
-
-Toda combinação deve receber uma classificação operacional:
-
-- **A — diretamente comparável:** conceitos, população, período, escala, unidade e proveniência compatíveis para a operação solicitada;
-- **B — comparável após harmonização explícita:** exige conversão, agregação, alinhamento temporal, reprojeção ou outra transformação documentada;
-- **C — somente composição visual ou exploração preliminar:** relação potencialmente interessante, mas sem base técnica suficiente para análise conjunta direta;
-- **D — inadequada para a operação solicitada:** incompatibilidade conceitual, espacial, temporal, populacional, metodológica ou jurídica impeditiva;
-- **E — informação insuficiente:** metadados não permitem avaliar a combinação.
-
-A classificação é específica da operação. Dois produtos podem ser classe C para correlação, mas adequados para visualização lado a lado.
-
-## 7. Dimensões mínimas de compatibilidade
-
-O sistema deve avaliar separadamente:
-
-1. **semântica:** as variáveis representam o mesmo fenômeno ou fenômenos cuja relação foi corretamente definida?;
-2. **população e suporte:** os valores se referem aos mesmos indivíduos, grupos, territórios ou unidades observacionais?;
-3. **espacial:** extensão, resolução, grade, geometria, sistema de referência e unidade territorial;
-4. **temporal:** período, frequência, defasagem, acumulado, média ou observação instantânea;
-5. **metodológica:** medição, modelo, classificação, declaração administrativa, interpolação ou derivação;
-6. **estatística:** distribuição, tamanho amostral, incerteza, dependência, ausência e censura;
-7. **proveniência:** fontes primárias, versões compartilhadas e transformações comuns;
-8. **jurídica e ética:** licença, privacidade, risco de reidentificação e uso de populações vulneráveis.
-
-## 8. Controles contra relações espúrias
-
-As análises futuras devem, conforme aplicável, diagnosticar e comunicar:
-
-- tendências temporais comuns sem mecanismo demonstrado;
-- autocorrelação espacial e ausência de independência entre unidades vizinhas;
-- mudança de resultado conforme a escala ou zoneamento territorial;
-- dependência entre produtos derivados da mesma fonte;
-- diferenças de cobertura e seleção territorial;
-- valores ausentes não aleatórios;
-- múltiplas comparações e inflação de falsos positivos;
-- confundimento, mediação e colisores;
-- defasagens temporais plausíveis;
-- relações não lineares e efeitos de limiar;
-- instabilidade entre versões, períodos e especificações alternativas;
-- paradoxo ecológico e limites de inferência de dados agregados para indivíduos.
-
-Quando um diagnóstico necessário não puder ser realizado, essa ausência deve reduzir o teto de inferência e aparecer no resultado.
-
-## 9. Bússola de evidências
-
-Relações entre variáveis poderão possuir fichas científicas estruturadas contendo:
-
-- mecanismo ou argumento proposto;
-- direção esperada, inclusive relações não lineares ou contextuais;
-- mediadores e confundidores conhecidos;
-- escala espacial e temporal em que a relação é plausível;
-- estudos favoráveis, contrários e inconclusivos;
-- desenho e qualidade dos estudos;
-- aplicabilidade ao Brasil e ao território selecionado;
-- limitações e controvérsias;
-- data e responsável pela revisão.
-
-A plataforma deve separar, no mínimo:
-
-- **concordância:** proporção e direção dos resultados;
-- **certeza:** robustez dos métodos e desenhos;
-- **aplicabilidade:** pertinência ao território, população e escala analisados;
-- **suporte mecanístico:** coerência teórica, biológica, social ou institucional;
-- **discordância:** existência e natureza de resultados contraditórios.
-
-Não deve ser exibida uma porcentagem única de consenso como substituto dessas dimensões.
-
-## 10. Teto de inferência
-
-Cada resultado deve informar o nível máximo de afirmação permitido:
-
-- **N0 — composição visual:** produtos aparecem juntos;
-- **N1 — coocorrência:** fenômenos coincidem no espaço ou no tempo;
-- **N2 — associação exploratória:** associação observada nos dados selecionados;
-- **N3 — associação robusta condicionada:** persistência após diagnósticos e análises de sensibilidade;
-- **N4 — mecanismo sustentado:** associação coerente com teoria e evidência publicada, sem eliminar explicações alternativas;
-- **N5 — inferência causal condicionada:** desenho e pressupostos explícitos permitem interpretação causal delimitada.
-
-N5 exige avaliação científica humana e não pode ser atribuído automaticamente pelo sistema.
-
-## 11. Diagramas de relações e causalidade
-
-A futura representação de relações deve distinguir visualmente:
-
-- associação observada;
-- hipótese;
-- mecanismo plausível;
-- mediação;
-- confundimento;
-- influência bidirecional;
-- evidência causal;
-- evidência contraditória;
-- relação desconhecida.
-
-Diagramas causais são representações de pressupostos, não provas. Qualquer análise baseada neles deve preservar autoria, versão e justificativa das relações desenhadas.
-
-## 12. Proveniência, versões e independência
-
-Todo resultado combinado deverá registrar:
-
-- produtos e arquivos de entrada;
-- fonte primária;
-- versão ou release;
-- data de acesso;
-- parâmetros e transformações;
-- código ou receita utilizada;
-- produtos intermediários;
-- limitações;
-- citações e licenças.
-
-O sistema deverá detectar, quando possível, produtos que compartilham insumos, modelos, censos, sensores, grades, indicadores ou versões. Essa dependência deve ser apresentada ao usuário e considerada em qualquer síntese de evidência.
-
-## 13. Regras de comunicação
-
-A interface e os relatórios devem preferir linguagem proporcional à evidência:
-
-- “aparece junto”, para composição visual;
-- “coocorre”, para coincidência espacial ou temporal;
-- “está associado”, para associação estatística;
-- “é consistente com”, para mecanismo plausível;
-- “pode contribuir”, quando persistem explicações alternativas;
-- “efeito causal estimado”, somente quando o desenho e os pressupostos justificarem.
-
-Expressões como “prova”, “determina”, “causa” ou “explica” não podem ser geradas apenas por correlação, sobreposição ou significância estatística.
-
-## 14. Implementação progressiva
-
-### Fase 1 — fundamento obrigatório
-
-- passaportes científicos;
-- semáforo de comparabilidade;
-- proveniência por camada e produto;
-- separação entre visualização e análise;
-- bloqueio de incompatibilidades evidentes.
-
-### Fase 2 — diagnósticos computacionais
-
-- alinhamento espacial e temporal;
-- detecção de dependência entre produtos;
-- autocorrelação espacial;
-- estabilidade entre escalas;
-- múltiplas comparações;
-- relatórios automáticos de limitações.
-
-### Fase 3 — evidência estruturada
-
-- fichas de relações;
-- literatura favorável e contraditória;
-- mecanismos, mediadores e confundidores;
-- avaliação humana de certeza e aplicabilidade.
-
-### Fase 4 — laboratório de nexos
-
-- diagramas causais versionados;
-- análises reproduzíveis;
-- testes de sensibilidade;
-- teto de inferência executável;
-- produtos derivados com manifesto completo.
-
-## 15. Governança e mudanças
-
-Alterações nesta política, nas classes de comparabilidade, no teto de inferência ou nas regras que autorizem análises devem:
-
-1. ser propostas em branch e pull request próprios;
-2. apresentar justificativa científica e impacto computacional;
-3. incluir casos de teste ou exemplos de aplicação;
-4. ser revisadas pelo responsável científico;
-5. ser registradas no histórico do projeto.
-
-Mudanças de interface não podem enfraquecer silenciosamente avisos, bloqueios ou limites definidos nesta política.
-
-## 16. Regra de decisão resumida
-
-> O sistema pode permitir ampla exploração visual. Quanto mais forte a operação ou a afirmação pretendida, maiores devem ser os requisitos de comparabilidade, diagnóstico, evidência, proveniência e revisão humana.
-
-Esta política transforma a prevenção de correlações espúrias e inferências indevidas em requisito de arquitetura, e não apenas em advertência editorial.
+A documentação ativa da fase atual está em `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`.

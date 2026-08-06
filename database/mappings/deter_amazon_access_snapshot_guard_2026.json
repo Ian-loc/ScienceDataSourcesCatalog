@@ -1,0 +1,107 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000002",
+  "parent_product_candidate_id": "PD-DETER-AMZ-ALERTS",
+  "status": "official_access_channel_and_dated_operational_snapshot_verified_assets_unresolved",
+  "observed_at": "2026-08-06T00:36:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "access_channel": {
+    "publisher": "INPE / TerraBrasilis / BiomasBR",
+    "official_download_page": "https://terrabrasilis.dpi.inpe.br/downloads/",
+    "declared_format": "ESRI Shapefile",
+    "non_forest_public_availability_since": "2023-11-08",
+    "direct_download_url_verified": false,
+    "http_status_verified": false,
+    "redirect_chain_verified": false,
+    "authentication_requirement_resolved": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false
+  },
+  "dated_operational_snapshot": {
+    "report_url": "https://terrabrasilis.dpi.inpe.br/app/report/nf/",
+    "report_scope": "DETER Amazônia - Não Floresta",
+    "snapshot_end_date": "2026-07-20",
+    "series_start_date": "2023-08-01",
+    "reported_accumulated_suppression_alert_area_km2": 1356.46,
+    "reported_accumulated_degradation_alert_area_km2": 56823.45,
+    "snapshot_is_scientific_release": false,
+    "snapshot_is_download_asset_identity": false,
+    "snapshot_is_complete_distribution_schema": false,
+    "warning": "o relatório é uma visão operacional agregada e datada; não substitui release, distribuição, ativo ou inspeção dos polígonos"
+  },
+  "metadata_resolution": {
+    "forest_metadata_identifier": "f2153c4a-915b-48a6-8658-963bdce7366c",
+    "non_forest_metadata_record_discoverable": true,
+    "non_forest_metadata_identifier_verified": false,
+    "non_forest_metadata_identifier": null,
+    "reason": "o registro oficial e seu conteúdo são recuperáveis em busca diária, mas a representação pública inspecionada não expõe UUID individual verificável"
+  },
+  "scientific_and_operational_boundaries": {
+    "report_detection_period_is_exact_event_period": false,
+    "report_area_is_canonical_release_total": false,
+    "report_summary_can_replace_polygon_distribution": false,
+    "download_page_presence_proves_endpoint_working": false,
+    "experimental_non_forest_status_preserved": true,
+    "forest_and_non_forest_assets_must_be_resolved_separately": true
+  },
+  "official_evidence": [
+    {
+      "role": "public_download_availability",
+      "url": "https://terrabrasilis.dpi.inpe.br/acesso-aos-dados/",
+      "supports": [
+        "dados DETER Amazônia Não Floresta em Shapefile disponíveis na área de download desde 08/11/2023",
+        "caráter experimental e possibilidade de alteração parcial ou integral"
+      ]
+    },
+    {
+      "role": "non_forest_metadata_discovery",
+      "url": "https://data.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
+      "supports": [
+        "registro oficial recuperável",
+        "início dos avisos em agosto de 2023",
+        "classes e esquema parcial",
+        "caráter experimental"
+      ]
+    },
+    {
+      "role": "dated_operational_report",
+      "url": "https://terrabrasilis.dpi.inpe.br/app/report/nf/",
+      "supports": [
+        "início em 1 de agosto de 2023",
+        "sensores Amazônia-1 e CBERS WFI",
+        "corte operacional em 20 de julho de 2026",
+        "resumos agregados por classe e mês"
+      ]
+    },
+    {
+      "role": "catalog_distribution_presence",
+      "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+      "supports": [
+        "presença das distribuições florestal e não florestal",
+        "forma Shapefile declarada",
+        "necessidade de resolução individual da ação de download"
+      ]
+    }
+  ],
+  "normalization_rules": [
+    "não converter a data final do relatório em identificador de release",
+    "não converter totais agregados do relatório em propriedades imutáveis do produto",
+    "não tratar período de detecção como período exato de ocorrência dos eventos",
+    "não usar a presença na página de download como teste HTTP do ativo",
+    "não inferir UUID não florestal a partir de posição, título ou padrão de URL",
+    "não colapsar relatório, metadado, distribuição Shapefile e ativo baixado",
+    "não transferir o caráter experimental não florestal à distribuição florestal",
+    "não promover endpoint ou ativo antes de URL individual, resposta HTTP e inspeção de bytes"
+  ],
+  "required_before_asset_promotion": [
+    "resolver UUID individual do metadado não florestal",
+    "resolver URLs diretas oficiais das duas distribuições",
+    "registrar status HTTP, redirecionamentos e cabeçalhos",
+    "recuperar pacotes e calcular checksums",
+    "inventariar componentes dos Shapefiles",
+    "inspecionar CRS, geometria, esquema, domínios e nulos",
+    "confirmar cobertura territorial e temporal dos bytes",
+    "resolver licença, atribuição, citação e vínculo com release"
+  ]
+}

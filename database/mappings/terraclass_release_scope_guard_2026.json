@@ -1,0 +1,93 @@
+{
+  "guard_id": "TC-RELEASE-SCOPE-2026-08-05",
+  "timezone": "America/Sao_Paulo",
+  "checked_at": "2026-08-05T12:31:00-03:00",
+  "product_stable_id": "DP000005",
+  "release_stable_id": "PR000005",
+  "release_label": "TerraClass Amazônia 2020",
+  "promotion_authorized": false,
+  "guard_purpose": "Preserve the scientific identity of the 2020 release and prevent current 2024 documentation, assets or methods from being silently assigned to it.",
+  "release_2020": {
+    "reference_year": 2020,
+    "scientific_object": "land-use and land-cover classification associated with the TerraClass Amazônia 2020 mapping context",
+    "known_scope_statement": "TerraClass qualifies land use and land cover in areas related to PRODES-detected deforestation; exact release coverage must be verified from release-specific documentation and assets.",
+    "asset_state": "not_inspected",
+    "crs": null,
+    "grid": null,
+    "nominal_output_pixel_size": null,
+    "complete_legend_and_codes": null,
+    "checksum": null,
+    "license_release_specific": null,
+    "citation_release_specific": null,
+    "curation_state": "in_progress"
+  },
+  "newer_2024_context": {
+    "reference_year": 2024,
+    "publication_date": "2026-06-23",
+    "scope": "bioma Amazônia and bioma Cerrado products available through the GeoPortal TerraClass",
+    "input_and_processing_statement": "The 2024 mapping uses Sentinel-2/MSI imagery, a 16-day product with 10 m spatial resolution, and Brazil Data Cube/SITS processing.",
+    "series_statement": "The public communication describes an Amazônia series from 2008 to 2024 and a Cerrado series from 2018 to 2024.",
+    "may_describe_release_2020": false,
+    "may_supply_2020_asset_metadata": false,
+    "may_replace_2020_method": false
+  },
+  "mandatory_controls": [
+    "Do not copy the 2024 Sentinel-2, 16-day or 10 m processing statements into PR000005 without 2020-specific evidence.",
+    "Do not replace PR000005 with the 2024 release; model the newer release separately when curated.",
+    "Do not infer the 2020 CRS, grid, output pixel size, legend codes, checksum, license or citation from current portal metadata.",
+    "Keep source imagery resolution distinct from nominal output pixel size.",
+    "Keep Amazônia Legal, bioma Amazônia, PRODES-cleared areas and complete-biome mapping statements distinct unless the 2020 release documentation resolves them.",
+    "Require direct inspection of a 2020-specific asset or metadata record before final curatorial approval."
+  ],
+  "evidence": [
+    {
+      "url": "https://www.gov.br/inpe/pt-br/area-conhecimento/unidade-amazonia/projetos-e-pesquisas/terraclass/terraclass",
+      "type": "official_project_background",
+      "supports": [
+        "historical purpose",
+        "relationship to PRODES",
+        "historical class examples"
+      ],
+      "restriction": "historical project page does not establish the technical profile of the 2020 release"
+    },
+    {
+      "url": "https://www.gov.br/inpe/pt-br/assuntos/ultimas-noticias/nota-tecnica-2013-estimativa-da-area-de-vegetacao-secundaria-na-amazonia-legal-2020",
+      "type": "official_2020_partial_result_notice",
+      "supports": [
+        "2020 reference year",
+        "partial focus on secondary vegetation",
+        "continuing work on other classes at publication time"
+      ],
+      "restriction": "partial secondary-vegetation result is not the complete 2020 land-use legend or asset contract"
+    },
+    {
+      "url": "https://www.gov.br/inpe/pt-br/assuntos/ultimas-noticias/terraclass-divulga-dados-atualizados-sobre-cobertura-e-uso-da-terra-no-bioma-amazonia/",
+      "type": "official_2024_release_context",
+      "supports": [
+        "newer 2024 release context",
+        "current series extent",
+        "2024 input and processing statement"
+      ],
+      "restriction": "must not be back-projected onto the 2020 release"
+    },
+    {
+      "url": "https://dados.gov.br/dados/conjuntos-dados/projeto-terraclass",
+      "type": "official_open_data_catalog",
+      "supports": [
+        "TIFF and web distribution categories",
+        "general open-data catalog record"
+      ],
+      "restriction": "general catalog metadata does not establish release-specific CRS, grid, checksum or legend"
+    }
+  ],
+  "release_creation_rule": "A new normalized TerraClass 2024 product release requires its own stable ID, evidence set, distributions, asset profile and review; it must not mutate PR000005.",
+  "required_before_2020_approval": [
+    "Locate a release-specific 2020 metadata record or authoritative documentation.",
+    "Inspect the actual 2020 raster or vector asset.",
+    "Record CRS, grid, geometry or raster structure and nominal output resolution from the asset.",
+    "Record the complete legend and codes from the release-specific source.",
+    "Record distribution URL, media type, byte size and SHA-256 when technically feasible.",
+    "Resolve release-specific license and recommended citation.",
+    "Reconcile the inspected asset with the existing accuracy profile before approving the review."
+  ]
+}

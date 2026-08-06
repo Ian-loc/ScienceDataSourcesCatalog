@@ -1,0 +1,46 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "observed_at": "2026-08-05T06:25:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "affected_entrypoint": {
+    "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+    "role": "download_catalog",
+    "integrity_state": "suspended_for_automatic_extraction",
+    "reason": "conteúdo externo injetado e não relacionado ao catálogo foi observado no HTML público",
+    "observed_external_domain": "dentoxol.com",
+    "may_confirm_catalog_labels": true,
+    "may_supply_direct_asset_urls": false,
+    "may_supply_license_or_citation": false
+  },
+  "trusted_alternative_entrypoints": [
+    {
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search",
+      "role": "metadata_catalog",
+      "verification_state": "official_entrypoint_confirmed",
+      "per_record_verification_required": true
+    },
+    {
+      "url": "https://terrabrasilis.dpi.inpe.br/camadas-via-geoservicos/",
+      "role": "geoservices_index",
+      "verification_state": "official_entrypoint_confirmed",
+      "per_layer_verification_required": true
+    }
+  ],
+  "mandatory_controls": [
+    "não seguir nem registrar domínios externos não oficiais encontrados no HTML do catálogo",
+    "não derivar URL direta, licença, citação, checksum ou release a partir da página afetada",
+    "resolver cada registro no GeoNetwork por identificador próprio e inspecionar o metadado",
+    "resolver cada camada ou serviço por endpoint oficial específico e verificar resposta",
+    "calcular checksum somente sobre bytes recuperados de endpoint verificado",
+    "manter endpoint_state unresolved e asset_state not_inspected até inspeção direta"
+  ],
+  "resumption_criteria": [
+    "conteúdo externo removido da página pública",
+    "nova inspeção independente sem domínios não oficiais",
+    "URLs específicas reconciliadas com GeoNetwork ou GeoServer oficial",
+    "registro da data, resposta HTTP, redirecionamentos e evidência da reinspeção"
+  ],
+  "residual_risk": "A página oficial pode continuar exibindo rótulos válidos junto a conteúdo comprometido; portanto ela só pode confirmar presença visual de categorias, nunca sustentar automaticamente endpoints ou metadados críticos."
+}

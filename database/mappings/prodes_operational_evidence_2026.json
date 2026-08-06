@@ -1,0 +1,130 @@
+{
+  "contract_version": "1.1.0",
+  "family_stable_id": "PF000001",
+  "status": "pre_promotion_evidence",
+  "retrieved_at": "2026-08-05",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "scope": "Evidência operacional complementar para os produtos-alvo PRODES Amazônia, sem criar produtos, releases ou distribuições normalizadas.",
+  "official_evidence": [
+    {
+      "evidence_id": "PRODES-OP-EV-001",
+      "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "evidence_type": "official_download_catalog",
+      "observed_state": "active",
+      "observed_on": "2026-08-05",
+      "supports": [
+        "incremento anual no desmatamento em Shapefile desde 2008",
+        "incrementos entre 1 e 6,25 ha publicados em distribuição separada",
+        "não floresta em Shapefile",
+        "PRODES completo em GeoTIFF",
+        "PRODES completo em GeoPackage",
+        "metadado e download são links com papéis distintos"
+      ],
+      "limitations": [
+        "a página agrega biomas e produtos distintos",
+        "o catálogo de downloads não define sozinho método, CRS, contrato de campos ou licença de cada ativo",
+        "datas de atualização da página não equivalem automaticamente a identificadores formais de release"
+      ]
+    },
+    {
+      "evidence_id": "PRODES-OP-EV-002",
+      "url": "https://inpe-em.ccst.inpe.br/papers/prodes-amazon-deforestation-database/",
+      "publisher": "INPE",
+      "evidence_type": "official_scientific_portal",
+      "observed_state": "active",
+      "observed_on": "2026-08-05",
+      "supports": [
+        "taxas anuais são estimadas a partir dos incrementos identificados nas imagens que cobrem a Amazônia Legal",
+        "a primeira apresentação anual ocorre como estimativa",
+        "os dados consolidados são apresentados posteriormente",
+        "imagens da classe Landsat são usadas com estratégia para minimizar cobertura de nuvens"
+      ],
+      "limitations": [
+        "a página não fornece versão formal do algoritmo vigente",
+        "a página não especifica integralmente o ajuste atual para áreas não observadas",
+        "a descrição de calendário é geral e não substitui datas oficiais de cada ciclo"
+      ]
+    },
+    {
+      "evidence_id": "PRODES-OP-EV-003",
+      "url": "https://terrabrasilis.dpi.inpe.br/en/data-access/",
+      "publisher": "INPE / TerraBrasilis",
+      "evidence_type": "official_update_notice",
+      "observed_state": "active",
+      "observed_on": "2026-08-05",
+      "supports": [
+        "o Programa BiomasBR atualizou em 3 de março de 2026 os dados anuais de monitoramento da supressão da vegetação nativa no Brasil",
+        "o aviso declara que a atualização afeta todos os arquivos relacionados à supressão da vegetação nativa",
+        "o aviso recomenda que usuários atualizem suas bases locais"
+      ],
+      "limitations": [
+        "o aviso não fornece identificador formal, checksum ou inventário por ativo",
+        "o aviso não comprova que todas as distribuições PRODES Amazônia compartilham a mesma versão ou data de bytes",
+        "datas posteriores exibidas no catálogo podem representar substituições ou atualizações adicionais por distribuição"
+      ]
+    }
+  ],
+  "resolved_operational_findings": {
+    "map_distribution_families": [
+      {
+        "role": "annual_increment_vector",
+        "format": "Shapefile",
+        "temporal_scope": "desde 2008",
+        "evidence_ids": ["PRODES-OP-EV-001"]
+      },
+      {
+        "role": "small_polygon_increment_vector",
+        "format": "Shapefile",
+        "size_scope": "entre 1 e 6,25 ha",
+        "evidence_ids": ["PRODES-OP-EV-001"]
+      },
+      {
+        "role": "complete_map_raster",
+        "format": "GeoTIFF",
+        "evidence_ids": ["PRODES-OP-EV-001"]
+      },
+      {
+        "role": "complete_map_vector",
+        "format": "GeoPackage",
+        "evidence_ids": ["PRODES-OP-EV-001"]
+      }
+    ],
+    "rate_result_lifecycle": {
+      "ordered_states": ["preliminary_estimate", "consolidated_rate"],
+      "semantic_rule": "a estimativa é uma apresentação antecipada do ciclo anual; a taxa consolidada é publicada posteriormente e constitui o estado final do ciclo",
+      "evidence_ids": ["PRODES-OP-EV-002"]
+    },
+    "cloud_handling_scope": {
+      "resolved_statement": "a seleção combinada de imagens busca minimizar o problema de cobertura de nuvens",
+      "evidence_ids": ["PRODES-OP-EV-002"],
+      "not_resolved": "regra quantitativa vigente de ajuste da taxa para áreas não observadas"
+    },
+    "catalog_update_notice": {
+      "announced_update_date": "2026-03-03",
+      "announced_scope": "arquivos relacionados ao monitoramento anual da supressão da vegetação nativa no Brasil",
+      "recommended_user_action": "atualizar bases locais",
+      "evidence_ids": ["PRODES-OP-EV-003"],
+      "interpretation": "o aviso é um evento oficial de atualização e proveniência, mas não constitui identificador de release nem prova equivalência temporal ou binária entre ativos"
+    }
+  },
+  "unresolved_before_promotion": [
+    "versão formal vigente do algoritmo de estimação da taxa",
+    "equações e parâmetros vigentes do cálculo",
+    "regra quantitativa vigente para áreas não observadas ou cobertas por nuvens",
+    "datas oficiais de publicação para cada ciclo anual",
+    "identificadores formais e política de substituição dos releases",
+    "URLs diretas e estáveis de cada distribuição",
+    "CRS, geometria, esquema de atributos e checksums de cada ativo",
+    "licença e citação específicas por produto e release"
+  ],
+  "prohibited_inferences": [
+    "tratar a data de atualização da página como versão científica do produto",
+    "inferir CRS ou contrato de campos apenas pelo formato do arquivo",
+    "tratar polígonos de 1 a 6,25 ha como prova da unidade mínima vigente do produto principal",
+    "modelar estimativa preliminar e taxa consolidada como séries científicas independentes sem relação de revisão",
+    "preencher ajuste de áreas não observadas sem documentação metodológica vigente",
+    "tratar o aviso de atualização de 3 de março de 2026 como release_id comum a todos os ativos"
+  ]
+}

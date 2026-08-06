@@ -1,0 +1,198 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-NON-FOREST-MASK-SHP",
+  "candidate_entity_id": "AX-PRODES-AMZ-NON-FOREST-DOMAIN-MASK",
+  "candidate_entity_type": "auxiliary_domain_mask",
+  "candidate_scientific_product_id": null,
+  "parent_package_asset_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
+  "status": "metadata_identity_auxiliary_domain_role_and_partial_schema_verified_endpoint_unresolved",
+  "observed_at": "2026-08-05T22:02:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "metadata_identifier": "bed1276c-aa3d-4f5b-b560-1879617ef13d",
+  "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/bed1276c-aa3d-4f5b-b560-1879617ef13d",
+  "catalog_url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+  "official_record_label": "Não floresta - Shapefile",
+  "official_metadata_title": "Máscara de Não Floresta na Amazônia Legal",
+  "declared_format": "ESRI Shapefile",
+  "entity_resolution": {
+    "resolved_role": "auxiliary_spatial_domain_and_classification_mask",
+    "represented_object": "tipologias de vegetação não enquadradas na classe de Floresta adotada no mapeamento PRODES da Amazônia Legal",
+    "operational_function": "delimitar e representar o domínio classificado pelo produtor como Não Floresta",
+    "standalone_scientific_product_supported": false,
+    "scientific_product_promotion_blocked": true,
+    "reason": "a evidência descreve uma classe/máscara auxiliar específica do esquema PRODES Amazônia Legal, não uma observação anual de supressão, taxa, inventário de vegetação remanescente ou produto científico autônomo com release resolvida"
+  },
+  "semantic_boundaries": {
+    "producer_defined_class": true,
+    "amazon_legal_specific_class_in_prodes": true,
+    "is_native_vegetation_remainder_inventory": false,
+    "is_forest_extent_product": false,
+    "is_annual_suppression_increment": false,
+    "is_non_forest_suppression_increment": false,
+    "is_accumulated_non_forest_suppression": false,
+    "is_annual_non_forest_residual": false,
+    "is_deforestation_rate": false,
+    "must_not_be_collapsed_into": [
+      "PD-PRODES-AMZ-NON-FOREST-ACCUMULATED-MASK-2000",
+      "PD-PRODES-AMZ-NON-FOREST-SUPPRESSION-INCREMENTS",
+      "PD-PRODES-AMZ-NON-FOREST-ANNUAL-RESIDUAL",
+      "PD-PRODES-AMZ-ANNUAL-MAP",
+      "PD-PRODES-AMZ-ANNUAL-RATE"
+    ]
+  },
+  "documented_class_profile": {
+    "main_class_documented_value": "NAO_FLORESTA",
+    "class_name_documented_values": [
+      "NAO_FLORESTA",
+      "NAO_FLORESTA2"
+    ],
+    "nao_floresta2_interpretation": "revisão de Não Floresta, conforme descrição oficial do produto matricial",
+    "class_values_are_complete_domain_verified_from_bytes": false,
+    "class_temporal_semantics_resolved": false,
+    "class_method_version_resolved": false
+  },
+  "documented_partial_schema": [
+    {
+      "field": "uuid",
+      "type": "uuid",
+      "meaning": "identificador único universal de cada feição"
+    },
+    {
+      "field": "uid",
+      "type": "integer",
+      "meaning": "identificador para rastreabilidade da feição na origem/produção"
+    },
+    {
+      "field": "state",
+      "type": "text",
+      "meaning": "estado ou unidade da federação"
+    },
+    {
+      "field": "path_row",
+      "type": "text",
+      "meaning": "código da cena formado por linha e coluna da grade Landsat"
+    },
+    {
+      "field": "main_class",
+      "type": "text",
+      "meaning": "classe principal documentada como NAO_FLORESTA"
+    },
+    {
+      "field": "class_name",
+      "type": "text",
+      "meaning": "classe específica documentada como NAO_FLORESTA ou NAO_FLORESTA2"
+    },
+    {
+      "field": "def_cloud",
+      "type": "number",
+      "meaning": "ano desde quando a área estava coberta por nuvens, quando aplicável"
+    }
+  ],
+  "methodological_and_temporal_profile": {
+    "classification_method_version_resolved": false,
+    "creation_or_revision_period_resolved": false,
+    "current_release_resolved": false,
+    "validation_profile_resolved": false,
+    "uncertainty_profile_resolved": false,
+    "publication_or_file_update_date_is_scientific_period": false,
+    "warning": "não herdar automaticamente a metodologia, temporalidade, limiar de 1 ha, sensores ou estado operacional dos produtos de supressão em fitofisionomias não florestais"
+  },
+  "official_evidence": [
+    {
+      "role": "class_and_layer_context",
+      "url": "https://data.inpe.br/biomasbr/prodes-monitoramento-anual-da-supressao-de-vegetacao-nativa/",
+      "publisher": "INPE / BiomasBR",
+      "supports": [
+        "Não Floresta como classe específica do PRODES Amazônia Legal",
+        "camada vetorial no_forest_biome separada no GeoPackage",
+        "distinção em relação às camadas de desmatamento e resíduo"
+      ]
+    },
+    {
+      "role": "metadata_definition_and_partial_schema",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=vetorial",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "definição como tipologias não enquadradas na classe de Floresta",
+        "rótulo Máscara de Não Floresta na Amazônia Legal",
+        "valores NAO_FLORESTA e NAO_FLORESTA2",
+        "esquema parcial"
+      ]
+    },
+    {
+      "role": "catalog_distribution_presence",
+      "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "presença da distribuição Não floresta - Shapefile",
+        "forma de distribuição declarada"
+      ]
+    },
+    {
+      "role": "geopackage_component_relation",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?any=2026&fast=index",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "UUID individual do componente",
+        "relação com o GeoPackage PRODES Amazônia"
+      ]
+    }
+  ],
+  "verified_state": {
+    "catalog_presence": true,
+    "metadata_identifier_verified": true,
+    "component_relation_to_geopackage_verified": true,
+    "auxiliary_domain_role_verified": true,
+    "producer_defined_class_documented": true,
+    "partial_schema_documented": true,
+    "standalone_scientific_product_supported": false,
+    "class_method_version_resolved": false,
+    "class_temporal_semantics_resolved": false,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "redirect_chain_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_asset": false,
+    "citation_resolved_for_data_release": false
+  },
+  "normalization_rules": [
+    "classificar a unidade como máscara auxiliar de domínio, não como produto científico autônomo enquanto a evidência disponível sustentar apenas esse papel",
+    "preservar Não Floresta como classe definida pelo produtor e não substituí-la por vegetação remanescente, vegetação natural, savana ou outra categoria inferida",
+    "não tratar NAO_FLORESTA2 como segundo produto; a documentação a apresenta como revisão da classe Não Floresta",
+    "não colapsar a máscara de domínio em produtos de supressão não florestal acumulada, incremental ou residual",
+    "não usar a máscara como taxa, incremento, área acumulada de supressão ou inventário de cobertura atual",
+    "não herdar limiar de 1 ha, sensores, cadência ou adaptações metodológicas dos produtos de monitoramento de supressão não florestal",
+    "não herdar status experimental do DETER Amazônia Não Floresta, que pertence a outro sistema e produto",
+    "não tratar a data de atualização da interface como período científico ou release",
+    "um UUID de metadado não constitui URL direta nem ativo inspecionado",
+    "uid não deve ser assumido como identificador científico persistente sem inspeção de snapshots",
+    "o esquema documentado permanece parcial até inspeção dos bytes",
+    "endpoint_state permanece unresolved até evidência oficial individual verificável",
+    "asset_state permanece not_inspected até recuperação e inspeção dos bytes",
+    "promoção de qualquer entidade normalizada exige papel, release, distribuição, licença, citação e evidência suficientes"
+  ],
+  "required_before_auxiliary_asset_promotion": [
+    "resolver release ou snapshot vigente",
+    "localizar metodologia versionada de criação e revisão da máscara",
+    "resolver temporalidade e significado operacional de NAO_FLORESTA2",
+    "documentar perfil espacial, CRS, geometria, escala e suporte",
+    "inspecionar classes, domínios, nulos e esquema integral nos bytes",
+    "registrar validação, limitações, vieses e incerteza de classificação",
+    "resolver licença, atribuição e citação",
+    "concluir revisão curatorial como camada auxiliar"
+  ],
+  "required_before_asset_promotion": [
+    "URL direta oficial verificável",
+    "status HTTP e cadeia de redirecionamentos",
+    "nome, tamanho exato, Content-Type e Content-Disposition",
+    "checksum criptográfico",
+    "inventário completo do pacote Shapefile",
+    "CRS, geometria e esquema integral de atributos",
+    "cobertura territorial e classes confirmadas nos bytes",
+    "vínculo explícito com release e papel auxiliar corretos"
+  ]
+}

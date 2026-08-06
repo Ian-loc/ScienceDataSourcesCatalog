@@ -1,157 +1,224 @@
 # Direção científica do projeto
 
-**Status:** decisão estratégica e científica do projeto  
-**Nome de trabalho da interface:** **Simbioscópio**  
-**Assinatura:** **A vida acontece em relação.**  
-**Princípio científico complementar:** **As relações precisam ser investigadas com evidência.**
+**Status:** decisão estratégica vigente  
+**Sistema de trabalho:** **Symbiotrama**  
+**Foco ativo:** **Instância 1 — Catálogo relacional científico-operacional**  
+**Princípio:** **Antes de investigar relações, é preciso compreender precisamente cada informação.**
 
 ## 1. Decisão central
 
-O projeto evolui de um catálogo de fontes de dados para uma plataforma federada de descoberta, acesso, visualização e investigação de interdependências entre fenômenos naturais, sociais, sanitários, econômicos, institucionais e territoriais.
+O projeto consolida primeiro um banco relacional profundo de fontes e produtos de dados georreferenciados sobre o Brasil.
 
-O catálogo atual permanece como fundamento canônico. A nova direção não elimina a arquitetura existente; acrescenta camadas científicas e computacionais que permitam compreender o que cada produto representa, quando produtos podem ser comparados e quais afirmações são sustentadas pelas evidências disponíveis.
+A prioridade não é implementar imediatamente análises, correlações, sínteses automáticas de literatura ou combinações universais. A prioridade é identificar com precisão o objeto científico e operacional entregue por cada plataforma.
 
-## 2. Objeto científico
+O catálogo deve permitir descobrir:
 
-O objeto central deixa de ser apenas a fonte ou o dataset isolado e passa a incluir as relações entre:
+- quem produz;
+- qual é o produto;
+- qual versão está disponível;
+- qual fenômeno representa;
+- quais variáveis, classes ou indicadores contém;
+- como foi produzido;
+- qual é o suporte espacial e temporal;
+- quais limitações, incertezas e vieses existem;
+- como acessar, visualizar, consultar ou baixar;
+- quais evidências sustentam os metadados registrados.
 
-- sistemas naturais, processos bióticos e abióticos;
-- saúde humana, animal, vegetal e ecossistêmica;
-- pessoas, populações, famílias e comunidades;
-- instituições, políticas públicas e capacidade estatal;
-- governança, participação social e articulação política;
-- economia, finanças, renda, trabalho e desigualdade;
-- agricultura, sistemas alimentares e segurança alimentar;
-- clima, território, uso da terra e infraestrutura;
-- produção, distribuição e acesso a recursos, serviços, informação e conhecimento.
+## 2. Missão da Instância 1
 
-Esses domínios não constituem compartimentos independentes. A plataforma deve permitir que sejam investigados como componentes de sistemas interdependentes, sem presumir que toda coocorrência represente associação válida ou causalidade.
+> Organizar e descrever produtos de dados georreferenciados sobre o Brasil com profundidade científica, integridade relacional, proveniência e precisão operacional, tornando explícito o significado de cada informação e as condições de seu uso.
 
-## 3. Missão
+A Instância 1 deve ser útil como sistema autônomo, independentemente da implementação das expansões futuras.
 
-> Organizar e conectar dados científicos sobre o Brasil para tornar exploráveis as interdependências entre sociedade, saúde, economia, governança, território e natureza, preservando proveniência, comparabilidade, evidência, incerteza e limites de inferência.
+## 3. Objeto científico
 
-## 4. Papel do Simbioscópio
+O objeto principal é o **produto científico georreferenciado**.
 
-O Simbioscópio é o nome de trabalho da interface científica que deverá permitir:
+Um produto é um conjunto coerente e versionado de informações espaciais, produzido por metodologia definida, com significado temático, cobertura, suporte espacial e temporal, variáveis e formas de distribuição identificáveis.
 
-1. localizar fontes, produtos, variáveis e formas de acesso;
-2. visualizar produtos de diferentes provedores sem perder autoria e proveniência;
-3. avaliar se uma combinação é tecnicamente comparável para uma operação específica;
-4. mostrar mecanismos propostos, evidências favoráveis, discordâncias e lacunas;
-5. distinguir composição visual, coocorrência, associação, mecanismo e causalidade;
-6. gerar produtos e análises somente por operações documentadas e reproduzíveis;
-7. comunicar de forma explícita o teto de inferência de cada resultado.
+O catálogo também registra, em entidades separadas:
 
-A versão atual do Explorador Federado constitui o fundamento técnico inicial do Simbioscópio e permanece limitada a composição visual de nível N0.
+- organizações;
+- fontes e infraestruturas;
+- famílias de produtos;
+- versões e edições;
+- distribuições;
+- ativos;
+- variáveis e classes;
+- métodos;
+- perfis espaciais e temporais;
+- qualidade e incerteza;
+- taxonomias;
+- citações;
+- evidências e revisão curatorial.
 
-## 5. Arquitetura científica do produto
+## 4. Escopo geográfico
 
-A evolução passa a reconhecer, além de fonte, produto e distribuição, as seguintes unidades:
+O catálogo trabalha somente com produtos que contenham informação geográfica ou associação territorial inequívoca.
+
+São incluídos:
+
+- rasters;
+- vetores;
+- pontos e footprints;
+- trajetórias;
+- grades;
+- bacias;
+- biomas;
+- unidades de conservação;
+- municípios, estados e outras unidades administrativas;
+- tabelas com códigos territoriais;
+- séries território–tempo.
+
+O banco descreve os produtos e sua geografia; não precisa hospedar integralmente os datasets externos.
+
+## 5. Significado científico obrigatório
+
+Cada produto deve responder:
+
+1. que fenômeno representa;
+2. qual objeto, população ou território observa;
+3. qual informação o valor, classe ou geometria comunica;
+4. quais variáveis ou classes contém;
+5. se é medido, administrativo, amostral, classificado, modelado, interpolado, agregado ou derivado;
+6. o que o produto não representa diretamente;
+7. quais usos potenciais possui;
+8. quais limitações condicionam sua interpretação.
+
+Exemplos de distinções obrigatórias:
+
+- alerta operacional não é inventário anual consolidado;
+- índice espectral não é a propriedade ecológica final;
+- classe de vegetação secundária não é biomassa ou diversidade medida;
+- taxa municipal não é risco individual;
+- produto classificado não é observação direta da classe;
+- infraestrutura computacional não é produto científico.
+
+## 6. Arquitetura científica
 
 ```text
-Fonte ou infraestrutura
-  └── Produto, série ou coleção
-        └── Distribuição, serviço ou ativo
-              └── Variável, indicador, banda ou classe
-                    └── Passaporte científico
-
-Variável A ── relação proposta ── Variável B
-                 ├── mecanismo
-                 ├── evidências
-                 ├── discordâncias
-                 ├── confundidores e mediadores
-                 ├── comparabilidade operacional
-                 └── teto de inferência
+Organização
+  └── Fonte ou infraestrutura
+        └── Família de produtos
+              └── Produto científico
+                    └── Release, versão ou edição
+                          ├── variável, indicador, banda ou classe
+                          ├── método
+                          ├── perfil espacial
+                          ├── perfil temporal
+                          ├── perfil de qualidade
+                          └── distribuição
+                                ├── ativo
+                                └── capacidade de acesso
 ```
 
-## 6. Escopo temático
+O modelo executável está em `database/schema/001_instance1_core.sql`.
 
-A taxonomia futura deverá ser multidimensional e permitir, no mínimo, os seguintes eixos:
+## 7. Princípios permanentes
 
-- ambiente e sustentabilidade;
-- natureza, biodiversidade e processos ecológicos;
-- clima e riscos;
-- água, solo, atmosfera e geociências;
-- saúde e Saúde Única;
-- população, demografia e epidemiologia;
-- sociedade, desigualdade e condições de vida;
-- instituições, governança e políticas públicas;
-- participação social e articulação política;
-- economia, finanças públicas e trabalho;
-- agricultura, alimentação e sistemas produtivos;
-- educação, conhecimento e acesso à informação;
-- território, infraestrutura e planejamento.
+1. Fonte, produto, versão, distribuição e ativo são entidades distintas.
+2. Portais, catálogos genéricos, serviços de processamento e visualizadores não são produtos científicos por si sós.
+3. Metadados da fonte não substituem metadados específicos do produto.
+4. Metadados de uma versão não devem ser generalizados para toda a série.
+5. Resolução, suporte e escala não são sinônimos.
+6. Periodicidade do dado não é frequência de atualização do portal.
+7. A ausência de documentação deve permanecer explícita.
+8. Incerteza desconhecida não equivale a incerteza inexistente.
+9. Uso científico potencial não equivale a variável medida.
+10. Afirmações materiais devem ser sustentadas por evidência rastreável.
+11. A planilha e os CSVs são formatos de intercâmbio; a arquitetura final exige integridade relacional.
+12. O catálogo aponta para a fonte autoritativa e preserva citação, versão e licença.
 
-Uma variável poderá pertencer a múltiplos eixos. A taxonomia não deverá forçar fenômenos interdisciplinares a uma única categoria.
+## 8. Banco de dados
 
-## 7. Princípios científicos permanentes
+O banco-alvo é PostgreSQL com PostGIS.
 
-1. A realidade é relacional, mas dados distintos não são automaticamente comparáveis.
-2. Sobreposição cartográfica não constitui harmonização.
-3. Correlação não demonstra mecanismo ou causalidade.
-4. Produtos derivados da mesma fonte não constituem evidências independentes.
-5. Escala espacial, período, população, método e unidade fazem parte do significado do dado.
-6. Evidência favorável e contraditória devem permanecer visíveis.
-7. A ausência de metadados deve reduzir a operação permitida, nunca ser preenchida por suposição.
-8. Quanto mais forte a afirmação, maiores os requisitos de diagnóstico, evidência e revisão humana.
-9. Dados sociais e de saúde exigem avaliação ética, privacidade e proteção contra reidentificação.
-10. A plataforma apoia investigação e decisão; não substitui desenho de pesquisa nem julgamento científico.
+Essa decisão sustenta:
 
-A aplicação operacional desses princípios é definida na [Política de comparabilidade, evidência e inferência científica](policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md).
+- integridade referencial;
+- crescimento do inventário;
+- busca textual e filtros;
+- relações muitos-para-muitos;
+- versionamento;
+- evidência por campo;
+- cobertura geográfica consultável;
+- API futura;
+- geração reproduzível de CSVs e planilhas.
 
-## 8. Continuidade com o catálogo atual
+PostGIS é usado para metadados espaciais. O projeto não assume armazenamento integral de grandes rasters, vetores ou cubos externos.
 
-O catálogo atual permanece:
+## 9. Curadoria
 
-- fonte canônica de descoberta de infraestruturas;
-- registro de produtos e distribuições já curados;
-- interface pública estável;
-- ponto de acesso às fontes autoritativas;
-- base para construção progressiva dos passaportes científicos.
+A unidade de trabalho é um produto integralmente inspecionado.
 
-Não serão realizadas alterações destrutivas no esquema 0.7.0. Novas entidades serão introduzidas em tabelas e contratos paralelos, validadas antes de qualquer migração canônica.
+A curadoria deve incluir:
 
-## 9. Produtos futuros
+- identidade;
+- versão;
+- significado científico;
+- variáveis;
+- método;
+- suporte espacial e temporal;
+- qualidade e incerteza;
+- limitações;
+- acesso;
+- licença;
+- citação;
+- evidências;
+- auditoria.
 
-A direção autoriza, de forma progressiva:
+A expansão seguirá prioridade Brasil primeiro e será realizada fonte por fonte, produto por produto.
 
-- catálogo de variáveis e indicadores;
-- perfis territoriais socioecológicos;
-- explorador de Saúde Única;
-- mapas de interdependências;
-- fichas de evidência e mecanismos;
-- semáforo de comparabilidade;
-- laboratório de nexos e análises reproduzíveis;
-- pacotes territoriais com proveniência;
-- API para descoberta e avaliação de compatibilidade.
+## 10. Instância 2 — composição geográfica
 
-Esses produtos somente poderão ser publicados quando cumprirem os requisitos de comparabilidade, proveniência, evidência e segurança definidos pela governança.
+**Estado:** ambição futura registrada; não é foco ativo.
 
-## 10. Limites de identidade e comunicação
+Poderá permitir:
 
-O nome geral definitivo do projeto permanece sujeito a decisão posterior. **Simbioscópio** é adotado como nome de trabalho da interface de exploração das interdependências.
+- seleção de camadas resolvidas;
+- sobreposição ou mapas sincronizados;
+- perfis territoriais;
+- transparência comparativa;
+- verificação de executabilidade técnica;
+- preservação de escala, método, versão e proveniência.
 
-O projeto não deve se apresentar como:
+A Instância 2 dependerá de produtos e distribuições suficientemente descritos na Instância 1.
 
-- repositório integral de todos os dados externos;
-- certificador universal da qualidade das fontes;
-- mecanismo automático de descoberta causal;
-- substituto das instituições produtoras;
-- sistema governamental oficial;
-- ferramenta que transforma qualquer combinação de variáveis em resultado científico válido.
+## 11. Instância 3 — contexto científico
 
-## 11. Regra de evolução
+**Estado:** ambição futura registrada; não é foco ativo.
 
-Toda nova funcionalidade deverá responder, antes da implementação:
+Poderá apresentar síntese breve e auditável da literatura sobre os fenômenos representados em uma composição escolhida pelo usuário.
 
-1. qual objeto científico representa;
-2. quais metadados exige;
-3. qual operação autoriza;
-4. qual risco de relação espúria introduz;
-5. como preserva proveniência;
-6. quais evidências sustentam a relação apresentada;
-7. qual é o teto de inferência;
-8. qual revisão humana permanece obrigatória.
+A Instância 3 deverá:
 
-A direção científica prevalece sobre conveniência de interface, velocidade de expansão ou disponibilidade isolada de tecnologia.
+- usar metadados da Instância 1;
+- priorizar literatura aplicável ao Brasil e à escala observada;
+- distinguir evidência direta, análoga e metodológica;
+- comunicar mecanismos, controvérsias e limitações;
+- não gerar perguntas para o usuário;
+- não transformar coincidência espacial em associação ou causalidade.
+
+## 12. Regra de prioridade
+
+Toda nova intervenção deverá responder:
+
+> Esta mudança melhora a capacidade de descobrir, compreender, verificar e acessar produtos de dados georreferenciados?
+
+Mudanças voltadas exclusivamente às Instâncias 2 ou 3 permanecem no backlog até a consolidação da Instância 1.
+
+## 13. Critério de sucesso
+
+O sucesso da fase atual será medido pela capacidade de responder com precisão:
+
+- o que este produto representa;
+- qual informação científica está contida nele;
+- quais variáveis disponibiliza;
+- como os dados foram produzidos;
+- em que escala e período podem ser interpretados;
+- quais incertezas e limitações existem;
+- qual versão deve ser usada;
+- como acessar os dados;
+- quais evidências sustentam o registro.
+
+A documentação detalhada está em `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`.

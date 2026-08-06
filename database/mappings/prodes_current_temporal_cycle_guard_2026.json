@@ -1,0 +1,54 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "status": "current_method_confirmation_required",
+  "observed_at": "2026-08-05T14:15:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "scope": "Portão curatorial para impedir que evidência histórica sobre o ciclo anual PRODES seja promovida como contrato temporal vigente sem confirmação em metodologia oficial atual.",
+  "affected_targets": [
+    {
+      "candidate_stable_id": "PD-PRODES-AMZ-ANNUAL-MAP",
+      "field": "temporal_cycle",
+      "currently_reported_value": "anual, com período de referência de 1 de agosto a 31 de julho",
+      "current_evidence_state": "historical_only",
+      "promotion_state": "blocked_pending_current_method_confirmation"
+    },
+    {
+      "candidate_stable_id": "PD-PRODES-AMZ-ANNUAL-RATE",
+      "field": "temporal_cycle",
+      "currently_reported_value": "anual, com período de referência de 1 de agosto a 31 de julho",
+      "current_evidence_state": "historical_only",
+      "promotion_state": "blocked_pending_current_method_confirmation"
+    }
+  ],
+  "evidence": [
+    {
+      "source_id": "PRODES-EV-004",
+      "source_type": "official_historical_release",
+      "publisher": "Agência Espacial Brasileira / MCTI / INPE",
+      "supports_historical_value": true,
+      "supports_current_method_contract": false,
+      "reason": "A fonte comprova o período de referência no contexto histórico documentado, mas não constitui por si só a metodologia vigente ou um release atual versionado."
+    }
+  ],
+  "required_resolution": [
+    "localizar metodologia oficial vigente do PRODES Amazônia",
+    "confirmar explicitamente o início e o fim do período anual de referência",
+    "registrar versão, data e URL persistente da metodologia",
+    "vincular a afirmação ao produto e ao release correto",
+    "reclassificar a confiança somente após confirmação atual"
+  ],
+  "normalization_rules": [
+    "evidência histórica pode permanecer como contexto histórico",
+    "o valor histórico não pode ser usado como contrato temporal vigente por herança",
+    "o campo deve permanecer bloqueado para promoção enquanto não houver evidência atual",
+    "a confirmação do ciclo do mapa não deve ser transferida automaticamente para taxas, estados preliminares ou outros biomas sem escopo explícito"
+  ],
+  "prohibited_inferences": [
+    "Não tratar PRODES-EV-004 como documentação metodológica vigente.",
+    "Não promover temporal_cycle como campo atual de alta confiança antes da confirmação exigida.",
+    "Não generalizar o ciclo temporal da Amazônia Legal para outros produtos PRODES.",
+    "Não interpretar a data de atualização de um arquivo como definição do período científico representado."
+  ]
+}
