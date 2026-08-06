@@ -1,0 +1,190 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000002",
+  "candidate_scientific_product_id": "PD-DETER-AMZ-ALERTS",
+  "status": "family_product_boundary_and_dated_operational_profiles_verified_release_unresolved",
+  "observed_at": "2026-08-05T23:24:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "scientific_identity": {
+    "official_name": "DETER — Monitoramento Diário da Supressão e Degradação da Vegetação Nativa",
+    "represented_object": "avisos ou alertas espaciais de evidências de supressão completa e degradação parcial da cobertura nativa na Amazônia Legal Brasileira",
+    "primary_operational_purpose": "apoiar fiscalização, controle e priorização de ações por órgãos ambientais",
+    "production_nature": "interpretação expedita de imagens de sensoriamento remoto para detecção e classificação de alterações da cobertura vegetal",
+    "product_boundary_state": "candidate_operational_alert_product",
+    "is_annual_deforestation_rate": false,
+    "is_monthly_deforestation_rate": false,
+    "is_complete_annual_inventory": false,
+    "is_prodes_release": false,
+    "must_not_be_collapsed_into": [
+      "PD-PRODES-AMZ-ANNUAL-MAP",
+      "PD-PRODES-AMZ-ANNUAL-RATE",
+      "PD-DETER-CERRADO-ALERTS",
+      "PD-DETER-PANTANAL-ALERTS",
+      "PD-DETER-AMZ-NON-FOREST-ALERTS"
+    ]
+  },
+  "documented_classes": {
+    "level_1": [
+      "DESMATAMENTO (ALERTAS)",
+      "DEGRADAÇÃO",
+      "EXPLORAÇÃO MADEIREIRA"
+    ],
+    "level_2": [
+      "Desmatamento com solo exposto",
+      "Desmatamento com vegetação",
+      "Mineração",
+      "Degradação",
+      "Cicatriz de incêndio florestal",
+      "Corte Seletivo Tipo 1 (Desordenado)",
+      "Corte Seletivo Tipo 2 (Geométrico)"
+    ],
+    "current_general_page_summary": [
+      "corte raso",
+      "mineração",
+      "solo exposto com vegetação",
+      "exploração seletiva de madeira",
+      "queimadas e outras práticas de degradação"
+    ],
+    "complete_release_class_domain_verified_from_bytes": false
+  },
+  "dated_operational_profiles": [
+    {
+      "profile_id": "historical_deter_b_public_profile",
+      "source_last_updated": "2021-12-30",
+      "system_label": "DETER-B",
+      "sensors": [
+        "CBERS-4 WFI",
+        "IRS AWiFS"
+      ],
+      "documented_nominal_spatial_resolutions_m": [
+        64,
+        56
+      ],
+      "mapping_characterization": "tempo quase real",
+      "internal_minimum_area_rule": "dados enviados ao IBAMA sem restrição de área mínima mapeada",
+      "public_minimum_polygon_area_ha": 6.25,
+      "public_release_latency_days": 5,
+      "interpretation_method": [
+        "interpretação visual por cor, tonalidade, textura, forma e contexto",
+        "Modelo Linear de Mistura Espectral em conjunto com composição multiespectral"
+      ],
+      "current_release_profile": false
+    },
+    {
+      "profile_id": "current_biomasbr_general_deter_profile",
+      "source_observed_in": 2026,
+      "system_label": "DETER",
+      "sensors": [
+        "Amazônia-1 WFI",
+        "CBERS-4 WFI",
+        "CBERS-4A WFI"
+      ],
+      "minimum_mapped_alert_area_ha": 3,
+      "monitoring_cadence_label": "diário",
+      "current_release_identifier_resolved": false,
+      "product_specific_spatial_resolution_resolved": false,
+      "public_release_latency_resolved": false
+    }
+  ],
+  "temporal_and_interpretive_limitations": {
+    "alert_detection_time_is_exact_event_time": false,
+    "cloud_cover_affects_detection_opportunity": true,
+    "alerts_may_include_processes_from_earlier_periods": true,
+    "monthly_comparison_recommended_by_producer": false,
+    "monthly_area_is_official_deforestation_rate": false,
+    "official_annual_rate_source": "PRODES",
+    "warning": "oportunidade de detecção depende de nuvens, disponibilidade de imagens e resolução; área de alertas serve à priorização operacional e não deve ser interpretada como taxa mensal"
+  },
+  "official_evidence": [
+    {
+      "role": "current_program_identity_scope_sensors_and_minimum_area",
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "publisher": "INPE / BiomasBR",
+      "supports": [
+        "monitoramento diário",
+        "avisos de supressão e degradação",
+        "finalidade operacional",
+        "sensores Amazônia-1, CBERS-4 e CBERS-4A WFI",
+        "área mínima atual declarada de 3 ha",
+        "classes gerais",
+        "referência metodológica Almeida et al. 2022"
+      ]
+    },
+    {
+      "role": "historical_deter_b_operational_profile_classes_and_limitations",
+      "url": "https://www.gov.br/inpe/pt-br/area-conhecimento/unidade-amazonia/projetos-e-pesquisas/deter",
+      "publisher": "INPE",
+      "source_last_updated": "2021-12-30",
+      "supports": [
+        "DETER-B em tempo quase real",
+        "sensores WFI e AWiFS com 64 e 56 m",
+        "limiar público histórico de 6,25 ha",
+        "latência pública histórica de cinco dias",
+        "classes em dois níveis",
+        "efeito de nuvens na oportunidade de detecção",
+        "proibição de interpretar áreas como taxa mensal",
+        "PRODES como fonte da taxa anual oficial"
+      ]
+    },
+    {
+      "role": "institutional_system_distinction",
+      "url": "https://www.gov.br/inpe/pt-br/acesso-a-informacao/perguntas-frequentes/principais-produtos-e-servicos-do-inpe/monitoramento-do-territorio-florestas/amazonia",
+      "publisher": "INPE",
+      "supports": [
+        "distinção funcional entre PRODES, DETER e outros sistemas de monitoramento"
+      ]
+    }
+  ],
+  "verified_state": {
+    "family_identity_verified": true,
+    "operational_alert_product_boundary_verified": true,
+    "alert_vs_rate_boundary_documented": true,
+    "detection_vs_occurrence_time_boundary_documented": true,
+    "historical_and_current_operational_profiles_separated": true,
+    "class_hierarchy_partially_documented": true,
+    "current_release_resolved": false,
+    "current_distribution_resolved": false,
+    "direct_download_url_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_release": false,
+    "citation_resolved_for_release": false
+  },
+  "normalization_rules": [
+    "não tratar alerta DETER como taxa mensal ou anual de desmatamento",
+    "não colapsar DETER e PRODES; suas finalidades, temporalidades e produtos são distintos",
+    "não interpretar data de detecção como data exata da ocorrência do processo",
+    "não comparar meses como se tivessem detectabilidade constante, pois nuvens e disponibilidade de imagens alteram a oportunidade de detecção",
+    "não transferir o limiar público histórico de 6,25 ha para o perfil atual que declara 3 ha",
+    "não transferir automaticamente sensores históricos WFI/AWiFS para a configuração atual Amazônia-1/CBERS WFI",
+    "não converter resolução nominal de sensor em suporte observacional, unidade mínima mapeável ou precisão posicional",
+    "não atribuir a latência histórica de cinco dias a toda release atual sem evidência contemporânea",
+    "não colapsar classes de supressão, degradação e exploração madeireira em uma única classe genérica",
+    "não herdar atributos do DETER Cerrado, Pantanal ou Não-Floresta Amazônia",
+    "não promover release, distribuição, endpoint ou ativo antes de evidência individual e inspeção dos bytes",
+    "registrar perfis operacionais como datados e vinculados à evidência correspondente"
+  ],
+  "required_before_product_promotion": [
+    "resolver nome e escopo oficial do produto Amazônia vigente",
+    "resolver release ou snapshot e período efetivamente coberto",
+    "documentar método versionado e transições operacionais",
+    "confirmar classes, domínios, variáveis e esquema integral",
+    "resolver perfil espacial distinguindo sensor, resolução, suporte e área mínima",
+    "resolver perfil temporal, latência, frequência e regras de atualização",
+    "registrar validação, qualidade, incerteza, nuvens, detectabilidade, vieses e ausências",
+    "resolver licença, atribuição e citação",
+    "vincular evidência por afirmação e concluir revisão curatorial"
+  ],
+  "required_before_asset_promotion": [
+    "identificador de distribuição e URL oficial individual",
+    "status HTTP, redirecionamentos e cabeçalhos",
+    "nome, tamanho e checksum dos bytes",
+    "inventário do pacote e formato real",
+    "CRS, geometria e esquema de atributos",
+    "cobertura territorial e temporal observada",
+    "classes e domínios efetivamente presentes",
+    "vínculo inequívoco com produto e release corretos"
+  ]
+}
