@@ -1,0 +1,258 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-ANNUAL-NON-FOREST-SUPPRESSION-RESIDUAL-SHP",
+  "candidate_scientific_product_id": "PD-PRODES-AMZ-NON-FOREST-ANNUAL-RESIDUAL",
+  "parent_package_asset_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
+  "status": "metadata_identity_non_forest_retrospective_revision_method_and_partial_schema_verified_endpoint_unresolved",
+  "observed_at": "2026-08-05T21:48:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "metadata_identifier": "63751b72-3e6a-4d15-8fc0-740e57bbc346",
+  "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/63751b72-3e6a-4d15-8fc0-740e57bbc346",
+  "catalog_url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+  "official_record_label": "Resíduo anual na supressão da vegetação nativa não florestal - Shapefile",
+  "declared_format": "ESRI Shapefile",
+  "scientific_identity": {
+    "represented_phenomenon": "polígonos de revisão retrospectiva da supressão de fitofisionomias não florestais no bioma Amazônia",
+    "monitoring_program": "PRODES Amazônia fitofisionomias não florestais",
+    "spatial_scope": "fitofisionomias não florestais do bioma Amazônia em sua porção brasileira",
+    "documented_area_context": "aproximadamente 280 mil km², equivalentes a 6,6% da área do bioma, conforme metadado oficial",
+    "product_boundary_state": "candidate_distinct_non_forest_retrospective_revision_scientific_product",
+    "interpretation_type": "retrospective_revision_polygons_non_forest",
+    "is_statistical_residual": false,
+    "is_uncertainty_estimate": false,
+    "is_current_period_increment": false,
+    "must_not_be_collapsed_into": [
+      "PD-PRODES-AMZ-ANNUAL-RESIDUAL",
+      "PD-PRODES-AMZ-NON-FOREST-SUPPRESSION-INCREMENTS",
+      "PD-PRODES-AMZ-NON-FOREST-ACCUMULATED-MASK-2000",
+      "PD-PRODES-AMZ-ANNUAL-MAP",
+      "PD-PRODES-AMZ-ANNUAL-RATE"
+    ],
+    "reason": "o resíduo não florestal registra revisões retrospectivas dentro de um domínio ecológico e fluxo metodológico próprios, não incremento corrente, erro estatístico ou produto florestal geral"
+  },
+  "methodological_profile": {
+    "base_method_reference": "Almeida et al. 2022",
+    "base_method_reference_resolved": true,
+    "specific_adaptations_documented_as_required": true,
+    "specific_adaptations_version_resolved": false,
+    "sensors_2000_to_2014": [
+      "Landsat 5 TM",
+      "Landsat 7 ETM+",
+      "Landsat 8 OLI"
+    ],
+    "sensors_from_2016": [
+      "Sentinel-2A MSI",
+      "Sentinel-2B MSI"
+    ],
+    "mapping_approach": "interpretação visual de imagens de satélite e vetorização de polígonos na tela",
+    "quality_control": "todos os polígonos submetidos a auditoria por auditores seniores antes do pós-processamento",
+    "minimum_mapped_area_ha": 1.0,
+    "minimum_area_rule": "pós-processamento elimina polígonos menores que 1 ha",
+    "future_land_use_independent": true,
+    "validation_profile_resolved": false,
+    "uncertainty_profile_resolved": false
+  },
+  "temporal_and_release_profile": {
+    "systematic_monitoring_operation_announced_from_year": 2023,
+    "historical_series_objective_start_year": 2000,
+    "base_map_year": 2000,
+    "biennial_increment_start_year": 2002,
+    "biennial_increment_end_year": 2018,
+    "year_2012_replaced_by": 2013,
+    "annual_mapping_from_year": 2018,
+    "temporal_semantics": "retrospective_revision_within_non_forest_series",
+    "class_name_examples": [
+      "residuo",
+      "r2022"
+    ],
+    "operation_start_is_series_start": false,
+    "current_release_resolved": false,
+    "last_scientific_year_resolved": false,
+    "publication_or_file_update_date_is_scientific_period": false,
+    "pub_date_is_scientific_period": false
+  },
+  "documented_partial_schema": [
+    {
+      "field": "uuid",
+      "type": "text",
+      "meaning": "identificador único universal de cada feição"
+    },
+    {
+      "field": "uid",
+      "type": "integer",
+      "meaning": "identificador numérico de exportação que pode mudar em revisões ou atualizações"
+    },
+    {
+      "field": "state",
+      "type": "text",
+      "meaning": "estado ou unidade da federação"
+    },
+    {
+      "field": "path_row",
+      "type": "text",
+      "meaning": "código da cena formado por linha e coluna da grade Landsat"
+    },
+    {
+      "field": "main_class",
+      "type": "text",
+      "meaning": "classe principal; documentação geral inclui residuo, hidrografia e desmatamento"
+    },
+    {
+      "field": "class_name",
+      "type": "text",
+      "meaning": "classe específica; documentação cita residuo, r2022, hidrografia e dYYYY, com preenchimento conforme aplicabilidade"
+    },
+    {
+      "field": "def_cloud",
+      "type": "number",
+      "meaning": "ano desde quando a área estava coberta por nuvens, quando aplicável"
+    },
+    {
+      "field": "julian_day",
+      "type": "number",
+      "meaning": "dia juliano da imagem"
+    },
+    {
+      "field": "image_date",
+      "type": "text",
+      "meaning": "data da cena usada para obter a feição"
+    },
+    {
+      "field": "year",
+      "type": "number",
+      "meaning": "ano da feição para facilitar consultas; não constitui por si só release"
+    },
+    {
+      "field": "area_km",
+      "type": "number",
+      "meaning": "área calculada para a feição em km²"
+    },
+    {
+      "field": "scene_id",
+      "type": "number",
+      "meaning": "identificador da cena no banco de dados"
+    },
+    {
+      "field": "publish_year",
+      "type": "date",
+      "meaning": "campo usado para publicação no GeoServer com dimensão temporal"
+    },
+    {
+      "field": "source",
+      "type": "text",
+      "meaning": "origem do polígono quando incorporado de outro projeto ou bioma"
+    },
+    {
+      "field": "satellite",
+      "type": "text",
+      "meaning": "nome do satélite utilizado"
+    },
+    {
+      "field": "sensor",
+      "type": "text",
+      "meaning": "nome do sensor que obteve a imagem"
+    },
+    {
+      "field": "geom",
+      "type": "geometry",
+      "meaning": "feição composta por um ou mais polígonos obtidos por interpretação visual"
+    },
+    {
+      "field": "pub_date",
+      "type": "text",
+      "meaning": "data de publicação/exportação YYYYMMDD atualizada automaticamente; não é período científico"
+    }
+  ],
+  "official_evidence": [
+    {
+      "role": "metadata_scientific_method_temporal_and_schema_definition",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?denominator=250000",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "domínio não florestal e contexto territorial",
+        "operação desde 2023 e objetivo de série desde 2000",
+        "sensores e transição metodológica",
+        "mapa-base, cadências bienal e anual e exceção 2012/2013",
+        "interpretação visual, auditoria sênior e filtro de 1 ha",
+        "esquema parcial e semântica de pub_date"
+      ]
+    },
+    {
+      "role": "catalog_distribution_presence",
+      "url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "presença da distribuição Shapefile",
+        "rótulo público do resíduo anual não florestal",
+        "data de atualização da interface que não deve ser usada como release"
+      ]
+    },
+    {
+      "role": "geopackage_component_relation",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?any=2026&fast=index",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "UUID do componente",
+        "relação com o pacote GeoPackage PRODES Amazônia",
+        "distinção em relação ao resíduo anual geral"
+      ]
+    }
+  ],
+  "verified_state": {
+    "catalog_presence": true,
+    "metadata_identifier_verified": true,
+    "component_relation_to_geopackage_verified": true,
+    "scientific_object_distinguished": true,
+    "non_forest_domain_documented": true,
+    "retrospective_revision_semantics_documented": true,
+    "operation_and_series_start_distinguished": true,
+    "methodological_sensor_transition_documented": true,
+    "senior_audit_and_minimum_area_rule_documented": true,
+    "partial_schema_documented": true,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "redirect_chain_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_asset": false,
+    "citation_resolved_for_data_release": false
+  },
+  "normalization_rules": [
+    "não interpretar resíduo como erro estatístico, incerteza ou diferença aritmética",
+    "não colapsar o resíduo não florestal no resíduo anual geral ou florestal",
+    "não colapsar o resíduo retrospectivo nos incrementos não florestais ou na máscara-base de 2000",
+    "não usar 2023, ano de início operacional declarado, como início da série científica, cujo objetivo começa em 2000",
+    "preservar cadência bienal 2002–2018, exceção 2012 substituída por 2013 e cadência anual desde 2018",
+    "não tratar 1 ha como resolução espacial, tamanho de pixel ou regra universal do PRODES",
+    "não usar uid como identificador persistente, pois pode mudar em revisões e atualizações",
+    "preservar uuid como identificador de feição quando confirmado nos bytes, sem confundi-lo com o UUID do metadado",
+    "não promover todos os valores padronizados de main_class ou class_name como classes efetivamente presentes sem inspeção dos bytes",
+    "não transformar year, publish_year, pub_date ou data da interface em release ou período científico",
+    "o esquema publicado é parcial até inspeção dos bytes e documentação integral dos atributos",
+    "endpoint_state deve permanecer unresolved e asset_state not_inspected até evidência direta",
+    "promoção exige produto, release, distribuição, licença, citação e evidência por afirmação"
+  ],
+  "required_before_product_promotion": [
+    "resolver nome oficial estável e fronteira com resíduo geral, incrementos e máscara-base não florestal",
+    "resolver versão das adaptações metodológicas específicas ao domínio não florestal",
+    "confirmar série temporal, último ano e release publicada",
+    "documentar classes efetivamente presentes e esquema semântico integral",
+    "resolver perfil espacial, suporte, CRS, escala e unidade mínima mapeável",
+    "registrar validação, qualidade, incerteza, vieses, nuvens e dados ausentes",
+    "resolver licença, atribuição e citação do produto e da release",
+    "registrar evidência por afirmação e revisão curatorial"
+  ],
+  "required_before_asset_promotion": [
+    "URL direta oficial verificável",
+    "status HTTP e cadeia de redirecionamentos",
+    "nome, tamanho exato, Content-Type e Content-Disposition",
+    "checksum criptográfico",
+    "inventário completo do pacote Shapefile",
+    "CRS, geometria e esquema integral de atributos",
+    "cobertura territorial e temporal dos bytes",
+    "vínculo explícito com produto e release corretos"
+  ]
+}
