@@ -1,0 +1,147 @@
+{
+  "contract_version": "1.0.0",
+  "package_id": "I1-M2A-DETER-CERRADO",
+  "family_stable_id": "PF000003",
+  "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
+  "metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+  "status": "current_listing_verified_specific_download_href_and_vector_wfs_layer_not_safely_resolved",
+  "observed_at": "2026-08-06T08:42:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "current_download_listing": {
+    "listing_present": true,
+    "official_page_url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+    "section_label": "Bioma Cerrado - DETER (Avisos)",
+    "item_label": "Avisos de supressão da vegetação nativa - Shapefile (desde 2018)",
+    "displayed_last_updated": "2026-07-28",
+    "metadata_record_resolved": true,
+    "metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+    "download_action_visible": true,
+    "direct_download_href_exposed_in_indexed_content": false,
+    "direct_download_url_resolved": false,
+    "displayed_update_date_is_release_identifier": false,
+    "download_action_visibility_proves_asset_identity": false
+  },
+  "official_wfs_documentation": {
+    "generic_wfs_capability_documented": true,
+    "generic_wfs_base_url": "https://terrabrasilis.dpi.inpe.br/geoserver/ows",
+    "documented_example_workspace": "deter-amz",
+    "documented_example_feature_type": "deter_public",
+    "example_scope": "DETER Amazônia",
+    "example_is_deter_cerrado_layer": false,
+    "deter_cerrado_workspace_resolved": false,
+    "deter_cerrado_feature_type_resolved": false,
+    "deter_cerrado_describe_feature_type_verified": false,
+    "deter_cerrado_get_feature_verified": false,
+    "generic_capability_can_be_inherited_as_specific_layer": false
+  },
+  "historical_external_trace": {
+    "trace_present": true,
+    "trace_date_context": "2020",
+    "trace_source_type": "external technical mailing-list archive",
+    "trace_service_type": "WCS imagery",
+    "trace_workspace_or_coverage_prefix": "deter-cerrado",
+    "trace_example": "deter-cerrado:CBERS-4_AWFI_161_099_13072018",
+    "trace_is_current_vector_wfs_evidence": false,
+    "trace_is_official_current_documentation": false,
+    "trace_resolves_current_workspace": false,
+    "trace_resolves_current_feature_type": false,
+    "trace_resolves_current_release": false,
+    "trace_should_not_be_promoted": true
+  },
+  "instrumental_state": {
+    "web_index_confirmed_listing_and_official_wfs_example": true,
+    "web_parser_exposed_dynamic_download_href": false,
+    "container_dns_resolution_succeeded": false,
+    "container_dns_error": "temporary failure in name resolution for terrabrasilis.dpi.inpe.br",
+    "container_dns_failure_means_source_unavailable": false,
+    "live_http_status_for_specific_download_verified": false,
+    "live_get_capabilities_for_specific_cerrado_workspace_verified": false
+  },
+  "source_page_content_anomaly": {
+    "unexpected_unrelated_external_content_observed_in_indexed_html": true,
+    "unexpected_content_topic": "unrelated pharmaceutical advertising text and external link",
+    "security_compromise_confirmed": false,
+    "search_index_injection_confirmed": false,
+    "source_page_integrity_status_resolved": false,
+    "unexpected_external_link_followed": false,
+    "dynamic_download_links_may_be_trusted_without_independent_validation": false,
+    "required_response": "do not follow or promote unrelated external links; independently verify any extracted download target against INPE/TerraBrasilis domains, metadata identity, headers and bytes"
+  },
+  "official_evidence": [
+    {
+      "role": "current_download_listing",
+      "url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "current Cerrado DETER Shapefile listing since 2018",
+        "displayed update date 2026-07-28",
+        "visible metadata and download actions"
+      ]
+    },
+    {
+      "role": "generic_wfs_documentation_and_amazon_example",
+      "url": "https://terrabrasilis.dpi.inpe.br/categoria/conteudo-tecnico/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "generic WFS access pattern",
+        "example workspace deter-amz",
+        "example feature type deter_public",
+        "GetCapabilities, DescribeFeatureType and GetFeature workflow",
+        "scope of the documented example is DETER Amazônia"
+      ]
+    },
+    {
+      "role": "specific_cerrado_metadata",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+      "publisher": "INPE / TerraBrasilis GeoNetwork",
+      "supports": [
+        "specific metadata identity",
+        "Cerrado-specific schema and channel semantics"
+      ]
+    }
+  ],
+  "external_context": [
+    {
+      "role": "historical_wcs_trace_not_used_for_promotion",
+      "url": "https://lists.osgeo.org/pipermail/gdal-dev/2020-November/052967.html",
+      "publisher": "OSGeo mailing-list archive",
+      "supports_only": [
+        "historical existence of a deter-cerrado prefix for WCS imagery examples in 2020"
+      ],
+      "authority_for_current_vector_service": false
+    }
+  ],
+  "verified_state": {
+    "current_download_listing_verified": true,
+    "metadata_record_verified": true,
+    "download_action_visible": true,
+    "generic_wfs_documentation_verified": true,
+    "amazon_example_scope_verified": true,
+    "historical_wcs_trace_documented": true,
+    "source_page_content_anomaly_documented": true,
+    "direct_download_url_resolved": false,
+    "specific_vector_workspace_resolved": false,
+    "specific_vector_feature_type_resolved": false,
+    "specific_describe_feature_type_verified": false,
+    "specific_get_feature_verified": false,
+    "live_http_status_verified": false,
+    "current_release_resolved": false,
+    "asset_identity_resolved": false,
+    "source_page_integrity_status_resolved": false
+  },
+  "normalization_rules": [
+    "do not convert the visible Download action into a direct URL when the href is not exposed and independently verified",
+    "do not convert the displayed 2026-07-28 update date into a release identifier, scientific period or byte identity",
+    "do not inherit the deter-amz workspace or deter_public feature type from the official Amazon example into DETER Cerrado",
+    "do not infer a current deter-cerrado vector workspace from a 2020 external WCS imagery trace",
+    "do not treat WCS imagery coverage names as vector WFS feature types",
+    "do not treat generic WFS capability as proof that a specific Cerrado layer currently exists or responds",
+    "do not interpret container DNS failure as source downtime",
+    "do not follow unrelated external links observed inside the indexed official-page HTML",
+    "do not declare compromise, search-index injection or source integrity failure without independent evidence",
+    "validate future download targets by official domain, metadata linkage, redirect chain, headers, package contents and checksum",
+    "validate future WFS targets through official GetCapabilities, DescribeFeatureType and bounded GetFeature responses",
+    "promotion of release, distribution or asset remains blocked while specific endpoint and byte identity are unresolved"
+  ]
+}
