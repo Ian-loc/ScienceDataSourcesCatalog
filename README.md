@@ -27,6 +27,7 @@ Consulte:
 - [Workflow contínuo de curadoria](docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md)
 - [Banco relacional](database/README.md)
 - [Esquema SQL](database/schema/001_instance1_core.sql)
+- [Código, dados e documentação](https://github.com/Ian-loc/ScienceDataSourcesCatalog)
 
 ## Catálogo público atual
 
