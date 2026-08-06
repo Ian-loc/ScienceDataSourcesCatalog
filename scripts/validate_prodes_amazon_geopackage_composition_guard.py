@@ -15,6 +15,7 @@ from validate_prodes_amazon_annual_residual_guard import main as validate_annual
 from validate_prodes_amazon_non_forest_accumulated_mask_guard import main as validate_non_forest_accumulated_mask
 from validate_prodes_amazon_non_forest_annual_residual_guard import main as validate_non_forest_annual_residual
 from validate_prodes_amazon_non_forest_increment_metadata_guard import main as validate_non_forest_increment
+from validate_prodes_amazon_non_forest_mask_entity_guard import main as validate_non_forest_mask
 from validate_prodes_amazon_small_polygon_increment_guard import main as validate_small_polygon_increment
 
 PATH = Path("database/mappings/prodes_amazon_geopackage_composition_guard_2026.json")
@@ -125,6 +126,7 @@ def main() -> int:
     validate_annual_residual()
     validate_annual_residual_accounting()
     validate_non_forest_annual_residual()
+    validate_non_forest_mask()
     print("OK: pacote GeoPackage PRODES Amazônia preserva composição e fronteiras científicas sem promoção prematura")
     return 0
 
