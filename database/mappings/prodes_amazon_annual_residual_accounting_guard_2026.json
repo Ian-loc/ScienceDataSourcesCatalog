@@ -1,0 +1,111 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "target_id": "PRODES-ASSET-ANNUAL-NATIVE-VEGETATION-SUPPRESSION-RESIDUAL-SHP",
+  "candidate_scientific_product_id": "PD-PRODES-AMZ-ANNUAL-RESIDUAL",
+  "metadata_identifier": "00a728cb-8577-458a-9c38-082c1f3bca9e",
+  "companion_metadata_guard": "database/mappings/prodes_amazon_annual_residual_guard_2026.json",
+  "status": "official_residual_detection_year_and_accounting_semantics_verified",
+  "observed_at": "2026-08-05T21:42:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "official_note": {
+    "title": "Polígonos de resíduos do Prodes",
+    "publisher": "Instituto Nacional de Pesquisas Espaciais (INPE)",
+    "publication_year": 2024,
+    "institutional_ibi": "id.inpe.br/mtc-m21d/2024/12.02.13.49-NTC",
+    "original_url": "http://urlib.net/8JMKD2USNNW34T/4CG97L8",
+    "public_pdf_url": "https://data.inpe.br/biomasbr/wp-content/uploads/sites/3/2026/04/POLIGONOS-DE-RESIDUOS-DO-PRODES.pdf",
+    "document_date": "2023-09-30"
+  },
+  "scientific_definition": {
+    "residual_category_meaning": "áreas suprimidas em anos anteriores ao ano do mapeamento, mas não detectadas pelo PRODES no ano específico da ocorrência e delimitadas posteriormente como resíduo",
+    "documented_omission_causes": [
+      "cobertura de nuvens",
+      "confusão entre classes",
+      "outros impedimentos de detecção no ano de ocorrência"
+    ],
+    "is_statistical_residual": false,
+    "is_uncertainty_estimate": false,
+    "is_current_year_increment": false
+  },
+  "temporal_and_accounting_semantics": {
+    "class_year_represents_detection_and_mapping_year": true,
+    "class_year_represents_exact_suppression_year": false,
+    "exact_suppression_year_resolved": false,
+    "counted_in_annual_increment_for_detection_year": false,
+    "counted_in_accumulated_suppression_through_detection_year": true,
+    "incorporated_into_next_year_deforestation_mask": true,
+    "appropriate_when_exact_occurrence_date_is_required": false,
+    "reason": "atribuir o resíduo ao incremento do ano de detecção produziria interpretação errônea da intensidade anual, pois a data real da supressão é incerta"
+  },
+  "official_evidence": [
+    {
+      "role": "residual_definition_and_accounting_note",
+      "url": "https://data.inpe.br/biomasbr/wp-content/uploads/sites/3/2026/04/POLIGONOS-DE-RESIDUOS-DO-PRODES.pdf",
+      "supports": [
+        "definição da categoria resíduo",
+        "causas documentadas de omissão",
+        "ano da classe como ano de detecção e mapeamento",
+        "exclusão do incremento anual",
+        "inclusão no acumulado",
+        "incorporação à máscara do ano seguinte",
+        "restrição de uso quando a data exata da supressão é necessária"
+      ]
+    },
+    {
+      "role": "prodes_class_and_layer_context",
+      "url": "https://data.inpe.br/biomasbr/prodes-monitoramento-anual-da-supressao-de-vegetacao-nativa/",
+      "supports": [
+        "classes residuais com ano de detecção associado",
+        "camada vetorial residual separada de yearly deforestation",
+        "metodologia incremental do PRODES"
+      ]
+    },
+    {
+      "role": "catalog_and_component_identity",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?any=2026&fast=index",
+      "supports": [
+        "UUID individual do componente residual",
+        "relação com o GeoPackage PRODES Amazônia",
+        "distinção do resíduo não florestal"
+      ]
+    }
+  ],
+  "verified_state": {
+    "official_note_resolved": true,
+    "detection_vs_occurrence_year_boundary_documented": true,
+    "annual_increment_exclusion_documented": true,
+    "accumulated_area_inclusion_documented": true,
+    "next_year_mask_incorporation_documented": true,
+    "exact_occurrence_date_limitation_documented": true,
+    "qualitative_temporal_uncertainty_documented": true,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "promotion_authorized": false
+  },
+  "normalization_rules": [
+    "não tratar o ano de detecção e mapeamento do resíduo como ano exato da supressão",
+    "não computar o resíduo como incremento anual do ano em que foi detectado",
+    "registrar que a área residual contribui para o desmatamento acumulado até o ano de detecção",
+    "registrar que resíduos e incrementos são incorporados à máscara do ano seguinte",
+    "não usar resíduos como eventos datados exatamente quando a pergunta exige ano de ocorrência",
+    "não interpretar resíduo como erro estatístico ou estimativa quantitativa de incerteza",
+    "não colapsar resíduo, incremento, máscara acumulada e taxa anual",
+    "não colapsar o resíduo geral/florestal no resíduo não florestal",
+    "não transformar class_name rYYYY, year, publish_year, pub_date ou data da interface em release",
+    "não promover endpoint, ativo ou release sem evidência individual e inspeção de bytes"
+  ],
+  "required_before_product_promotion": [
+    "resolver release ou snapshot vigente",
+    "confirmar escopo integral entre vegetação florestal e não florestal",
+    "documentar classes e esquema semântico integral",
+    "resolver perfil espacial, suporte, CRS e geometria",
+    "registrar validação, qualidade, incerteza quantitativa e vieses",
+    "resolver licença, atribuição e citação",
+    "vincular evidências às afirmações do produto e da release",
+    "concluir revisão curatorial"
+  ]
+}
