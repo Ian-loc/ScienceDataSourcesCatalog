@@ -1,26 +1,90 @@
 # Política de marcos e pacotes de execução
 
-A partir do Marco 1 da Instância 1, o desenvolvimento do Simbiotrama deve operar por pacotes cientificamente coerentes e revisáveis.
+O desenvolvimento do Simbiotrama opera por pacotes coerentes, pequenos e revisáveis.
 
-## Regras
+## 1. Preparação obrigatória
 
-1. Todo pacote parte da `main` corrente.
-2. Cada pacote recebe branch e pull request próprios.
-3. Famílias independentes não são misturadas no mesmo PR.
-4. Alterações estruturais transversais são isoladas.
-5. Cada PR declara critério de completude antes do merge.
-6. O delta é auditado e corrigido antes do congelamento do head.
-7. O CI deve estar verde no SHA exato a ser incorporado.
-8. Não pode haver revisão contrária ou thread aberta.
-9. Merge exige autorização humana explícita.
-10. Squash merge é preferido para preservar a legibilidade da `main`.
+1. consultar a `main` e registrar o SHA;
+2. criar branch própria;
+3. confirmar que a branch existe;
+4. somente então executar a primeira escrita;
+5. interromper diante de `branch not found` ou ref ambígua;
+6. nunca usar `main` como fallback de escrita.
 
-## Escala recomendada
+## 2. Regras do pacote
 
-Um PR deve representar, preferencialmente:
+1. cada pacote recebe branch e PR próprios;
+2. cada PR possui uma entrega pública ou operacional identificável;
+3. alteração arquitetural, curadoria de entradas e interface devem ser separadas quando independentes;
+4. o critério de completude e de parada é declarado antes da implementação;
+5. nova entidade ou coluna deve passar pelo gate de escopo;
+6. o delta é auditado e corrigido antes do congelamento;
+7. CI deve estar verde no SHA final;
+8. revisão deve estar concluída;
+9. não pode haver thread acionável aberta;
+10. merge exige autorização humana explícita do SHA exato;
+11. squash merge é preferido.
 
-- uma família de produtos;
-- um pequeno conjunto de produtos estreitamente relacionados;
-- ou uma única alteração transversal indispensável.
+## 3. Escala recomendada
 
-A revisão das fontes legadas, o aprofundamento de famílias científicas e mudanças de arquitetura não devem ser combinados sem dependência explícita e demonstrada.
+Um PR deve representar preferencialmente:
+
+- uma alteração transversal indispensável;
+- uma migration coerente;
+- um lote pequeno de entradas relacionadas;
+- um exportador ou componente de interface isolado;
+- um conector selecionado da Instância 2, quando essa instância estiver ativa.
+
+“Uma fonte inteira” ou “um produto inteiro” não define automaticamente o tamanho do PR. O pacote deve ser dividido quando diferentes riscos puderem ser revisados separadamente.
+
+## 4. Pacotes da Instância 1
+
+### Arquitetura
+
+- políticas e contratos;
+- migrations aditivas;
+- staging e crosswalk;
+- exportações.
+
+### Curadoria
+
+- lotes de 5 a 10 entradas após validação do modelo;
+- evidência proporcional;
+- revisão de granularidade e duplicidade.
+
+### Interface
+
+- busca;
+- filtros;
+- ficha de entrada;
+- links oficiais;
+- exportação de metadados.
+
+Não misturar desenvolvimento da Instância 2 ou 3 com a Instância 1 sem dependência formal.
+
+## 5. Gate de escopo
+
+Toda mudança deve demonstrar necessidade para:
+
+- descoberta;
+- interpretação mínima;
+- filtro/exibição no website;
+- conector selecionado.
+
+Sem caso de uso concreto, a proposta permanece no backlog.
+
+## 6. Relatório
+
+Cada pacote registra:
+
+- base e head;
+- arquivos alterados;
+- entrega e limites;
+- testes;
+- revisão e threads;
+- ocorrências;
+- estados negativos;
+- próximo gate;
+- necessidade de autorização.
+
+O relatório não substitui o avanço material nem autoriza merge.
