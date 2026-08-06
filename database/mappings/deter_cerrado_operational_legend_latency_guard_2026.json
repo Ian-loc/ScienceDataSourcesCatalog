@@ -60,7 +60,7 @@
     "validation_classes": [
       {
         "class": "Alerta",
-        "meaning": "total suppression by clear-cutting and/or anthropogenic alteration of native vegetation structure",
+        "meaning": "total suppression by corte raso and/or anthropogenic alteration of native vegetation structure",
         "is_same_as_final_operational_aviso": false,
         "automatic_crosswalk_to_desmatamento_cr": false
       },
