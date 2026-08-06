@@ -4,6 +4,31 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 
 ## Não lançado
 
+### Simplificação governada da Instância 1
+
+- `catalog_entry` definido como unidade central de granularidade mínima suficiente;
+- núcleo-alvo simplificado para `organizations`, `catalog_entries`, `entry_variables`, `entry_evidence` e `connector_profiles` opcional;
+- removida a obrigação universal de decompor fontes em família, produto, release, distribuição e ativo;
+- releases, arquivos, layers, bandas, endpoints, bytes, checksums e schemas deixam de ser requisitos normais de completude;
+- criada política explícita contra cópia de dados, reconstrução de catálogos externos e proliferação de entidades;
+- workflow de curadoria redefinido por ficha essencial e critério de parada;
+- evidência passa a ser proporcional aos campos materiais, sem pacote forense por entrada;
+- métricas passam a priorizar entradas prontas para o website, campos essenciais, links e variáveis principais;
+- criado plano de migração aditiva, idempotente, reversível e sem perda do modelo profundo incorporado;
+- GEDI, DETER Cerrado, IBGE e ANA/SNIRH definidos como casos de validação heterogêneos;
+- decisão profunda anterior classificada como `SUPERSEDED`, preservada como legado técnico;
+- PR #57 congelado, devolvido a draft e classificado como candidato a `superseded`;
+- criado template de PR com gate de escopo, critério de parada e revisão completa antes da autorização de merge;
+- validador de direção atualizado para impedir regressões ao regime de curadoria integral por produto/release;
+- tarefa recorrente atualizada para executar exclusivamente a Instância 1 mínima.
+
+### Ocorrência operacional
+
+- um arquivo provisório foi criado acidentalmente na `main` durante a inicialização da branch de simplificação;
+- o arquivo foi removido imediatamente no commit seguinte e nenhum conteúdo provisório permanece na árvore;
+- a ocorrência permanece registrada no histórico e no PR para transparência;
+- o processo foi corrigido para exigir criação e confirmação da branch antes de qualquer escrita.
+
 ### Sanity pós-Marco 1
 
 - nome canônico padronizado como **Simbiotrama**;
@@ -11,54 +36,32 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 - criado roadmap canônico `docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md`;
 - caminho antigo do roadmap do Simbioscópio convertido em alias aposentado para preservar links históricos;
 - governança, direção científica, decisão arquitetural e README alinhados ao estado pós-Marco 1;
-- PR #53 fechado como `superseded`, sem incorporação de registros paralelos ou classes universais de compatibilidade;
+- PR #53 fechado como `superseded`;
 - documentação de marcos reduzida ao registro consolidado, política de pacotes, índice e estado legível por máquina;
-- explorador visual N0 e `data/federated_layers.json` classificados como legado operacional sem desenvolvimento analítico ativo;
-- validador científico ampliado para testar autoridade, ciclo de vida, roadmap, nomenclatura e preservação do legado N0.
+- explorador visual N0 e `data/federated_layers.json` classificados como legado operacional;
+- validador científico ampliado para testar autoridade, ciclo de vida e preservação do legado N0.
 
-### Adicionado — Instância 1
+### Marco 1 — arquitetura profunda incorporada
 
-- decisão estratégica que estabelece a **Instância 1 — Catálogo relacional científico-operacional** como foco ativo;
-- documentação canônica da Instância 1;
-- modelo PostgreSQL/PostGIS para organizações, fontes, famílias, produtos, releases, variáveis, métodos, perfis espaciais e temporais, qualidade, distribuições, ativos, capacidades, taxonomias, citações, evidências e revisões;
+- decisão estratégica original da Instância 1;
+- documentação do núcleo relacional profundo;
+- modelo PostgreSQL/PostGIS para organizações, fontes, famílias, produtos, releases, variáveis, métodos, perfis, distribuições, ativos, capacidades, citações, evidências e revisões;
 - schema de staging para migração sem perda dos CSVs atuais;
-- registro de problemas e bloqueios de migração;
-- workflow contínuo de curadoria produto por produto;
-- portões de migração, aprofundamento, interface e promoção do banco;
-- definição de `information_message` para explicar qual informação sobre o mundo real o produto comunica;
-- definição de `non_representations` para registrar interpretações que o produto não sustenta;
-- evidência de metadados por entidade e campo.
+- carga e promoção idempotentes;
+- resolução inicial de entidades;
+- evidência por campo e revisão curatorial;
+- separação entre produtos científicos, catálogos, serviços e infraestrutura.
 
-### Alterado — direção do projeto
+Esse marco permanece tecnicamente válido e preservado, mas sua granularidade deixou de ser obrigatória após a decisão de simplificação.
 
-- projeto recentrado no aprofundamento do catálogo, antes de novas capacidades analíticas;
-- PostgreSQL/PostGIS definido como arquitetura canônica de destino;
-- CSVs mantidos como autoridade pública durante a transição e futura exportação do banco;
-- separação normativa reforçada entre organização, fonte, família, produto, release, distribuição, ativo e variável;
-- catálogos genéricos, serviços de processamento e visualizadores deixam de ser tratados como produtos científicos;
-- README, direção científica, roadmap, modelo de produtos e dicionário de dados harmonizados com a Instância 1;
-- Instâncias 2 e 3 registradas somente como backlog;
-- política de comparabilidade e inferência mantida como guardrail futuro, sem workstream analítico ativo.
-
-### Preservado do desenvolvimento anterior
+### Preservado
 
 - camada pública atual de fontes, produtos e distribuições;
-- Explorador Federado como protótipo N0 e legado operacional, sem promoção a núcleo consolidado;
+- Explorador Federado como protótipo N0 e legado operacional;
 - classificação territorial Brasil-primeiro;
-- Dynamic World V1 como produto piloto selecionado;
-- contratos experimentais de variáveis, comparabilidade e relações, mantidos em backlog sem promoção automática ao modelo canônico;
-- validações, governança, contribuição e política de releases;
-- separação de autoria, citação, licença e proveniência.
-
-### Corrigido
-
-- mistura entre produtos científicos, catálogos, serviços interoperáveis e infraestrutura computacional;
-- roadmap excessivamente orientado a comparabilidade, causalidade e visualização antes da consolidação dos dados;
-- ausência de releases explícitos entre produto e distribuição;
-- ausência de estrutura relacional para evidência por campo e revisão curatorial;
-- falta de distinção entre descrição do produto, mensagem científica e usos potenciais;
-- falta de estratégia executável de migração dos CSVs;
-- duplicação normativa entre checkpoints, notas, autorizações e ponteiros transitórios de execução.
+- staging, hashes, integridade e idempotência;
+- contratos experimentais de variáveis, comparabilidade e relações como backlog;
+- governança, contribuição, releases, autoria, citação, licença e proveniência.
 
 ## 0.7.0 — 2026-07-18
 
