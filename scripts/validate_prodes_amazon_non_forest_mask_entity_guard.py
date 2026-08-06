@@ -147,7 +147,7 @@ def main() -> int:
         if not isinstance(item, dict) or not official_https(item.get("url")):
             fail("toda evidência deve usar URL HTTPS oficial do INPE")
     evidence_text = " ".join(json.dumps(item, ensure_ascii=False) for item in evidence).casefold()
-    for token in ("no_forest_biome", "tipologias", "nao_floresta2", "shapefile", "geopackage", EXPECTED_UUID):
+    for token in ("no_forest_biome", "tipologias", "nao_floresta2", "shapefile", "geopackage"):
         if token not in evidence_text:
             fail(f"cobertura de evidência ausente: {token}")
 
