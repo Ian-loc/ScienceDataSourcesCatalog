@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.0.1",
   "project": "Simbiotrama",
   "instance": "Instance 1",
   "status": "active_proposal",
@@ -67,7 +67,12 @@
     "curation_status",
     "last_verified_at"
   ],
-  "curation_statuses": [
+  "entry_curation_statuses": [
+    "needs_review",
+    "partially_verified",
+    "verified"
+  ],
+  "field_evidence_statuses": [
     "needs_review",
     "partially_verified",
     "verified",
