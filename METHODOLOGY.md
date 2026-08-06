@@ -101,6 +101,8 @@ Registrar informações gerais de validação, qualidade ou incerteza quando for
 
 Não exigir perfil forense nem escore universal. `desconhecido` não equivale a `ausente`.
 
+A inspeção de bytes, schemas, checksums, bandas, layers ou pacotes completos **não é rotina da Instância 1**. Ela somente se justifica para um conector selecionado ou para corrigir uma afirmação central que não possa ser verificada pelos metadados oficiais.
+
 ## 10. Acesso
 
 Distinguir, quando possível:
