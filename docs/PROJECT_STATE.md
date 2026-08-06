@@ -1,132 +1,132 @@
-# Estado canônico e disposição dos artefatos
+# Estado canônico do Simbiotrama
 
-**Projeto:** Simbiotrama  
 **Data de referência:** 6 de agosto de 2026  
-**Fuso:** `America/Sao_Paulo`  
-**Estado global:** Marco 1 incorporado; Instância 1 ativa; curadoria científica em expansão.
+**Fuso:** `America/Sao_Paulo`
 
-Este documento é o índice normativo para distinguir trabalho ativo, backlog, legado operacional, material retirado e evidência histórica. Em caso de dúvida sobre prioridade ou validade operacional, ele deve ser lido junto da direção científica, da decisão da Instância 1 e da governança.
+## 1. Objetivo ativo
 
-## 1. Hierarquia de autoridade
+A Instância 1 é um **catálogo relacional de fontes e ofertas de dados científicos**. Seu objetivo é permitir descoberta, compreensão e acesso a dados mantidos por instituições e plataformas externas.
 
-1. `main` do repositório;
-2. direção científica e decisões aprovadas;
-3. esquema relacional, migrações e validadores executáveis;
-4. dados públicos canônicos durante a transição;
-5. evidências, auditorias e revisões curatoriais;
-6. espelhos, protótipos e documentos históricos.
+Não é objetivo da Instância 1:
 
-Durante a transição:
+- copiar datasets de terceiros;
+- reconstruir catálogos externos;
+- enumerar integralmente releases, arquivos, layers, bandas ou endpoints;
+- reproduzir genealogias completas;
+- hospedar ativos externos;
+- antecipar a visualização federada da Instância 2.
 
-- `data/data_resources.csv`, `data/data_products.csv` e `data/product_distributions.csv` sustentam a versão pública atual;
-- PostgreSQL/PostGIS é a arquitetura canônica de destino, ainda não a autoridade de produção;
-- planilhas do Drive são snapshots ou espelhos derivados;
-- conversas, relatórios de sessão e branches não incorporadas não são autoridade.
+## 2. Hierarquia de autoridade
 
-## 2. Classificação de ciclo de vida
+1. `main`;
+2. este documento;
+3. `docs/decisions/DEC-INSTANCE1-MINIMUM-SUFFICIENT-CATALOG.md`;
+4. `docs/policies/INSTANCE_1_SCOPE_AND_GRANULARITY_POLICY.md`;
+5. roadmap, workflow e governança;
+6. esquema relacional simplificado quando incorporado;
+7. dados públicos transitórios;
+8. auditorias e evidências históricas.
+
+Branches, conversas, tarefas recorrentes e PRs não incorporados não constituem autoridade.
+
+## 3. Ciclo de vida
 
 ### `ACTIVE`
 
-Trabalho autorizado e pertencente ao caminho crítico atual:
-
-- Instância 1 — catálogo relacional científico-operacional;
-- esquema PostgreSQL/PostGIS, staging e promoções seletivas;
-- curadoria integral por produto e release;
-- variáveis, métodos, perfis espaciais, temporais e de qualidade no modelo relacional;
-- distribuições, ativos, endpoints e capacidades de acesso;
-- licenças, citações, evidências por afirmação e revisões curatoriais;
-- gates científicos e operacionais;
-- revisão seletiva das 51 fontes legadas;
-- página pública e CSV/JSON atuais somente como autoridade pública transitória.
+- Instância 1 simplificada;
+- `organizations`;
+- `catalog_entries`;
+- `entry_variables`;
+- `entry_evidence`;
+- `connector_profiles` opcionais;
+- curadoria de granularidade mínima suficiente;
+- preparação de website dinâmico sustentado pelo catálogo;
+- migração controlada dos registros públicos atuais.
 
 ### `BACKLOG`
 
-Direções preservadas, mas sem implementação ativa:
+- Instância 2 — visualização federada por conectores;
+- Instância 3 — contexto científico por literatura curada;
+- receitas analíticas;
+- produtos derivados;
+- harmonização e composição;
+- taxonomias avançadas;
+- inventários técnicos de endpoints quando necessários a conectores específicos.
 
-- Instância 2 — composição e visualização federada;
-- Instância 3 — literatura científica curada;
-- receitas analíticas e produtos derivados;
-- sinalizadores contextuais avançados;
-- contratos de passaporte de variável, avaliação de relações e evidência científica;
-- níveis N0–N5 como linguagem conceitual futura;
-- casos adversariais ou dourados para operações entre produtos;
-- API pública e nova interface relacional após maturidade do banco.
+### `LEGACY_TRANSITIONAL`
 
-Os contratos em `schema/scientific-variable-passport-v0.1.json`, `schema/comparability-assessment-v0.1.json` e `schema/scientific-relation-evidence-v0.1.json` permanecem preservados como backlog de desenho. Não constituem modelos ativos nem autorizam registros paralelos aos dados relacionais.
+Preservado para migração e reaproveitamento seletivo, sem expansão como arquitetura-alvo:
+
+- esquema profundo do Marco 1;
+- `product_families`;
+- `product_releases`;
+- `distributions`;
+- `data_assets`;
+- `access_capabilities`;
+- perfis metodológicos, espaciais, temporais e de qualidade como entidades obrigatórias;
+- guards específicos por produto.
+
+Esses componentes podem fornecer evidências, campos ou padrões úteis. Não devem voltar a determinar a completude da Instância 1.
 
 ### `LEGACY_OPERATIONAL`
 
-Artefatos ainda funcionais, preservados apenas para continuidade pública e regressão:
+- CSV/JSON atuais;
+- interface pública estática;
+- explorador visual N0;
+- `data/federated_layers.json`.
 
-- `explorer.html`;
-- `data/federated_layers.json`;
-- composição visual N0 atualmente publicada;
-- interface estática baseada nos CSV/JSON simplificados.
+Esses artefatos permanecem funcionais durante a transição, mas não orientam expansão do novo núcleo.
 
-Esses artefatos podem receber apenas correções de segurança, disponibilidade ou regressão. Não devem receber novas capacidades analíticas, ontologias de compatibilidade ou expansão funcional antes da ativação formal da Instância 2.
+### `RETIRED` / `SUPERSEDED`
 
-### `RETIRED` ou `SUPERSEDED`
-
-Não devem orientar desenvolvimento novo:
-
-- “Fase 1 do Simbioscópio” como workstream ativo;
-- classes A–E como julgamento universal de compatibilidade científica;
-- registros paralelos de variáveis e passaportes propostos no PR #53;
-- uso de família de produtos não resolvida como entrada analítica;
-- branch `agent/consolidate-instance-1-relational-catalog` após o merge do PR #54;
-- branch `agent/simbioscope-phase1-variable-registry` e PR #53;
-- o nome `Symbiotrama` como variante ativa;
-- `Simbioscópio` como nome do projeto ou de uma fase em execução.
-
-Conceitos úteis desses artefatos podem ser reimplementados seletivamente, com nova evidência e aderência ao modelo relacional. Não se deve fazer cherry-pick integral de estruturas aposentadas.
+- classes universais de compatibilidade;
+- Fase 1 do Simbioscópio;
+- registros paralelos de variáveis;
+- branches encerradas após os PRs #54–#56;
+- qualquer fluxo que trate inventário integral de ativos externos como requisito geral.
 
 ### `HISTORICAL_EVIDENCE`
 
-Deve ser preservado, mas não tratado como instrução ativa:
+- auditorias;
+- ocorrências;
+- commits e PRs encerrados;
+- snapshots;
+- relatórios de CI;
+- pacotes de curadoria não promovidos.
 
-- `docs/audits/`;
-- registros de ocorrências;
-- PRs e commits encerrados;
-- propostas de correção ainda não promovidas;
-- snapshots e matrizes de migração;
-- documentação de transição e resultados de CI.
+## 4. PR #57
 
-Evidência histórica não deve ser apagada para “limpar” o repositório. A limpeza deve reduzir duplicação normativa e ambiguidade, não remover rastreabilidade.
+O PR #57 está congelado e não deve ser mesclado ou ampliado. Sua autorização antiga não é válida. O pacote é candidato a `superseded` porque implementa profundidade incompatível com a nova granularidade.
 
-## 3. Documentos canônicos ativos
+Seus achados podem ser reutilizados seletivamente como evidência para uma entrada compacta do DETER Cerrado. Os JSONs, guards, inventário de ativos e exigências de promoção não devem ser transportados automaticamente.
 
-- `README.md` — entrada pública do repositório;
-- `docs/PROJECT_STATE.md` — estado e ciclo de vida;
-- `docs/PROJECT_SCIENTIFIC_DIRECTION.md` — missão e princípios;
-- `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md` — contrato científico da Instância 1;
-- `docs/decisions/DEC-INSTANCE1-RELATIONAL-CORE.md` — decisão arquitetural;
-- `docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md` — sequência global;
-- `docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md` — workflow por produto;
-- `docs/GOVERNANCE.md` — autoridade, gates e papéis;
-- `docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md` — guardrail futuro, sem workstream ativo;
-- `docs/milestones/` — somente registros consolidados e política de pacotes.
+## 5. Unidade de trabalho
 
-## 4. Pacote ativo e sequência
+A unidade de trabalho é uma **entrada de catálogo suficientemente útil**.
 
-A limpeza `sanity()` pós-Marco 1 precede novo aprofundamento científico.
+Uma entrada pode representar fonte, plataforma, coleção, produto de dados ou serviço. A granularidade deve seguir a identidade oferecida pela fonte e a necessidade do usuário, não a estrutura interna completa da plataforma.
 
-Após sua incorporação, o próximo pacote é:
+## 6. Critério de completude
 
-> **Marco 2A — fechamento científico-operacional do DETER Cerrado.**
+Uma entrada está concluída quando informa, com evidência proporcional:
 
-O Marco 2A deve partir da `main` atualizada e permanecer limitado ao DETER Cerrado. DETER Amazônia, DETER Pantanal, PRODES, Clima Gerais, MapBiomas e mudanças transversais independentes não pertencem ao mesmo PR.
+- quem oferece;
+- o que é;
+- quais dados e variáveis inclui;
+- onde e quando se aplica;
+- como acessar;
+- quais condições de uso existem;
+- quais links oficiais sustentam a ficha;
+- se há conector futuro selecionado.
 
-## 5. Critério de sanidade contínua
+Não se exige inventário de arquivos, release, checksum, bytes, esquema físico ou licença por ativo, salvo necessidade específica documentada.
 
-Antes de iniciar ou ampliar um pacote, verificar:
+## 7. Próximo caminho crítico
 
-1. existe uma única autoridade para a decisão em questão;
-2. o artefato está classificado no ciclo de vida correto;
-3. o pacote pertence ao foco ativo;
-4. não existe branch ou PR anterior que já foi substituído;
-5. não há duplicação entre documento normativo, checkpoint e log transitório;
-6. o trabalho preserva evidência e proveniência;
-7. a expansão não antecipa Instâncias 2 ou 3;
-8. o PR pode ser revisado como unidade coerente;
-9. o critério de completude está explícito;
-10. o CI e a revisão científica são proporcionais ao risco.
+1. incorporar a decisão e a política de escopo;
+2. implementar o núcleo relacional simplificado;
+3. migrar registros atuais sem perda;
+4. testar GEDI, DETER Cerrado, IBGE e ANA/SNIRH;
+5. gerar uma projeção JSON para website dinâmico;
+6. auditar simplicidade, utilidade e sustentabilidade;
+7. promover o novo núcleo somente após autorização humana.
