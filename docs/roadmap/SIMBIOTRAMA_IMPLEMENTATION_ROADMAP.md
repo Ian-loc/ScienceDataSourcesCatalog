@@ -1,205 +1,181 @@
 # Roadmap de implementação do Simbiotrama
 
-**Status:** vigente  
-**Foco ativo:** Instância 1 — catálogo relacional científico-operacional  
-**Marco incorporado:** I1-M1  
-**Instâncias 2 e 3:** backlog de longo prazo
+**Status:** vigente após incorporação  
+**Foco ativo:** Instância 1 — catálogo relacional simplificado  
+**Instâncias 2 e 3:** backlog
 
 ## 1. Objetivo atual
 
-Transformar o catálogo público simplificado em uma base relacional profunda de produtos de dados georreferenciados sobre o Brasil, com significado científico, integridade, evidência e acesso operacional verificáveis.
+Entregar um catálogo relacional funcional de fontes e ofertas de dados científicos, com metadados essenciais, links oficiais, variáveis e temas pesquisáveis, pronto para alimentar uma interface dinâmica.
 
-A unidade de progresso é um produto ou release integralmente inspecionado. O número bruto de fontes, links ou camadas não é critério suficiente de qualidade.
+A unidade de progresso é uma **entrada de catálogo útil e suficientemente verificada**, não um produto ou release integralmente decomposto.
 
-## 2. Regras de execução
+## 2. Princípios de execução
 
-1. Aprofundar produtos antes de expandir funcionalidades.
-2. Separar organização, fonte, família, produto, release, distribuição, ativo e capacidade.
-3. Não promover valores desconhecidos por inferência.
-4. Sustentar afirmações materiais com evidência rastreável.
-5. Operar por branches e PRs pequenos, coerentes e auditáveis.
-6. Não misturar famílias independentes, higiene do legado e alterações transversais.
-7. Preservar CSV/JSON e a página pública durante a transição.
+1. Normalizar somente o necessário para descoberta, interpretação, filtro e conexão futura.
+2. Preservar terminologia e links oficiais da fonte.
+3. Não copiar datasets externos nem reconstruir catálogos de terceiros.
+4. Não criar entradas apenas por arquivo, layer, banda, formato ou endpoint.
+5. Não exigir release, ativo, bytes, checksum ou schema completo como regra universal.
+6. Registrar lacunas sem inferência.
+7. Trabalhar em PRs pequenos e auditáveis.
 8. Manter Instâncias 2 e 3 fora do caminho crítico.
-9. Executar auditoria proporcional ao risco e à extensão do delta.
-10. Promover o banco somente após gate formal de prontidão canônica.
+9. Validar o modelo com casos heterogêneos antes de expandir.
+10. Medir utilidade pública, não profundidade documental acumulada.
 
 ## 3. Marcos da Instância 1
 
 ### I1-M1 — núcleo relacional e staging
 
 **Estado:** `COMPLETED`  
-**Incorporação:** PR #54; registro no PR #55.
+**Incorporação:** PRs #54 e #55; sanity no PR #56.
 
-Entregas consolidadas:
+O Marco 1 demonstrou staging, idempotência, integridade relacional e separação conceitual inicial. A arquitetura profunda incorporada permanece como histórico técnico e fonte de componentes reutilizáveis, mas não define mais a granularidade obrigatória da Instância 1.
 
-- direção científica da Instância 1;
-- esquema PostgreSQL/PostGIS;
-- staging sem perda;
-- carga e promoção idempotentes;
-- resolução inicial de entidades;
-- evidência por afirmação;
-- revisão curatorial;
-- gates científicos e operacionais;
-- preservação da autoridade pública transitória.
+### I1-S1 — simplificação governada
 
-### I1-M1-SANITY — alinhamento pós-marco
+**Estado:** `ACTIVE`
 
-**Estado:** `ACTIVE_UNTIL_MERGED`
+Entregas:
 
-Objetivos:
+- política de escopo e granularidade mínima suficiente;
+- `catalog_entry` como unidade central;
+- ficha mínima e critério de parada;
+- revisão dos documentos canônicos;
+- classificação do PR #57 como pacote congelado e candidato a `superseded`;
+- plano de migração sem perda da estrutura anterior;
+- gate contra expansão arquitetural não justificada.
 
-- harmonizar nome, autoridade e documentação;
-- classificar ativos, backlog, legado, retirados e evidência histórica;
-- fechar PRs substituídos;
-- reduzir documentação redundante;
-- preservar protótipos apenas como legado operacional;
-- preparar uma linha de base limpa para o Marco 2A.
-
-### I1-M2 — fechamento científico-operacional do piloto
+### I1-S2 — desenho executável mínimo
 
 **Estado:** `NEXT`
 
-Pacotes independentes:
+Entregas propostas:
 
-- **M2A — DETER Cerrado**;
-- M2B — DETER Amazônia;
-- M2C — DETER Pantanal;
-- M2D — PRODES, dividido por famílias e produtos coerentes;
-- M2E — vegetação secundária;
-- M2F — Dynamic World V1;
-- M2G — TerraClass Amazônia 2020.
+- modelo mínimo para `organizations`, `catalog_entries`, `entry_variables` e `entry_evidence`;
+- `connector_profiles` como extensão opcional;
+- mapeamento dos registros existentes para o novo núcleo;
+- compatibilidade de leitura com o staging e os CSVs atuais;
+- migração idempotente e reversível;
+- exportação apropriada ao website.
 
-Critério de completude por produto/release:
+O desenho deve evitar remoções destrutivas. Tabelas profundas existentes podem permanecer como legado técnico ou extensão inativa até decisão de migração posterior.
 
-- identidade e produtor;
-- significado, variáveis e classes;
-- método versionado;
-- perfis espacial e temporal;
-- qualidade, validação, incerteza e limitações;
-- distribuição, ativo, endpoint e capacidades;
-- licença e citação;
-- evidências por afirmação;
-- revisão curatorial;
-- gates executáveis e auditoria do delta.
-
-### I1-M3 — resolução das 51 fontes legadas
+### I1-S3 — validação com casos heterogêneos
 
 **Estado:** `PLANNED`
 
-Objetivo:
+Casos iniciais:
 
-- resolver cada registro como organização, fonte, família, produto, distribuição, capacidade ou item não resolvido;
-- identificar produtos reais escondidos em plataformas;
-- registrar propostas sem substituir silenciosamente a autoridade pública;
-- promover seletivamente somente unidades suficientes.
+1. GEDI — missão e coleção com muitos produtos internos;
+2. DETER Cerrado — monitoramento operacional;
+3. IBGE — fonte territorial e estatística ampla;
+4. ANA/SNIRH — plataforma com séries, tabelas, arquivos e serviços.
 
-Primeiro cursor preservado: `DR0001 — Clima Gerais`.
+Critério de aprovação:
 
-### I1-M4 — expansão brasileira prioritária
+- nenhuma necessidade de inventário integral;
+- ausência de proliferação de entidades;
+- campos essenciais preenchíveis;
+- significado suficiente para o usuário;
+- links oficiais úteis;
+- possibilidade de identificar conectores sem ativar a Instância 2.
+
+### I1-S4 — revisão das entradas atuais
 
 **Estado:** `PLANNED`
 
-Ordem inicial:
+Objetivos:
 
-1. MapBiomas;
-2. TerraBrasilis / INPE;
-3. IBGE;
-4. ANA / SNIRH;
-5. DATASUS;
-6. INMET;
-7. Embrapa;
-8. ICMBio e MMA;
-9. produtos internacionais com cobertura sistemática do Brasil.
+- classificar os 51 registros legados como entradas de catálogo;
+- consolidar duplicatas reais;
+- preservar entradas amplas quando forem úteis;
+- criar subentradas apenas por diferença material;
+- identificar variáveis, temas, cobertura e acesso;
+- registrar lacunas e estado curatorial;
+- evitar enumeração completa das plataformas.
 
-Cada família relevante deve possuir estratégia de enumeração: `complete`, `family_level`, `external_index`, `representative_sample` ou `selective`.
+O primeiro lote deve ser pequeno e representar diferentes tipos de entrada.
 
-### I1-M5 — interface sustentada pelo banco
+### I1-S5 — website dinâmico
 
-**Estado:** `BLOCKED_BY_MATURITY`
+**Estado:** `BLOCKED_BY_MODEL_VALIDATION`
 
-Entregas futuras:
+Entregas:
 
-- busca por produto, variável, objeto observado, método, qualidade e acesso;
-- filtros espaciais e temporais estruturados;
-- perfis públicos de produto e release;
-- evidências e data de revisão;
-- exportações reproduzíveis.
+- busca textual;
+- filtros por organização, tema, modalidade, variável, cobertura, período e acesso;
+- fichas de entrada;
+- links oficiais diferenciados;
+- indicação simples de conectividade futura;
+- exportação de metadados do catálogo.
 
-A interface não deve depender de campos agregados ambíguos.
+Não inclui visualização federada de dados externos.
 
-### I1-M6 — prontidão e promoção canônica
+### I1-S6 — autoridade relacional
 
 **Estado:** `BLOCKED_BY_GATES`
 
 Entregas:
 
-- auditoria transversal do esquema e dos dados;
-- importação e exportação reproduzíveis;
-- backups e migrações;
-- API ou camada de leitura;
-- sincronização do site e dos espelhos;
-- resolução das ocorrências críticas e altas;
+- auditoria transversal do modelo simplificado;
+- migração e exportação reproduzíveis;
+- backup e recuperação;
+- integração do website;
 - decisão humana de promoção.
 
-Somente após esse gate PostgreSQL/PostGIS poderá substituir os CSVs como autoridade canônica.
+Somente após esse gate o PostgreSQL poderá substituir os CSVs como autoridade canônica.
 
-### I1-M7 — migração privada controlada
+### I1-S7 — migração privada controlada
 
 **Estado:** `BLOCKED_BY_I1_COMPLETION`
 
-Preparar:
+Preparar inventário, hashes, backup, baseline limpa, CI, proteção de branch e separação entre núcleo privado e presença pública autorizada. Criação, visibilidade e encerramento de repositório exigem autorização humana explícita.
 
-- manifesto e inventário;
-- hashes e backup integral;
-- baseline limpa;
-- histórico selecionado;
-- CI e proteção de branch;
-- revalidação completa;
-- separação entre núcleo privado e presença pública autorizada.
+## 4. Workflow permanente
 
-Criação, visibilidade e encerramento de repositório exigem autorização humana explícita.
+### Curadoria de entradas
 
-## 4. Workstreams permanentes
+Identidade, resumo, modalidades, variáveis, temas, cobertura, resolução material, atualização, acesso, licença, citação e links oficiais.
 
-### Curadoria científica
+### Evidência proporcional
 
-Significado, variáveis, métodos, escalas, qualidade, incerteza, limitações e evidências.
+Registrar suporte suficiente para os campos materiais, sem produzir pacotes forenses por entrada.
 
-### Curadoria operacional
+### Arquitetura mínima
 
-URLs, formatos, APIs, serviços, autenticação, licenças, testes de acesso e ativos.
-
-### Arquitetura de dados
-
-Normalização, IDs, chaves, migrações, taxonomias, importação e exportação.
+Manter integridade, IDs, migrações, staging, exportações e critérios de expansão do esquema.
 
 ### Qualidade e governança
 
-Auditoria, ocorrências, duplicidade, versões, rastreabilidade, CI e gates humanos.
+Auditar escopo, duplicidade, links, estados curatoriais, CI e gates humanos.
 
-## 5. Backlog preservado
+## 5. Backlog
 
-### Instância 2 — composição geográfica
+### Instância 2 — visualização federada
 
-Poderá incluir composição visual, mapas sincronizados, perfis territoriais, recortes e receitas documentadas. Não deve atribuir compatibilidade científica universal.
+Poderá usar APIs, WMS/WFS, STAC, Earth Engine e outros conectores para carregar dados externos. Cada conector será implementado seletivamente e não exigirá inventário prévio da plataforma inteira.
 
-### Instância 3 — contexto científico
+### Instância 3 — literatura científica
 
-Poderá recuperar literatura curada por fenômeno, território, escala, período e método, distinguindo evidência direta, análoga e metodológica.
+Poderá usar corpus curado para contextualizar entradas e visualizações. Não define a granularidade da Instância 1.
 
-Nenhuma das duas instâncias deve receber implementação ativa antes da maturidade e promoção da Instância 1.
+### Extensões semânticas
+
+EBV, EESV, DCAT, STAC, SOSA/SSN, PROV-O, EML e Darwin Core podem orientar crosswalks futuros. Não devem ampliar automaticamente o núcleo.
 
 ## 6. Critério de sucesso
 
-O catálogo deve responder com precisão:
+A Instância 1 terá sucesso quando o usuário puder responder:
 
-- o que o produto representa;
-- qual release está em uso;
-- quais variáveis contém;
-- como foi produzido;
-- qual é o suporte espacial e temporal;
-- quais limitações e incertezas existem;
+- quem oferece os dados;
+- o que a entrada oferece;
+- quais temas, modalidades e variáveis principais estão presentes;
+- onde e quando os dados se aplicam;
+- qual resolução ou suporte é material para interpretação;
 - como acessar;
-- qual licença e citação se aplicam;
-- quais evidências sustentam cada afirmação material.
+- se o acesso é gratuito ou requer autenticação;
+- onde encontrar metadados, método, licença e citação;
+- se existe candidato a conector futuro.
+
+Não é requisito responder toda a genealogia, todas as versões ou todos os arquivos disponíveis na fonte.
