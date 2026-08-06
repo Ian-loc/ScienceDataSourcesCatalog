@@ -166,7 +166,7 @@
   ],
   "normalization_rules": [
     "usar e6e15388-4ca9-49b9-aec9-03891339a35e somente como identificador do registro de metadados corrente do DETER Cerrado",
-    "preservar a5220c18-f7fa-4e3-b39b-feeb3ccc4830 como referência publicada histórica e não como identidade corrente do DETER Cerrado",
+    "preservar a5220c18-f7fa-4e3e-b39b-feeb3ccc4830 como referência publicada histórica e não como identidade corrente do DETER Cerrado",
     "não tratar alertas DETER Cerrado como taxa mensal ou anual de supressão",
     "não tratar o conjunto como inventário anual completo ou release PRODES Cerrado",
     "não herdar classes, endpoints, métodos, métricas ou ativos do DETER Amazônia, DETER Pantanal ou PRODES",
