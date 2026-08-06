@@ -4,6 +4,18 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 
 ## Não lançado
 
+### Sanity pós-Marco 1
+
+- nome canônico padronizado como **Simbiotrama**;
+- criado `docs/PROJECT_STATE.md` para classificar `ACTIVE`, `BACKLOG`, `LEGACY_OPERATIONAL`, `RETIRED` e `HISTORICAL_EVIDENCE`;
+- criado roadmap canônico `docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md`;
+- caminho antigo do roadmap do Simbioscópio convertido em alias aposentado para preservar links históricos;
+- governança, direção científica, decisão arquitetural e README alinhados ao estado pós-Marco 1;
+- PR #53 fechado como `superseded`, sem incorporação de registros paralelos ou classes universais de compatibilidade;
+- documentação de marcos reduzida ao registro consolidado, política de pacotes, índice e estado legível por máquina;
+- explorador visual N0 e `data/federated_layers.json` classificados como legado operacional sem desenvolvimento analítico ativo;
+- validador científico ampliado para testar autoridade, ciclo de vida, roadmap, nomenclatura e preservação do legado N0.
+
 ### Adicionado — Instância 1
 
 - decisão estratégica que estabelece a **Instância 1 — Catálogo relacional científico-operacional** como foco ativo;
@@ -25,16 +37,16 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 - separação normativa reforçada entre organização, fonte, família, produto, release, distribuição, ativo e variável;
 - catálogos genéricos, serviços de processamento e visualizadores deixam de ser tratados como produtos científicos;
 - README, direção científica, roadmap, modelo de produtos e dicionário de dados harmonizados com a Instância 1;
-- Instâncias 2 e 3 registradas somente como ambições futuras;
-- política de comparabilidade e inferência movida para estado de guardrail futuro, sem workstream analítico ativo.
+- Instâncias 2 e 3 registradas somente como backlog;
+- política de comparabilidade e inferência mantida como guardrail futuro, sem workstream analítico ativo.
 
 ### Preservado do desenvolvimento anterior
 
 - camada pública atual de fontes, produtos e distribuições;
-- Explorador Federado como protótipo N0, sem promoção a núcleo consolidado;
+- Explorador Federado como protótipo N0 e legado operacional, sem promoção a núcleo consolidado;
 - classificação territorial Brasil-primeiro;
 - Dynamic World V1 como produto piloto selecionado;
-- contratos experimentais de variáveis, comparabilidade e relações, mantidos sem promoção automática ao modelo canônico;
+- contratos experimentais de variáveis, comparabilidade e relações, mantidos em backlog sem promoção automática ao modelo canônico;
 - validações, governança, contribuição e política de releases;
 - separação de autoria, citação, licença e proveniência.
 
@@ -45,7 +57,8 @@ Este projeto segue versionamento semântico. Alterações ainda não publicadas 
 - ausência de releases explícitos entre produto e distribuição;
 - ausência de estrutura relacional para evidência por campo e revisão curatorial;
 - falta de distinção entre descrição do produto, mensagem científica e usos potenciais;
-- falta de uma estratégia executável de migração dos CSVs.
+- falta de estratégia executável de migração dos CSVs;
+- duplicação normativa entre checkpoints, notas, autorizações e ponteiros transitórios de execução.
 
 ## 0.7.0 — 2026-07-18
 
