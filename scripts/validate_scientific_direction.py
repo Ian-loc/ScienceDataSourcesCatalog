@@ -1,42 +1,40 @@
 #!/usr/bin/env python3
-"""Validate the minimum-sufficient scope of Simbiotrama Instance 1.
-
-This gate protects the active catalog direction without deleting the deep relational
-schema incorporated in Milestone 1. It validates active authority, scope boundaries,
-legacy classification, and the N0 explorer safeguards.
-"""
+"""Validate Simbiotrama Instance 1 scope, authority, and legacy safeguards."""
 from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 
-FILES = {
+PATHS = {
+    "scope_contract": ROOT / "config" / "instance1_scope_contract.json",
     "project_state": ROOT / "docs" / "PROJECT_STATE.md",
     "direction": ROOT / "docs" / "PROJECT_SCIENTIFIC_DIRECTION.md",
     "instance1": ROOT / "docs" / "INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md",
+    "scope_policy": ROOT / "docs" / "policies" / "INSTANCE_1_SCOPE_AND_GRANULARITY_POLICY.md",
     "decision_minimum": ROOT / "docs" / "decisions" / "DEC-INSTANCE1-MINIMUM-SUFFICIENT-CATALOG.md",
     "decision_deep": ROOT / "docs" / "decisions" / "DEC-INSTANCE1-RELATIONAL-CORE.md",
-    "scope_policy": ROOT / "docs" / "policies" / "INSTANCE_1_SCOPE_AND_GRANULARITY_POLICY.md",
-    "future_policy": ROOT / "docs" / "policies" / "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md",
     "roadmap": ROOT / "docs" / "roadmap" / "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md",
     "roadmap_alias": ROOT / "docs" / "roadmap" / "SIMBIOSCOPE_IMPLEMENTATION_ROADMAP.md",
     "curation": ROOT / "docs" / "roadmap" / "INSTANCE_1_CURATION_WORKFLOW.md",
     "migration_plan": ROOT / "docs" / "roadmap" / "INSTANCE_1_MINIMUM_SCHEMA_MIGRATION_PLAN.md",
     "golden_cases": ROOT / "docs" / "audits" / "INSTANCE_1_MINIMUM_MODEL_GOLDEN_CASES_2026-08-06.md",
-    "database_readme": ROOT / "database" / "README.md",
-    "core_sql": ROOT / "database" / "schema" / "001_instance1_core.sql",
-    "staging_sql": ROOT / "database" / "schema" / "002_legacy_staging.sql",
-    "registry": ROOT / "data" / "federated_layers.json",
-    "explorer": ROOT / "explorer.html",
+    "realignment_audit": ROOT / "docs" / "audits" / "INSTANCE_1_SCOPE_REALIGNMENT_AUDIT_2026-08-06.md",
+    "future_policy": ROOT / "docs" / "policies" / "SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md",
     "readme": ROOT / "README.md",
     "governance": ROOT / "docs" / "GOVERNANCE.md",
     "methodology": ROOT / "METHODOLOGY.md",
     "product_model": ROOT / "PRODUCT_CATALOG_MODEL.md",
     "codebook": ROOT / "CODEBOOK.md",
     "selection": ROOT / "SELECTION_AND_COVERAGE_POLICY.md",
+    "database_readme": ROOT / "database" / "README.md",
     "pr_template": ROOT / ".github" / "pull_request_template.md",
+    "core_sql": ROOT / "database" / "schema" / "001_instance1_core.sql",
+    "staging_sql": ROOT / "database" / "schema" / "002_legacy_staging.sql",
+    "registry": ROOT / "data" / "federated_layers.json",
+    "explorer": ROOT / "explorer.html",
     "milestone_status": ROOT / "docs" / "milestones" / "MILESTONE_STATUS.json",
 }
 
@@ -46,44 +44,138 @@ BACKLOG_SCHEMAS = (
     ROOT / "schema" / "scientific-relation-evidence-v0.1.json",
 )
 
+EXPECTED_ENTRY_TYPES = [
+    "source",
+    "platform",
+    "collection",
+    "data_product",
+    "data_service",
+]
+EXPECTED_CORE_ENTITIES = [
+    "organizations",
+    "catalog_entries",
+    "entry_variables",
+    "entry_evidence",
+]
+EXPECTED_OPTIONAL_ENTITIES = ["connector_profiles"]
+EXPECTED_SCOPE_USES = [
+    "catalog_discovery",
+    "minimum_interpretation",
+    "website_filter_or_display",
+    "selected_connector",
+]
+EXPECTED_STATUSES = [
+    "needs_review",
+    "partially_verified",
+    "verified",
+    "not_found",
+    "not_applicable",
+]
+EXPECTED_GOLDEN_CASES = ["GEDI", "DETER Cerrado", "IBGE", "ANA/SNIRH"]
+EXPECTED_NON_MATERIAL_SPLITS = {
+    "file",
+    "format",
+    "layer",
+    "band",
+    "endpoint",
+    "internal_table",
+    "directory",
+    "technical_update",
+}
+EXPECTED_FORBIDDEN_ROUTINE_REQUIREMENTS = {
+    "complete_release_resolution",
+    "asset_inventory",
+    "byte_inspection",
+    "checksum",
+    "complete_physical_schema",
+    "all_layers_inventory",
+    "all_endpoints_validation",
+    "file_level_license",
+    "file_level_citation",
+    "forensic_evidence_package",
+}
+
 
 def fail(message: str) -> None:
     raise SystemExit(f"ERRO: {message}")
 
 
-def read(name: str) -> str:
-    path = FILES[name]
+def text(name: str) -> str:
+    path = PATHS[name]
     if not path.exists() or path.stat().st_size == 0:
         fail(f"arquivo ausente ou vazio: {path.relative_to(ROOT)}")
     return path.read_text(encoding="utf-8")
 
 
-def require_all(name: str, required: tuple[str, ...]) -> None:
-    text = read(name)
-    missing = [token for token in required if token not in text]
-    if missing:
-        fail(f"{FILES[name].relative_to(ROOT)} sem requisitos: {missing}")
-
-
-def forbid_any(name: str, forbidden: tuple[str, ...]) -> None:
-    text = read(name)
-    present = [token for token in forbidden if token in text]
-    if present:
-        fail(f"{FILES[name].relative_to(ROOT)} contém direção aposentada: {present}")
-
-
-# Every declared contract must exist before semantic checks run.
-for file_name in FILES:
-    read(file_name)
-for path in BACKLOG_SCHEMAS:
+def json_object(path: Path) -> dict[str, Any]:
     if not path.exists() or path.stat().st_size == 0:
-        fail(f"arquivo ausente ou vazio: {path.relative_to(ROOT)}")
+        fail(f"JSON ausente ou vazio: {path.relative_to(ROOT)}")
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        fail(f"JSON inválido em {path.relative_to(ROOT)}: {exc}")
+    if not isinstance(value, dict):
+        fail(f"JSON raiz não é objeto: {path.relative_to(ROOT)}")
+    return value
 
-# Active authority and lifecycle.
-require_all(
+
+def require_tokens(name: str, required: tuple[str, ...]) -> None:
+    value = text(name)
+    missing = [token for token in required if token not in value]
+    if missing:
+        fail(f"{PATHS[name].relative_to(ROOT)} sem requisitos: {missing}")
+
+
+def forbid_tokens(name: str, forbidden: tuple[str, ...]) -> None:
+    value = text(name)
+    present = [token for token in forbidden if token in value]
+    if present:
+        fail(f"{PATHS[name].relative_to(ROOT)} contém direção aposentada: {present}")
+
+
+# 1. Machine-readable scope contract.
+for name in PATHS:
+    text(name)
+contract = json_object(PATHS["scope_contract"])
+
+if contract.get("contract_version") != "1.0.0":
+    fail("versão inesperada do contrato de escopo")
+if contract.get("project") != "Simbiotrama":
+    fail("projeto inconsistente no contrato de escopo")
+if contract.get("central_unit") != "catalog_entry":
+    fail("unidade central deve ser catalog_entry")
+if contract.get("entry_types") != EXPECTED_ENTRY_TYPES:
+    fail("entry_types divergentes do contrato aprovado")
+if contract.get("core_entities") != EXPECTED_CORE_ENTITIES:
+    fail("core_entities divergentes do núcleo mínimo")
+if contract.get("optional_entities") != EXPECTED_OPTIONAL_ENTITIES:
+    fail("optional_entities divergentes")
+if contract.get("scope_gate_use_cases") != EXPECTED_SCOPE_USES:
+    fail("gate de escopo divergente")
+if contract.get("curation_statuses") != EXPECTED_STATUSES:
+    fail("estados curatoriais divergentes")
+if contract.get("golden_cases") != EXPECTED_GOLDEN_CASES:
+    fail("casos dourados divergentes")
+if set(contract.get("non_material_split_reasons", [])) != EXPECTED_NON_MATERIAL_SPLITS:
+    fail("razões não materiais de subdivisão divergentes")
+if set(contract.get("routine_requirements_forbidden", [])) != EXPECTED_FORBIDDEN_ROUTINE_REQUIREMENTS:
+    fail("requisitos rotineiros proibidos divergentes")
+for flag in (
+    "external_dataset_storage",
+    "external_catalog_replication",
+    "full_genealogy_required",
+):
+    if contract.get(flag) is not False:
+        fail(f"{flag} deve permanecer false")
+if contract.get("merge_requires_exact_sha_authorization") is not True:
+    fail("merge deve exigir autorização do SHA exato")
+if contract.get("instance_2_status") != "backlog" or contract.get("instance_3_status") != "backlog":
+    fail("Instâncias 2 e 3 devem permanecer em backlog")
+
+# 2. Active authority must reflect the contract.
+require_tokens(
     "project_state",
     (
-        "Simbiotrama — Catálogo de Dados Científicos do Brasil",
         "entrada de catálogo de granularidade mínima suficiente",
         "I1-S1 — simplificação governada da Instância 1",
         "PR #57",
@@ -94,52 +186,40 @@ require_all(
         "`HISTORICAL_EVIDENCE`",
     ),
 )
-require_all(
+require_tokens(
     "direction",
     (
         "entrada de catálogo",
-        "granularidade",
-        "Organização",
         "metadados essenciais",
         "Instância 2",
         "Instância 3",
         "PostgreSQL/PostGIS",
     ),
 )
-require_all(
+require_tokens(
     "instance1",
-    (
-        "catalog_entry",
-        "organizations",
-        "catalog_entries",
-        "entry_variables",
-        "entry_evidence",
-        "connector_profiles",
-        "Critério de completude",
-    ),
+    tuple(EXPECTED_CORE_ENTITIES + EXPECTED_OPTIONAL_ENTITIES)
+    + ("catalog_entry", "Critério de completude"),
 )
-require_all(
+require_tokens(
     "scope_policy",
     (
         "granularidade mínima suficiente",
-        "Não se cria nova entrada apenas",
         "Gate para expansão do esquema",
-        "descoberta no catálogo",
-        "configuração de um conector selecionado",
+        "Não se cria nova entrada apenas",
         "O Simbiotrama não é",
     ),
 )
-require_all(
+require_tokens(
     "decision_minimum",
     (
         "catálogo de granularidade mínima suficiente",
         "catalog_entry",
         "não será apagada de forma destrutiva",
         "PR #57",
-        "superseded",
     ),
 )
-require_all(
+require_tokens(
     "decision_deep",
     (
         "**Estado atual:** `SUPERSEDED`",
@@ -148,16 +228,16 @@ require_all(
     ),
 )
 
-# Work plan and stopping rule.
-roadmap = read("roadmap")
+# 3. Roadmap, workflow, migration, and golden cases.
+roadmap = text("roadmap")
 for milestone in ("I1-M1", "I1-S1", "I1-S2", "I1-S3", "I1-S4", "I1-S5", "I1-S6", "I1-S7"):
     if milestone not in roadmap:
-        fail(f"roadmap sem marco vigente: {milestone}")
-for case_name in ("GEDI", "DETER Cerrado", "IBGE", "ANA/SNIRH"):
+        fail(f"roadmap sem marco: {milestone}")
+for case_name in EXPECTED_GOLDEN_CASES:
     if case_name not in roadmap:
-        fail(f"roadmap sem caso de validação: {case_name}")
+        fail(f"roadmap sem caso dourado: {case_name}")
 
-require_all(
+require_tokens(
     "curation",
     (
         "entrada de catálogo suficientemente descrita",
@@ -167,31 +247,27 @@ require_all(
         "Uma entrada pode ser `verified`",
     ),
 )
-require_all(
+require_tokens(
     "migration_plan",
-    (
-        "migração sem perda, idempotente e reversível",
-        "catalog.catalog_entries",
-        "catalog.entry_variables",
-        "catalog.entry_evidence",
-        "catalog.connector_profiles",
-        "data_assets",
-        "não promovido ao núcleo",
-    ),
+    tuple(f"catalog.{entity}" for entity in EXPECTED_CORE_ENTITIES[1:] + EXPECTED_OPTIONAL_ENTITIES)
+    + ("migração sem perda, idempotente e reversível", "não promovido ao núcleo"),
 )
-require_all(
+require_tokens(
     "golden_cases",
+    tuple(EXPECTED_GOLDEN_CASES) + ("inventário integral", "Testes adversariais"),
+)
+require_tokens(
+    "realignment_audit",
     (
-        "GEDI",
-        "DETER Cerrado",
-        "IBGE",
-        "ANA/SNIRH",
-        "inventário integral",
-        "Testes adversariais",
+        "Ocorrência operacional",
+        "criação da branch",
+        "Controle preventivo",
+        "PR #57",
+        "PR #58",
     ),
 )
 
-# Public and operational documents must present the same target.
+# 4. Public and operational documents use the same minimal target.
 for name in (
     "readme",
     "governance",
@@ -201,19 +277,10 @@ for name in (
     "selection",
     "database_readme",
 ):
-    require_all(name, ("entrada", "catálogo"))
+    require_tokens(name, ("entrada", "catálogo"))
 
-require_all(
-    "readme",
-    (
-        "catalog_entries",
-        "entry_variables",
-        "entry_evidence",
-        "connector_profiles",
-        "O que não é requisito universal",
-    ),
-)
-require_all(
+require_tokens("readme", tuple(EXPECTED_CORE_ENTITIES + EXPECTED_OPTIONAL_ENTITIES))
+require_tokens(
     "governance",
     (
         "Gate de escopo",
@@ -221,43 +288,11 @@ require_all(
         "autorização é válida apenas para o SHA exato",
     ),
 )
-require_all(
-    "methodology",
-    (
-        "Regra de granularidade",
-        "Critério de parada",
-        "não é rotina da Instância 1",
-    ),
-)
-require_all(
-    "product_model",
-    (
-        "Entrada de catálogo",
-        "Perfil de conector",
-        "Não criar nova entrada somente por",
-    ),
-)
-require_all(
-    "codebook",
-    (
-        "Núcleo mínimo proposto",
-        "catalog_entries",
-        "entry_variables",
-        "entry_evidence",
-        "connector_profiles",
-        "Estruturas profundas legadas",
-    ),
-)
-require_all(
-    "database_readme",
-    (
-        "legado técnico/extensão futura",
-        "Núcleo mínimo proposto",
-        "não promover automaticamente",
-        "Comando destrutivo",
-    ),
-)
-require_all(
+require_tokens("methodology", ("Regra de granularidade", "Critério de parada", "não é rotina da Instância 1"))
+require_tokens("product_model", ("Entrada de catálogo", "Perfil de conector", "Não criar nova entrada somente por"))
+require_tokens("codebook", tuple(EXPECTED_CORE_ENTITIES + EXPECTED_OPTIONAL_ENTITIES) + ("Estruturas profundas legadas",))
+require_tokens("database_readme", ("legado técnico/extensão futura", "Núcleo mínimo proposto", "Comando destrutivo"))
+require_tokens(
     "pr_template",
     (
         "Gate de escopo",
@@ -267,8 +302,13 @@ require_all(
     ),
 )
 
-# Canonical documents may mention the deep model as retired history, but cannot
-# present its former completeness rule as active policy.
+# 5. Canonical documents cannot reactivate retired completeness rules.
+retired_phrases = (
+    "A unidade de trabalho é **um produto ou release integralmente inspecionado**",
+    "A unidade de progresso é um produto ou release integralmente inspecionado",
+    "Cada produto deve possuir um perfil organizado em seis blocos",
+    "uma base relacional profunda de produtos de dados",
+)
 for name in (
     "project_state",
     "direction",
@@ -282,19 +322,10 @@ for name in (
     "codebook",
     "selection",
 ):
-    forbid_any(
-        name,
-        (
-            "A unidade de trabalho é **um produto ou release integralmente inspecionado**",
-            "A unidade de progresso é um produto ou release integralmente inspecionado",
-            "Cada produto deve possuir um perfil organizado em seis blocos",
-            "release vigente e vínculo metodológico" if name != "project_state" else "__never__",
-        ),
-    )
+    forbid_tokens(name, retired_phrases)
 
-# Preserve the executable Milestone 1 schema and staging until the additive
-# migration is implemented and authorized.
-require_all(
+# 6. Preserve Milestone 1 SQL and staging until the additive migration exists.
+require_tokens(
     "core_sql",
     (
         "CREATE SCHEMA IF NOT EXISTS catalog",
@@ -305,7 +336,7 @@ require_all(
         "CREATE TABLE catalog.metadata_assertions",
     ),
 )
-require_all(
+require_tokens(
     "staging_sql",
     (
         "CREATE SCHEMA IF NOT EXISTS staging",
@@ -316,12 +347,9 @@ require_all(
     ),
 )
 
-# Backlog schemas remain syntactically valid but do not become active authority.
+# 7. Backlog schemas remain valid JSON Schema contracts, but not active authority.
 for schema_path in BACKLOG_SCHEMAS:
-    try:
-        schema = json.loads(schema_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        fail(f"JSON inválido em {schema_path.relative_to(ROOT)}: {exc}")
+    schema = json_object(schema_path)
     for field in ("$schema", "$id", "title", "type", "required", "properties"):
         if field not in schema:
             fail(f"{schema_path.name}: campo ausente: {field}")
@@ -330,11 +358,8 @@ for schema_path in BACKLOG_SCHEMAS:
     if schema["type"] != "object":
         fail(f"{schema_path.name}: raiz deve ser objeto")
 
-require_all(
-    "roadmap_alias",
-    ("`RETIRED_ALIAS`", "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md"),
-)
-require_all(
+require_tokens("roadmap_alias", ("`RETIRED_ALIAS`", "SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md"))
+require_tokens(
     "future_policy",
     (
         "guardrail futuro",
@@ -344,8 +369,8 @@ require_all(
     ),
 )
 
-# The currently published explorer remains legacy N0.
-registry = json.loads(FILES["registry"].read_text(encoding="utf-8"))
+# 8. The published explorer remains legacy N0.
+registry = json_object(PATHS["registry"])
 if registry.get("registry_version") != "0.2.0":
     fail("registro federado legado deve permanecer na versão 0.2.0")
 if registry.get("operation_mode") != "visual_composition_only":
@@ -355,13 +380,13 @@ if registry.get("inference_ceiling") != "N0":
 if registry.get("analytical_use_allowed") is not False:
     fail("explorador legado deve proibir uso analítico")
 
-layers = registry.get("layers", [])
-if not layers:
+layers = registry.get("layers")
+if not isinstance(layers, list) or not layers:
     fail("registro federado sem camadas")
 for layer in layers:
     layer_id = layer.get("layer_id", "sem_id")
     if layer.get("compatibility_class") != "C":
-        fail(f"{layer_id}: artefato legado deve preservar classe C")
+        fail(f"{layer_id}: classe legado deve ser C")
     if layer.get("inference_ceiling") != "N0":
         fail(f"{layer_id}: teto deve ser N0")
     if layer.get("analytical_use_allowed") is not False:
@@ -369,7 +394,7 @@ for layer in layers:
     if layer.get("operation_scope") != ["visual_overlay"]:
         fail(f"{layer_id}: escopo deve permanecer visual_overlay")
 
-require_all(
+require_tokens(
     "explorer",
     (
         "N0 — composição visual",
@@ -378,7 +403,8 @@ require_all(
     ),
 )
 
-milestone_status = json.loads(FILES["milestone_status"].read_text(encoding="utf-8"))
+# 9. Milestone 1 remains incorporated; future instances remain inactive.
+milestone_status = json_object(PATHS["milestone_status"])
 if milestone_status.get("project") != "Simbiotrama":
     fail("estado do Marco 1 com nome inconsistente")
 if milestone_status.get("status") != "INCORPORATED":
@@ -389,6 +415,6 @@ if milestone_status.get("legacy_n0_explorer_active_development") is not False:
     fail("explorador legado não pode estar em desenvolvimento ativo")
 
 print(
-    "OK: direção mínima da Instância 1 validada — autoridade, granularidade, "
+    "OK: contrato da Instância 1 mínima validado — autoridade, granularidade, "
     "critério de parada, migração sem perda e legado N0 coerentes"
 )
