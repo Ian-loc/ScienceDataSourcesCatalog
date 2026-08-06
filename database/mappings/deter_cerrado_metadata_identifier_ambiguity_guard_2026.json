@@ -1,0 +1,70 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000003",
+  "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
+  "observed_at": "2026-08-06T09:35:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "metadata_identifier_under_review": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+  "status": "official_index_context_conflict_detected_identifier_not_stable_for_product_or_release",
+  "conflicting_official_contexts": [
+    {
+      "role": "deter_cerrado_metadata_reference",
+      "publisher": "INPE / TerraBrasilis / BiomasBR",
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "observed_claim": "o UUID é apresentado no contexto da citação e do metadado do conjunto DETER Cerrado"
+    },
+    {
+      "role": "prodes_amazon_geopackage_component_reference",
+      "publisher": "INPE / BIG GeoNetwork",
+      "url": "https://data.inpe.br/geonetwork/srv/search?format=GeoPackage",
+      "observed_claim": "o mesmo UUID aparece indexado como metadado do componente Incrementos no desmatamento do GeoPackage PRODES Amazônia Legal"
+    }
+  ],
+  "verified_state": {
+    "same_uuid_observed_in_distinct_official_contexts": true,
+    "direct_geonetwork_record_reconciled": false,
+    "identifier_uniqueness_verified": false,
+    "identifier_stability_verified": false,
+    "identifier_is_product_id": false,
+    "identifier_is_release_id": false,
+    "identifier_is_asset_id": false,
+    "metadata_record_current_subject_resolved": false,
+    "product_promotion_blocked_by_identifier_ambiguity": true
+  },
+  "interpretation": {
+    "collision_type": "contextual_reference_conflict_or_indexing_drift",
+    "compromise_claimed": false,
+    "record_reuse_claimed": false,
+    "root_cause_resolved": false,
+    "safe_conclusion": "o UUID não pode sustentar sozinho identidade de produto, release, distribuição ou ativo até inspeção direta e reconciliação do registro GeoNetwork"
+  },
+  "normalization_rules": [
+    "não usar o UUID como identificador estável do produto DETER Cerrado",
+    "não usar o UUID como identificador de release, distribuição, ativo, feição ou pacote",
+    "não escolher silenciosamente um dos contextos oficiais conflitantes",
+    "não afirmar comprometimento, reutilização intencional ou erro do produtor sem evidência direta",
+    "preservar ambos os contextos como evidência datada",
+    "exigir inspeção direta do registro GeoNetwork, título, escopo, lineage, links e data de revisão antes de promoção",
+    "vincular produto e release por conjunto convergente de evidências, não por UUID isolado",
+    "manter release, URL direta, bytes, checksum, licença e citação da release como não resolvidos"
+  ],
+  "required_resolution_steps": [
+    "recuperar diretamente o registro GeoNetwork pelo UUID em endpoint oficial funcional",
+    "confirmar título, abstract, resource identifier, lineage, distribuição e responsáveis atuais",
+    "comparar versões em português e inglês e eventuais catálogos espelhados",
+    "verificar se o índice de busca está desatualizado, agregado ou com referência cruzada incorreta",
+    "registrar data/hora, resposta HTTP e conteúdo recuperado",
+    "somente então decidir se o UUID pode identificar um registro de metadado específico"
+  ],
+  "official_evidence": [
+    {
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "supports": ["contexto DETER Cerrado", "orientação de citação", "referência ao UUID"]
+    },
+    {
+      "url": "https://data.inpe.br/geonetwork/srv/search?format=GeoPackage",
+      "supports": ["contexto GeoPackage PRODES Amazônia Legal", "mesmo UUID associado a incrementos no desmatamento"]
+    }
+  ]
+}
