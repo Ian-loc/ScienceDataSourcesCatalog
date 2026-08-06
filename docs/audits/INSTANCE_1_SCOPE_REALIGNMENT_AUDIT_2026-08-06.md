@@ -203,7 +203,13 @@ Uma tentativa de validação local por clone foi bloqueada por falha DNS do ambi
 - revisão do PR: não iniciada validamente;
 - merge: não autorizado.
 
-## 12. Próxima unidade
+## 12. Revalidação do head
+
+Em 6 de agosto de 2026, às 18h24 (`America/Sao_Paulo`), não havia workflow associado ao head `4a0d48689a4849208219fcb006c4c59b0fcbb28e`. Este registro foi acrescentado na própria branch para produzir um novo evento `synchronize` e obter CI integral em um SHA novo, sem alterar escopo, dados, schema ou interface pública.
+
+O resultado desse workflow deve ser verificado no SHA exato gerado por este commit. O PR permanece em draft até CI integral verde e auditoria do diff.
+
+## 13. Próxima unidade
 
 1. manter o PR em draft;
 2. verificar a execução do CI no head atual;
