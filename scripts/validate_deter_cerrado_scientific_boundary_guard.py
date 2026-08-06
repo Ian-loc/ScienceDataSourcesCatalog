@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from validate_deter_cerrado_access_license_citation_guard import main as validate_access_license_citation
+from validate_deter_cerrado_endpoint_discovery_guard import main as validate_endpoint_discovery
 from validate_deter_cerrado_metadata_profile_guard import main as validate_metadata_profile
 from validate_deter_cerrado_method_profile_guard import main as validate_method_profile
 from validate_deter_cerrado_operational_legend_latency_guard import main as validate_operational_legend_latency
@@ -174,9 +175,10 @@ def main() -> int:
     validate_access_license_citation()
     validate_method_profile()
     validate_operational_legend_latency()
+    validate_endpoint_discovery()
     print(
         "OK: DETER Cerrado preserva alerta versus inventário, perfil específico expandido, "
-        "método 2024, legenda/latência, canais de acesso e promoção negativa"
+        "método 2024, legenda/latência, descoberta de endpoints e promoção negativa"
     )
     return 0
 
