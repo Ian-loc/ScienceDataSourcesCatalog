@@ -1,168 +1,150 @@
 # Science Data Sources Catalog — Simbiotrama
 
-**Catálogo relacional científico-operacional de produtos de dados georreferenciados sobre o Brasil.**
+**Catálogo relacional de fontes e ofertas de dados científicos, com prioridade para o Brasil.**
 
-O Simbiotrama organiza fontes, famílias, produtos científicos, releases, variáveis, métodos, escalas, qualidade, formas de acesso, licenças, citações e evidências curatoriais.
+O Simbiotrama ajuda pessoas a descobrir o que uma fonte oferece, quais temas e variáveis estão disponíveis, onde e quando os dados se aplicam e como continuar o acesso na plataforma original.
 
-Seu foco ativo é a **Instância 1 — Catálogo relacional científico-operacional**: construir uma base profunda e precisa que permita descobrir não apenas onde existe um dado, mas qual informação o produto representa, como foi produzida, em que escala pode ser interpretada e como pode ser acessada.
-
-> **A vida acontece em relação. Antes de investigar relações, é preciso compreender precisamente cada informação.**
+O projeto não copia datasets externos, não reconstrói catálogos de terceiros e não exige a enumeração completa de arquivos, layers, bandas ou versões.
 
 ## Estado atual
 
-- **Marco 1:** incorporado à `main` pelos PRs #54 e #55;
+- **Marco 1:** incorporado pelos PRs #54 e #55;
+- **sanity pós-marco:** incorporado pelo PR #56;
+- **pacote ativo:** simplificação governada da Instância 1;
 - **arquitetura de destino:** PostgreSQL/PostGIS;
 - **autoridade pública transitória:** CSV/JSON atuais;
-- **foco ativo:** curadoria científica e operacional da Instância 1;
-- **Instância 2 — composição geográfica:** backlog;
-- **Instância 3 — contexto científico:** backlog;
-- **explorador visual N0:** legado operacional preservado, sem expansão analítica.
+- **Instância 2 — visualização federada:** backlog;
+- **Instância 3 — literatura científica:** backlog;
+- **explorador visual N0:** legado operacional preservado.
 
-Consulte:
+Documentos principais:
 
-- [Estado canônico e ciclo de vida](docs/PROJECT_STATE.md)
-- [Direção científica](docs/PROJECT_SCIENTIFIC_DIRECTION.md)
-- [Instância 1](docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md)
+- [Estado canônico](docs/PROJECT_STATE.md)
+- [Política de escopo e granularidade](docs/policies/INSTANCE_1_SCOPE_AND_GRANULARITY_POLICY.md)
+- [Contrato da Instância 1](docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md)
+- [Decisão de simplificação](docs/decisions/DEC-INSTANCE1-MINIMUM-SUFFICIENT-CATALOG.md)
 - [Roadmap](docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md)
-- [Workflow contínuo de curadoria](docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md)
-- [Banco relacional](database/README.md)
-- [Esquema SQL](database/schema/001_instance1_core.sql)
-- [Código, dados e documentação](https://github.com/Ian-loc/ScienceDataSourcesCatalog)
+- [Workflow de curadoria](docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md)
+- [Governança](docs/GOVERNANCE.md)
 
 ## Catálogo público atual
 
 - [Buscar fontes](https://ian-loc.github.io/ScienceDataSourcesCatalog/#catalogo)
-- [Buscar e comparar perfis de produtos](https://ian-loc.github.io/ScienceDataSourcesCatalog/products.html)
-- [Analisar a composição atual do catálogo](https://ian-loc.github.io/ScienceDataSourcesCatalog/analytics.html)
-- [Consultar método, escopo e citação](https://ian-loc.github.io/ScienceDataSourcesCatalog/about.html)
-- [Baixar o CSV público atual](data/data_resources.csv)
+- [Consultar o piloto de produtos](https://ian-loc.github.io/ScienceDataSourcesCatalog/products.html)
+- [Analisar a composição atual](https://ian-loc.github.io/ScienceDataSourcesCatalog/analytics.html)
+- [Consultar método e escopo](https://ian-loc.github.io/ScienceDataSourcesCatalog/about.html)
+- [Baixar o CSV público](data/data_resources.csv)
 
-A página publicada continua disponível durante a migração. Ela representa uma projeção simplificada e transitória, não a profundidade integral do modelo relacional.
+A página publicada permanece disponível durante a transição. Nenhuma mudança desta etapa implica deploy.
 
 ## Arquitetura da Instância 1
 
 ```text
 Organização
-  └── Fonte ou infraestrutura
-        └── Família de produtos
-              └── Produto científico
-                    └── Release, versão ou edição
-                          ├── variáveis e classes
-                          ├── método
-                          ├── perfil espacial e temporal
-                          ├── qualidade e incerteza
-                          └── distribuição
-                                ├── ativo
-                                └── capacidade de acesso
+  └── Entrada de catálogo
+        ├── temas e variáveis principais
+        ├── metadados essenciais
+        ├── evidências proporcionais
+        └── conector opcional futuro
 ```
 
-Um produto é um conjunto coerente e versionado de informações georreferenciadas, produzido por metodologia definida, com significado científico, cobertura, suporte espacial e temporal, variáveis e formas de distribuição identificáveis.
+Uma entrada pode representar:
 
-Não são produtos científicos, por si sós:
+- fonte;
+- plataforma;
+- coleção;
+- produto de dados;
+- serviço de dados.
 
-- organizações;
-- portais ou catálogos genéricos;
-- APIs ou serviços de processamento;
-- visualizadores;
-- formatos de arquivo;
-- páginas de download.
+O nível escolhido deve ser útil ao usuário. Não se cria uma nova entrada apenas porque existe outro arquivo, layer, banda, formato, endpoint ou atualização técnica.
 
-Esses objetos são registrados em entidades próprias.
+## Ficha pública
 
-## Perfil científico-operacional
+Uma entrada deve buscar, conforme disponibilidade:
 
-Cada produto ou release deve responder:
+- organização e nome oficial;
+- tipo amplo;
+- resumo e escopo científico;
+- modalidades de dados;
+- temas e variáveis principais;
+- cobertura espacial e temporal;
+- resolução ou suporte quando material;
+- atualização;
+- gratuidade e autenticação;
+- página oficial;
+- metadados;
+- acesso principal;
+- metodologia, licença e citação;
+- estado e data de verificação.
 
-- quem produz e qual versão está em uso;
-- qual fenômeno, objeto ou população representa;
-- quais variáveis, bandas, classes ou indicadores contém;
-- se é medido, administrativo, amostral, classificado, modelado, interpolado, agregado ou derivado;
-- qual é o suporte, resolução, escala, grade, CRS e extensão;
-- qual é a cobertura, janela, frequência e latência temporal;
-- quais validações, incertezas, vieses, ausências e limitações existem;
-- como acessar por download, API, serviço geoespacial ou infraestrutura computacional;
-- qual licença, citação e evidência sustentam o registro.
+A terminologia da fonte deve ser preservada. Termos simplificados podem ser adicionados para busca e filtros.
 
-Resolução, suporte e escala não são sinônimos. Incerteza não documentada não equivale a ausência de incerteza.
+## O que não é requisito universal
+
+A Instância 1 não exige, para cada entrada:
+
+- família de produtos;
+- release;
+- distribuição;
+- ativo;
+- inventário de arquivos;
+- checksum;
+- inspeção de bytes;
+- schema físico completo;
+- enumeração de endpoints;
+- pacote forense de qualidade.
+
+Esses elementos só devem ser aprofundados quando resolvem uma ambiguidade central, sustentam um filtro importante ou viabilizam um conector selecionado.
 
 ## Banco relacional e transição
 
-O modelo de destino usa PostgreSQL com PostGIS e inclui:
+O núcleo-alvo é:
 
-- organizações e fontes;
-- famílias, produtos e releases;
-- variáveis e associações produto–variável;
-- métodos;
-- perfis espaciais, temporais e de qualidade;
-- distribuições, ativos e capacidades;
-- taxonomias, citações e evidências;
-- revisões curatoriais.
+- `organizations`;
+- `catalog_entries`;
+- `entry_variables`;
+- `entry_evidence`;
+- `connector_profiles` opcional.
 
-PostGIS descreve extensão e suporte geográfico. O Simbiotrama não precisa copiar integralmente os grandes datasets externos.
+As estruturas profundas incorporadas no Marco 1 serão preservadas durante a migração e poderão permanecer como legado técnico ou extensões futuras. A simplificação deve ser idempotente, reversível e sem perda do staging.
 
-Durante a transição:
-
-- `data/data_resources.csv` — fontes da versão pública;
-- `data/data_products.csv` — piloto público de produtos;
-- `data/product_distributions.csv` — formas de acesso do piloto;
-- `database/schema/001_instance1_core.sql` — arquitetura relacional canônica de destino;
-- planilhas no Drive — snapshots ou espelhos derivados.
-
-O PostgreSQL/PostGIS somente se tornará autoridade após o gate formal de prontidão, exportações reproduzíveis e autorização humana.
+O PostgreSQL/PostGIS somente se tornará autoridade após validação, exportações reproduzíveis e autorização humana.
 
 ## Curadoria
 
-A unidade de trabalho é **um produto ou release integralmente inspecionado**.
+A unidade de trabalho é uma **entrada de catálogo suficientemente descrita**.
 
-O pipeline inclui:
+A pesquisa começa por páginas e metadados oficiais e termina quando:
 
-1. identidade e produtor;
-2. família, produto e release;
-3. significado, variáveis e classes;
-4. método;
-5. perfil espacial;
-6. perfil temporal;
-7. qualidade, incerteza e limitações;
-8. distribuições, ativos e capacidades;
-9. licença e citação;
-10. evidências por afirmação;
-11. revisão curatorial e decisão de promoção.
+1. o usuário consegue compreender o que encontrará;
+2. os campos essenciais estão sustentados;
+3. existe caminho oficial para acesso;
+4. as lacunas relevantes estão explícitas;
+5. aprofundamento adicional não mudaria materialmente a ficha pública.
 
-A prioridade é Brasil primeiro: fontes brasileiras e produtos internacionais com cobertura efetiva do país.
+## Validação inicial
 
-## Ciclo de vida
+O modelo simplificado será testado com:
 
-- `ACTIVE`: núcleo e curadoria da Instância 1;
-- `BACKLOG`: Instâncias 2 e 3, receitas e contratos analíticos futuros;
-- `LEGACY_OPERATIONAL`: explorador N0 e interface estática transitória;
-- `RETIRED` / `SUPERSEDED`: workstreams e branches substituídos;
-- `HISTORICAL_EVIDENCE`: auditorias, ocorrências, PRs e snapshots.
+- GEDI;
+- DETER Cerrado;
+- IBGE;
+- ANA/SNIRH.
 
-A classificação detalhada está em [docs/PROJECT_STATE.md](docs/PROJECT_STATE.md).
+O modelo deve representar os quatro casos sem proliferação de tabelas, inventário integral ou perda do significado necessário ao usuário.
 
-## Documentação principal
+## Instâncias futuras
 
-- [Estado do projeto](docs/PROJECT_STATE.md)
-- [Instância 1](docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md)
-- [Modelo fonte–produto–distribuição](PRODUCT_CATALOG_MODEL.md)
-- [Dicionário de dados](CODEBOOK.md)
-- [Metodologia](METHODOLOGY.md)
-- [Política de seleção e cobertura](SELECTION_AND_COVERAGE_POLICY.md)
-- [Governança](docs/GOVERNANCE.md)
-- [Política de releases](docs/RELEASE_POLICY.md)
-- [Guardrail futuro de comparabilidade e inferência](docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md)
-- [Histórico de mudanças](CHANGELOG.md)
+### Instância 2
+
+Visualização federada por APIs e conectores externos selecionados, sem armazenamento central dos datasets.
+
+### Instância 3
+
+Contextualização por literatura científica curada, sem impor profundidade adicional à Instância 1.
 
 ## Citação
 
-> CLEMENTE, Ian. *Science Data Sources Catalog — Simbiotrama: catálogo científico-operacional de produtos de dados georreferenciados sobre o Brasil*. GitHub, 2026. https://ian-loc.github.io/ScienceDataSourcesCatalog/
+> CLEMENTE, Ian. *Science Data Sources Catalog — Simbiotrama: catálogo relacional de fontes e ofertas de dados científicos*. GitHub, 2026. https://ian-loc.github.io/ScienceDataSourcesCatalog/
 
 ORCID: [0000-0003-1164-9318](https://orcid.org/0000-0003-1164-9318)
-
-A citação do catálogo não substitui a citação da fonte, do produto e da release originais.
-
-## Licenças
-
-- código: [MIT](LICENSE);
-- metadados e curadoria original: [CC BY 4.0](LICENSE-DATA.md);
-- produtos externos: licenças e termos próprios.
