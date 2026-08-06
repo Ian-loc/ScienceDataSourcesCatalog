@@ -2,41 +2,36 @@
 
 ## 1. Finalidade
 
-O Simbiotrama é um catálogo relacional científico-operacional de produtos de dados georreferenciados sobre o Brasil. Sua fase ativa é a **Instância 1**, dedicada a identificar, definir, versionar, documentar, verificar e tornar acessíveis produtos de dados com rigor científico e operacional.
+O Simbiotrama é um catálogo relacional de fontes e ofertas de dados científicos. A fase ativa é a **Instância 1**, dedicada a descoberta, compreensão e acesso por meio de metadados essenciais e links oficiais.
 
-Composição geográfica e contextualização por literatura permanecem como Instâncias 2 e 3 em backlog. Elas não constituem workstreams ativos.
+A Instância 1 não copia datasets externos, não reconstrói catálogos de terceiros e não exige decomposição completa em produtos, releases, distribuições e ativos.
+
+As Instâncias 2 e 3 permanecem em backlog.
 
 ## 2. Autoridade
 
 A hierarquia vigente é:
 
-1. branch `main`;
+1. `main`;
 2. `docs/PROJECT_STATE.md`;
-3. `docs/PROJECT_SCIENTIFIC_DIRECTION.md`;
-4. decisões aprovadas em `docs/decisions/`;
-5. esquema relacional, migrações e validadores executáveis;
+3. políticas e decisões incorporadas;
+4. contrato funcional e roadmap;
+5. esquema, migrações e validadores executáveis;
 6. dados públicos canônicos durante a transição;
-7. evidências, auditorias e revisões curatoriais;
-8. protótipos, espelhos e documentos históricos.
+7. evidências e revisões curatoriais;
+8. auditorias, protótipos e documentos históricos.
 
-Durante a transição:
+Literatura, reflexões de outros chats, branches não incorporadas e relatórios de sessão são insumos, não autoridade arquitetural.
 
-- `data/data_resources.csv`, `data/data_products.csv` e `data/product_distributions.csv` sustentam a versão pública;
-- PostgreSQL/PostGIS é a arquitetura canônica de destino, mas ainda não a autoridade de produção;
-- planilhas do Google Drive são snapshots ou espelhos derivados;
-- branches não incorporadas, conversas e relatórios de sessão não constituem autoridade.
-
-Em caso de divergência, a `main` e os documentos normativos vigentes prevalecem.
-
-## 3. Ciclo de vida dos artefatos
+## 3. Ciclo de vida
 
 Todo artefato deve ser classificado como:
 
-- `ACTIVE` — pertence ao caminho crítico da Instância 1;
-- `BACKLOG` — direção futura preservada, sem implementação ativa;
-- `LEGACY_OPERATIONAL` — artefato funcional mantido apenas para continuidade ou regressão;
-- `RETIRED` / `SUPERSEDED` — não orienta trabalho novo;
-- `HISTORICAL_EVIDENCE` — preservado para rastreabilidade, sem autoridade normativa.
+- `ACTIVE`;
+- `BACKLOG`;
+- `LEGACY_OPERATIONAL`;
+- `RETIRED` / `SUPERSEDED`;
+- `HISTORICAL_EVIDENCE`.
 
 A disposição detalhada está em `docs/PROJECT_STATE.md`.
 
@@ -44,100 +39,144 @@ A disposição detalhada está em `docs/PROJECT_STATE.md`.
 
 Mudanças devem percorrer:
 
-1. delimitação do pacote e do critério de completude;
-2. evidência e proposta explícita;
+1. delimitação do pacote;
+2. justificativa de utilidade pública;
 3. branch derivada da `main` corrente;
 4. alterações limitadas ao escopo;
-5. validação automática e inspeção científica;
-6. auditoria do delta;
-7. pull request;
+5. validação e inspeção do delta;
+6. pull request;
+7. revisão concluída;
 8. congelamento do head;
 9. autorização humana quando exigida;
-10. incorporação em `main`, preferencialmente por squash merge;
-11. atualização de marco, estado ou changelog quando material.
+10. incorporação preferencialmente por squash merge.
 
-Cada PR deve representar uma família de produtos, um pequeno conjunto estreitamente relacionado ou uma alteração transversal indispensável. Não se devem misturar famílias independentes, limpeza de legado e mudanças arquiteturais amplas.
+Cada PR deve ser pequeno e coerente. Alterações arquiteturais, curadoria de entradas e mudanças de interface não devem ser misturadas sem necessidade demonstrável.
 
-## 5. Gates humanos
+## 5. Gate de escopo
+
+Antes de criar entidade, tabela, coluna, vocabulário, documento normativo ou validador, responder:
+
+1. melhora descoberta no catálogo?
+2. melhora interpretação mínima?
+3. sustenta filtro ou apresentação no website?
+4. é necessário para conector selecionado?
+
+Se todas as respostas forem negativas, a mudança permanece em backlog.
+
+Também verificar:
+
+- o dado já pertence à fonte externa?
+- estamos reconstruindo a genealogia da plataforma?
+- a nova entrada existe apenas por arquivo, layer, banda ou endpoint?
+- o aprofundamento altera materialmente a ficha pública?
+- existe critério de parada?
+
+## 6. Gates humanos
 
 Exigem autorização humana explícita:
 
 - merge de mudança científica, estrutural, executável ou pública;
 - promoção do PostgreSQL como autoridade;
-- publicação ou deploy deliberado;
+- publicação ou deploy;
 - mudança de visibilidade;
 - criação, encerramento ou migração de repositório;
 - modificação ou substituição de arquivos do Drive;
 - ação destrutiva ou irreversível;
 - decisão científica ambígua de alto impacto.
 
-Microdecisões reversíveis, cobertas por contrato, evidência e teste, podem ser executadas dentro de um pacote autorizado.
+A autorização é válida apenas para o SHA exato revisado.
 
-## 6. Papéis
+## 7. Curadoria
 
-### Responsável científico e mantenedor
+A unidade de trabalho é uma **entrada de catálogo suficientemente descrita**.
 
-- define missão, escopo e prioridades;
-- aprova interpretações científicas e mudanças canônicas;
-- autoriza merges e releases;
-- decide promoção de autoridade e publicação;
-- responde por identidade, autoria, licença e citação do projeto.
+A conclusão requer, conforme disponibilidade:
 
-### Curadoria e contribuição
+- organização e nome;
+- tipo amplo;
+- resumo e escopo;
+- modalidades, temas e variáveis principais;
+- cobertura espacial e temporal;
+- resolução ou suporte material;
+- atualização;
+- gratuidade e autenticação;
+- links oficiais de página, metadados e acesso;
+- metodologia, licença e citação quando disponíveis;
+- evidência proporcional;
+- revisão e data de verificação.
 
-- apresenta evidências rastreáveis;
-- preserva valores desconhecidos como desconhecidos;
-- separa fonte, família, produto, release, distribuição, ativo e capacidade;
-- registra limitações e evidência contraditória;
-- não trata CI verde como prova factual externa;
-- não generaliza metadados entre produtos, releases ou biomas.
+Não são requisitos universais:
 
-### Automação
+- release;
+- distribuição;
+- ativo;
+- checksum;
+- bytes;
+- schema físico;
+- inventário de layers;
+- perfil forense de qualidade.
 
-- valida estrutura, contratos, integridade e regressões;
-- gera artefatos derivados autorizados;
-- registra ocorrências e estados negativos;
-- não inventa metadados;
-- não promove unidades incompletas;
-- não atribui compatibilidade científica universal;
-- não executa gates humanos.
+## 8. Pesquisa
 
-## 7. Curadoria e promoção
+A pesquisa deve priorizar páginas e metadados oficiais. O critério de parada é atingido quando a ficha é útil, sustentada e encaminha o usuário à fonte.
 
-A unidade de trabalho é **um produto ou release integralmente inspecionado**.
+A existência de documentação adicional não torna a entrada automaticamente incompleta.
 
-Uma promoção requer, conforme aplicável:
+Ausência de documentação deve permanecer como lacuna, sem inferência.
 
-- identidade e produtor;
-- significado científico;
-- variáveis e classes;
-- método versionado;
-- perfis espacial e temporal;
-- qualidade, incerteza e limitações;
-- distribuições, ativos, endpoints e capacidades;
-- licença e citação;
-- evidências por afirmação;
-- revisão curatorial;
-- integridade relacional e idempotência.
+## 9. Automação
 
-Presença em catálogo, URL conhecida ou CI verde não é suficiente para promoção.
+A automação pode:
 
-## 8. Instâncias futuras
+- validar estrutura, IDs, links e estados curatoriais;
+- detectar duplicidade e regressão de escopo;
+- gerar exportações autorizadas;
+- registrar ocorrências.
 
-A política `docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md` é um guardrail de backlog. Ela preserva limites para futuras composições e análises, mas não autoriza motores de compatibilidade, correlação, regressão ou causalidade durante a Instância 1.
+A automação não pode:
 
-O explorador visual atual e `data/federated_layers.json` são `LEGACY_OPERATIONAL`, limitados a composição N0. Só podem receber correções de disponibilidade, segurança ou regressão enquanto a Instância 2 não for ativada.
+- inventar metadados;
+- criar taxonomia universal;
+- transformar literatura em expansão automática;
+- medir sucesso por quantidade de assets, releases, claims ou validadores;
+- executar gate humano.
 
-## 9. Evidência histórica
+Validadores devem testar contratos estruturais e casos adversariais relevantes, evitando verificações frágeis por simples presença de palavras.
 
-Auditorias, ocorrências, PRs, commits e propostas de transição devem ser preservados. A limpeza do repositório deve remover duplicação normativa e ambiguidade, não rastreabilidade.
+## 10. Revisão e merge
 
-Achados históricos não alteram automaticamente dados canônicos. Uma correção só se torna vigente quando incorporada no local autoritativo apropriado.
+A ordem obrigatória é:
 
-## 10. Releases, espelhos e publicação
+```text
+implementação
+→ testes
+→ revisão
+→ correções
+→ novo teste
+→ confirmação de zero threads acionáveis
+→ congelamento do head
+→ autorização humana do SHA exato
+→ merge
+```
 
-Releases devem ser identificáveis, reproduzíveis e coerentes com `docs/RELEASE_POLICY.md`.
+CI verde antes do término da revisão não libera merge.
 
-Espelhos do Drive devem declarar versão, commit-fonte, data de geração e verificação de correspondência. Eles não devem ser editados como fonte independente.
+## 11. Instâncias futuras
 
-A página pública atual permanece transitória. Mudanças no núcleo relacional não implicam automaticamente promoção, deploy ou substituição da interface.
+### Instância 2
+
+Visualização federada por conectores externos selecionados. Não requer inventário integral nem armazenamento dos dados.
+
+### Instância 3
+
+Contextualização por literatura curada. Não lidera o esquema da Instância 1.
+
+## 12. Evidência histórica
+
+Auditorias, ocorrências, PRs, commits e propostas devem ser preservados. Material histórico não orienta trabalho novo quando conflita com decisões vigentes.
+
+## 13. Publicação e espelhos
+
+Os CSV/JSON e a página pública permanecem transitórios. Mudanças no núcleo relacional não implicam deploy ou promoção automática.
+
+Espelhos do Drive devem declarar versão, commit-fonte e data de geração. Eles não são fonte independente.
