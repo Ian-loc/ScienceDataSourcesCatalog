@@ -2,142 +2,145 @@
 
 ## 1. Finalidade
 
-O Simbiotrama é um catálogo relacional científico-operacional de produtos de dados georreferenciados sobre o Brasil. Sua fase ativa é a **Instância 1**, dedicada a identificar, definir, versionar, documentar, verificar e tornar acessíveis produtos de dados com rigor científico e operacional.
+O Simbiotrama é um catálogo relacional de fontes e ofertas de dados científicos. A fase ativa é a Instância 1 simplificada.
 
-Composição geográfica e contextualização por literatura permanecem como Instâncias 2 e 3 em backlog. Elas não constituem workstreams ativos.
+Visualização federada e contexto por literatura permanecem como Instâncias 2 e 3 em backlog.
 
 ## 2. Autoridade
 
-A hierarquia vigente é:
-
-1. branch `main`;
+1. `main`;
 2. `docs/PROJECT_STATE.md`;
-3. `docs/PROJECT_SCIENTIFIC_DIRECTION.md`;
-4. decisões aprovadas em `docs/decisions/`;
-5. esquema relacional, migrações e validadores executáveis;
-6. dados públicos canônicos durante a transição;
-7. evidências, auditorias e revisões curatoriais;
-8. protótipos, espelhos e documentos históricos.
+3. `docs/decisions/DEC-INSTANCE1-MINIMUM-SUFFICIENT-CATALOG.md`;
+4. `docs/policies/INSTANCE_1_SCOPE_AND_GRANULARITY_POLICY.md`;
+5. contrato da Instância 1, roadmap e workflow;
+6. esquema simplificado quando incorporado;
+7. CSV/JSON públicos durante a transição;
+8. evidências e auditorias históricas.
 
-Durante a transição:
+Prompts, conversas, branches e PRs não incorporados não são autoridade.
 
-- `data/data_resources.csv`, `data/data_products.csv` e `data/product_distributions.csv` sustentam a versão pública;
-- PostgreSQL/PostGIS é a arquitetura canônica de destino, mas ainda não a autoridade de produção;
-- planilhas do Google Drive são snapshots ou espelhos derivados;
-- branches não incorporadas, conversas e relatórios de sessão não constituem autoridade.
+## 3. Regime de mudança
 
-Em caso de divergência, a `main` e os documentos normativos vigentes prevalecem.
+Toda mudança deve seguir:
 
-## 3. Ciclo de vida dos artefatos
+1. delimitar a entrada ou regra alterada;
+2. justificar necessidade e granularidade;
+3. declarar o que ficará fora do escopo;
+4. partir da `main` corrente;
+5. implementar delta pequeno;
+6. validar estrutura, conteúdo e simplicidade;
+7. auditar o diff;
+8. abrir PR;
+9. concluir revisão;
+10. congelar o head;
+11. obter autorização humana quando exigida;
+12. incorporar preferencialmente por squash merge.
 
-Todo artefato deve ser classificado como:
+## 4. Gate de simplicidade
 
-- `ACTIVE` — pertence ao caminho crítico da Instância 1;
-- `BACKLOG` — direção futura preservada, sem implementação ativa;
-- `LEGACY_OPERATIONAL` — artefato funcional mantido apenas para continuidade ou regressão;
-- `RETIRED` / `SUPERSEDED` — não orienta trabalho novo;
-- `HISTORICAL_EVIDENCE` — preservado para rastreabilidade, sem autoridade normativa.
+Antes de criar tabela, entidade, classificação ou relação, demonstrar:
 
-A disposição detalhada está em `docs/PROJECT_STATE.md`.
+- problema recorrente que ela resolve;
+- por que campo simples ou JSON adicional não basta;
+- por que não replica estrutura externa;
+- aplicabilidade a mais de um caso;
+- impacto sobre website, busca ou acesso;
+- custo de curadoria e manutenção.
 
-## 4. Regime de mudança
+Sem essa justificativa, a estrutura não deve ser criada.
 
-Mudanças devem percorrer:
+## 5. Gate de granularidade
 
-1. delimitação do pacote e do critério de completude;
-2. evidência e proposta explícita;
-3. branch derivada da `main` corrente;
-4. alterações limitadas ao escopo;
-5. validação automática e inspeção científica;
-6. auditoria do delta;
-7. pull request;
-8. congelamento do head;
-9. autorização humana quando exigida;
-10. incorporação em `main`, preferencialmente por squash merge;
-11. atualização de marco, estado ou changelog quando material.
+Uma nova entrada requer diferença material de significado, modalidade, cobertura, período, método, finalidade ou acesso principal.
 
-Cada PR deve representar uma família de produtos, um pequeno conjunto estreitamente relacionado ou uma alteração transversal indispensável. Não se devem misturar famílias independentes, limpeza de legado e mudanças arquiteturais amplas.
+Não são justificativas suficientes:
 
-## 5. Gates humanos
+- outro arquivo;
+- formato;
+- layer;
+- banda;
+- endpoint;
+- diretório;
+- tabela;
+- data técnica;
+- nome interno de download.
+
+## 6. Gate de pesquisa
+
+A pesquisa deve parar quando os campos essenciais estiverem sustentados.
+
+Não é permitido prolongar curadoria para reconstruir genealogia, inventário de ativos ou documentação completa da plataforma.
+
+Toda lacuna deve ser classificada como:
+
+- desconhecida;
+- não encontrada após busca delimitada;
+- não aplicável;
+- inacessível no ambiente atual;
+- contraditória.
+
+## 7. Gate de dados externos
+
+A Instância 1 não pode:
+
+- copiar ou armazenar datasets de terceiros;
+- registrar caminho local permanente para dados externos;
+- criar inventário integral de ativos;
+- prometer preservação;
+- atribuir ao Simbiotrama produção, hospedagem ou custódia externas.
+
+Downloads temporários de validação devem ser descartados e não promovidos como acervo.
+
+## 8. Gate de conectores
+
+Conectores são opcionais e pertencem à preparação da Instância 2.
+
+Cada conector deve estar associado a uma operação concreta e registrar somente a configuração necessária. Não deve gerar decomposição automática da entrada em arquivos, layers ou releases.
+
+## 9. Gates humanos
 
 Exigem autorização humana explícita:
 
-- merge de mudança científica, estrutural, executável ou pública;
-- promoção do PostgreSQL como autoridade;
-- publicação ou deploy deliberado;
-- mudança de visibilidade;
-- criação, encerramento ou migração de repositório;
-- modificação ou substituição de arquivos do Drive;
-- ação destrutiva ou irreversível;
+- merge de mudança normativa, estrutural ou pública;
+- promoção do banco como autoridade;
+- deploy;
+- alteração de Pages;
+- criação, encerramento ou mudança de visibilidade de repositório;
+- modificação do Drive;
+- armazenamento persistente de conteúdo externo;
+- ação destrutiva;
 - decisão científica ambígua de alto impacto.
 
-Microdecisões reversíveis, cobertas por contrato, evidência e teste, podem ser executadas dentro de um pacote autorizado.
+## 10. Revisão e autorização
 
-## 6. Papéis
+A sequência obrigatória é:
 
-### Responsável científico e mantenedor
+```text
+implementação
+→ testes
+→ revisão automática ou humana
+→ correções
+→ nova revisão
+→ zero threads acionáveis
+→ head congelado
+→ autorização humana para o SHA exato
+→ merge
+```
 
-- define missão, escopo e prioridades;
-- aprova interpretações científicas e mudanças canônicas;
-- autoriza merges e releases;
-- decide promoção de autoridade e publicação;
-- responde por identidade, autoria, licença e citação do projeto.
+Autorização não pode ser transferida entre SHAs.
 
-### Curadoria e contribuição
+CI verde não substitui revisão semântica nem evidência externa.
 
-- apresenta evidências rastreáveis;
-- preserva valores desconhecidos como desconhecidos;
-- separa fonte, família, produto, release, distribuição, ativo e capacidade;
-- registra limitações e evidência contraditória;
-- não trata CI verde como prova factual externa;
-- não generaliza metadados entre produtos, releases ou biomas.
+## 11. PR #57
 
-### Automação
+O PR #57 permanece congelado e não deve ser mesclado ou ampliado. É candidato a `superseded`. Sua autorização anterior está inválida.
 
-- valida estrutura, contratos, integridade e regressões;
-- gera artefatos derivados autorizados;
-- registra ocorrências e estados negativos;
-- não inventa metadados;
-- não promove unidades incompletas;
-- não atribui compatibilidade científica universal;
-- não executa gates humanos.
+A reutilização futura deve ocorrer por seleção de evidências úteis, não por cherry-pick integral da arquitetura profunda.
 
-## 7. Curadoria e promoção
+## 12. Instâncias futuras
 
-A unidade de trabalho é **um produto ou release integralmente inspecionado**.
+A Instância 2 visualizará dados mantidos externamente. A Instância 3 usará literatura curada. Nenhuma delas deve ampliar o núcleo da Instância 1 antes dos respectivos gates.
 
-Uma promoção requer, conforme aplicável:
+## 13. Evidência histórica
 
-- identidade e produtor;
-- significado científico;
-- variáveis e classes;
-- método versionado;
-- perfis espacial e temporal;
-- qualidade, incerteza e limitações;
-- distribuições, ativos, endpoints e capacidades;
-- licença e citação;
-- evidências por afirmação;
-- revisão curatorial;
-- integridade relacional e idempotência.
-
-Presença em catálogo, URL conhecida ou CI verde não é suficiente para promoção.
-
-## 8. Instâncias futuras
-
-A política `docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md` é um guardrail de backlog. Ela preserva limites para futuras composições e análises, mas não autoriza motores de compatibilidade, correlação, regressão ou causalidade durante a Instância 1.
-
-O explorador visual atual e `data/federated_layers.json` são `LEGACY_OPERATIONAL`, limitados a composição N0. Só podem receber correções de disponibilidade, segurança ou regressão enquanto a Instância 2 não for ativada.
-
-## 9. Evidência histórica
-
-Auditorias, ocorrências, PRs, commits e propostas de transição devem ser preservados. A limpeza do repositório deve remover duplicação normativa e ambiguidade, não rastreabilidade.
-
-Achados históricos não alteram automaticamente dados canônicos. Uma correção só se torna vigente quando incorporada no local autoritativo apropriado.
-
-## 10. Releases, espelhos e publicação
-
-Releases devem ser identificáveis, reproduzíveis e coerentes com `docs/RELEASE_POLICY.md`.
-
-Espelhos do Drive devem declarar versão, commit-fonte, data de geração e verificação de correspondência. Eles não devem ser editados como fonte independente.
-
-A página pública atual permanece transitória. Mudanças no núcleo relacional não implicam automaticamente promoção, deploy ou substituição da interface.
+Auditorias, ocorrências e PRs devem ser preservados. Evidência histórica não se torna norma automaticamente.
