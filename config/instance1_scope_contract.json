@@ -16,6 +16,7 @@
   "field_evidence_statuses": ["needs_review", "partially_verified", "verified", "not_found", "not_applicable"],
   "routine_requirements_forbidden": ["complete_release_resolution", "asset_inventory", "byte_inspection", "checksum", "complete_physical_schema", "all_layers_inventory", "all_endpoints_validation", "file_level_license", "file_level_citation", "forensic_evidence_package"],
   "golden_cases": ["GEDI", "DETER Cerrado", "IBGE", "ANA/SNIRH"],
+  "pr_gate_sequence": ["draft_implementation", "stable_head", "ci_green_on_exact_head", "diff_audited", "ready_for_review", "review_completed", "findings_corrected", "ci_revalidated_on_exact_head", "zero_actionable_threads", "head_frozen", "human_authorization_for_exact_sha", "merge"],
   "instance_2_status": "backlog",
   "instance_3_status": "backlog",
   "external_dataset_storage": false,
