@@ -1,204 +1,147 @@
-# Science Data Sources Catalog — Symbiotrama
+# Science Data Sources Catalog — Simbiotrama
 
 **Catálogo relacional científico-operacional de produtos de dados georreferenciados sobre o Brasil.**
 
-O projeto organiza fontes, famílias de produtos, produtos científicos, versões, variáveis, métodos, escalas, qualidade, formas de acesso, licenças, citações e evidências curatoriais.
+O Simbiotrama organiza fontes, famílias, produtos científicos, releases, variáveis, métodos, escalas, qualidade, formas de acesso, licenças, citações e evidências curatoriais.
 
-Seu foco ativo é a **Instância 1 do Symbiotrama**: construir uma base profunda e precisa que permita descobrir não apenas onde existe um dado, mas **qual informação científica o produto representa, como foi produzida, em que escala pode ser interpretada e como pode ser acessada**.
+Seu foco ativo é a **Instância 1 — Catálogo relacional científico-operacional**: construir uma base profunda e precisa que permita descobrir não apenas onde existe um dado, mas qual informação o produto representa, como foi produzida, em que escala pode ser interpretada e como pode ser acessada.
 
 > **A vida acontece em relação. Antes de investigar relações, é preciso compreender precisamente cada informação.**
 
-## Acessar o catálogo público atual
+## Estado atual
+
+- **Marco 1:** incorporado à `main` pelos PRs #54 e #55;
+- **arquitetura de destino:** PostgreSQL/PostGIS;
+- **autoridade pública transitória:** CSV/JSON atuais;
+- **foco ativo:** curadoria científica e operacional da Instância 1;
+- **Instância 2 — composição geográfica:** backlog;
+- **Instância 3 — contexto científico:** backlog;
+- **explorador visual N0:** legado operacional preservado, sem expansão analítica.
+
+Consulte:
+
+- [Estado canônico e ciclo de vida](docs/PROJECT_STATE.md)
+- [Direção científica](docs/PROJECT_SCIENTIFIC_DIRECTION.md)
+- [Instância 1](docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md)
+- [Roadmap](docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md)
+- [Workflow contínuo de curadoria](docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md)
+- [Banco relacional](database/README.md)
+- [Esquema SQL](database/schema/001_instance1_core.sql)
+
+## Catálogo público atual
 
 - [Buscar fontes](https://ian-loc.github.io/ScienceDataSourcesCatalog/#catalogo)
-- [Buscar e comparar produtos](https://ian-loc.github.io/ScienceDataSourcesCatalog/products.html)
+- [Buscar e comparar perfis de produtos](https://ian-loc.github.io/ScienceDataSourcesCatalog/products.html)
 - [Analisar a composição atual do catálogo](https://ian-loc.github.io/ScienceDataSourcesCatalog/analytics.html)
 - [Consultar método, escopo e citação](https://ian-loc.github.io/ScienceDataSourcesCatalog/about.html)
-- [Código, dados e documentação](https://github.com/Ian-loc/ScienceDataSourcesCatalog)
-- [Baixar o CSV canônico atual](data/data_resources.csv)
+- [Baixar o CSV público atual](data/data_resources.csv)
 
-A página pública atual permanece disponível durante a migração. Ela ainda representa uma versão simplificada do conhecimento que o novo modelo relacional deverá sustentar.
+A página publicada continua disponível durante a migração. Ela representa uma projeção simplificada e transitória, não a profundidade integral do modelo relacional.
 
-## Foco ativo: Instância 1
-
-A Instância 1 é um catálogo de metadados científicos e operacionais. Ela não copia necessariamente os grandes datasets externos.
+## Arquitetura da Instância 1
 
 ```text
 Organização
   └── Fonte ou infraestrutura
         └── Família de produtos
               └── Produto científico
-                    └── Versão ou edição
+                    └── Release, versão ou edição
                           ├── variáveis e classes
                           ├── método
                           ├── perfil espacial e temporal
                           ├── qualidade e incerteza
-                          └── distribuições, ativos e capacidades de acesso
+                          └── distribuição
+                                ├── ativo
+                                └── capacidade de acesso
 ```
 
-A documentação canônica da direção está em:
-
-- [Instância 1 — Catálogo relacional científico-operacional](docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md)
-- [Decisão estratégica da Instância 1](docs/decisions/DEC-INSTANCE1-RELATIONAL-CORE.md)
-- [Workflow contínuo de curadoria](docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md)
-- [Banco relacional](database/README.md)
-- [Esquema SQL](database/schema/001_instance1_core.sql)
-
-## O que é um produto científico
-
-Um produto é um conjunto coerente e versionado de informações espaciais, produzido por metodologia definida, com significado temático, cobertura, suporte espacial e temporal, variáveis e formas de distribuição identificáveis.
+Um produto é um conjunto coerente e versionado de informações georreferenciadas, produzido por metodologia definida, com significado científico, cobertura, suporte espacial e temporal, variáveis e formas de distribuição identificáveis.
 
 Não são produtos científicos, por si sós:
 
-- uma organização;
-- um portal;
-- um catálogo genérico;
-- uma API ou serviço de processamento;
-- um visualizador;
-- um formato de arquivo;
-- uma página de download.
+- organizações;
+- portais ou catálogos genéricos;
+- APIs ou serviços de processamento;
+- visualizadores;
+- formatos de arquivo;
+- páginas de download.
 
-Esses elementos são registrados, mas em entidades próprias.
+Esses objetos são registrados em entidades próprias.
 
-## Perfil do produto
+## Perfil científico-operacional
 
-Cada produto deverá responder:
+Cada produto ou release deve responder:
 
-### Identidade
+- quem produz e qual versão está em uso;
+- qual fenômeno, objeto ou população representa;
+- quais variáveis, bandas, classes ou indicadores contém;
+- se é medido, administrativo, amostral, classificado, modelado, interpolado, agregado ou derivado;
+- qual é o suporte, resolução, escala, grade, CRS e extensão;
+- qual é a cobertura, janela, frequência e latência temporal;
+- quais validações, incertezas, vieses, ausências e limitações existem;
+- como acessar por download, API, serviço geoespacial ou infraestrutura computacional;
+- qual licença, citação e evidência sustentam o registro.
 
-- quem produz;
-- qual versão ou coleção;
-- qual citação e licença;
-- qual é o estado do produto.
+Resolução, suporte e escala não são sinônimos. Incerteza não documentada não equivale a ausência de incerteza.
 
-### Significado científico
+## Banco relacional e transição
 
-- qual fenômeno representa;
-- qual objeto ou população observa;
-- quais variáveis e classes contém;
-- o que a informação significa;
-- o que o produto não representa diretamente.
-
-### Natureza de produção
-
-- medido, observado por sensor, administrativo, amostral, classificado, modelado, interpolado, agregado ou derivado;
-- entradas, processamento, validação e versão do método.
-
-### Espaço e tempo
-
-- geometria, suporte, resolução, escala, grade e CRS;
-- extensão territorial;
-- cobertura, janela e resolução temporal;
-- frequência de atualização e latência.
-
-### Qualidade
-
-- validação;
-- acurácia;
-- incerteza;
-- flags;
-- dados ausentes;
-- vieses e artefatos;
-- limites de representatividade e interpretação.
-
-### Acesso
-
-- download;
-- API;
-- serviços geoespaciais;
-- Earth Engine;
-- formatos;
-- autenticação;
-- gratuidade;
-- recorte, consulta, visualização e exportação.
-
-## Banco relacional
-
-O modelo de destino usa **PostgreSQL + PostGIS**.
-
-PostGIS é usado para descrever extensão e suporte geográfico dos produtos. O banco não precisa hospedar todos os rasters, vetores e séries externas.
-
-O esquema inclui:
+O modelo de destino usa PostgreSQL com PostGIS e inclui:
 
 - organizações e fontes;
 - famílias, produtos e releases;
 - variáveis e associações produto–variável;
 - métodos;
 - perfis espaciais, temporais e de qualidade;
-- distribuições, ativos e capacidades de acesso;
-- taxonomias e citações;
-- evidências por campo;
+- distribuições, ativos e capacidades;
+- taxonomias, citações e evidências;
 - revisões curatoriais.
 
-Durante a migração, os CSVs permanecem canônicos para a versão pública atual. Depois do portão de validação, o banco deverá se tornar a fonte canônica, e CSVs e planilhas serão exportações reproduzíveis.
+PostGIS descreve extensão e suporte geográfico. O Simbiotrama não precisa copiar integralmente os grandes datasets externos.
 
-## Dados georreferenciados
+Durante a transição:
 
-O catálogo inclui produtos com:
+- `data/data_resources.csv` — fontes da versão pública;
+- `data/data_products.csv` — piloto público de produtos;
+- `data/product_distributions.csv` — formas de acesso do piloto;
+- `database/schema/001_instance1_core.sql` — arquitetura relacional canônica de destino;
+- planilhas no Drive — snapshots ou espelhos derivados.
 
-- coordenadas;
-- pontos e footprints;
-- linhas e trajetórias;
-- polígonos;
-- pixels e grades;
-- bacias, biomas e unidades de conservação;
-- municípios, estados e outras unidades administrativas;
-- tabelas com códigos territoriais e séries território–tempo.
-
-Uma tabela município–ano pode ser georreferenciável mesmo quando distribuída em CSV ou XLSX.
+O PostgreSQL/PostGIS somente se tornará autoridade após o gate formal de prontidão, exportações reproduzíveis e autorização humana.
 
 ## Curadoria
 
-A unidade de trabalho é **um produto integralmente inspecionado**, não apenas uma linha ou nome cadastrado.
+A unidade de trabalho é **um produto ou release integralmente inspecionado**.
 
-A curadoria verifica:
+O pipeline inclui:
 
-1. identidade e produtor primário;
-2. significado científico;
-3. variáveis e classes;
+1. identidade e produtor;
+2. família, produto e release;
+3. significado, variáveis e classes;
 4. método;
-5. suporte espacial e temporal;
-6. qualidade, incerteza e vieses;
-7. versões;
-8. formas de acesso;
+5. perfil espacial;
+6. perfil temporal;
+7. qualidade, incerteza e limitações;
+8. distribuições, ativos e capacidades;
 9. licença e citação;
-10. evidência de cada afirmação material;
-11. completude e precisão.
+10. evidências por afirmação;
+11. revisão curatorial e decisão de promoção.
 
 A prioridade é Brasil primeiro: fontes brasileiras e produtos internacionais com cobertura efetiva do país.
 
-## Instâncias futuras — somente leitura conceitual
+## Ciclo de vida
 
-### Instância 2 — composição geográfica
+- `ACTIVE`: núcleo e curadoria da Instância 1;
+- `BACKLOG`: Instâncias 2 e 3, receitas e contratos analíticos futuros;
+- `LEGACY_OPERATIONAL`: explorador N0 e interface estática transitória;
+- `RETIRED` / `SUPERSEDED`: workstreams e branches substituídos;
+- `HISTORICAL_EVIDENCE`: auditorias, ocorrências, PRs e snapshots.
 
-Possível visualização conjunta de camadas resolvidas, mapas sincronizados e perfis territoriais, com transparência de escala, método e proveniência.
-
-### Instância 3 — contexto científico
-
-Possível síntese breve e auditável de literatura sobre os fenômenos representados em uma composição escolhida pelo usuário.
-
-Essas instâncias não são o foco de implementação atual. Não devem atrasar nem enfraquecer a consolidação do catálogo relacional.
-
-## Autoridade dos dados durante a transição
-
-- `data/data_resources.csv` — fontes da versão pública atual;
-- `data/data_products.csv` — piloto de produtos;
-- `data/product_distributions.csv` — piloto de formas de acesso;
-- `database/schema/001_instance1_core.sql` — arquitetura relacional canônica de destino;
-- planilhas no Google Drive — espelhos derivados após consolidação no GitHub.
-
-## Estrutura do repositório
-
-- `data/` — CSVs e registros públicos atuais;
-- `database/` — banco relacional e migrações;
-- `schema/` — contratos e validações complementares;
-- `docs/` — direção, decisões, método, governança, auditorias e roadmap;
-- `scripts/` — geração e validação;
-- `assets/` e HTML — interface pública atual;
-- `.github/workflows/` — integração contínua e publicação.
+A classificação detalhada está em [docs/PROJECT_STATE.md](docs/PROJECT_STATE.md).
 
 ## Documentação principal
 
+- [Estado do projeto](docs/PROJECT_STATE.md)
 - [Instância 1](docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md)
 - [Modelo fonte–produto–distribuição](PRODUCT_CATALOG_MODEL.md)
 - [Dicionário de dados](CODEBOOK.md)
@@ -206,16 +149,16 @@ Essas instâncias não são o foco de implementação atual. Não devem atrasar 
 - [Política de seleção e cobertura](SELECTION_AND_COVERAGE_POLICY.md)
 - [Governança](docs/GOVERNANCE.md)
 - [Política de releases](docs/RELEASE_POLICY.md)
-- [Como contribuir](CONTRIBUTING.md)
+- [Guardrail futuro de comparabilidade e inferência](docs/policies/SCIENTIFIC_COMPARABILITY_AND_INFERENCE_POLICY.md)
 - [Histórico de mudanças](CHANGELOG.md)
 
 ## Citação
 
-> CLEMENTE, Ian. *Science Data Sources Catalog: catálogo científico-operacional de produtos de dados georreferenciados sobre o Brasil*. GitHub, 2026. https://ian-loc.github.io/ScienceDataSourcesCatalog/
+> CLEMENTE, Ian. *Science Data Sources Catalog — Simbiotrama: catálogo científico-operacional de produtos de dados georreferenciados sobre o Brasil*. GitHub, 2026. https://ian-loc.github.io/ScienceDataSourcesCatalog/
 
 ORCID: [0000-0003-1164-9318](https://orcid.org/0000-0003-1164-9318)
 
-A citação do catálogo não substitui a citação da fonte, do produto e da versão originais.
+A citação do catálogo não substitui a citação da fonte, do produto e da release originais.
 
 ## Licenças
 
