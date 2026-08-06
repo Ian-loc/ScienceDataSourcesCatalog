@@ -1,11 +1,12 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "package_id": "I1-M2A-DETER-CERRADO",
   "family_stable_id": "PF000003",
   "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
-  "metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
-  "status": "current_listing_verified_specific_download_href_and_vector_wfs_layer_not_safely_resolved",
-  "observed_at": "2026-08-06T08:42:00-03:00",
+  "metadata_identifier": "e6e15388-4ca9-49b9-aec9-03891339a35e",
+  "superseded_citation_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+  "status": "current_listing_metadata_and_official_wms_registry_inspected_specific_download_and_vector_wfs_layer_unresolved",
+  "observed_at": "2026-08-06T10:52:00-03:00",
   "timezone": "America/Sao_Paulo",
   "promotion_authorized": false,
   "current_download_listing": {
@@ -15,7 +16,7 @@
     "item_label": "Avisos de supressão da vegetação nativa - Shapefile (desde 2018)",
     "displayed_last_updated": "2026-07-28",
     "metadata_record_resolved": true,
-    "metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+    "metadata_identifier": "e6e15388-4ca9-49b9-aec9-03891339a35e",
     "download_action_visible": true,
     "direct_download_href_exposed_in_indexed_content": false,
     "direct_download_url_resolved": false,
@@ -35,6 +36,29 @@
     "deter_cerrado_get_feature_verified": false,
     "generic_capability_can_be_inherited_as_specific_layer": false
   },
+  "official_qgis_wms_registry": {
+    "repository_url": "https://github.com/terrabrasilis/terrabrasilis_datasource",
+    "registry_url": "https://raw.githubusercontent.com/terrabrasilis/terrabrasilis_datasource/refs/heads/main/data/geoserver_terrabrasilis_info.json",
+    "repository_owner": "terrabrasilis",
+    "repository_name": "terrabrasilis_datasource",
+    "plugin_purpose": "acesso no QGIS a camadas WMS da Infraestrutura de Dados Espaciais TerraBrasilis",
+    "latest_registry_update_commit": "2f39a2e164d6a180aaf4559d93a162e2c6c56cf1",
+    "latest_registry_update_date": "2026-04-24",
+    "registry_file_retrieved": true,
+    "registry_json_inspected": true,
+    "prodes_cerrado_workspace_observed": "prodes-cerrado-nb",
+    "current_deter_cerrado_metadata_uuid_present": false,
+    "superseded_deter_citation_uuid_present_only_as_prodes_metadata": true,
+    "deter_text_entry_present": false,
+    "deter_cerrado_workspace_present": false,
+    "deter_cerrado_layer_present": false,
+    "registry_is_wfs_get_capabilities": false,
+    "registry_is_complete_geoserver_catalog": false,
+    "registry_absence_proves_layer_nonexistence": false,
+    "prodes_cerrado_workspace_can_be_inherited_for_deter": false,
+    "registry_resolves_current_deter_wfs_workspace": false,
+    "registry_resolves_current_deter_wfs_feature_type": false
+  },
   "historical_external_trace": {
     "trace_present": true,
     "trace_date_context": "2020",
@@ -51,6 +75,7 @@
   },
   "instrumental_state": {
     "web_index_confirmed_listing_and_official_wfs_example": true,
+    "official_github_registry_retrieved": true,
     "web_parser_exposed_dynamic_download_href": false,
     "container_dns_resolution_succeeded": false,
     "container_dns_error": "temporary failure in name resolution for terrabrasilis.dpi.inpe.br",
@@ -92,12 +117,25 @@
       ]
     },
     {
-      "role": "specific_cerrado_metadata",
-      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+      "role": "current_cerrado_metadata_record",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/e6e15388-4ca9-49b9-aec9-03891339a35e",
       "publisher": "INPE / TerraBrasilis GeoNetwork",
       "supports": [
-        "specific metadata identity",
-        "Cerrado-specific schema and channel semantics"
+        "current metadata identity",
+        "Cerrado-specific schema",
+        "download-only and GeoServer-only field semantics"
+      ]
+    },
+    {
+      "role": "official_qgis_wms_registry",
+      "url": "https://github.com/terrabrasilis/terrabrasilis_datasource/blob/main/data/geoserver_terrabrasilis_info.json",
+      "publisher": "TerraBrasilis",
+      "supports": [
+        "official plugin registry for TerraBrasilis WMS projects and layers",
+        "registry update commit 2f39a2e164d6a180aaf4559d93a162e2c6c56cf1 dated 2026-04-24",
+        "presence of PRODES Cerrado workspace prodes-cerrado-nb",
+        "absence of a DETER or DETER Cerrado entry in this registry",
+        "absence is limited to this WMS registry and does not prove GeoServer or WFS nonexistence"
       ]
     }
   ],
@@ -115,9 +153,13 @@
   "verified_state": {
     "current_download_listing_verified": true,
     "metadata_record_verified": true,
+    "metadata_identifier_reconciled": true,
     "download_action_visible": true,
     "generic_wfs_documentation_verified": true,
     "amazon_example_scope_verified": true,
+    "official_qgis_wms_registry_inspected": true,
+    "deter_absent_from_official_qgis_wms_registry": true,
+    "registry_absence_interpreted_as_service_nonexistence": false,
     "historical_wcs_trace_documented": true,
     "source_page_content_anomaly_documented": true,
     "direct_download_url_resolved": false,
@@ -133,7 +175,11 @@
   "normalization_rules": [
     "do not convert the visible Download action into a direct URL when the href is not exposed and independently verified",
     "do not convert the displayed 2026-07-28 update date into a release identifier, scientific period or byte identity",
+    "use e6e15388-4ca9-49b9-aec9-03891339a35e as the current metadata-record reference and preserve a5220c18-f7fa-4e3e-b39b-feeb3ccc4830 only as a superseded published citation reference",
     "do not inherit the deter-amz workspace or deter_public feature type from the official Amazon example into DETER Cerrado",
+    "do not inherit the prodes-cerrado-nb workspace from PRODES into DETER Cerrado",
+    "the official QGIS WMS registry lacks a DETER entry, but that absence does not prove the layer is absent from GeoServer or WFS",
+    "do not treat the QGIS WMS registry as complete WFS GetCapabilities or a complete GeoServer catalog",
     "do not infer a current deter-cerrado vector workspace from a 2020 external WCS imagery trace",
     "do not treat WCS imagery coverage names as vector WFS feature types",
     "do not treat generic WFS capability as proof that a specific Cerrado layer currently exists or responds",
