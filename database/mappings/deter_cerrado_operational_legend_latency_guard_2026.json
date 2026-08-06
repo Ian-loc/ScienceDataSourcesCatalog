@@ -1,0 +1,220 @@
+{
+  "contract_version": "1.1.0",
+  "package_id": "I1-M2A-DETER-CERRADO",
+  "family_stable_id": "PF000003",
+  "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
+  "status": "operational_legend_validation_domain_latency_and_cycle_mask_resolved_release_crosswalk_unresolved",
+  "observed_at": "2026-08-06T11:22:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "method_source": {
+    "title": "Metodologia dos sistemas PRODES e DETER para o bioma Cerrado",
+    "publisher": "Instituto Nacional de Pesquisas Espaciais — INPE",
+    "publication_year": 2024,
+    "updated_date": "2024-03-28",
+    "doi": "10.13140/RG.2.2.24196.49281",
+    "source_sections": [
+      "6.1 Metodologia DETER Cerrado",
+      "Tabela 2 — Legenda operacional utilizada no DETER Cerrado",
+      "Tabela 3 — Exemplos de padrões comuns detectados como Avisos pelo Sistema DETER Cerrado",
+      "Tabela 4 — Critérios para diferenciar queimada antrópica e fogo natural no DETER Cerrado",
+      "Figura 15 — Interface da plataforma de validação dos Avisos",
+      "Figura 16 — Visualização da acurácia dos polígonos validados",
+      "Figura 17 — Classes de validação do Sistema DETER"
+    ],
+    "method_source_is_current_release_identifier": false
+  },
+  "operational_legend": {
+    "sensor_specific_operational_classes": [
+      {"class": "Alerta_cb4", "meaning": "alert mapped in a CBERS-4 satellite image"},
+      {"class": "Alerta_amz1", "meaning": "alert mapped in an Amazônia-1 satellite image"},
+      {"class": "Alerta_cba", "meaning": "alert mapped in a CBERS-4A satellite image"}
+    ],
+    "documented_types": [
+      {"type": "corte_raso", "meaning": "native vegetation suppression in a short period"},
+      {"type": "alteracao_recorrente_estrutura_vegetal", "meaning": "long-term suppression resulting in distinct degradation stages"},
+      {
+        "type": "contextos_antropizados_ou_outros",
+        "documented_examples": ["planted forest", "agriculture and livestock", "urban areas", "mining", "reservoir"],
+        "listed_in_operational_types_column": true,
+        "examples_are_not_native_vegetation_suppression_classes": true,
+        "role_as_positive_final_alert_semantics_resolved": false,
+        "must_not_map_to_desmatamento_cr": true
+      },
+      {"type": "queimada_origem_antropica", "meaning": "burning of anthropogenic origin"}
+    ],
+    "final_class": "Aviso",
+    "operational_class_is_metadata_classname": false,
+    "operational_class_is_validation_class": false,
+    "complete_operational_legend_extracted": true,
+    "validation_class_domain_extracted": true
+  },
+  "validation_workflow": {
+    "performed_by_specialists": true,
+    "comparison_sources": [
+      "base image used for mapping to assess false-positive occurrence",
+      "historical PRODES Cerrado Landsat image series to assess Resíduo",
+      "high-resolution Planet mosaic to assess area context",
+      "MODIS NDVI time series presented as contextual support in the validation interface"
+    ],
+    "validation_classes": [
+      {
+        "class": "Alerta",
+        "meaning": "total suppression by corte raso and/or anthropogenic alteration of native vegetation structure",
+        "is_same_as_final_operational_aviso": false,
+        "automatic_crosswalk_to_desmatamento_cr": false
+      },
+      {
+        "class": "Falso Positivo",
+        "meaning": "inclusion error caused by mapping an alert in native vegetation without anthropogenic disturbance",
+        "is_accuracy_statistic": false
+      },
+      {
+        "class": "Resíduo",
+        "meaning": "area of total suppression by clear-cutting detectable in PRODES images from previous years",
+        "is_prodes_annual_residual_product": false,
+        "is_release_identifier": false
+      },
+      {
+        "class": "Não Observado",
+        "meaning": "inclusion error caused by mapping an alert over cloud or cloud shadow",
+        "is_missing_observation_state": true
+      },
+      {
+        "class": "Sem condições de avaliação",
+        "meaning": "area with strong vegetation seasonality that could not be evaluated because suitable imagery was unavailable",
+        "complete_source_definition_extracted": false
+      }
+    ],
+    "validation_class_domain_complete_for_method_edition": true,
+    "validation_class_domain_verified_in_current_release_schema": false,
+    "validation_class_values_verified_in_asset_bytes": false,
+    "confusion_matrix_reconstructed": false,
+    "class_counts_resolved": false,
+    "accuracy_statistics_resolved": false
+  },
+  "crosswalk_boundaries": {
+    "operational_aviso_to_validation_alerta_resolved": false,
+    "validation_alerta_to_metadata_desmatamento_cr_resolved": false,
+    "validation_residuo_to_prodes_residual_product_resolved": false,
+    "validation_classes_are_public_distribution_classname_values": false,
+    "method_edition_classes_are_current_release_schema": false,
+    "reason": "operational, validation and metadata classes represent different workflow stages and semantic domains"
+  },
+  "interpretation_patterns": {
+    "documented_patterns_include": [
+      "abrupt complete vegetation removal with exposed soil and clear boundaries",
+      "complete vegetation removal on rugged and irregular surfaces",
+      "remaining vegetation fragments incorporated into surrounding cleared areas",
+      "complete removal on plateau tops with gallery forest or hydrography boundaries",
+      "gradual vegetation removal with heterogeneous tones and varying vegetation cover"
+    ],
+    "anthropogenic_burn_pattern": {
+      "color": "blue or black",
+      "tonality": "dark",
+      "texture": "smooth",
+      "shape": "regular",
+      "context": "total vegetation removal using fire with clear boundaries between burned/exposed soil and Cerrado vegetation"
+    },
+    "natural_fire_pattern": {
+      "color": "blue or black",
+      "tonality": "dark",
+      "texture": "rough",
+      "shape": "irregular",
+      "complete_context_extracted": false
+    },
+    "patterns_are_deterministic_classification_rules": false,
+    "patterns_replace_expert_interpretation": false
+  },
+  "processing_latency": {
+    "pipeline_start_event": "satellite passage and image acquisition",
+    "pipeline_end_event": "audited alert inserted into the database",
+    "typical_latency_hours_range": [48, 72],
+    "calendar_and_team_work_variation_documented": true,
+    "latency_is_publication_sla": false,
+    "latency_is_release_identifier": false,
+    "latency_is_identical_for_every_alert": false,
+    "nightly_publication_of_validated_data_remains_compatible": true,
+    "controlled_enforcement_access_context_remains_distinct": true
+  },
+  "cycle_mask_semantics": {
+    "daily_alerts_form_exclusion_mask": true,
+    "mapped_alert_areas_are_not_rechecked_in_current_observation_cycle": true,
+    "polygons_remain_until_end_of_deter_observation_cycle": true,
+    "deter_alerts_not_confirmed_by_prodes_may_be_analyzed_next_mapping_year": true,
+    "mask_is_permanent_land_cover_class": false,
+    "mask_is_prodes_accumulated_deforestation_mask": false,
+    "nonconfirmation_by_prodes_means_deter_false_positive": false
+  },
+  "comparison_and_output_boundaries": {
+    "daily_count_varies_with_viable_image_availability": true,
+    "daily_count_varies_with_season": true,
+    "operational_legend_final_class_is_precise_annual_area": false,
+    "operational_legend_final_class_is_monthly_rate": false,
+    "sensor_specific_class_labels_are_scientific_releases": false,
+    "operational_types_should_not_be_mapped_directly_to_metadata_classname_without_crosswalk": true
+  },
+  "primary_evidence": [
+    {
+      "role": "operational_legend_validation_latency_and_cycle_mask",
+      "title": "Metodologia dos sistemas PRODES e DETER para o bioma Cerrado",
+      "publisher": "INPE",
+      "doi": "https://doi.org/10.13140/RG.2.2.24196.49281",
+      "supports": [
+        "sensor-specific operational classes and final class Aviso",
+        "four documented operational types",
+        "specialist validation workflow and five validation classes",
+        "48–72 hour processing latency",
+        "daily exclusion mask within the observation cycle",
+        "reanalysis in the following year when DETER alerts are not confirmed by PRODES",
+        "interpretation patterns and anthropogenic versus natural fire cues"
+      ]
+    },
+    {
+      "role": "peer_reviewed_boundary_confirmation",
+      "title": "Official monitoring of Brazil's native vegetation using satellite images: the BiomasBR program and the Prodes, Deter and TerraClass systems",
+      "publisher": "Cadernos de Astronomia / INPE authors",
+      "doi": "https://doi.org/10.47456/Cad.Astro.v6n1.47411",
+      "supports": [
+        "daily expert visual interpretation",
+        "operational enforcement role",
+        "DETER output not suitable for precise suppressed-area quantification",
+        "PRODES as precise annual source"
+      ]
+    }
+  ],
+  "verified_state": {
+    "sensor_specific_operational_classes_resolved": true,
+    "documented_operational_types_resolved": true,
+    "third_type_table_placement_resolved": true,
+    "third_type_positive_alert_semantics_resolved": false,
+    "final_operational_class_resolved": true,
+    "validation_class_domain_resolved_for_method_edition": true,
+    "validation_class_domain_resolved_for_current_release": false,
+    "interpretation_patterns_documented": true,
+    "processing_latency_range_resolved": true,
+    "cycle_mask_semantics_resolved": true,
+    "crosswalk_to_metadata_classname_resolved": false,
+    "crosswalk_to_release_schema_resolved": false,
+    "current_release_resolved": false,
+    "current_asset_verified": false
+  },
+  "normalization_rules": [
+    "preserve Alerta_cb4, Alerta_amz1 and Alerta_cba as sensor-specific operational classes from the 2024 method edition",
+    "preserve Aviso as the documented final operational class without mapping it automatically to validation Alerta or metadata DESMATAMENTO_CR",
+    "preserve Alerta, Falso Positivo, Resíduo, Não Observado and Sem condições de avaliação as validation classes from the method edition",
+    "do not treat validation classes as releases, assets or verified classname values of the current public distribution",
+    "do not collapse validation Resíduo into a PRODES annual-residual product or release",
+    "do not map validation Alerta automatically to DESMATAMENTO_CR because their definitions and workflow stages differ",
+    "the third documented type is listed in the operational table, but its role as a positive final-alert semantic remains unresolved",
+    "do not map planted forest, agriculture, urban areas, mining or reservoir to DESMATAMENTO_CR",
+    "interpretation patterns are contextual aids for expert photointerpretation and not deterministic classifiers",
+    "preserve 48–72 hours as typical end-to-end processing latency, not a universal SLA",
+    "do not replace the separate nightly public publication and controlled enforcement access statements with the 48–72 hour latency",
+    "preserve the daily alert mask as a within-cycle operational exclusion mask, not a permanent land-cover class",
+    "do not collapse the DETER cycle mask into a PRODES accumulated deforestation mask",
+    "lack of PRODES confirmation does not by itself prove a DETER false positive",
+    "daily alert counts depend on image availability and season and should not be interpreted as homogeneous observation effort",
+    "promotion remains blocked until crosswalks, current release, layer and asset are resolved"
+  ]
+}

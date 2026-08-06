@@ -1,0 +1,170 @@
+{
+  "contract_version": "1.1.0",
+  "package_id": "I1-M2A-DETER-CERRADO",
+  "family_stable_id": "PF000003",
+  "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
+  "metadata_identifier": "e6e15388-4ca9-49b9-aec9-03891339a35e",
+  "superseded_citation_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+  "status": "current_metadata_access_reconciled_program_license_documented_release_asset_unresolved",
+  "observed_at": "2026-08-06T10:38:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "citation_state": {
+    "published_dataset_citation_guidance_documented": true,
+    "published_dataset_citation_guidance": "INSTITUTO NACIONAL DE PESQUISAS ESPACIAIS (INPE). Bioma Cerrado – Deter (Avisos): Avisos no Bioma Cerrado – Shapefile (desde 2018). 2024.",
+    "published_guidance_metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+    "published_guidance_identifier_is_current": false,
+    "current_metadata_record_identifier": "e6e15388-4ca9-49b9-aec9-03891339a35e",
+    "current_metadata_record_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/e6e15388-4ca9-49b9-aec9-03891339a35e",
+    "peer_reviewed_data_availability_reference_matches_current_identifier": true,
+    "recommended_citation_year": 2024,
+    "citation_access_date_example": "2024-09-02",
+    "citation_year_is_release_identifier": false,
+    "citation_access_date_example_is_current_access_date": false,
+    "current_release_citation_resolved": false,
+    "citation_should_be_refreshed_with_current_metadata_url_and_actual_access_date": true
+  },
+  "license_state": {
+    "program_level_license_resolved": true,
+    "program_level_license_name": "Creative Commons Attribution-ShareAlike 4.0 International",
+    "program_level_license_identifier": "CC-BY-SA-4.0",
+    "program_level_license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "licensed_work_label": "Programa de monitoramento dos biomas brasileiros",
+    "source_attribution_required": true,
+    "share_alike_required_for_program_level_licensed_work": true,
+    "current_release_license_resolved": false,
+    "asset_specific_license_resolved": false,
+    "redistribution_terms_for_download_package_resolved": false,
+    "derived_product_terms_for_download_package_resolved": false
+  },
+  "public_access_channels": {
+    "download_catalog_resolved": true,
+    "download_catalog_url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+    "specific_metadata_record_resolved": true,
+    "specific_metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/e6e15388-4ca9-49b9-aec9-03891339a35e",
+    "specific_metadata_api_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/api/records/e6e15388-4ca9-49b9-aec9-03891339a35e",
+    "specific_metadata_api_fetch_succeeded": false,
+    "generic_wfs_capability_documented": true,
+    "generic_wfs_base_url": "https://terrabrasilis.dpi.inpe.br/geoserver/ows",
+    "registered_download_channel_documented": true,
+    "registered_download_field_example": "areatotkm",
+    "specific_wfs_workspace_resolved": false,
+    "specific_wfs_layer_name_resolved": false,
+    "describe_feature_type_verified": false,
+    "direct_download_url_verified": false,
+    "http_status_verified_for_direct_download": false,
+    "redirect_chain_verified": false
+  },
+  "restricted_advance_access": {
+    "advance_credentials_documented": true,
+    "advance_credentials_purpose": "acesso antecipado aos dados de alertas DETER",
+    "eligible_institutions": "instituições responsáveis pelo controle e fiscalização do desmatamento",
+    "advance_access_is_general_public_access": false,
+    "advance_access_credentials_publicly_available": false,
+    "restricted_advance_access_should_not_be_inherited_as_public_download_authentication": true
+  },
+  "asset_state": {
+    "current_release_resolved": false,
+    "asset_identifier_resolved": false,
+    "asset_filename_resolved": false,
+    "asset_media_type_resolved": false,
+    "asset_content_length_resolved": false,
+    "asset_content_disposition_resolved": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false,
+    "package_inventory_complete": false,
+    "crs_verified_from_bytes": false,
+    "geometry_verified_from_bytes": false,
+    "schema_verified_from_bytes": false,
+    "spatiotemporal_coverage_verified_from_bytes": false
+  },
+  "official_evidence": [
+    {
+      "role": "current_specific_metadata_record",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=vetorial",
+      "publisher": "INPE / TerraBrasilis GeoNetwork",
+      "supports": [
+        "registro atual DETER Cerrado",
+        "UUID e6e15388-4ca9-49b9-aec9-03891339a35e",
+        "areatotkm disponível no Shapefile cadastrado",
+        "publish_month disponível na camada GeoServer"
+      ]
+    },
+    {
+      "role": "peer_reviewed_data_availability_identifier",
+      "url": "https://doi.org/10.1080/25726838.2023.2265242",
+      "publisher": "Pinheiro et al. / Applied Earth Science",
+      "supports": [
+        "disponibilidade dos dados no TerraBrasilis",
+        "número de referência e6e15388-4ca9-49b9-aec9-03891339a35e"
+      ]
+    },
+    {
+      "role": "published_citation_guidance_with_superseded_identifier",
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "publisher": "INPE / BiomasBR",
+      "supports": [
+        "texto de citação publicado em 2024",
+        "data de acesso exemplar de 02/09/2024",
+        "referência histórica a a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"
+      ]
+    },
+    {
+      "role": "program_license",
+      "url": "https://terrabrasilis.dpi.inpe.br/citacoes-e-licenca-de-uso/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "licença Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional para o Programa de monitoramento dos biomas brasileiros",
+        "necessidade de citar a fonte"
+      ]
+    },
+    {
+      "role": "wfs_and_advance_access_policy",
+      "url": "https://terrabrasilis.dpi.inpe.br/faq/",
+      "publisher": "INPE / TerraBrasilis",
+      "supports": [
+        "URL genérica do serviço WFS",
+        "acesso antecipado com credenciais restritas a instituições de controle e fiscalização",
+        "uso livre condicionado à licença e citação da fonte"
+      ]
+    }
+  ],
+  "verified_state": {
+    "current_metadata_identifier_reconciled": true,
+    "published_citation_guidance_documented": true,
+    "published_guidance_identifier_current": false,
+    "program_level_license_resolved": true,
+    "download_catalog_resolved": true,
+    "specific_metadata_record_resolved": true,
+    "generic_wfs_capability_documented": true,
+    "registered_download_channel_documented": true,
+    "restricted_advance_access_documented": true,
+    "current_release_resolved": false,
+    "current_release_citation_resolved": false,
+    "current_release_license_resolved": false,
+    "asset_specific_license_resolved": false,
+    "specific_wfs_layer_name_resolved": false,
+    "direct_download_url_verified": false,
+    "asset_bytes_inspected": false,
+    "checksum_computed": false
+  },
+  "normalization_rules": [
+    "usar e6e15388-4ca9-49b9-aec9-03891339a35e para o registro de metadados corrente do DETER Cerrado",
+    "preservar a5220c18-f7fa-4e3e-b39b-feeb3ccc4830 somente como referência da orientação de citação publicada e não como identificador corrente",
+    "a orientação bibliográfica de 2024 não identifica a release vigente",
+    "a data de acesso exemplar de 02/09/2024 deve ser substituída pela data real de acesso",
+    "uma citação atual deve usar a URL do registro corrente e declarar que a release ainda não foi resolvida",
+    "a licença CC-BY-SA-4.0 está resolvida no nível do Programa de monitoramento dos biomas brasileiros, não automaticamente no pacote da release vigente",
+    "não declarar termos de redistribuição ou derivados sem ligação explícita entre licença e ativo",
+    "o catálogo de downloads não é URL direta nem identidade do ativo",
+    "o UUID GeoNetwork identifica registro de metadados e não arquivo, camada, feição, produto ou release",
+    "a URL WFS genérica documenta capacidade da fonte e não resolve workspace, layer, schema, release ou estado vivo",
+    "areatotkm documenta canal cadastrado de Shapefile, mas não resolve URL direta, credencial ou identidade do pacote",
+    "publish_month documenta dimensão temporal no GeoServer, mas não resolve o nome da camada",
+    "o acesso antecipado para fiscalização não deve ser generalizado como autenticação obrigatória do download público",
+    "falha da API do registro não invalida o link descoberto no índice oficial, mas impede registrar resposta e conteúdo recuperado",
+    "presença pública não comprova status HTTP, redirecionamento, Content-Type, Content-Disposition ou tamanho",
+    "promoção de ativo exige bytes, inventário, checksum, CRS, geometria, esquema e cobertura",
+    "promoção de release exige identidade temporal, licença, citação e revisão curatorial"
+  ]
+}
