@@ -11,6 +11,7 @@
   "material_granularity_differences": ["scientific_meaning", "data_modality", "geographic_or_temporal_coverage", "method_or_purpose", "primary_audience_or_use", "primary_access_path"],
   "non_material_split_reasons": ["file", "format", "layer", "band", "endpoint", "internal_table", "directory", "technical_update"],
   "essential_profile_fields": ["organization", "official_name", "entry_type", "summary", "scientific_scope", "data_modalities", "themes_or_main_variables", "geographic_coverage", "temporal_coverage", "material_resolution_or_support", "update_frequency_if_available", "access_conditions", "free_access_or_authentication", "official_page", "metadata_page", "primary_access", "methodology_if_available", "license_if_available", "citation_if_available", "curation_status", "last_verified_at"],
+  "curation_statuses": ["needs_review", "partially_verified", "verified", "not_found", "not_applicable"],
   "entry_curation_statuses": ["needs_review", "partially_verified", "verified"],
   "field_evidence_statuses": ["needs_review", "partially_verified", "verified", "not_found", "not_applicable"],
   "routine_requirements_forbidden": ["complete_release_resolution", "asset_inventory", "byte_inspection", "checksum", "complete_physical_schema", "all_layers_inventory", "all_endpoints_validation", "file_level_license", "file_level_citation", "forensic_evidence_package"],
