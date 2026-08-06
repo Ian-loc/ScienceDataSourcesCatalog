@@ -1,12 +1,12 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "family_stable_id": "PF000001",
   "parent_package_asset_id": "PRODES-ASSET-AMAZON-GEOPACKAGE",
   "status": "ancillary_cartographic_layer_identities_and_boundaries_verified_endpoints_unresolved",
   "observed_at": "2026-08-05T22:00:00-03:00",
   "timezone": "America/Sao_Paulo",
   "promotion_authorized": false,
-  "scope": "Preserva as identidades e fronteiras de três componentes cartográficos auxiliares do PRODES Amazônia sem convertê-los em observações de supressão, incrementos, taxas, incertezas ou atributos herdados de outros produtos.",
+  "scope": "Preserva as identidades e fronteiras de três componentes cartográficos auxiliares do PRODES Amazônia sem convertê-los em observações de supressão, incrementos, taxas, incertezas ou produtos autônomos sem evidência suficiente.",
   "layers": [
     {
       "target_id": "PRODES-ASSET-AMAZON-HYDROGRAPHY-SHP",
@@ -14,7 +14,7 @@
       "metadata_identifier": "1df78632-68e7-4e91-bca0-25305d3f831e",
       "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/1df78632-68e7-4e91-bca0-25305d3f831e",
       "official_record_label": "Hidrografia - Shapefile",
-      "product_type": "ancillary_cartographic_water_body_layer",
+      "product_type": "candidate_ancillary_cartographic_water_body_product",
       "represented_object": "corpos hídricos, incluindo rios, lagos, barramentos e represamentos, mapeados no recorte amazônico utilizado pelo PRODES",
       "temporal_semantics": "annual_mapping_cadence_declared_release_unresolved",
       "declared_cadence": "annual",
@@ -53,7 +53,7 @@
       "metadata_identifier": "87fb6a32-01c1-4421-b7d0-a93568e1b079",
       "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/87fb6a32-01c1-4421-b7d0-a93568e1b079",
       "official_record_label": "Hidrografia em não floresta - Shapefile",
-      "product_type": "ancillary_cartographic_water_body_layer_within_non_forest_domain",
+      "product_type": "candidate_ancillary_cartographic_water_body_product_within_non_forest_domain",
       "represented_object": "corpos hídricos, incluindo rios, lagos, barramentos e represamentos, situados no domínio de não floresta do bioma Amazônia",
       "temporal_semantics": "support_layer_for_non_forest_monitoring_release_unresolved",
       "declared_cadence": "as_needed_in_metadata_search_facet_not_promoted_as_individual_release_policy",
@@ -77,7 +77,7 @@
           "PD-PRODES-AMZ-NON-FOREST-SUPPRESSION-INCREMENTS",
           "PD-PRODES-AMZ-NON-FOREST-ACCUMULATED-MASK-2000",
           "PD-PRODES-AMZ-NON-FOREST-ANNUAL-RESIDUAL",
-          "PD-PRODES-AMZ-NON-FOREST-DOMAIN-MASK"
+          "AX-PRODES-AMZ-NON-FOREST-DOMAIN-MASK"
         ]
       },
       "spatial_context": {
@@ -94,12 +94,15 @@
       }
     },
     {
-      "target_id": "PRODES-ASSET-AMAZON-NON-FOREST-DOMAIN-MASK-SHP",
-      "candidate_scientific_product_id": "PD-PRODES-AMZ-NON-FOREST-DOMAIN-MASK",
+      "target_id": "PRODES-ASSET-NON-FOREST-MASK-SHP",
+      "candidate_entity_id": "AX-PRODES-AMZ-NON-FOREST-DOMAIN-MASK",
+      "candidate_entity_type": "auxiliary_domain_mask",
+      "candidate_scientific_product_id": null,
+      "standalone_scientific_product_supported": false,
       "metadata_identifier": "bed1276c-aa3d-4f5b-b560-1879617ef13d",
       "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/bed1276c-aa3d-4f5b-b560-1879617ef13d",
       "official_record_label": "Não floresta - Shapefile",
-      "product_type": "domain_mask_and_classification_support_layer",
+      "product_type": "auxiliary_domain_mask_and_classification_support_layer",
       "represented_object": "tipologias de vegetação não enquadradas na classe de Floresta adotada no mapeamento PRODES",
       "temporal_semantics": "domain_mask_reference_release_unresolved",
       "declared_cadence": "not_promoted_from_aggregate_catalog_facets",
@@ -121,7 +124,7 @@
           "PD-PRODES-AMZ-ANNUAL-MAP"
         ]
       },
-      "interpretive_warning": "não floresta é uma classe de domínio cartográfico relativa à definição de Floresta adotada no mapeamento; não significa área sem vegetação, ausência de dado ou supressão ocorrida",
+      "interpretive_warning": "não floresta é uma classe auxiliar de domínio cartográfico relativa à definição de Floresta adotada no mapeamento; não significa área sem vegetação, ausência de dado ou supressão ocorrida",
       "partial_schema_profile": {
         "expected_main_class": "NAO_FLORESTA",
         "documented_class_names": [
@@ -130,7 +133,8 @@
         ],
         "standardized_schema_only_when_applicable": true,
         "actual_values_and_nullability_verified_from_bytes": false
-      }
+      },
+      "companion_guard": "database/mappings/prodes_amazon_non_forest_mask_entity_guard_2026.json"
     }
   ],
   "shared_documented_partial_schema": [
@@ -190,7 +194,7 @@
       "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=vetorial",
       "publisher": "INPE / TerraBrasilis",
       "supports": [
-        "definição da máscara de não floresta",
+        "definição da máscara auxiliar de não floresta",
         "classes NAO_FLORESTA e NAO_FLORESTA2",
         "esquema parcial"
       ]
@@ -223,6 +227,8 @@
     "ancillary_layer_role_documented": true,
     "hydrography_object_documented": true,
     "non_forest_domain_mask_semantics_documented": true,
+    "non_forest_mask_auxiliary_entity_role_verified": true,
+    "non_forest_mask_standalone_product_supported": false,
     "general_and_non_forest_hydrography_distinguished": true,
     "partial_schema_documented": true,
     "individual_current_releases_resolved": false,
@@ -235,6 +241,7 @@
   },
   "normalization_rules": [
     "não promover hidrografia ou máscara de não floresta como observação de supressão, incremento, taxa ou incerteza",
+    "não promover a máscara de não floresta como produto científico autônomo enquanto a evidência sustentar apenas papel auxiliar de domínio",
     "não interpretar a classe não floresta como ausência de vegetação, ausência de dados ou desmatamento",
     "não colapsar hidrografia geral e hidrografia em não floresta sem evidência de identidade de produto, release e bytes",
     "não herdar automaticamente sensores, cadência ou método do monitoramento de supressão para o ativo hidrográfico",
@@ -246,16 +253,16 @@
     "não transformar year, publish_year, pub_date ou data da interface em release ou período científico",
     "não promover todos os campos padronizados como preenchidos em todas as camadas sem inspeção dos bytes",
     "endpoint_state deve permanecer unresolved e asset_state not_inspected até evidência direta",
-    "promoção exige produto, release, distribuição, licença, citação, bytes e evidência por afirmação"
+    "promoção exige papel de entidade, produto quando aplicável, release, distribuição, licença, citação, bytes e evidência por afirmação"
   ],
-  "required_before_product_promotion": [
-    "resolver nome oficial estável e tipo de produto de cada camada auxiliar",
+  "required_before_entity_resolution_or_product_promotion": [
+    "resolver nome oficial estável e tipo de entidade ou produto de cada camada auxiliar",
     "resolver release, temporalidade e política de revisão individuais",
     "documentar método de produção específico de cada camada sem herança indevida",
     "resolver perfil espacial, cobertura, suporte, CRS e geometria",
     "confirmar classes efetivamente presentes, nulos e esquema semântico integral",
     "registrar qualidade, validação, incerteza, vieses e limitações",
-    "resolver licença, atribuição e citação de cada produto e release",
+    "resolver licença, atribuição e citação de cada entidade, produto e release aplicável",
     "registrar evidência por afirmação e revisão curatorial"
   ],
   "required_before_asset_promotion": [
@@ -266,6 +273,6 @@
     "inventários completos dos pacotes Shapefile",
     "CRS, geometrias e esquemas integrais observados nos bytes",
     "cobertura territorial e temporal dos bytes",
-    "vínculos explícitos com produtos e releases corretos"
+    "vínculos explícitos com entidades, produtos e releases corretos"
   ]
 }
