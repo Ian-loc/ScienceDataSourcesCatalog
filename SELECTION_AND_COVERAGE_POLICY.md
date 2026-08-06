@@ -31,7 +31,7 @@ A entrada pode representar:
 - produto de dados;
 - serviço de dados.
 
-## 4. Critérios de inclusão
+## 4. Critérios mínimos de inclusão
 
 A entrada deve:
 
@@ -81,7 +81,7 @@ Excluir ou não criar entrada para:
 - subdivisão técnica que apenas reproduz o catálogo da fonte;
 - fonte internacional redundante e sem função estratégica.
 
-## 7. Duplicidade
+## 7. Duplicidade e relação entre recursos
 
 ### Mesmo recurso, nomes diferentes
 
@@ -116,7 +116,13 @@ A classificação territorial continua auditável:
 
 A classificação não deve ser inferida apenas por domínio, idioma ou nome institucional.
 
-## 9. Candidatos
+## 9. Recursos bibliométricos e editoriais
+
+Recursos bibliométricos, bases de literatura e redes de citação podem entrar apenas quando oferecem dados ou metadados estruturados com utilidade distinta para descoberta científica. Não devem ser apresentados como fontes de observações ambientais, nem receber decomposição interna em periódicos, artigos, arquivos ou índices técnicos.
+
+Conteúdo apenas editorial, noticioso ou didático permanece fora do catálogo principal.
+
+## 10. Candidatos
 
 Novas entradas devem passar por triagem de:
 
@@ -132,7 +138,7 @@ Novas entradas devem passar por triagem de:
 
 Uma URL fornecida autoriza triagem, não publicação automática.
 
-## 10. Matriz de lacunas
+## 11. Matriz de lacunas
 
 A cobertura pode ser avaliada por:
 
@@ -147,7 +153,7 @@ A cobertura pode ser avaliada por:
 
 Não é necessário medir quantidade de produtos, releases ou ativos internos da fonte.
 
-## 11. Prioridade de expansão
+## 12. Critérios de prioridade para expansão
 
 Prioridade máxima:
 
@@ -158,7 +164,7 @@ Prioridade máxima:
 - metadados reutilizáveis;
 - utilidade demonstrável.
 
-## 12. Revisão
+## 13. Revisão
 
 - revisar duplicidades e granularidade antes de novos lotes;
 - confirmar P0–P3 em cada ciclo;
@@ -166,6 +172,6 @@ Prioridade máxima:
 - atualizar imediatamente sucessão e mudança institucional;
 - justificar entradas P3 antes de uma versão estável.
 
-## 13. Estado transitório
+## 14. Estado transitório
 
 Os 51 registros atuais permanecem como autoridade pública transitória. A migração para `catalog_entries` deve preservar IDs, evidências e histórico, sem ampliar automaticamente cada fonte em múltiplos produtos internos.
