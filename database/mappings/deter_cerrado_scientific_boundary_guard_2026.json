@@ -123,7 +123,7 @@
     "access_endpoint_and_asset_review_complete_with_explicit_negative_states": true,
     "license_and_citation_review_complete_with_explicit_scope_limits": true,
     "evidence_by_material_assertion_documented": true,
-    "occurrence_register_updated_through": "I1-20260806-058",
+    "occurrence_register_updated_through": "I1-20260806-059",
     "bounded_external_incompleteness_is_fail_closed": true,
     "scientific_audit_package_complete": true,
     "product_profile_complete_for_promotion": false,
