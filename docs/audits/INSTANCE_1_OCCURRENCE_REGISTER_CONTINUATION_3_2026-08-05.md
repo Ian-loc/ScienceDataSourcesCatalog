@@ -2,7 +2,7 @@
 
 Horários humanos usam `America/Sao_Paulo`.
 
-Esta continuação consolida ocorrências que já estavam documentadas nas auditorias unitárias PRODES, mas ainda não haviam sido reunidas no registro cumulativo após `I1-20260805-027`.
+Esta continuação consolida ocorrências documentadas nas auditorias unitárias PRODES após `I1-20260805-027`.
 
 | ID | Data e hora | Round | Entidade/arquivo | Categoria | Evidência | Severidade | Estado | Correção/verificação | Risco residual |
 |---|---|---|---|---|---|---|---|---|---|
@@ -16,7 +16,8 @@ Esta continuação consolida ocorrências que já estavam documentadas nas audit
 | `I1-20260805-035` | 05/08/2026 21:43–21:55 | PRODES — resíduo anual | `prodes_amazon_annual_residual_guard_2026.json`; `prodes_amazon_annual_residual_accounting_guard_2026.json` | colapso semântico e atribuição temporal/contábil indevida | resíduo é revisão retrospectiva; ano da classe é detecção, não ocorrência; não integra incremento, mas contribui para acumulado | `high` | `corrected` | gates complementares preservam identidade, esquema parcial, contabilização e limitação temporal | release, endpoint, bytes, qualidade quantitativa, licença e citação pendentes |
 | `I1-20260805-036` | 05/08/2026 21:43–21:55 | PRODES — resíduo não florestal | `prodes_amazon_non_forest_annual_residual_guard_2026.json` | herança indevida entre resíduo geral e não florestal | domínio, trajetória operacional, série histórica, sensores, auditoria e limiar possuem regras próprias | `high` | `corrected` | contrato individualiza o produto e impede herança automática do resíduo geral | adaptações específicas, release, endpoint, bytes, qualidade, licença e citação pendentes |
 | `I1-20260805-037` | 05/08/2026, round iniciado às 21:43 | PRODES — auditoria da máscara acumulada | `PRODES_AMAZON_ACCUMULATED_MASK_BOUNDARY_ROUND_2026-08-06.md` | rollover UTC em relatório humano | o round ocorreu em 5 de agosto no fuso de São Paulo, mas o artefato original registrou 6 de agosto e recebeu esse sufixo no caminho | `low` | `corrected` | conteúdo corrigido para a data local autoritativa; discrepância do caminho explicitada; caminho preservado para evitar renomeação destrutiva | o sufixo histórico permanece no nome e não deve ser interpretado como data humana do round |
+| `I1-20260805-038` | 05/08/2026 22:02 | PRODES — máscara Não Floresta | `prodes_amazon_non_forest_mask_entity_guard_2026.json` | promoção indevida de classe/máscara auxiliar como produto científico | metadados oficiais definem tipologias não enquadradas na classe Floresta, valores `NAO_FLORESTA`/`NAO_FLORESTA2` e camada `no_forest_biome` | `high` | `corrected` | resolução como `auxiliary_domain_mask`, produto científico nulo, classes originais preservadas e heranças automáticas proibidas | método, temporalidade, release, endpoint, bytes, perfil espacial, qualidade, licença e citação pendentes |
 
 ## Estado de continuidade
 
-As ocorrências `028–037` estão agora consolidadas no registro cumulativo e permanecem vinculadas às respectivas auditorias e validadores executáveis. Nenhuma delas autoriza promoção canônica, merge, publicação, inferência de endpoint ou herança automática de atributos entre produtos PRODES.
+As ocorrências `028–038` estão consolidadas e vinculadas às respectivas auditorias e validadores executáveis. Nenhuma autoriza promoção canônica, merge, publicação, inferência de endpoint ou herança automática de atributos entre produtos e camadas auxiliares PRODES.
