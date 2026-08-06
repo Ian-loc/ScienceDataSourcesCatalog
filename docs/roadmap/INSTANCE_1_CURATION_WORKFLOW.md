@@ -73,7 +73,7 @@ Para campos materiais, registrar:
 - URL oficial;
 - nota curta de suporte;
 - data de recuperação;
-- estado curatorial.
+- estado de evidência do campo.
 
 Não é necessário produzir uma afirmação atômica para cada detalhe trivial.
 
@@ -166,14 +166,26 @@ Não usar como indicadores principais:
 - não transformar literatura ou padrão externo em expansão automática do esquema;
 - não declarar a entrada incompleta apenas porque a fonte contém mais detalhes.
 
-## 10. Estado curatorial
+## 10. Estados de curadoria e evidência
 
-Usar estados simples:
+### Estado da entrada
+
+Usar apenas:
+
+- `needs_review` — ficha ainda não revisada;
+- `partially_verified` — ficha útil, mas com campo material ainda pendente ou evidência insuficiente;
+- `verified` — ficha essencial sustentada e pronta para exibição.
+
+### Estado de evidência do campo
+
+Usar:
 
 - `needs_review`;
 - `partially_verified`;
 - `verified`;
 - `not_found`;
 - `not_applicable`.
+
+`not_found` e `not_applicable` qualificam campos ou evidências; não são estados globais da entrada.
 
 Uma entrada pode ser `verified` mesmo sem release, ativo, checksum ou inventário integral, desde que sua ficha essencial esteja sustentada e seu escopo seja claro.
