@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 
 from validate_deter_amazon_access_snapshot_guard import main as validate_access_snapshot
 from validate_deter_amazon_distribution_boundary_guard import main as validate_distribution_boundary
+from validate_deter_amazon_wfs_capability_guard import main as validate_wfs_capability
 
 PATH = Path("database/mappings/deter_amazon_scientific_boundary_guard_2026.json")
 
@@ -166,7 +167,8 @@ def main() -> int:
 
     validate_distribution_boundary()
     validate_access_snapshot()
-    print("OK: DETER Amazônia preserva alerta versus taxa, distribuições distintas e acesso datado sem promoção prematura")
+    validate_wfs_capability()
+    print("OK: DETER Amazônia preserva alerta versus taxa, distribuições distintas e canais de acesso sem promoção prematura")
     return 0
 
 
