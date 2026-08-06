@@ -36,7 +36,7 @@
     "reported_proximity_percentage": 80,
     "reported_buffer_radius_km": 10,
     "reported_denominator": "desmatamento posteriormente detectado pelo PRODES Cerrado",
-    "reported_relationship": "concentração espacial do desmatamento posteriormente confirmado em uma zona de 10 km dos alertas DETER",
+    "reported_relationship": "proximidade espacial: concentração do desmatamento posteriormente confirmado em uma zona de 10 km dos alertas DETER",
     "supports_operational_surveillance_capability": true,
     "is_confusion_matrix": false,
     "is_precision": false,
