@@ -41,6 +41,7 @@ A estrutura profunda do Marco 1 será preservada durante a migração e poderá 
 
 - `README.md`;
 - `CHANGELOG.md`;
+- `CONTRIBUTING.md`;
 - `METHODOLOGY.md`;
 - `PRODUCT_CATALOG_MODEL.md`;
 - `CODEBOOK.md`;
@@ -50,9 +51,10 @@ A estrutura profunda do Marco 1 será preservada durante a migração e poderá 
 - `docs/PROJECT_SCIENTIFIC_DIRECTION.md`;
 - `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`;
 - `docs/GOVERNANCE.md`;
-- roadmap e workflow de curadoria;
+- roadmap, política de pacotes e workflow de curadoria;
 - decisões e política de escopo;
 - template de PR;
+- contrato legível por máquina;
 - validador de direção.
 
 ## 5. Regras consolidadas
@@ -100,7 +102,7 @@ O modelo falha se exigir inventário integral ou perder informação necessária
 - autorização de merge anterior invalidada;
 - fechamento depende de decisão humana explícita.
 
-## 8. Ocorrência operacional
+## 8. Ocorrência operacional A — escrita provisória na `main`
 
 ### Descrição
 
@@ -133,10 +135,48 @@ Para qualquer escrita futura:
 
 Moderada para governança; impacto material final nulo após reversão imediata.
 
-## 9. Validação
+## 9. Ocorrência operacional B — promoção prematura a ready
+
+### Descrição
+
+A tarefa recorrente marcou o PR #58 como `ready for review` enquanto o CI do head final ainda não havia sido criado nem concluído.
+
+### Risco
+
+O ato repetia o padrão que contribuiu para a autorização prematura do PR #57: estado de prontidão declarado antes do encerramento do gate técnico.
+
+### Contenção
+
+- o PR #58 foi imediatamente convertido novamente a draft;
+- nenhuma autorização de merge foi solicitada;
+- nenhuma revisão foi tratada como concluída;
+- o prompt recorrente foi atualizado.
+
+### Controle preventivo
+
+A sequência passa a ser obrigatória:
+
+1. implementação em draft;
+2. head estável;
+3. CI integral verde no mesmo SHA;
+4. inspeção do diff;
+5. somente então `ready for review`;
+6. revisão e correções;
+7. retorno a draft se o head mudar materialmente ou se houver falha;
+8. novo CI e revisão;
+9. zero threads acionáveis;
+10. congelamento do head;
+11. autorização humana do SHA exato.
+
+### Gravidade
+
+Moderada para governança; nenhum merge ou autorização ocorreu.
+
+## 10. Validação
 
 O gate `scripts/validate_scientific_direction.py` verifica:
 
+- contrato legível por máquina;
 - documentos e decisões vigentes;
 - núcleo mínimo;
 - marcos I1-S1 a I1-S7;
@@ -150,26 +190,29 @@ O gate `scripts/validate_scientific_direction.py` verifica:
 
 Uma tentativa de validação local por clone foi bloqueada por falha DNS do ambiente. O CI remoto permanece o gate executável autoritativo deste PR.
 
-## 10. Estado do pacote
+## 11. Estado do pacote
 
 - documentação normativa: revisada;
-- tarefa recorrente: atualizada;
+- tarefa recorrente: atualizada e endurecida;
 - PR #57: congelado;
-- PR #58: aberto e marcado como pronto para revisão;
+- PR #58: draft ativo;
 - plano de migração: documentado;
 - casos dourados: documentados;
-- schema SQL mínimo: ainda não implementado e corretamente reservado ao próximo pacote;
+- schema SQL mínimo: ainda não implementado e reservado ao próximo pacote;
 - CI do head final: pendente de execução e verificação;
-- revisão do PR: pendente;
+- revisão do PR: não iniciada validamente;
 - merge: não autorizado.
 
-## 11. Próxima unidade
+## 12. Próxima unidade
 
-1. verificar a execução do CI no novo head;
-2. corrigir qualquer falha no mesmo PR;
-3. solicitar ou aguardar revisão automatizada;
-4. corrigir achados e executar novamente o CI;
-5. confirmar zero threads acionáveis;
-6. congelar o head;
-7. solicitar autorização humana do SHA exato;
-8. somente após incorporação, abrir pacote separado para migration aditiva do núcleo mínimo.
+1. manter o PR em draft;
+2. verificar a execução do CI no head atual;
+3. corrigir qualquer falha no mesmo PR;
+4. auditar o diff final;
+5. marcar ready somente após CI verde;
+6. concluir revisão e corrigir achados;
+7. repetir CI quando o head mudar;
+8. confirmar zero threads acionáveis;
+9. congelar o head;
+10. solicitar autorização humana do SHA exato;
+11. somente após incorporação, abrir pacote separado para migration aditiva do núcleo mínimo.
