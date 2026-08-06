@@ -1,229 +1,120 @@
 # Direção científica do projeto
 
-**Status:** decisão estratégica vigente  
-**Sistema de trabalho:** **Simbiotrama**  
-**Foco ativo:** **Instância 1 — Catálogo relacional científico-operacional**  
-**Princípio:** **Antes de investigar relações, é preciso compreender precisamente cada informação.**
+**Sistema:** Simbiotrama — Catálogo de Dados Científicos do Brasil  
+**Foco ativo:** Instância 1 — catálogo relacional de fontes e ofertas de dados  
+**Princípio:** organizar o que é necessário para descobrir, compreender e acessar, sem reconstruir a fonte externa.
 
-## 1. Decisão central
+## 1. Missão
 
-O projeto consolida primeiro um banco relacional profundo de fontes e produtos de dados georreferenciados sobre o Brasil.
+> Tornar fontes e ofertas de dados científicos mais encontráveis, compreensíveis e acessíveis, preservando a identidade, a terminologia e os links das instituições produtoras.
 
-A prioridade não é implementar imediatamente análises, correlações, sínteses automáticas de literatura ou combinações universais. A prioridade é identificar com precisão o objeto científico e operacional entregue por cada plataforma.
+A Instância 1 deve ser útil como catálogo autônomo e sustentar uma interface dinâmica.
 
-O catálogo deve permitir descobrir:
+## 2. Objeto central
 
-- quem produz;
-- qual é o produto;
-- qual versão está disponível;
-- qual fenômeno representa;
-- quais variáveis, classes ou indicadores contém;
-- como foi produzido;
-- qual é o suporte espacial e temporal;
-- quais limitações, incertezas e vieses existem;
-- como acessar, visualizar, consultar ou baixar;
-- quais evidências sustentam os metadados registrados.
+O objeto central é a **entrada de catálogo**.
 
-## 2. Missão da Instância 1
+Uma entrada pode representar fonte, plataforma, coleção, produto ou serviço quando esse nível for útil ao usuário.
 
-> Organizar e descrever produtos de dados georreferenciados sobre o Brasil com profundidade científica, integridade relacional, proveniência e precisão operacional, tornando explícito o significado de cada informação e as condições de seu uso.
+O projeto não impõe a mesma genealogia a todas as plataformas. Não existe obrigação universal de separar família, produto, release, distribuição e ativo.
 
-A Instância 1 deve ser útil como sistema autônomo, independentemente da implementação das expansões futuras.
+## 3. Conteúdo científico necessário
 
-## 3. Objeto científico
+Cada entrada deve comunicar, conforme disponibilidade:
 
-O objeto principal é o **produto científico georreferenciado**.
+- o que oferece;
+- quais modalidades de dados contém;
+- quais temas e variáveis principais aparecem;
+- onde e quando se aplica;
+- qual resolução ou suporte é material;
+- como acessar;
+- onde encontrar metadados, método, licença e citação.
 
-Um produto é um conjunto coerente e versionado de informações espaciais, produzido por metodologia definida, com significado temático, cobertura, suporte espacial e temporal, variáveis e formas de distribuição identificáveis.
-
-O catálogo também registra, em entidades separadas:
-
-- organizações;
-- fontes e infraestruturas;
-- famílias de produtos;
-- versões e edições;
-- distribuições;
-- ativos;
-- variáveis e classes;
-- métodos;
-- perfis espaciais e temporais;
-- qualidade e incerteza;
-- taxonomias;
-- citações;
-- evidências e revisão curatorial.
+A descrição deve ser proporcional. Não é necessário reconstruir observações, estimands, populações-alvo, cadeias completas de transformação ou todos os produtos internos.
 
 ## 4. Escopo geográfico
 
-O catálogo trabalha somente com produtos que contenham informação geográfica ou associação territorial inequívoca.
+A prioridade é o Brasil e produtos internacionais com cobertura sistemática do país.
 
-São incluídos:
+Podem ser incluídas entradas com:
 
-- rasters;
-- vetores;
-- pontos e footprints;
-- trajetórias;
-- grades;
-- bacias;
-- biomas;
-- unidades de conservação;
-- municípios, estados e outras unidades administrativas;
-- tabelas com códigos territoriais;
-- séries território–tempo.
+- dados espaciais explícitos;
+- códigos territoriais;
+- séries por unidades geográficas;
+- cobertura nacional, regional ou local relevante;
+- serviços que encaminham claramente a dados georreferenciados.
 
-O banco descreve os produtos e sua geografia; não precisa hospedar integralmente os datasets externos.
+O catálogo descreve e aponta; não precisa hospedar os datasets.
 
-## 5. Significado científico obrigatório
-
-Cada produto deve responder:
-
-1. que fenômeno representa;
-2. qual objeto, população ou território observa;
-3. qual informação o valor, classe ou geometria comunica;
-4. quais variáveis ou classes contém;
-5. se é medido, administrativo, amostral, classificado, modelado, interpolado, agregado ou derivado;
-6. o que o produto não representa diretamente;
-7. quais usos potenciais possui;
-8. quais limitações condicionam sua interpretação.
-
-Exemplos de distinções obrigatórias:
-
-- alerta operacional não é inventário anual consolidado;
-- índice espectral não é a propriedade ecológica final;
-- classe de vegetação secundária não é biomassa ou diversidade medida;
-- taxa municipal não é risco individual;
-- produto classificado não é observação direta da classe;
-- infraestrutura computacional não é produto científico.
-
-## 6. Arquitetura científica
+## 5. Arquitetura científica mínima
 
 ```text
 Organização
-  └── Fonte ou infraestrutura
-        └── Família de produtos
-              └── Produto científico
-                    └── Release, versão ou edição
-                          ├── variável, indicador, banda ou classe
-                          ├── método
-                          ├── perfil espacial
-                          ├── perfil temporal
-                          ├── perfil de qualidade
-                          └── distribuição
-                                ├── ativo
-                                └── capacidade de acesso
+  └── Entrada de catálogo
+        ├── temas e variáveis principais
+        ├── metadados essenciais
+        ├── evidências proporcionais
+        └── conector opcional
 ```
 
-O modelo executável está em `database/schema/001_instance1_core.sql`.
+PostgreSQL/PostGIS continua como banco-alvo. PostGIS apoia metadados geográficos e filtros, não armazenamento integral de rasters, vetores ou cubos externos.
 
-## 7. Princípios permanentes
+## 6. Princípios permanentes
 
-1. Fonte, produto, versão, distribuição e ativo são entidades distintas.
-2. Portais, catálogos genéricos, serviços de processamento e visualizadores não são produtos científicos por si sós.
-3. Metadados da fonte não substituem metadados específicos do produto.
-4. Metadados de uma versão não devem ser generalizados para toda a série.
-5. Resolução, suporte e escala não são sinônimos.
-6. Periodicidade do dado não é frequência de atualização do portal.
-7. A ausência de documentação deve permanecer explícita.
-8. Incerteza desconhecida não equivale a incerteza inexistente.
-9. Uso científico potencial não equivale a variável medida.
-10. Afirmações materiais devem ser sustentadas por evidência rastreável.
-11. Planilhas e CSVs são formatos de intercâmbio; a arquitetura final exige integridade relacional.
-12. O catálogo aponta para a fonte autoritativa e preserva citação, versão e licença.
-13. Compatibilidade científica não é atributo universal de um par de produtos.
-14. Instâncias futuras não devem orientar o trabalho ativo da Instância 1.
+1. A fonte original permanece responsável pelos dados.
+2. O Simbiotrama não copia nem arquiva datasets externos nesta fase.
+3. A terminologia do produtor deve ser preservada.
+4. Normalização serve à descoberta e aos filtros, não à reinvenção dos conceitos.
+5. Nova entrada exige diferença material, não apenas novo arquivo ou layer.
+6. Ausência de documentação permanece desconhecida.
+7. Qualidade e incerteza são registradas quando materialmente documentadas.
+8. Evidência deve ser proporcional ao campo sustentado.
+9. Padrões e literatura são referências, não comandos de expansão arquitetural.
+10. Instâncias 2 e 3 não devem atrasar a Instância 1.
+11. O critério de parada deve ser explícito.
+12. O sucesso é medido por fichas úteis prontas para o website.
 
-## 8. Banco de dados
+## 7. Curadoria
 
-O banco-alvo é PostgreSQL com PostGIS.
+A unidade de trabalho é uma entrada suficientemente descrita.
 
-Essa decisão sustenta:
+A curadoria termina quando:
 
-- integridade referencial;
-- crescimento do inventário;
-- busca textual e filtros;
-- relações muitos-para-muitos;
-- versionamento;
-- evidência por campo;
-- cobertura geográfica consultável;
-- API futura;
-- geração reproduzível de CSVs e planilhas.
+- a granularidade está justificada;
+- a ficha é compreensível;
+- os campos essenciais disponíveis estão sustentados;
+- os links principais funcionam;
+- as lacunas relevantes estão explícitas;
+- aprofundamento adicional não mudaria a apresentação pública.
 
-PostGIS é usado para metadados espaciais. O projeto não assume armazenamento integral de grandes rasters, vetores ou cubos externos.
+## 8. Instância 2
 
-## 9. Curadoria
+**Estado:** `BACKLOG`.
 
-A unidade de trabalho é um produto ou release integralmente inspecionado.
+Poderá usar conectores externos selecionados para visualização federada. Não exige armazenamento dos dados nem inventário completo das plataformas.
 
-A curadoria deve incluir:
+## 9. Instância 3
 
-- identidade;
-- versão;
-- significado científico;
-- variáveis;
-- método;
-- suporte espacial e temporal;
-- qualidade e incerteza;
-- limitações;
-- acesso;
-- licença;
-- citação;
-- evidências;
-- auditoria.
+**Estado:** `BACKLOG`.
 
-A expansão seguirá prioridade Brasil primeiro e será realizada fonte por fonte, produto por produto.
+Poderá contextualizar entradas e visualizações por literatura científica curada. Não define o núcleo da Instância 1.
 
-## 10. Instância 2 — composição geográfica
+## 10. Gate de prioridade
 
-**Estado:** `BACKLOG`; não é foco ativo.
+Toda intervenção deve responder:
 
-Poderá permitir:
+> Esta mudança melhora descoberta, interpretação mínima, filtro do website ou conector selecionado?
 
-- seleção de camadas resolvidas;
-- sobreposição ou mapas sincronizados;
-- perfis territoriais;
-- transparência comparativa;
-- verificação de executabilidade técnica;
-- preservação de escala, método, versão e proveniência.
+Sem resposta positiva demonstrável, a proposta permanece no backlog.
 
-A Instância 2 dependerá de produtos e distribuições suficientemente descritos na Instância 1. Ela não deverá atribuir compatibilidade científica universal.
+## 11. Critério de sucesso
 
-## 11. Instância 3 — contexto científico
+A fase atual terá sucesso quando o catálogo permitir responder, de modo claro e verificável:
 
-**Estado:** `BACKLOG`; não é foco ativo.
-
-Poderá apresentar síntese breve e auditável da literatura sobre os fenômenos representados em uma composição escolhida pelo usuário.
-
-A Instância 3 deverá:
-
-- usar metadados da Instância 1;
-- priorizar literatura aplicável ao Brasil e à escala observada;
-- distinguir evidência direta, análoga e metodológica;
-- comunicar mecanismos, controvérsias e limitações;
-- não transformar coincidência espacial em associação ou causalidade.
-
-## 12. Regra de prioridade
-
-Toda nova intervenção deverá responder:
-
-> Esta mudança melhora a capacidade de descobrir, compreender, verificar e acessar produtos de dados georreferenciados?
-
-Mudanças voltadas exclusivamente às Instâncias 2 ou 3 permanecem no backlog até a consolidação da Instância 1.
-
-## 13. Estado e ciclo de vida
-
-A classificação `ACTIVE`, `BACKLOG`, `LEGACY_OPERATIONAL`, `RETIRED` e `HISTORICAL_EVIDENCE` é definida em `docs/PROJECT_STATE.md`.
-
-O roadmap vigente é `docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md`.
-
-## 14. Critério de sucesso
-
-O sucesso da fase atual será medido pela capacidade de responder com precisão:
-
-- o que este produto representa;
-- qual informação científica está contida nele;
-- quais variáveis disponibiliza;
-- como os dados foram produzidos;
-- em que escala e período podem ser interpretados;
-- quais incertezas e limitações existem;
-- qual versão deve ser usada;
-- como acessar os dados;
-- quais evidências sustentam o registro.
+- quem oferece;
+- o que oferece;
+- quais dados e variáveis principais estão disponíveis;
+- qual cobertura e período;
+- como acessar;
+- quais condições gerais se aplicam;
+- onde consultar a documentação oficial.
