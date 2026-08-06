@@ -1,0 +1,57 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000001",
+  "scope": "TerraBrasilis download catalog for PRODES Amazon assets",
+  "status": "catalog_reprocessing_notice_active_operational_resolution_blocked",
+  "observed_at": "2026-08-05T22:24:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "official_catalog_url": "https://terrabrasilis.dpi.inpe.br/downloads/",
+  "official_update_notice": {
+    "announcement_date": "2026-03-03",
+    "statement": "O Programa de Monitoramento BiomasBR atualizou os dados do monitoramento anual da supressão de vegetação nativa no Brasil; as atualizações impactam todos os arquivos relacionados e os usuários devem atualizar suas bases.",
+    "applies_to_all_native_vegetation_suppression_files": true
+  },
+  "current_catalog_warning": {
+    "statement": "Este arquivo está sendo reprocessado e será atualizado em breve.",
+    "target_file_unambiguously_identified": false,
+    "warning_is_release_identifier": false,
+    "warning_is_permanent_unavailability_evidence": false
+  },
+  "observed_snapshot_variation": {
+    "non_www_snapshot_date": "2026-06-16",
+    "www_snapshot_date": "2026-07-20",
+    "same_catalog_entries_observed": true,
+    "dates_define_distinct_scientific_releases": false
+  },
+  "verified_state": {
+    "official_update_notice_present": true,
+    "catalog_reprocessing_warning_present": true,
+    "catalog_entries_discoverable": true,
+    "individual_direct_download_urls_verified": false,
+    "individual_endpoint_states_verified": false,
+    "individual_current_releases_resolved": false,
+    "asset_bytes_inspected": false,
+    "checksums_computed": false
+  },
+  "normalization_rules": [
+    "não usar a data do aviso de 3 de março de 2026 como release_id de qualquer produto ou ativo",
+    "não atribuir o aviso genérico de reprocessamento a um componente individual sem evidência explícita",
+    "não interpretar o aviso de reprocessamento como remoção permanente ou indisponibilidade definitiva",
+    "não converter datas divergentes dos hosts com e sem www em releases distintas",
+    "não promover endpoint_state como working apenas porque a interface apresenta botão Download",
+    "não promover endpoint_state como unavailable apenas porque a interface apresenta aviso de reprocessamento",
+    "manter endpoint_state unresolved até resolução individual da URL, status HTTP e redirecionamentos",
+    "manter asset_state not_inspected até recuperação e inspeção dos bytes",
+    "exigir snapshot, release, checksum e data de acesso para ativos cuja publicação pode ser substituída ou reprocessada"
+  ],
+  "required_before_operational_promotion": [
+    "identificar inequivocamente o componente afetado pelo aviso de reprocessamento",
+    "resolver URL direta oficial por componente",
+    "registrar status HTTP, cadeia de redirecionamentos, Content-Type e Content-Disposition",
+    "confirmar nome e tamanho exato do arquivo",
+    "recuperar os bytes em ambiente temporário autorizado e calcular checksum",
+    "vincular o ativo à release ou snapshot científico correto",
+    "registrar licença, atribuição e citação aplicáveis"
+  ]
+}
