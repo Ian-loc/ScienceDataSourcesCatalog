@@ -130,7 +130,6 @@ def main() -> int:
         (
             "specific_metadata_record_resolved",
             "metadata_schema_inventory_documented",
-            "validation_class_domain_resolved_for_method_edition",
             "cycle_mask_semantics_resolved",
             "published_citation_guidance_documented",
             "generic_wfs_capability_documented",
