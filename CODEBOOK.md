@@ -1,447 +1,187 @@
-# Dicionário de dados
+# Dicionário de dados — Instância 1 simplificada
 
 ## 1. Estado da transição
 
-O projeto possui dois níveis simultâneos:
+O projeto possui:
 
-1. **esquema público atual 0.7.0**, baseado em CSVs;
-2. **modelo relacional de destino da Instância 1**, implementado em PostgreSQL/PostGIS.
+1. CSV/JSON públicos atuais, ainda operacionais;
+2. esquema profundo do Marco 1, classificado como `LEGACY_TRANSITIONAL`;
+3. arquitetura simplificada proposta para a Instância 1.
 
-Os CSVs permanecem canônicos para a versão pública atual até o portão de promoção do banco relacional.
+Os CSVs permanecem autoridade pública até a promoção formal do novo núcleo.
 
-## 2. CSV de fontes — esquema 0.7.0
-
-Arquivo: `data/data_resources.csv`
-
-| Campo | Definição |
-|---|---|
-| `resource_id` | Identificador estável da fonte, DR0001… |
-| `resource_name` | Nome oficial da fonte. |
-| `acronym` | Sigla ou nome curto. |
-| `official_identity` | Natureza declarada pela própria fonte. |
-| `description` | Síntese objetiva do propósito. |
-| `homepage_url` | Página institucional ou página oficial da fonte. |
-| `data_access_url` | Página para pesquisar, visualizar, solicitar ou baixar dados. |
-| `research_areas` | Áreas condensadas usadas no filtro. |
-| `keywords` | Temas pesquisáveis. |
-| `data_product_types` | Resumo dos tipos de produtos. Não substitui a tabela de produtos. |
-| `data_formats` | Resumo de formatos. Pode variar por produto. |
-| `visualization_types` | Interfaces gerais disponíveis. |
-| `geographic_coverage` | Abrangência espacial geral da fonte. |
-| `covers_brazil` | Presença de dados aplicáveis ao Brasil. |
-| `spatial_resolution` | Resumo da escala, resolução ou suporte; frequentemente varia por produto. |
-| `temporal_coverage` | Período geral coberto. |
-| `temporal_resolution` | Frequência ou granularidade geral. |
-| `data_sources` | Origem empírica ou institucional dos dados. |
-| `free_download` | Disponibilidade geral de download gratuito. |
-| `access_conditions` | Cadastro, solicitação, embargo, quota ou restrição. |
-| `programmatic_access` | Acesso automatizado documentado. |
-| `access_protocols` | Protocolos e APIs no esquema atual. |
-| `authentication_required` | Necessidade de credencial. |
-| `access_documentation_url` | Documentação técnica do acesso. |
-| `license` | Licença geral ou condição declarada. |
-| `institutional_status` | Natureza institucional. |
-| `owner_or_manager` | Responsável. |
-| `academic_uses` | Usos relevantes para ensino e pesquisa. |
-| `limitations` | Limitações gerais da fonte. |
-| `academic_evidence_type` | Natureza da evidência externa. |
-| `academic_evidence_url` | Artigo ou documento representativo. |
-| `academic_evidence_note` | O que a evidência sustenta. |
-| `verification_url` | Evidência oficial principal. |
-| `last_verified` | Data da revisão do registro. Não certifica todos os produtos. |
-
-## 3. CSV de produtos — piloto atual
-
-Arquivo: `data/data_products.csv`
-
-O arquivo continua operacional durante a migração, mas seus campos serão normalizados em entidades relacionais.
-
-Campos principais atuais:
-
-- `product_id`;
-- `resource_id`;
-- `product_name`;
-- `product_acronym`;
-- `product_family`;
-- `product_kind`;
-- `product_description`;
-- `research_areas`;
-- `keywords`;
-- `geographic_coverage`;
-- `covers_brazil`;
-- `spatial_support`;
-- `spatial_resolution`;
-- `temporal_coverage`;
-- `temporal_resolution`;
-- `update_frequency`;
-- `product_status`;
-- `version_or_collection`;
-- `enumeration_scope`;
-- `product_page_url`;
-- `methodology_url`;
-- `primary_or_derived`;
-- `limitations`;
-- `last_verified`.
-
-Limitação estrutural: o piloto mistura produtos científicos, catálogos e serviços. Essa mistura deverá ser corrigida na migração.
-
-## 4. CSV de distribuições — piloto atual
-
-Arquivo: `data/product_distributions.csv`
-
-Campos principais atuais:
-
-- `distribution_id`;
-- `product_id`;
-- `distribution_name`;
-- `access_url`;
-- `format`;
-- `access_protocol`;
-- `access_tool`;
-- `free_download`;
-- `authentication_required`;
-- `access_conditions`;
-- `license`;
-- `provider_attribution_required`;
-- `subset_support`;
-- `notes`;
-- `last_verified`.
-
-No modelo relacional, uma distribuição será vinculada a um release específico.
-
-## 5. Banco relacional da Instância 1
-
-Arquivo: `database/schema/001_instance1_core.sql`
-
-Schema PostgreSQL: `catalog`
+## 2. Núcleo proposto
 
 ### `organizations`
 
-Instituições, consórcios e iniciativas responsáveis.
-
-Campos essenciais:
-
-- `organization_id`;
-- `stable_id`;
-- `official_name`;
-- `acronym`;
-- `organization_type`;
-- `country_code`;
-- `homepage_url`;
-- `description`.
-
-### `sources`
-
-Portais, repositórios, catálogos, plataformas, redes, observatórios, programas ou infraestruturas.
-
-Campos essenciais:
-
-- `stable_id` — DR…;
-- `source_name`;
-- `source_type`;
-- `official_identity`;
-- `description`;
-- URLs institucionais e de acesso;
-- `geographic_scope`;
-- `covers_brazil`;
-- `active_status`;
-- `enumeration_strategy`.
-
-### `product_families`
-
-Agrupamentos de produtos relacionados.
-
-Campos essenciais:
-
-- `family_name`;
-- `source_id`;
-- `scientific_scope`;
-- `enumeration_scope`.
-
-### `products`
-
-Produtos científicos georreferenciados.
-
-Campos essenciais:
-
-- `stable_id` — DP…;
-- `product_name`;
-- `product_kind`;
-- `product_description`;
-- `scientific_object`;
-- `information_message`;
-- `intended_uses`;
-- `non_representations`;
-- `primary_or_derived`;
-- cobertura;
-- estado;
-- páginas oficiais;
-- limitações.
-
-`information_message` responde qual informação sobre o mundo real o produto comunica.
-
-`non_representations` registra interpretações que o produto não sustenta diretamente.
-
-### `product_releases`
-
-Versões, coleções, edições, cenários ou anos-base.
-
-Campos essenciais:
-
-- `version_label`;
-- `release_date`;
-- validade;
-- cobertura temporal;
-- `release_status`;
-- notas de mudança;
-- identificador ou checksum;
-- `is_current`.
-
-### `spatial_profiles`
-
-Campos essenciais:
-
-- `support_type`;
-- `support_description`;
-- geometria;
-- resolução nominal e unidade;
-- escala;
-- unidade mínima mapeável;
-- CRS;
-- grade;
-- agregação;
-- unidade geográfica;
-- cobertura textual;
-- geometria de cobertura PostGIS;
-- vieses e limitações espaciais.
-
-### `temporal_profiles`
-
-Campos essenciais:
-
-- tipo de representação;
-- descrição do suporte;
-- datas inicial e final;
-- resolução;
-- janela de observação;
-- frequência;
-- latência;
-- calendário;
-- agregação;
-- vieses e limitações temporais.
-
-### `methods`
-
-Descreve medição, sensoriamento remoto, registro administrativo, levantamento, classificação, modelagem, interpolação, agregação ou método misto.
-
-Campos essenciais:
-
-- nome e tipo;
-- descrição;
-- dados de entrada;
-- processamento;
-- validação;
-- versão;
-- documentação;
-- limitações.
-
-### `quality_profiles`
-
-Campos essenciais:
-
-- estado da documentação;
-- desenho de validação;
-- métricas de acurácia;
-- disponibilidade e tipo de incerteza;
-- flags;
-- dados ausentes;
-- viés de coleta;
-- artefatos;
-- limites de representatividade;
-- documentação.
-
-### `variables`
-
-Vocabulário de variáveis, indicadores, classes, bandas e métricas.
-
-Campos essenciais:
-
-- `stable_id` — VR…;
-- nome canônico;
-- nomes em português e inglês;
-- definição;
-- fenômeno;
-- objeto observado;
-- população ou universo;
-- tipo de dado;
-- unidade canônica;
-- vocabulário de referência;
-- sensibilidade.
-
-### `product_variables`
-
-Associação entre release e variável.
-
-Campos essenciais:
-
-- nome original no produto;
-- papel da variável;
-- definição original;
-- unidade;
-- tipo;
-- método;
-- perfis espacial, temporal e de qualidade;
-- interpretação;
-- potencial científico;
-- não-interpretações;
-- semântica de agregação;
-- legenda;
-- estado de revisão.
-
-Papéis controlados incluem:
-
-- observação principal;
-- estimativa principal;
-- variável derivada;
-- classe;
-- probabilidade;
-- qualidade;
-- incerteza;
-- coordenada;
-- dimensão;
-- identificador;
-- máscara;
-- auxiliar.
-
-### `distributions`
-
-Formas de acesso a releases.
-
-Campos essenciais:
-
-- `stable_id` — DD…;
-- nome;
-- papel;
-- URL;
-- formato;
-- media type;
-- protocolo;
-- ferramenta;
-- gratuidade;
-- autenticação;
-- condições;
-- licença;
-- atribuição;
-- suporte a recorte;
-- estado do acesso;
-- data do teste.
-
-### `data_assets`
-
-Arquivos, endpoints, camadas, tabelas, legendas, metadados e recursos concretos.
-
-### `access_capabilities`
-
-Capacidades controladas:
-
-- descobrir;
-- pré-visualizar;
-- visualizar;
-- consultar atributos;
-- recortar no espaço ou tempo;
-- baixar;
-- transmitir;
-- processar;
-- exportar;
-- abrir em QGIS, R, Python ou Earth Engine.
-
-### `taxonomy_terms`
-
-Vocabulários temáticos, científicos, territoriais e operacionais.
-
-### `citations`, `product_citations`, `release_citations`
-
-Citações de dataset, metodologia, validação, documentação, licença e ciência relacionada.
-
-### `metadata_assertions`
-
-Evidência por campo.
-
-Campos essenciais:
-
-- entidade;
-- identificador;
-- campo;
-- valor;
-- URL;
-- tipo de evidência;
-- nota de suporte;
-- confiança;
-- data de recuperação.
-
-### `curation_reviews`
-
-Estado, escores de completude e precisão, achados, correções e próxima revisão.
-
-## 6. Valores controlados importantes
-
-### Estado desconhecido
-
-O desconhecido deve permanecer explícito. Não deve ser convertido em `não`.
-
-### Natureza de produção
-
-- observação primária;
-- registro administrativo;
-- estimativa amostral;
-- classificado;
-- modelado;
-- interpolado;
-- derivado;
-- misto;
-- desconhecido.
-
-### Estratégia de enumeração
-
-- `complete`;
-- `family_level`;
-- `external_index`;
-- `representative_sample`;
-- `selective`.
-
-### Estado de revisão
+| Campo | Definição |
+|---|---|
+| `organization_id` | Identificador interno. |
+| `stable_id` | Identificador estável. |
+| `official_name` | Nome oficial. |
+| `acronym` | Sigla. |
+| `country_code` | País principal. |
+| `homepage_url` | Página institucional. |
+| `description` | Descrição curta. |
+
+### `catalog_entries`
+
+| Campo | Definição |
+|---|---|
+| `catalog_entry_id` | Identificador interno. |
+| `stable_id` | Identificador estável da entrada. |
+| `organization_id` | Organização principal. |
+| `parent_entry_id` | Relação opcional entre entrada ampla e entrada mais específica. |
+| `entry_type` | `source`, `platform`, `collection`, `data_product` ou `data_service`. |
+| `official_name` | Nome usado pela fonte. |
+| `acronym` | Sigla ou nome curto. |
+| `summary` | Síntese objetiva. |
+| `scientific_scope` | Informação científica oferecida. |
+| `data_modalities` | Tipos amplos de dados. |
+| `geographic_coverage` | Cobertura espacial. |
+| `temporal_coverage` | Cobertura temporal. |
+| `spatial_resolution_text` | Resolução ou suporte relevante, em texto. |
+| `temporal_resolution_text` | Granularidade temporal relevante. |
+| `update_frequency_text` | Atualização declarada. |
+| `access_level` | Gratuito, parcial, pago, restrito ou desconhecido. |
+| `authentication_required` | Necessidade de autenticação. |
+| `official_page_url` | Página oficial da entrada. |
+| `metadata_url` | Metadados diretos. |
+| `primary_access_url` | Canal principal de acesso. |
+| `methodology_url` | Metodologia principal. |
+| `license_text` | Licença ou condição declarada. |
+| `license_url` | Link oficial da licença. |
+| `citation_text` | Citação recomendada. |
+| `citation_url` | Orientação oficial de citação. |
+| `status` | Estado operacional conhecido. |
+| `last_verified_at` | Última verificação. |
+| `curation_status` | Estado da curadoria. |
+| `additional_metadata_json` | Metadados adicionais sem normalização obrigatória. |
+
+### `entry_variables`
+
+| Campo | Definição |
+|---|---|
+| `entry_variable_id` | Identificador interno. |
+| `catalog_entry_id` | Entrada associada. |
+| `source_label` | Nome usado pela fonte. |
+| `source_definition` | Definição original ou síntese fiel. |
+| `unit_text` | Unidade quando material. |
+| `variable_group` | Grupo amplo de busca. |
+| `search_label` | Rótulo normalizado opcional. |
+| `evidence_url` | Evidência principal. |
+
+Não é obrigatório enumerar todas as bandas, colunas, classes ou arquivos.
+
+### `entry_evidence`
+
+| Campo | Definição |
+|---|---|
+| `entry_evidence_id` | Identificador interno. |
+| `catalog_entry_id` | Entrada sustentada. |
+| `field_name` | Campo ou afirmação. |
+| `evidence_url` | URL oficial ou documento direto. |
+| `evidence_type` | Página oficial, metadado, metodologia, licença, citação ou outro. |
+| `support_note` | O que a evidência sustenta. |
+| `retrieved_at` | Data de recuperação. |
+| `confidence` | Confiança curatorial. |
+
+### `connector_profiles`
+
+| Campo | Definição |
+|---|---|
+| `connector_profile_id` | Identificador interno. |
+| `catalog_entry_id` | Entrada associada. |
+| `connector_type` | WMS, WFS, STAC, REST, OGC API, Earth Engine ou outro. |
+| `endpoint_url` | Endpoint externo. |
+| `external_identifier` | Identificador necessário à operação. |
+| `authentication` | Requisito de autenticação. |
+| `supported_operation` | Operação selecionada. |
+| `configuration_json` | Configuração mínima. |
+| `last_tested_at` | Data do teste. |
+| `status` | Estado do conector. |
+
+Conectores são opcionais e não constituem inventário de ativos.
+
+## 3. Valores controlados
+
+### `entry_type`
+
+- `source`;
+- `platform`;
+- `collection`;
+- `data_product`;
+- `data_service`.
+
+### `curation_status`
 
 - `draft`;
 - `reviewed`;
 - `approved`;
+- `needs_evidence`;
 - `deprecated`.
 
-## 7. Regra dos links
+### Estado desconhecido
 
-- **Site oficial** — `homepage_url`: página institucional principal ou página oficial sobre a fonte;
-- **Acessar dados** — `data_access_url`: página em que os dados podem ser pesquisados, visualizados, solicitados ou baixados;
-- documentação de acesso — `access_documentation_url`: API, protocolo, autenticação ou instruções técnicas;
-- página do produto;
+Desconhecido não equivale a `não`. Quando necessário, usar:
+
+- `unknown`;
+- `not_found_after_bounded_search`;
+- `not_applicable`;
+- `inaccessible_in_current_environment`;
+- `contradictory`.
+
+## 4. Regra dos links
+
+Priorizar:
+
+- página oficial;
+- metadados;
+- acesso principal;
 - metodologia;
 - licença;
-- citação;
-- visualizador.
+- citação.
 
-Esses papéis são distintos. URLs iguais só são aceitas quando a página cumpre efetivamente mais de uma função.
+URLs iguais são aceitáveis quando a mesma página cumpre mais de um papel. Não se deve inventariar toda a árvore de links.
 
-## 8. Regra de autoridade
+## 5. Regra de granularidade
+
+Uma nova entrada exige diferença material de significado, modalidade, cobertura, período, método, finalidade, acesso principal ou identidade oficial.
+
+Outro arquivo, formato, layer, banda, endpoint, diretório, tabela ou data técnica não cria automaticamente nova entrada.
+
+## 6. Regra de dados externos
+
+Não existe entidade canônica de `data_asset` na Instância 1 simplificada.
+
+Arquivos, datasets, layers, endpoints e coleções permanecem externos. O catálogo registra links e metadados, não custódia ou armazenamento.
+
+## 7. CSVs atuais
+
+### `data/data_resources.csv`
+
+Permanece como catálogo público de fontes durante a transição.
+
+### `data/data_products.csv`
+
+Permanece como piloto legado. Seus registros serão avaliados como candidatos a `catalog_entries`, sem obrigação de preservar a distinção antiga entre família, produto e release.
+
+### `data/product_distributions.csv`
+
+Permanece legado operacional. Links úteis serão condensados em campos principais ou conectores selecionados. Não será migrado como inventário integral.
+
+## 8. Esquema profundo do Marco 1
+
+As tabelas `product_families`, `product_releases`, `distributions`, `data_assets`, `access_capabilities` e perfis separados permanecem como evidência de desenvolvimento e possível fonte de componentes.
+
+Elas não são mais requisitos canônicos da Instância 1 e não devem receber expansão até decisão arquitetural contrária formal.
+
+## 9. Autoridade
 
 Durante a transição:
 
-- CSVs atuais = autoridade da versão pública;
-- SQL relacional = arquitetura canônica de destino;
-- planilha do Drive = espelho derivado;
-- evidências não alteram silenciosamente os dados;
-- promoção exige auditoria.
-
-Consulte:
-
-- `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`;
-- `PRODUCT_CATALOG_MODEL.md`;
-- `database/README.md`;
-- `docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md`.
+- CSV/JSON atuais = autoridade pública;
+- documentação desta branch = proposta de reorientação;
+- novo SQL simplificado = próximo pacote executável;
+- planilhas do Drive = espelhos;
+- PR #57 = pacote congelado e candidato a `superseded`.
