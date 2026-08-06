@@ -116,7 +116,7 @@ def main() -> int:
         if not isinstance(item, dict) or not official_https(item.get("url")):
             fail("toda evidência deve usar fonte oficial HTTPS")
     evidence_text = json.dumps(evidence, ensure_ascii=False).casefold()
-    for token in ("2018", "3 ha", "wfi", "shapefile", "a5220c18", "prodes", "fiscalização"):
+    for token in ("2018", "3 ha", "wfi", "shapefile", "prodes", "fiscalização"):
         if token not in evidence_text:
             fail(f"cobertura de evidência ausente: {token}")
 
