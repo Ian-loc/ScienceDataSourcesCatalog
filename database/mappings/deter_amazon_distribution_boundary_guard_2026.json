@@ -1,0 +1,105 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000002",
+  "parent_product_candidate_id": "PD-DETER-AMZ-ALERTS",
+  "status": "two_official_distribution_boundaries_and_partial_schemas_verified_endpoints_unresolved",
+  "observed_at": "2026-08-06T00:24:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "distributions": [
+    {
+      "candidate_distribution_id": "DD-DETER-AMZ-FOREST-ALERTS-SHP",
+      "candidate_product_id": "PD-DETER-AMZ-FOREST-ALERTS",
+      "official_catalog_label": "Avisos em áreas de Floresta - Shapefile (desde 2016)",
+      "official_metadata_title": "Aviso, degradação e exploração madeireira na Amazônia Legal à partir de 2016",
+      "metadata_identifier": "f2153c4a-915b-48a6-8658-963bdce7366c",
+      "declared_format": "ESRI Shapefile",
+      "scientific_start": "2016-08",
+      "experimental": false,
+      "represented_domain": "áreas florestais da Amazônia Legal",
+      "documented_classes": ["DESMATAMENTO_CR", "DESMATAMENTO_VEG", "MINERACAO", "DEGRADACAO", "CICATRIZ_DE_QUEIMADA", "CS_DESORDENADO", "CS_GEOMETRICO"],
+      "documented_schema": ["fid", "classname", "quadrant", "path_row", "view_date", "sensor", "satellite", "areauckm", "uc", "areamunkm", "municipality", "geocodibge", "uf", "areatotkm", "publish_month"],
+      "schema_qualifications": {
+        "areatotkm_is_additive": false,
+        "areamunkm_is_additive_for_municipal_summation": true,
+        "publish_month_available_in_download_shapefile": false,
+        "shapefile_field_names_may_be_truncated_to_10_characters": true
+      }
+    },
+    {
+      "candidate_distribution_id": "DD-DETER-AMZ-NON-FOREST-ALERTS-SHP",
+      "candidate_product_id": "PD-DETER-AMZ-NON-FOREST-ALERTS",
+      "official_catalog_label": "Avisos em áreas de Não Floresta - Shapefile (desde 2023)",
+      "official_metadata_title": "Avisos de alterações na cobertura vegetal em áreas de Não Floresta na Amazônia Legal à partir de 2023 (EXPERIMENTAL)",
+      "metadata_identifier": null,
+      "declared_format": "ESRI Shapefile",
+      "scientific_start": "2023-08",
+      "experimental": true,
+      "represented_domain": "áreas classificadas pelo produtor como Não Floresta na Amazônia Legal",
+      "documented_classes": ["SUPRESSAO_COM_SOLO_EXPOSTO", "SUPRESSAO_COM_VEGETACAO", "MINERACAO", "CICATRIZ_DE_QUEIMADA"],
+      "documented_schema": ["fid", "class_name", "area_km", "view_date", "create_date", "audit_date", "sensor", "satellite", "path_row", "uuid"],
+      "schema_qualifications": {
+        "fid_encodes_current_or_history_suffix": true,
+        "view_date_is_exact_event_date": false,
+        "experimental_data_may_change_partially_or_entirely": true,
+        "shapefile_field_names_may_be_truncated_to_10_characters": true
+      }
+    }
+  ],
+  "shared_boundaries": {
+    "same_scientific_product": false,
+    "same_class_domain": false,
+    "same_schema": false,
+    "same_start_period": false,
+    "same_maturity_state": false,
+    "catalog_update_date_is_release_identifier": false,
+    "current_catalog_snapshot_date": "2026-07-28",
+    "current_release_resolved": false,
+    "direct_download_urls_verified": false,
+    "asset_bytes_inspected": false,
+    "checksums_computed": false
+  },
+  "official_evidence": [
+    {
+      "role": "catalog_distribution_presence_and_snapshot",
+      "url": "https://www.terrabrasilis.dpi.inpe.br/downloads/",
+      "supports": ["duas distribuições Shapefile separadas", "rótulos desde 2016 e desde 2023", "data de interface 2026-07-28"]
+    },
+    {
+      "role": "forest_metadata_classes_and_schema",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
+      "supports": ["UUID do registro florestal", "classes florestais", "esquema parcial", "regras de soma e truncamento Shapefile"]
+    },
+    {
+      "role": "non_forest_metadata_experimental_status_classes_and_schema",
+      "url": "https://data.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
+      "supports": ["caráter experimental", "início em agosto de 2023", "classes e esquema parcial não florestais"]
+    },
+    {
+      "role": "program_identity_and_current_method_context",
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "supports": ["identidade DETER", "alertas em floresta e não floresta", "finalidade operacional"]
+    }
+  ],
+  "normalization_rules": [
+    "não colapsar alertas florestais e não florestais em uma única release ou distribuição",
+    "não transferir caráter experimental do produto não florestal ao produto florestal",
+    "não transferir classes, esquema ou regras de área entre as duas distribuições",
+    "não usar areatotkm em somas; a documentação orienta areamunkm para somas municipais",
+    "não promover publish_month como campo do Shapefile baixável",
+    "não interpretar view_date como data exata da ocorrência",
+    "não usar a data 2026-07-28 da interface como release científica",
+    "não inferir UUID do registro não florestal sem evidência oficial individual",
+    "não promover endpoint, ativo ou release sem URL individual, resposta HTTP e inspeção dos bytes"
+  ],
+  "required_before_promotion": [
+    "resolver UUID individual do metadado não florestal",
+    "resolver releases ou snapshots científicos das duas distribuições",
+    "resolver URLs diretas e estados HTTP individualmente",
+    "recuperar e calcular checksum dos pacotes",
+    "inspecionar CRS, geometria, esquema, domínios e nulos",
+    "confirmar cobertura territorial e temporal nos bytes",
+    "resolver licença, atribuição e citação por release",
+    "concluir revisão curatorial separada"
+  ]
+}
