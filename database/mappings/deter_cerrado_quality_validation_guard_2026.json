@@ -32,7 +32,7 @@
     "study_year": 2023,
     "study_title": "The near real-time deforestation detection system: case study of the DETER system for the Cerrado Biome",
     "study_system_scope": "DETER Cerrado",
-    "reported_patch_size_scope": "inclui áreas menores que 10 ha e maiores que 1 ha, além de polígonos maiores",
+    "reported_patch_size_scope": "inclui áreas >1 ha e <10 ha, além de polígonos maiores",
     "reported_proximity_percentage": 80,
     "reported_buffer_radius_km": 10,
     "reported_denominator": "desmatamento posteriormente detectado pelo PRODES Cerrado",
