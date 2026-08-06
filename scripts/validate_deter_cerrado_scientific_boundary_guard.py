@@ -11,6 +11,7 @@ from validate_deter_cerrado_endpoint_discovery_guard import main as validate_end
 from validate_deter_cerrado_metadata_profile_guard import main as validate_metadata_profile
 from validate_deter_cerrado_method_profile_guard import main as validate_method_profile
 from validate_deter_cerrado_operational_legend_latency_guard import main as validate_operational_legend_latency
+from validate_deter_cerrado_quality_validation_guard import main as validate_quality_validation
 
 PATH = Path("database/mappings/deter_cerrado_scientific_boundary_guard_2026.json")
 EXPECTED_UUID = "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"
@@ -176,9 +177,10 @@ def main() -> int:
     validate_method_profile()
     validate_operational_legend_latency()
     validate_endpoint_discovery()
+    validate_quality_validation()
     print(
         "OK: DETER Cerrado preserva alerta versus inventário, perfil específico expandido, "
-        "método 2024, legenda/latência, descoberta de endpoints e promoção negativa"
+        "método 2024, legenda/latência, acesso, qualidade não resolvida e promoção negativa"
     )
     return 0
 
