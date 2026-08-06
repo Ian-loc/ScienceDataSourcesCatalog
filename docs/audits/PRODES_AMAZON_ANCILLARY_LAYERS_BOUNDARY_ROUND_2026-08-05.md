@@ -95,7 +95,7 @@ Para as três unidades permanecem pendentes:
 
 ## Ocorrência
 
-**ID:** `I1-20260805-039`  
+**ID:** `I1-20260805-040`  
 **Categoria:** colapso de camadas auxiliares em produtos de supressão e herança indevida entre domínios  
 **Severidade:** `high` para promoção das unidades  
 **Estado:** `corrected`
