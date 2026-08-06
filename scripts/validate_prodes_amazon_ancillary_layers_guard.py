@@ -7,19 +7,10 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 PATH = Path("database/mappings/prodes_amazon_ancillary_layers_guard_2026.json")
-EXPECTED = {
-    "PRODES-ASSET-AMAZON-HYDROGRAPHY-SHP": (
-        "PD-PRODES-AMZ-HYDROGRAPHY",
-        "1df78632-68e7-4e91-bca0-25305d3f831e",
-    ),
-    "PRODES-ASSET-AMAZON-NON-FOREST-HYDROGRAPHY-SHP": (
-        "PD-PRODES-AMZ-NON-FOREST-HYDROGRAPHY",
-        "87fb6a32-01c1-4421-b7d0-a93568e1b079",
-    ),
-    "PRODES-ASSET-AMAZON-NON-FOREST-DOMAIN-MASK-SHP": (
-        "PD-PRODES-AMZ-NON-FOREST-DOMAIN-MASK",
-        "bed1276c-aa3d-4f5b-b560-1879617ef13d",
-    ),
+EXPECTED_UUIDS = {
+    "PRODES-ASSET-AMAZON-HYDROGRAPHY-SHP": "1df78632-68e7-4e91-bca0-25305d3f831e",
+    "PRODES-ASSET-AMAZON-NON-FOREST-HYDROGRAPHY-SHP": "87fb6a32-01c1-4421-b7d0-a93568e1b079",
+    "PRODES-ASSET-NON-FOREST-MASK-SHP": "bed1276c-aa3d-4f5b-b560-1879617ef13d",
 }
 
 
@@ -39,6 +30,8 @@ def main() -> int:
         fail(f"arquivo ausente: {PATH}")
     data = json.loads(PATH.read_text(encoding="utf-8"))
 
+    if data.get("contract_version") != "1.1.0":
+        fail("versão do contrato auxiliar inesperada")
     if data.get("family_stable_id") != "PF000001":
         fail("portão deve permanecer vinculado a PF000001")
     if data.get("parent_package_asset_id") != "PRODES-ASSET-AMAZON-GEOPACKAGE":
@@ -53,32 +46,30 @@ def main() -> int:
     layers = data.get("layers")
     if not isinstance(layers, list) or len(layers) != 3:
         fail("três camadas auxiliares são obrigatórias")
-    targets: set[str] = set()
-    products: set[str] = set()
-    uuids: set[str] = set()
     by_target: dict[str, dict] = {}
+    uuids: set[str] = set()
     for layer in layers:
         if not isinstance(layer, dict):
             fail("cada camada deve ser objeto")
         target = layer.get("target_id")
-        if target not in EXPECTED:
+        uuid = EXPECTED_UUIDS.get(target)
+        if uuid is None:
             fail(f"alvo inesperado: {target}")
-        product, uuid = EXPECTED[target]
-        if layer.get("candidate_scientific_product_id") != product:
-            fail(f"produto candidato divergente para {target}")
         if layer.get("metadata_identifier") != uuid:
             fail(f"UUID divergente para {target}")
         if not official_https(layer.get("metadata_url")) or uuid not in layer["metadata_url"]:
             fail(f"metadata_url inválida para {target}")
-        targets.add(target)
-        products.add(product)
+        if uuid in uuids:
+            fail(f"UUID duplicado: {uuid}")
         uuids.add(uuid)
         by_target[target] = layer
-    if targets != set(EXPECTED) or len(products) != 3 or len(uuids) != 3:
-        fail("identidades das camadas auxiliares incompletas ou duplicadas")
+    if set(by_target) != set(EXPECTED_UUIDS):
+        fail("identidades das camadas auxiliares incompletas")
 
     hydro = by_target["PRODES-ASSET-AMAZON-HYDROGRAPHY-SHP"]
-    if hydro.get("product_type") != "ancillary_cartographic_water_body_layer":
+    if hydro.get("candidate_scientific_product_id") != "PD-PRODES-AMZ-HYDROGRAPHY":
+        fail("produto candidato da hidrografia geral divergente")
+    if hydro.get("product_type") != "candidate_ancillary_cartographic_water_body_product":
         fail("tipo da hidrografia geral divergente")
     if hydro.get("declared_cadence") != "annual":
         fail("cadência anual declarada da hidrografia geral foi perdida")
@@ -93,7 +84,9 @@ def main() -> int:
         fail("ano de referência do limite de bioma divergente")
 
     nf_hydro = by_target["PRODES-ASSET-AMAZON-NON-FOREST-HYDROGRAPHY-SHP"]
-    if nf_hydro.get("product_type") != "ancillary_cartographic_water_body_layer_within_non_forest_domain":
+    if nf_hydro.get("candidate_scientific_product_id") != "PD-PRODES-AMZ-NON-FOREST-HYDROGRAPHY":
+        fail("produto candidato da hidrografia não florestal divergente")
+    if nf_hydro.get("product_type") != "candidate_ancillary_cartographic_water_body_product_within_non_forest_domain":
         fail("tipo da hidrografia não florestal divergente")
     context = nf_hydro.get("non_forest_program_context", {})
     expected_context = {
@@ -110,11 +103,21 @@ def main() -> int:
     if nf_hydro.get("spatial_context", {}).get("non_forest_domain_metadata_reference") != "bed1276c-aa3d-4f5b-b560-1879617ef13d":
         fail("referência à máscara de não floresta ausente")
 
-    mask = by_target["PRODES-ASSET-AMAZON-NON-FOREST-DOMAIN-MASK-SHP"]
-    if mask.get("product_type") != "domain_mask_and_classification_support_layer":
-        fail("tipo da máscara de não floresta divergente")
+    mask = by_target["PRODES-ASSET-NON-FOREST-MASK-SHP"]
+    if mask.get("candidate_entity_id") != "AX-PRODES-AMZ-NON-FOREST-DOMAIN-MASK":
+        fail("identidade auxiliar da máscara divergente")
+    if mask.get("candidate_entity_type") != "auxiliary_domain_mask":
+        fail("tipo de entidade auxiliar divergente")
+    if mask.get("candidate_scientific_product_id") is not None:
+        fail("máscara não pode receber produto científico autônomo prematuramente")
+    if mask.get("standalone_scientific_product_supported") is not False:
+        fail("evidência não sustenta produto autônomo da máscara")
+    if mask.get("product_type") != "auxiliary_domain_mask_and_classification_support_layer":
+        fail("papel auxiliar da máscara divergente")
+    if mask.get("companion_guard") != "database/mappings/prodes_amazon_non_forest_mask_entity_guard_2026.json":
+        fail("guard complementar da máscara ausente")
     mask_text = json.dumps(mask, ensure_ascii=False).casefold()
-    for token in ("não enquadradas na classe de floresta", "nao_floresta", "nao_floresta2", "não significa área sem vegetação", "ausência de dado"):
+    for token in ("não enquadradas na classe de floresta", "nao_floresta", "nao_floresta2", "classe auxiliar", "ausência de dado"):
         if token not in mask_text:
             fail(f"semântica da máscara de não floresta incompleta: {token}")
 
@@ -125,16 +128,15 @@ def main() -> int:
         collapsed = boundary.get("must_not_be_collapsed_into")
         if not isinstance(collapsed, list) or len(collapsed) < 5:
             fail(f"fronteira de colapso insuficiente para {target}")
-        boundary_text = json.dumps(boundary, ensure_ascii=False).casefold()
-        if "false" not in boundary_text:
+        if "false" not in json.dumps(boundary).casefold():
             fail(f"estados científicos negativos ausentes para {target}")
 
-    schema = data.get("shared_documented_partial_schema")
     expected_schema = {
         "uuid", "uid", "state", "path_row", "main_class", "class_name", "def_cloud",
         "julian_day", "image_date", "year", "area_km", "scene_id", "publish_year",
         "source", "satellite", "sensor", "geom", "pub_date",
     }
+    schema = data.get("shared_documented_partial_schema")
     if not isinstance(schema, list) or set(schema) != expected_schema:
         fail("esquema parcial compartilhado divergente")
 
@@ -169,33 +171,36 @@ def main() -> int:
         "all_three_catalog_entries_present", "all_three_metadata_identifiers_verified",
         "all_three_component_relations_to_geopackage_verified", "ancillary_layer_role_documented",
         "hydrography_object_documented", "non_forest_domain_mask_semantics_documented",
-        "general_and_non_forest_hydrography_distinguished", "partial_schema_documented",
+        "non_forest_mask_auxiliary_entity_role_verified", "general_and_non_forest_hydrography_distinguished",
+        "partial_schema_documented",
     ):
         if state.get(key) is not True:
             fail(f"fato verificado ausente: {key}")
     for key in (
-        "individual_current_releases_resolved", "direct_download_urls_verified", "asset_bytes_inspected",
-        "checksums_computed", "complete_schemas_verified_from_bytes", "licenses_resolved_for_assets",
+        "non_forest_mask_standalone_product_supported", "individual_current_releases_resolved",
+        "direct_download_urls_verified", "asset_bytes_inspected", "checksums_computed",
+        "complete_schemas_verified_from_bytes", "licenses_resolved_for_assets",
         "citations_resolved_for_data_releases",
     ):
         if state.get(key) is not False:
             fail(f"estado prematuro detectado: {key}")
 
     rules = data.get("normalization_rules")
-    if not isinstance(rules, list) or len(rules) < 13:
+    if not isinstance(rules, list) or len(rules) < 14:
         fail("regras de normalização insuficientes")
     rules_text = " ".join(str(item) for item in rules).casefold()
     for token in (
-        "observação de supressão", "ausência de vegetação", "hidrografia geral", "sensores",
-        "facetas agregadas", "2019", "2023", "uid", "uuid", "pub_date", "endpoint_state", "asset_state",
+        "observação de supressão", "produto científico autônomo", "ausência de vegetação",
+        "hidrografia geral", "sensores", "facetas agregadas", "2019", "2023",
+        "uid", "uuid", "pub_date", "endpoint_state", "asset_state",
     ):
         if token not in rules_text:
             fail(f"regra obrigatória ausente: {token}")
 
-    product_required = data.get("required_before_product_promotion")
+    entity_required = data.get("required_before_entity_resolution_or_product_promotion")
     asset_required = data.get("required_before_asset_promotion")
-    if not isinstance(product_required, list) or len(product_required) < 8:
-        fail("requisitos de promoção de produto incompletos")
+    if not isinstance(entity_required, list) or len(entity_required) < 8:
+        fail("requisitos de resolução ou promoção incompletos")
     if not isinstance(asset_required, list) or len(asset_required) < 8:
         fail("requisitos de promoção de ativo incompletos")
 
@@ -204,11 +209,12 @@ def main() -> int:
         '"promotion_authorized": true', '"individual_current_releases_resolved": true',
         '"direct_download_urls_verified": true', '"asset_bytes_inspected": true',
         '"checksums_computed": true', '"complete_schemas_verified_from_bytes": true',
+        '"non_forest_mask_standalone_product_supported": true',
     ):
         if forbidden in serialized:
             fail(f"promoção prematura detectada: {forbidden}")
 
-    print("OK: camadas auxiliares PRODES Amazônia preservam identidades, domínios e promoção negativa")
+    print("OK: camadas auxiliares PRODES preservam produtos candidatos, máscara auxiliar e promoção negativa")
     return 0
 
 
