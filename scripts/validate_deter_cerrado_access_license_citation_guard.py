@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate DETER Cerrado access, license, citation, and negative asset state."""
+"""Validate reconciled DETER Cerrado access, license, citation, and negative asset state."""
 from __future__ import annotations
 
 import json
@@ -7,18 +7,30 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 PATH = Path("database/mappings/deter_cerrado_access_license_citation_guard_2026.json")
-EXPECTED_UUID = "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"
+CURRENT_UUID = "e6e15388-4ca9-49b9-aec9-03891339a35e"
+STALE_UUID = "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"
 
 
 def fail(message: str) -> None:
     raise SystemExit(f"ERRO: {message}")
 
 
-def official_https(url: object) -> bool:
+def trusted_url(url: object) -> bool:
     if not isinstance(url, str):
         return False
     parsed = urlparse(url)
-    return parsed.scheme == "https" and (parsed.hostname or "").endswith(("inpe.br", "creativecommons.org"))
+    hostname = (parsed.hostname or "").casefold()
+    return parsed.scheme == "https" and (
+        hostname.endswith("inpe.br")
+        or hostname.endswith("creativecommons.org")
+        or hostname == "doi.org"
+    )
+
+
+def require_false(mapping: dict, keys: tuple[str, ...], label: str) -> None:
+    for key in keys:
+        if mapping.get(key) is not False:
+            fail(f"{label} promovido prematuramente: {key}")
 
 
 def main() -> int:
@@ -26,7 +38,7 @@ def main() -> int:
         fail(f"arquivo ausente: {PATH}")
     data = json.loads(PATH.read_text(encoding="utf-8"))
 
-    if data.get("contract_version") != "1.0.0":
+    if data.get("contract_version") != "1.1.0":
         fail("versão do contrato inesperada")
     if data.get("package_id") != "I1-M2A-DETER-CERRADO":
         fail("pacote inesperado")
@@ -34,37 +46,43 @@ def main() -> int:
         fail("família inesperada")
     if data.get("candidate_scientific_product_id") != "PD-DETER-CER-ALERTS":
         fail("produto candidato inesperado")
-    if data.get("metadata_identifier") != EXPECTED_UUID:
-        fail("UUID de metadado divergente")
-    if data.get("status") != "citation_program_license_and_access_channels_resolved_release_asset_unresolved":
+    if data.get("metadata_identifier") != CURRENT_UUID:
+        fail("UUID corrente divergente")
+    if data.get("superseded_citation_identifier") != STALE_UUID:
+        fail("UUID histórico não preservado")
+    if data.get("status") != "current_metadata_access_reconciled_program_license_documented_release_asset_unresolved":
         fail("estado curatorial inesperado")
     if data.get("timezone") != "America/Sao_Paulo":
-        fail("timezone deve ser America/Sao_Paulo")
+        fail("timezone divergente")
     if data.get("promotion_authorized") is not False:
         fail("gate não pode autorizar promoção")
 
     citation = data.get("citation_state")
     if not isinstance(citation, dict):
         fail("citation_state deve ser objeto")
-    if citation.get("recommended_dataset_citation_resolved") is not True:
-        fail("citação recomendada deve estar resolvida")
+    if citation.get("published_dataset_citation_guidance_documented") is not True:
+        fail("orientação de citação publicada não documentada")
+    if citation.get("published_guidance_metadata_identifier") != STALE_UUID:
+        fail("UUID histórico da orientação divergente")
+    if citation.get("published_guidance_identifier_is_current") is not False:
+        fail("UUID histórico não pode permanecer corrente")
+    if citation.get("current_metadata_record_identifier") != CURRENT_UUID:
+        fail("UUID do registro corrente divergente")
+    if CURRENT_UUID not in str(citation.get("current_metadata_record_url", "")):
+        fail("URL do registro corrente sem UUID esperado")
+    if citation.get("peer_reviewed_data_availability_reference_matches_current_identifier") is not True:
+        fail("referência primária do identificador corrente ausente")
     if citation.get("recommended_citation_year") != 2024:
-        fail("ano da citação recomendada divergente")
+        fail("ano da orientação de citação divergente")
     if citation.get("citation_access_date_example") != "2024-09-02":
         fail("data exemplar divergente")
-    citation_text = str(citation.get("recommended_dataset_citation", ""))
-    for token in ("INSTITUTO NACIONAL DE PESQUISAS ESPACIAIS", "Bioma Cerrado", "desde 2018", EXPECTED_UUID):
-        if token not in citation_text:
-            fail(f"citação específica incompleta: {token}")
-    for key in (
-        "citation_year_is_release_identifier",
-        "citation_access_date_example_is_current_access_date",
-        "current_release_citation_resolved",
-    ):
-        if citation.get(key) is not False:
-            fail(f"citação promovida prematuramente: {key}")
-    if citation.get("citation_should_be_refreshed_with_actual_access_date") is not True:
-        fail("citação futura deve exigir data real de acesso")
+    require_false(
+        citation,
+        ("citation_year_is_release_identifier", "citation_access_date_example_is_current_access_date", "current_release_citation_resolved"),
+        "citação",
+    )
+    if citation.get("citation_should_be_refreshed_with_current_metadata_url_and_actual_access_date") is not True:
+        fail("citação atual deve exigir URL corrente e data real")
 
     license_state = data.get("license_state")
     if not isinstance(license_state, dict):
@@ -73,19 +91,21 @@ def main() -> int:
         fail("licença do programa deve estar resolvida")
     if license_state.get("program_level_license_identifier") != "CC-BY-SA-4.0":
         fail("identificador de licença divergente")
-    if not official_https(license_state.get("program_level_license_url")):
+    if not trusted_url(license_state.get("program_level_license_url")):
         fail("URL da licença inválida")
     for key in ("source_attribution_required", "share_alike_required_for_program_level_licensed_work"):
         if license_state.get(key) is not True:
             fail(f"obrigação de licença ausente: {key}")
-    for key in (
-        "current_release_license_resolved",
-        "asset_specific_license_resolved",
-        "redistribution_terms_for_download_package_resolved",
-        "derived_product_terms_for_download_package_resolved",
-    ):
-        if license_state.get(key) is not False:
-            fail(f"licença do ativo promovida prematuramente: {key}")
+    require_false(
+        license_state,
+        (
+            "current_release_license_resolved",
+            "asset_specific_license_resolved",
+            "redistribution_terms_for_download_package_resolved",
+            "derived_product_terms_for_download_package_resolved",
+        ),
+        "licença do ativo",
+    )
 
     access = data.get("public_access_channels")
     if not isinstance(access, dict):
@@ -98,23 +118,28 @@ def main() -> int:
     ):
         if access.get(key) is not True:
             fail(f"canal público ausente: {key}")
-    for url_key in ("download_catalog_url", "specific_metadata_url", "generic_wfs_base_url"):
-        if not official_https(access.get(url_key)):
-            fail(f"URL oficial inválida: {url_key}")
-    if EXPECTED_UUID not in str(access.get("specific_metadata_url", "")):
-        fail("URL específica sem UUID esperado")
+    for url_key in ("download_catalog_url", "specific_metadata_url", "specific_metadata_api_url", "generic_wfs_base_url"):
+        if not trusted_url(access.get(url_key)):
+            fail(f"URL inválida: {url_key}")
+    for url_key in ("specific_metadata_url", "specific_metadata_api_url"):
+        if CURRENT_UUID not in str(access.get(url_key, "")):
+            fail(f"{url_key} sem UUID corrente")
+    if access.get("specific_metadata_api_fetch_succeeded") is not False:
+        fail("falha de recuperação da API deve permanecer explícita")
     if access.get("registered_download_field_example") != "areatotkm":
-        fail("campo de canal cadastrado divergente")
-    for key in (
-        "specific_wfs_workspace_resolved",
-        "specific_wfs_layer_name_resolved",
-        "describe_feature_type_verified",
-        "direct_download_url_verified",
-        "http_status_verified_for_direct_download",
-        "redirect_chain_verified",
-    ):
-        if access.get(key) is not False:
-            fail(f"canal promovido prematuramente: {key}")
+        fail("campo do canal cadastrado divergente")
+    require_false(
+        access,
+        (
+            "specific_wfs_workspace_resolved",
+            "specific_wfs_layer_name_resolved",
+            "describe_feature_type_verified",
+            "direct_download_url_verified",
+            "http_status_verified_for_direct_download",
+            "redirect_chain_verified",
+        ),
+        "canal",
+    )
 
     restricted = data.get("restricted_advance_access")
     if not isinstance(restricted, dict):
@@ -123,40 +148,44 @@ def main() -> int:
         fail("credenciais antecipadas devem estar documentadas")
     if restricted.get("restricted_advance_access_should_not_be_inherited_as_public_download_authentication") is not True:
         fail("fronteira de autenticação ausente")
-    for key in ("advance_access_is_general_public_access", "advance_access_credentials_publicly_available"):
-        if restricted.get(key) is not False:
-            fail(f"acesso antecipado generalizado indevidamente: {key}")
-    restricted_text = json.dumps(restricted, ensure_ascii=False).casefold()
-    for token in ("antecipado", "controle", "fiscalização"):
-        if token not in restricted_text:
-            fail(f"escopo restrito incompleto: {token}")
+    require_false(restricted, ("advance_access_is_general_public_access", "advance_access_credentials_publicly_available"), "acesso antecipado")
 
     asset = data.get("asset_state")
-    if not isinstance(asset, dict):
-        fail("asset_state deve ser objeto")
+    if not isinstance(asset, dict) or not asset:
+        fail("asset_state deve ser objeto não vazio")
     for key, value in asset.items():
         if value is not False:
             fail(f"estado de ativo deve permanecer negativo: {key}")
 
     evidence = data.get("official_evidence")
-    if not isinstance(evidence, list) or len(evidence) < 4:
-        fail("evidências oficiais insuficientes")
+    if not isinstance(evidence, list) or len(evidence) < 5:
+        fail("evidências insuficientes")
+    roles = {item.get("role") for item in evidence if isinstance(item, dict)}
+    expected_roles = {
+        "current_specific_metadata_record",
+        "peer_reviewed_data_availability_identifier",
+        "published_citation_guidance_with_superseded_identifier",
+        "program_license",
+        "wfs_and_advance_access_policy",
+    }
+    if roles != expected_roles:
+        fail("papéis de evidência divergentes")
     for item in evidence:
-        if not isinstance(item, dict) or not official_https(item.get("url")):
-            fail("toda evidência deve usar URL HTTPS oficial")
+        if not trusted_url(item.get("url")):
+            fail(f"evidência com URL não confiável: {item.get('url')}")
     evidence_text = json.dumps(evidence, ensure_ascii=False).casefold()
     for token in (
-        "citação recomendada", "2024", "cc", "atribuição-compartilhaigual",
-        "wfs", "credenciais", "fiscalização", "areatotkm", "publish_month",
+        CURRENT_UUID, STALE_UUID, "areatotkm", "publish_month", "2024", "cc", "wfs", "credenciais", "fiscalização",
     ):
-        if token not in evidence_text:
+        if token.casefold() not in evidence_text:
             fail(f"cobertura de evidência ausente: {token}")
 
     state = data.get("verified_state")
     if not isinstance(state, dict):
         fail("verified_state deve ser objeto")
     for key in (
-        "recommended_dataset_citation_resolved",
+        "current_metadata_identifier_reconciled",
+        "published_citation_guidance_documented",
         "program_level_license_resolved",
         "download_catalog_resolved",
         "specific_metadata_record_resolved",
@@ -166,34 +195,39 @@ def main() -> int:
     ):
         if state.get(key) is not True:
             fail(f"fato verificado ausente: {key}")
-    for key in (
-        "current_release_resolved",
-        "current_release_citation_resolved",
-        "current_release_license_resolved",
-        "asset_specific_license_resolved",
-        "specific_wfs_layer_name_resolved",
-        "direct_download_url_verified",
-        "asset_bytes_inspected",
-        "checksum_computed",
-    ):
-        if state.get(key) is not False:
-            fail(f"estado prematuro detectado: {key}")
+    if state.get("published_guidance_identifier_current") is not False:
+        fail("UUID da orientação publicada não pode ser corrente")
+    require_false(
+        state,
+        (
+            "current_release_resolved",
+            "current_release_citation_resolved",
+            "current_release_license_resolved",
+            "asset_specific_license_resolved",
+            "specific_wfs_layer_name_resolved",
+            "direct_download_url_verified",
+            "asset_bytes_inspected",
+            "checksum_computed",
+        ),
+        "estado científico-operacional",
+    )
 
     rules = data.get("normalization_rules")
-    if not isinstance(rules, list) or len(rules) < 13:
+    if not isinstance(rules, list) or len(rules) < 17:
         fail("regras de normalização insuficientes")
     rules_text = " ".join(str(item) for item in rules).casefold()
     for token in (
-        "2024", "data real de acesso", "cc-by-sa-4.0", "release vigente",
-        "catálogo de downloads", "uuid geonetwork", "wfs", "areatotkm",
+        CURRENT_UUID, STALE_UUID, "registro de metadados", "release vigente", "data real de acesso",
+        "cc-by-sa-4.0", "catálogo de downloads", "uuid geonetwork", "wfs", "areatotkm",
         "publish_month", "acesso antecipado", "content-type", "checksum",
     ):
-        if token not in rules_text:
+        if token.casefold() not in rules_text:
             fail(f"regra obrigatória ausente: {token}")
 
     serialized = PATH.read_text(encoding="utf-8")
     for forbidden in (
         '"promotion_authorized": true',
+        '"published_guidance_identifier_is_current": true',
         '"current_release_resolved": true',
         '"current_release_citation_resolved": true',
         '"current_release_license_resolved": true',
@@ -207,8 +241,8 @@ def main() -> int:
             fail(f"promoção prematura detectada: {forbidden}")
 
     print(
-        "OK: DETER Cerrado preserva citação específica, licença no nível do programa, "
-        "canais de acesso e estado negativo de release/ativo"
+        "OK: DETER Cerrado usa o registro de metadados corrente, preserva a referência publicada "
+        "como histórica e mantém release/ativo negativos"
     )
     return 0
 
