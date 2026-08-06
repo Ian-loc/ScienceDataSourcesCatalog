@@ -1,516 +1,214 @@
-# Instância 1 — Catálogo relacional científico-operacional
+# Instância 1 — Catálogo relacional simplificado
 
-**Status:** direção canônica de implementação e curadoria  
-**Prioridade:** foco ativo do projeto  
-**Escopo:** produtos de dados com informação geográfica explícita ou associação territorial inequívoca  
-**Banco-alvo:** PostgreSQL com PostGIS  
-**Princípio:** identificar precisamente o objeto científico e operacional que cada plataforma entrega
+**Status:** direção canônica proposta  
+**Prioridade:** foco ativo  
+**Escopo:** fontes e ofertas de dados científicos relevantes ao Brasil  
+**Banco-alvo:** PostgreSQL; PostGIS apenas quando útil para metadados de cobertura
 
-## 1. Decisão
+## 1. Missão
 
-O desenvolvimento ativo do projeto concentra-se na **Instância 1**: um catálogo relacional aprofundado de fontes e produtos de dados georreferenciados sobre o Brasil.
+A Instância 1 deve permitir que o usuário:
 
-O objetivo imediato não é ampliar funcionalidades analíticas, calcular relações entre variáveis nem generalizar a sobreposição de camadas. O objetivo é construir uma base científica, técnica e operacional suficientemente precisa para que o catálogo seja útil por si só e possa sustentar expansões futuras sem reconstrução conceitual.
+- encontre fontes e ofertas de dados;
+- compreenda que tipo de informação está disponível;
+- identifique variáveis ou grupos de variáveis;
+- reconheça cobertura espacial e temporal;
+- compreenda condições básicas de acesso;
+- abra a página ou o canal oficial adequado;
+- encontre licença, citação e metodologia quando disponíveis;
+- saiba se existe conector selecionado para visualização futura.
 
-A Instância 1 deverá permitir ao usuário:
+Ela não deve reconstruir a arquitetura interna das plataformas externas.
 
-1. descobrir fontes e produtos;
-2. compreender o que cada produto representa no mundo real;
-3. identificar quais variáveis, classes, indicadores ou atributos o produto contém;
-4. compreender como os dados foram produzidos;
-5. reconhecer suporte, resolução, cobertura e estrutura temporal;
-6. avaliar qualidade, incerteza, viés e limitações declaradas;
-7. localizar versões, documentação, citação e licença;
-8. saber como acessar os dados e quais operações técnicas são oferecidas;
-9. distinguir produto científico, plataforma, catálogo, serviço, visualizador, distribuição e arquivo;
-10. comparar perfis de produtos sem declarar compatibilidade científica universal.
+## 2. Entidade central
 
-## 2. Separação das três instâncias
+A entidade central é `catalog_entry`.
 
-### Instância 1 — Catálogo relacional científico-operacional
+Uma entrada pode representar:
 
-**Estado:** foco ativo e autorizado.
+- `source`;
+- `platform`;
+- `collection`;
+- `data_product`;
+- `data_service`.
 
-Objeto central:
+O tipo é amplo e serve à descoberta. O catálogo não precisa resolver ontologicamente cada diferença interna de uma plataforma.
+
+## 3. Arquitetura mínima
 
 ```text
-Fonte ou infraestrutura
-  └── Família de produtos
-        └── Produto científico
-              └── Versão ou edição
-                    ├── Variáveis e classes
-                    ├── perfil espacial e temporal
-                    ├── método e qualidade
-                    └── distribuições, ativos e capacidades de acesso
+organizations
+  └── catalog_entries
+        ├── entry_variables
+        ├── entry_evidence
+        └── connector_profiles  [opcional]
 ```
 
-A Instância 1 não armazena necessariamente os datasets externos. Ela armazena metadados normalizados, significado científico, proveniência, formas de acesso e evidências de curadoria.
+### `organizations`
 
-### Instância 2 — Composição de produtos georreferenciados
+Instituições, consórcios, redes ou iniciativas responsáveis.
 
-**Estado:** ambição documentada; implementação não prioritária e não autorizada nesta fase.
+### `catalog_entries`
 
-Objeto futuro:
+Entradas públicas do catálogo. Devem conter somente metadados necessários para descoberta, compreensão e acesso.
 
-- selecionar camadas resolvidas a partir de produtos catalogados;
-- verificar executabilidade técnica;
-- visualizar conjuntamente produtos georreferenciados;
-- preservar fonte, versão, método, escala, incerteza e citação;
-- oferecer sobreposição, mapas sincronizados ou perfis territoriais sem tratar composição visual como associação científica.
+### `entry_variables`
 
-A Instância 2 dependerá da qualidade e da estrutura produzidas na Instância 1.
+Rótulos originais, grupos temáticos e definições úteis para busca. Não constituem taxonomia universal.
 
-### Instância 3 — Contextualização científica da composição
+### `entry_evidence`
 
-**Estado:** ambição documentada; somente leitura conceitual nesta fase.
+Links e notas que sustentam campos materiais da ficha.
 
-Objeto futuro:
+### `connector_profiles`
 
-- recuperar literatura relacionada aos fenômenos representados pelos produtos selecionados;
-- apresentar síntese científica curta e auditável;
-- explicar o significado ecológico, social, sanitário ou territorial da composição;
-- comunicar mecanismos discutidos na literatura, controvérsias, limitações e variáveis de confusão;
-- evitar transformar coincidência espacial em correlação ou causalidade.
+Configurações externas selecionadas para uso futuro pela Instância 2. São opcionais e não representam armazenamento.
 
-A Instância 3 não deverá gerar perguntas de pesquisa para o usuário nem funcionar como interface booleana de busca bibliográfica. Ela deverá usar os metadados estruturados da Instância 1 para contextualizar, em linguagem acessível, uma composição escolhida pelo usuário.
+## 4. Granularidade mínima suficiente
 
-## 3. Regra de escopo geográfico
+A entrada deve corresponder ao menor nível que:
 
-O catálogo registra produtos que:
+- tenha identidade reconhecível;
+- seja útil ao usuário;
+- permita descrição coerente;
+- possua canal de acesso oficial;
+- não exija reconstrução da plataforma.
 
-- contenham coordenadas, geometrias, grades, pixels, footprints, trajetórias ou unidades territoriais; ou
-- possuam ligação inequívoca a município, estado, bioma, bacia, unidade de conservação, setor censitário, estabelecimento, parcela, localidade ou outra unidade geográfica identificável.
+Criar nova entrada somente diante de diferença material de significado científico, modalidade, cobertura, período, método, finalidade ou acesso principal.
 
-Uma tabela município–ano é georreferenciável mesmo quando distribuída em CSV ou XLSX. Um PDF sem georreferenciamento pode ser documentação, metodologia ou produto cartográfico de consulta, mas não é automaticamente uma camada operacional.
+Não criar nova entrada apenas por existir outro arquivo, formato, layer, banda, diretório, endpoint, tabela ou atualização técnica.
 
-O banco descreve a geografia do produto; não precisa hospedar a totalidade dos dados espaciais.
+## 5. Perfil mínimo
 
-## 4. Definições canônicas
+### Identidade
 
-### Fonte
-
-Infraestrutura institucional ou funcional que publica, organiza, hospeda ou oferece acesso a produtos.
-
-Exemplos: portal, repositório, observatório, programa, rede, catálogo, plataforma ou infraestrutura computacional.
-
-### Família de produtos
-
-Agrupamento oficial ou curatorial de produtos relacionados por missão, programa, método ou finalidade, sem presumir que compartilhem a mesma resolução, legenda, período ou qualidade.
-
-### Produto científico
-
-Conjunto cientificamente coerente e versionado de informações espaciais, produzido por metodologia definida, com significado temático, cobertura, suporte espacial e temporal, variáveis e formas de distribuição identificáveis.
-
-Não são produtos científicos, por si sós:
-
-- organizações;
-- portais;
-- megacatálogos;
-- APIs genéricas;
-- serviços de processamento;
-- visualizadores;
-- formatos de arquivo;
-- páginas de download.
-
-Esses elementos devem aparecer como fontes, distribuições, ativos ou capacidades de acesso.
-
-### Versão ou edição
-
-Manifestação temporal e metodológica identificável de um produto. Coleção, release, ano-base, cenário ou edição devem ser preservados porque mudanças podem alterar toda a série histórica, a legenda, o método ou os resultados.
-
-### Distribuição
-
-Forma pela qual uma versão do produto é acessada: download, API, serviço geoespacial, catálogo, visualizador, repositório de código, formulário ou documentação.
-
-### Ativo
-
-Objeto concreto exposto por uma distribuição: arquivo, endpoint, camada, coleção, tabela, legenda, metadado, banda, recurso de qualidade ou esquema.
-
-### Variável ou componente informacional
-
-Propriedade, indicador, banda, classe, métrica, atributo ou flag com significado próprio dentro do produto.
-
-A variável não substitui o produto como unidade pública principal. Ela aprofunda o perfil e permite buscas precisas, interpretação científica e expansões posteriores.
-
-## 5. O perfil científico-operacional do produto
-
-Cada produto deve possuir um perfil organizado em seis blocos.
-
-### 5.1 Identidade e proveniência
-
+- organização;
 - nome oficial;
-- acrônimo;
-- fonte e organização produtora;
-- família;
-- versão, edição ou coleção;
-- estado: ativo, experimental, legado, descontinuado;
-- página oficial;
-- documentação metodológica;
-- citação recomendada;
-- licença;
-- data de revisão curatorial.
+- sigla;
+- tipo amplo;
+- estado.
 
-### 5.2 Significado científico
+### Conteúdo
 
-- objeto científico representado;
-- fenômeno ou processo;
-- população ou universo de referência;
-- mensagem informacional do produto;
-- variáveis, classes e indicadores contidos;
-- unidade e tipo de dado;
-- usos científicos potenciais;
-- o que o produto não representa diretamente.
+- resumo;
+- escopo científico;
+- modalidades de dados;
+- variáveis ou grupos;
+- usos potenciais apresentados com cautela.
 
-A descrição deve responder em linguagem clara:
+### Espaço e tempo
 
-> Que informação sobre o mundo real está registrada aqui?
-
-Exemplos:
-
-- um alerta DETER representa evidência detectada de alteração da cobertura, não uma taxa anual consolidada de desmatamento;
-- uma classe de vegetação secundária representa uma área classificada como regeneração, não uma medição direta de biomassa, carbono ou diversidade;
-- um índice espectral representa uma transformação de reflectâncias, não a propriedade ecológica final que pode estar associada a ele;
-- uma taxa municipal de internações representa registros administrativos agregados, não risco individual nem necessariamente incidência da doença.
-
-### 5.3 Natureza de produção
-
-- medido;
-- observado por sensor;
-- registro administrativo;
-- censo;
-- levantamento amostral;
-- classificado;
-- modelado;
-- interpolado;
-- agregado;
-- derivado;
-- índice composto;
-- método misto.
-
-O método deve registrar entradas, processamento, validação, versão e limitações.
-
-### 5.4 Estrutura espacial e temporal
-
-- tipo de geometria;
-- suporte espacial;
-- resolução nominal;
-- escala cartográfica, quando aplicável;
-- unidade mínima mapeável;
-- CRS;
-- grade;
-- unidade geográfica;
-- extensão;
+- cobertura geográfica;
 - cobertura temporal;
-- janela de observação;
-- resolução temporal;
-- frequência de atualização;
-- latência;
-- forma de agregação.
-
-Resolução, suporte e escala não são sinônimos. O catálogo deve registrar o que cada valor significa.
-
-### 5.5 Qualidade, incerteza e limitações
-
-- desenho de validação;
-- métricas de acurácia;
-- incerteza disponível;
-- tipo de incerteza;
-- flags de qualidade;
-- tratamento de ausência de dados;
-- cobertura de nuvens;
-- erro de classificação;
-- viés de coleta;
-- detectabilidade;
-- representatividade;
-- artefatos conhecidos;
-- limitações de interpretação.
-
-A ausência de documentação deve permanecer explícita. Não se deve inferir que incerteza inexiste apenas porque não está registrada.
-
-### 5.6 Acesso operacional
-
-- download gratuito, parcial ou pago;
-- autenticação;
-- condições de acesso;
-- protocolo;
-- formato;
-- API;
-- WMS, WFS, WCS, WMTS ou OGC API;
-- STAC;
-- COG;
-- Earth Engine;
-- ferramentas de acesso;
-- suporte a recorte espacial ou temporal;
-- visualização direta;
-- consulta de atributos;
-- capacidade de exportação;
-- estado atual do endpoint.
-
-A existência de API não garante visualização imediata. O catálogo deve registrar requisitos de projeto, credenciais, quotas, processamento ou transformação.
-
-## 6. Modelo relacional
-
-O esquema executável inicial está em:
-
-`database/schema/001_instance1_core.sql`
-
-O banco-alvo é PostgreSQL com PostGIS porque:
-
-1. o volume de metadados e relações excederá a manutenção segura em uma única planilha;
-2. integridade referencial é necessária para distinguir fontes, produtos, versões, distribuições e variáveis;
-3. PostGIS permite registrar extensão, cobertura e suporte geográfico sem hospedar os datasets externos;
-4. busca textual, filtros e API podem ser construídos sobre o mesmo núcleo;
-5. versões e evidências de curadoria precisam de rastreabilidade;
-6. as Instâncias 2 e 3 poderão consumir o mesmo banco no futuro.
-
-O modelo normaliza:
-
-- organizações;
-- fontes;
-- famílias de produtos;
-- produtos;
-- versões;
-- perfis espaciais;
-- perfis temporais;
-- métodos;
-- perfis de qualidade;
-- variáveis;
-- associações produto–variável;
-- distribuições;
-- ativos;
-- capacidades de acesso;
-- taxonomias;
-- citações;
-- evidências de metadados;
-- revisões curatoriais.
-
-## 7. Autoridade e transição dos dados
-
-Durante a migração:
-
-1. `data/data_resources.csv`, `data/data_products.csv` e `data/product_distributions.csv` permanecem fontes canônicas operacionais da versão pública atual;
-2. o esquema relacional é o modelo canônico de destino;
-3. os CSVs serão importados para tabelas de staging;
-4. registros serão normalizados e promovidos somente após validação;
-5. exportações CSV e planilhas futuras serão derivadas do banco relacional;
-6. a planilha do Drive permanecerá espelho e não deverá liderar alterações canônicas;
-7. nenhuma informação será inventada para completar campos obrigatórios; registros incompletos permanecerão em estado de curadoria.
-
-Após o portão de migração, o PostgreSQL deverá tornar-se a fonte canônica, e os CSVs passarão a ser exportações versionadas.
-
-## 8. Regra de enumeração
-
-Nem toda fonte deverá ser copiada integralmente.
-
-- `complete`: portfólio controlado e totalmente enumerado;
-- `family_level`: famílias estáveis são registradas e produtos específicos são aprofundados progressivamente;
-- `external_index`: megacatálogo permanece externo; produtos brasileiros prioritários são selecionados;
-- `representative_sample`: amostra explicitamente incompleta para teste;
-- `selective`: inclusão orientada por relevância, cobertura do Brasil e utilidade científica.
-
-Earth Engine, Zenodo, DataONE e PANGAEA não devem ser replicados integralmente. MapBiomas, TerraBrasilis, IBGE, ANA, DATASUS e outras fontes com produtos brasileiros prioritários devem receber enumeração mais profunda e estruturada.
-
-## 9. Separação entre produto, serviço e infraestrutura
-
-A revisão do piloto identificou que registros científicos e infraestruturas estavam misturados em `data_products.csv`.
-
-Devem migrar para fonte, distribuição ou capacidade de acesso:
-
-- serviços interoperáveis genéricos;
-- catálogos públicos;
-- catálogos de publicadores;
-- serviços de processamento e exportação;
-- visualizadores sem conteúdo científico próprio.
-
-Devem permanecer como produtos:
-
-- séries de mapeamento;
-- coleções de observações;
-- indicadores territoriais;
-- mapas classificados;
-- modelos e estimativas;
-- estatísticas administrativas georreferenciáveis;
-- produtos de referência espacial.
-
-## 10. Busca e filtros da Instância 1
-
-A interface pública deverá oferecer filtros acessíveis, sem exigir sintaxe booleana.
-
-### Temas
-
-- ecologia;
-- socioecologia;
-- biodiversidade;
-- clima;
-- água;
-- saúde;
-- sociedade;
-- desigualdade;
-- agricultura;
-- agricultura familiar;
-- uso e cobertura da terra;
-- carbono;
-- demografia;
-- economia;
-- infraestrutura;
-- governança.
-
-### Conteúdo científico
-
-- fenômeno;
-- objeto observado;
-- variável ou classe;
-- natureza de produção;
-- unidade;
-- método;
-- incerteza disponível;
-- produto primário ou derivado.
-
-### Estrutura geográfica
-
-- cobertura;
-- suporte;
-- resolução;
-- unidade territorial;
-- tipo de geometria;
-- período;
-- frequência temporal.
+- resolução ou suporte quando material;
+- frequência de atualização.
 
 ### Acesso
 
-- gratuito;
+- página oficial;
+- metadados;
+- acesso principal;
+- gratuidade;
 - autenticação;
-- API;
-- download;
-- serviço geoespacial;
-- Earth Engine;
-- compatibilidade com QGIS, R ou Python;
-- recorte espacial e temporal;
-- visualização disponível.
+- condições relevantes;
+- formato ou protocolo apenas quando útil.
 
-## 11. Curadoria contínua
+### Referência
 
-A unidade de trabalho é **um produto integralmente inspecionado**, não uma linha preenchida superficialmente.
-
-Para cada produto:
-
-1. identificar a fonte e o produtor primário;
-2. confirmar que o objeto é produto científico, e não serviço ou plataforma;
-3. localizar página oficial, documentação, metodologia, citação, licença e acesso;
-4. identificar versões e releases;
-5. descrever o objeto científico e a mensagem informacional;
-6. enumerar variáveis, classes e flags relevantes;
-7. registrar natureza de produção;
-8. registrar suporte espacial e temporal;
-9. registrar qualidade, incerteza, viés e limitações;
-10. registrar distribuições e capacidades de acesso;
-11. criar evidências por campo para afirmações importantes;
-12. executar revisão de completude, precisão científica e precisão operacional;
-13. promover o registro somente depois da auditoria.
-
-A curadoria deve priorizar produtos brasileiros e produtos internacionais com cobertura efetiva do Brasil.
-
-## 12. Evidência e rastreabilidade
-
-O campo `metadata_assertions` registra qual evidência sustenta afirmações importantes.
-
-Exemplos:
-
-- resolução declarada;
-- período;
-- natureza derivada;
-- definição de classe;
-- precisão;
+- metodologia;
 - licença;
-- capacidade de API;
-- estado experimental;
-- versão atual.
+- citação;
+- data de verificação;
+- evidência principal.
 
-A evidência pode ser:
+## 6. Dados externos
+
+Todos os datasets, arquivos, layers, coleções e endpoints permanecem externos.
+
+O Simbiotrama não:
+
+- copia ou hospeda dados;
+- mantém espelhos silenciosos;
+- promete preservação;
+- inventaria integralmente ativos;
+- assume custódia;
+- substitui metadados oficiais.
+
+## 7. Metadados do produtor
+
+O catálogo deve usar prioritariamente:
 
 - página oficial;
-- documentação oficial;
-- relatório técnico;
-- artigo revisado por pares;
-- registro de metadados;
+- metadados diretos;
+- página principal de acesso;
+- metodologia;
 - licença;
-- resposta de API;
-- inferência curatorial explicitamente rotulada.
+- citação.
 
-A data de revisão não certifica automaticamente toda a fonte ou todos os produtos associados.
+A regra é:
 
-## 13. Portões de consolidação
+```text
+normalizar o necessário para descoberta
++
+preservar o necessário para interpretação
++
+referenciar a fonte para o restante
+```
 
-### Portão A — contrato relacional
+## 8. Variáveis
 
-- esquema SQL versionado;
-- definições canônicas aprovadas;
-- separação entre produto e infraestrutura;
-- IDs e chaves estrangeiras estáveis;
-- campos científicos essenciais definidos.
+- preservar o nome usado pela fonte;
+- registrar grupos amplos de busca;
+- evitar inventário de bandas e colunas sem utilidade pública;
+- não inferir equivalência entre fontes;
+- não criar ontologia universal nesta fase.
 
-### Portão B — migração do piloto
+## 9. Conectores e Instância 2
 
-- 11 registros atuais classificados corretamente;
-- serviços e catálogos retirados do conjunto de produtos científicos;
-- releases explícitos;
-- distribuições vinculadas a releases;
-- variáveis piloto identificadas;
-- evidências de metadados registradas.
+A Instância 2 será uma visualização federada por APIs e outros conectores.
 
-### Portão C — expansão de fontes prioritárias
+Um conector pode registrar:
 
-- MapBiomas profundamente enumerado;
-- TerraBrasilis revisado por produto e bioma;
-- IBGE, ANA e DATASUS com produtos prioritários;
-- cobertura ecológica, socioeconômica e de saúde;
-- filtros funcionando sobre dados normalizados.
+- tipo;
+- endpoint ou identificador;
+- autenticação;
+- operação selecionada;
+- estado e data do teste.
 
-### Portão D — promoção do banco
+A entrada não precisa conter todos os layers ou arquivos para que um conector específico funcione.
 
-- PostgreSQL torna-se fonte canônica;
-- CSVs e planilhas são exportações reproduzíveis;
-- validação automática de integridade;
-- interface lê do banco ou de uma API derivada;
-- documentação e dados permanecem sincronizados.
+## 10. Transição
 
-## 14. Critério de sucesso da Instância 1
+Os CSV/JSON atuais permanecem autoridade pública transitória.
 
-O sucesso não será medido apenas pelo número de fontes ou produtos.
+O esquema profundo do Marco 1 passa a `LEGACY_TRANSITIONAL`. Ele poderá fornecer:
 
-Será medido pela capacidade de responder com precisão:
+- staging;
+- padrões de IDs;
+- validações de integridade;
+- componentes de migração;
+- evidências históricas.
 
-- o que este produto representa;
-- qual é a unidade científica ou informacional;
-- como o valor, classe ou geometria foi produzido;
-- qual é o suporte espacial e temporal;
-- quais variáveis estão disponíveis;
-- quais limitações existem;
-- qual versão deve ser usada;
-- como acessar os dados;
-- o que é possível fazer tecnicamente;
-- qual evidência sustenta cada afirmação importante.
+Ele não deve continuar como arquitetura-alvo nem exigir família, release, distribuição, ativo ou capacidade para concluir uma entrada.
 
-## 15. Instâncias 2 e 3 — registro somente para leitura
+## 11. Validação do modelo
 
-As seguintes ambições ficam preservadas, mas fora do escopo ativo:
+O núcleo simplificado deve representar:
 
-### Instância 2
+- GEDI;
+- DETER Cerrado;
+- IBGE;
+- ANA/SNIRH.
 
-- composição visual de camadas resolvidas;
-- mapas sincronizados;
-- perfis territoriais;
-- transparência comparativa;
-- verificação de executabilidade;
-- processamento seletivo por adaptadores e receitas.
+A validação falha se:
 
-### Instância 3
+- exigir inventário integral;
+- proliferar tabelas específicas;
+- criar muitos campos vazios;
+- perder o significado necessário ao usuário;
+- misturar catálogo e visualização;
+- sugerir armazenamento de dados externos.
 
-- contexto científico breve associado à composição;
-- recuperação de literatura por fenômenos, território, escala e período;
-- síntese auditável semelhante, em espírito, a uma revisão curta assistida;
-- distinção entre evidência direta, análoga e metodológica;
-- comunicação pública palatável;
-- nenhuma inferência automática de causalidade.
+## 12. Critério de sucesso
 
-Nenhuma dessas instâncias deve orientar a modelagem de forma a enfraquecer ou atrasar a Instância 1. A obrigação atual é construir um catálogo profundo, preciso, documentado e útil por si mesmo.
+A Instância 1 é bem-sucedida quando o usuário consegue encontrar uma entrada, compreender seu conteúdo e chegar à fonte correta sem que o Simbiotrama reproduza o catálogo original.
