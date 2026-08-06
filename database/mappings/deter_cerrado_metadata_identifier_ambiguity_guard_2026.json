@@ -1,70 +1,79 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "family_stable_id": "PF000003",
   "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
-  "observed_at": "2026-08-06T09:35:00-03:00",
+  "observed_at": "2026-08-06T10:42:00-03:00",
   "timezone": "America/Sao_Paulo",
   "promotion_authorized": false,
-  "metadata_identifier_under_review": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
-  "status": "official_index_context_conflict_detected_identifier_not_stable_for_product_or_release",
-  "conflicting_official_contexts": [
+  "published_deter_citation_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+  "current_deter_cerrado_metadata_identifier": "e6e15388-4ca9-49b9-aec9-03891339a35e",
+  "status": "published_deter_citation_identifier_reconciled_as_prodes_reference_current_deter_record_resolved",
+  "reconciled_official_contexts": [
     {
-      "role": "deter_cerrado_metadata_reference",
-      "publisher": "INPE / TerraBrasilis / BiomasBR",
+      "role": "published_deter_cerrado_citation_reference",
+      "publisher": "INPE / BiomasBR",
       "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
-      "observed_claim": "o UUID é apresentado no contexto da citação e do metadado do conjunto DETER Cerrado"
+      "observed_claim": "a orientação de citação DETER Cerrado publicada em 2024 aponta para a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"
     },
     {
-      "role": "prodes_amazon_geopackage_component_reference",
-      "publisher": "INPE / BIG GeoNetwork",
-      "url": "https://data.inpe.br/geonetwork/srv/search?format=GeoPackage",
-      "observed_claim": "o mesmo UUID aparece indexado como metadado do componente Incrementos no desmatamento do GeoPackage PRODES Amazônia Legal"
+      "role": "current_prodes_amazon_legal_increment_reference",
+      "publisher": "INPE / TerraBrasilis GeoNetwork",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=GeoPackage",
+      "observed_claim": "o UUID a5220c18-f7fa-4e3e-b39b-feeb3ccc4830 está atualmente associado aos incrementos no desmatamento do PRODES Amazônia Legal"
+    },
+    {
+      "role": "current_deter_cerrado_metadata_reference",
+      "publisher": "INPE / TerraBrasilis GeoNetwork",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=vetorial",
+      "observed_claim": "o registro atual Avisos de supressão da vegetação nativa no Cerrado à partir de 2018 aponta para e6e15388-4ca9-49b9-aec9-03891339a35e"
     }
   ],
   "verified_state": {
-    "same_uuid_observed_in_distinct_official_contexts": true,
-    "direct_geonetwork_record_reconciled": false,
-    "identifier_uniqueness_verified": false,
-    "identifier_stability_verified": false,
-    "identifier_is_product_id": false,
-    "identifier_is_release_id": false,
-    "identifier_is_asset_id": false,
-    "metadata_record_current_subject_resolved": false,
-    "product_promotion_blocked_by_identifier_ambiguity": true
+    "published_identifier_reused_in_distinct_official_contexts": true,
+    "published_identifier_current_subject_resolved": true,
+    "published_identifier_current_subject": "incrementos no desmatamento do PRODES Amazônia Legal",
+    "published_identifier_is_current_deter_cerrado_metadata_record": false,
+    "current_deter_cerrado_metadata_record_resolved": true,
+    "current_deter_cerrado_metadata_identifier_matches_peer_reviewed_data_availability": true,
+    "current_deter_cerrado_identifier_is_product_id": false,
+    "current_deter_cerrado_identifier_is_release_id": false,
+    "current_deter_cerrado_identifier_is_asset_id": false,
+    "product_promotion_blocked_by_identifier_ambiguity": false,
+    "product_promotion_blocked_by_other_incomplete_components": true
   },
   "interpretation": {
-    "collision_type": "contextual_reference_conflict_or_indexing_drift",
+    "collision_type": "published_citation_reference_drift",
     "compromise_claimed": false,
-    "record_reuse_claimed": false,
-    "root_cause_resolved": false,
-    "safe_conclusion": "o UUID não pode sustentar sozinho identidade de produto, release, distribuição ou ativo até inspeção direta e reconciliação do registro GeoNetwork"
+    "intentional_record_reuse_claimed": false,
+    "root_cause_of_drift_resolved": false,
+    "safe_conclusion": "a referência publicada do DETER Cerrado está desatualizada; o registro GeoNetwork corrente é e6e15388-4ca9-49b9-aec9-03891339a35e, sem que esse UUID identifique produto, release ou ativo"
   },
   "normalization_rules": [
-    "não usar o UUID como identificador estável do produto DETER Cerrado",
-    "não usar o UUID como identificador de release, distribuição, ativo, feição ou pacote",
-    "não escolher silenciosamente um dos contextos oficiais conflitantes",
-    "não afirmar comprometimento, reutilização intencional ou erro do produtor sem evidência direta",
-    "preservar ambos os contextos como evidência datada",
-    "exigir inspeção direta do registro GeoNetwork, título, escopo, lineage, links e data de revisão antes de promoção",
-    "vincular produto e release por conjunto convergente de evidências, não por UUID isolado",
+    "não usar a5220c18-f7fa-4e3e-b39b-feeb3ccc4830 como identificador corrente do DETER Cerrado",
+    "preservar a5220c18-f7fa-4e3e-b39b-feeb3ccc4830 como referência histórica da orientação publicada e como referência corrente do componente PRODES Amazônia Legal observado",
+    "usar e6e15388-4ca9-49b9-aec9-03891339a35e como identificador do registro GeoNetwork corrente do DETER Cerrado",
+    "não usar nenhum UUID de metadado como identificador de produto, release, distribuição, ativo, pacote ou feição",
+    "não afirmar comprometimento ou reutilização intencional sem evidência",
+    "não considerar a causa editorial ou técnica da deriva resolvida",
+    "atualizar citações novas com o registro corrente e a data real de acesso",
     "manter release, URL direta, bytes, checksum, licença e citação da release como não resolvidos"
-  ],
-  "required_resolution_steps": [
-    "recuperar diretamente o registro GeoNetwork pelo UUID em endpoint oficial funcional",
-    "confirmar título, abstract, resource identifier, lineage, distribuição e responsáveis atuais",
-    "comparar versões em português e inglês e eventuais catálogos espelhados",
-    "verificar se o índice de busca está desatualizado, agregado ou com referência cruzada incorreta",
-    "registrar data/hora, resposta HTTP e conteúdo recuperado",
-    "somente então decidir se o UUID pode identificar um registro de metadado específico"
   ],
   "official_evidence": [
     {
       "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
-      "supports": ["contexto DETER Cerrado", "orientação de citação", "referência ao UUID"]
+      "supports": ["orientação publicada DETER Cerrado", "referência histórica a a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"]
     },
     {
-      "url": "https://data.inpe.br/geonetwork/srv/search?format=GeoPackage",
-      "supports": ["contexto GeoPackage PRODES Amazônia Legal", "mesmo UUID associado a incrementos no desmatamento"]
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=GeoPackage",
+      "supports": ["a5220c18-f7fa-4e3e-b39b-feeb3ccc4830 associado ao incremento PRODES Amazônia Legal"]
+    },
+    {
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?format=vetorial",
+      "supports": ["registro corrente DETER Cerrado", "link e6e15388-4ca9-49b9-aec9-03891339a35e"]
+    },
+    {
+      "url": "https://doi.org/10.1080/25726838.2023.2265242",
+      "supports": ["disponibilidade dos dados DETER Cerrado", "referência e6e15388-4ca9-49b9-aec9-03891339a35e"]
     }
   ]
 }
