@@ -1,0 +1,114 @@
+{
+  "contract_version": "1.0.0",
+  "family_stable_id": "PF000003",
+  "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
+  "metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
+  "status": "cerrado_specific_class_partial_schema_and_identifier_semantics_verified_release_unresolved",
+  "observed_at": "2026-08-06T07:24:00-03:00",
+  "timezone": "America/Sao_Paulo",
+  "promotion_authorized": false,
+  "specific_metadata_profile": {
+    "official_title": "Avisos de supressão da vegetação nativa no Cerrado à partir de 2018",
+    "represented_object": "áreas de avisos de supressão da vegetação nativa com solo exposto no bioma Cerrado",
+    "image_source_statement": "imagens do satélite Landsat ou similares",
+    "documented_class_name": "DESMATAMENTO_CR",
+    "documented_class_meaning": "supressão completa da vegetação nativa, independentemente de evidência de uso posterior",
+    "class_domain_complete_for_current_release_verified": false,
+    "cerrado_specific_method_version_resolved": false,
+    "cerrado_specific_minimum_area_resolved": false,
+    "cerrado_specific_spatial_resolution_resolved": false
+  },
+  "documented_partial_schema": [
+    {
+      "field": "fid",
+      "meaning": "código de identificação seguido por sufixo que distingue tabela corrente e tabela histórica"
+    },
+    {
+      "field": "classname",
+      "meaning": "nome da classe atribuída ao aviso, documentado como DESMATAMENTO_CR"
+    },
+    {
+      "field": "quadrant",
+      "meaning": "campo atualmente fora de uso para imagens CBERS"
+    }
+  ],
+  "identifier_and_table_semantics": {
+    "current_suffix": "_curr",
+    "historical_suffix": "_hist",
+    "suffix_identifies_scientific_release": false,
+    "fid_is_persistent_cross_release_identifier": false,
+    "metadata_uuid_is_feature_identifier": false,
+    "current_and_historical_tables_are_distinct_operational_partitions": true
+  },
+  "temporal_and_method_boundaries": {
+    "since_year_documented": 2018,
+    "since_year_is_release_identifier": false,
+    "detection_date_is_exact_suppression_date": false,
+    "landsat_or_similar_is_complete_sensor_history": false,
+    "general_current_deter_3ha_threshold_inherited_as_cerrado_specific_metadata_fact": false,
+    "general_current_wfi_profile_replaces_specific_metadata_statement": false
+  },
+  "citation_context": {
+    "recommended_dataset_citation_year": 2024,
+    "citation_access_date_example": "2024-09-02",
+    "citation_year_is_current_release_identifier": false,
+    "access_date_example_is_current_access_date": false,
+    "citation_for_current_release_resolved": false
+  },
+  "official_evidence": [
+    {
+      "role": "cerrado_specific_metadata_class_and_schema",
+      "url": "https://data.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
+      "publisher": "INPE / BIG GeoNetwork",
+      "supports": [
+        "título específico desde 2018",
+        "avisos de supressão com solo exposto",
+        "imagens Landsat ou similares",
+        "classe DESMATAMENTO_CR",
+        "campos fid, classname e quadrant",
+        "sufixos _curr e _hist",
+        "quadrant fora de uso para imagens CBERS"
+      ]
+    },
+    {
+      "role": "program_definition_and_recommended_citation",
+      "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
+      "publisher": "INPE / BiomasBR",
+      "supports": [
+        "definição geral do DETER",
+        "criação do DETER Cerrado em 2018",
+        "citação recomendada de 2024",
+        "UUID do registro de metadados"
+      ]
+    }
+  ],
+  "verified_state": {
+    "specific_metadata_record_resolved": true,
+    "specific_documented_class_resolved": true,
+    "partial_schema_documented": true,
+    "current_historical_partition_semantics_documented": true,
+    "citation_context_documented": true,
+    "complete_current_class_domain_verified": false,
+    "current_release_resolved": false,
+    "direct_download_url_verified": false,
+    "asset_bytes_inspected": false,
+    "complete_schema_verified_from_bytes": false,
+    "license_resolved_for_release": false,
+    "citation_resolved_for_current_release": false
+  },
+  "normalization_rules": [
+    "preservar DESMATAMENTO_CR como única classe documentada no metadado específico sem afirmar que o domínio da release vigente está completo",
+    "não herdar classes de degradação, mineração ou exploração madeireira do DETER Amazônia",
+    "não converter _curr e _hist em releases científicas",
+    "não usar fid como chave persistente entre releases sem verificação longitudinal",
+    "não confundir UUID do registro GeoNetwork com identificador de feição",
+    "não transformar 2018 em identificador de release",
+    "não transformar a citação recomendada de 2024 em release vigente",
+    "não substituir a declaração específica Landsat ou similares pelo perfil geral atual WFI",
+    "não atribuir o limiar geral atual de 3 ha ao metadado específico sem evidência individual",
+    "não tratar data de detecção como data exata da supressão",
+    "o esquema permanece parcial até DescribeFeatureType válido ou inspeção dos bytes",
+    "licença e citação devem ser resolvidas para a release efetivamente acessada",
+    "promoção permanece bloqueada até produto, release, distribuição, ativo, perfis e evidências suficientes"
+  ]
+}
