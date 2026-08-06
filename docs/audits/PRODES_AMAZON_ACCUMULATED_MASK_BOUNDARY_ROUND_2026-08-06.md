@@ -1,7 +1,8 @@
 # Auditoria da máscara acumulada PRODES Amazônia até 2007
 
-**Data:** 6 de agosto de 2026  
+**Data local correta:** 5 de agosto de 2026  
 **Timezone:** `America/Sao_Paulo`  
+**Nota de governança temporal:** o caminho deste arquivo contém `2026-08-06` por rollover UTC ocorrido na criação original. O nome foi preservado para evitar renomeação destrutiva de uma referência pública; a data humana autoritativa deste round é 5 de agosto de 2026.  
 **Escopo:** Instância 1 — Fluxo A  
 **Família:** `PF000001` — PRODES  
 **Registro de metadado:** `c6748fdf-a18e-41b9-a523-ea14bae92602`
@@ -97,9 +98,10 @@ Não foram promovidos:
 - citação da release;
 - estado operacional do endpoint.
 
-## Ocorrência
+## Ocorrências
 
-**ID:** `I1-20260806-033`  
+### `I1-20260805-033`
+
 **Categoria:** colapso temporal entre linha de base acumulada e incrementos anuais  
 **Severidade:** `high` para a promoção da unidade  
 **Estado:** `corrected`
@@ -115,6 +117,16 @@ Não foram promovidos:
 - promoção sem release, endpoint e bytes verificados.
 
 **Risco residual:** método-base versionado, regras de revisão, release atual, endpoint direto, esquema integral, qualidade, licença e citação ainda não foram resolvidos.
+
+### `I1-20260805-037`
+
+**Categoria:** rollover UTC em relatório humano  
+**Severidade:** `low`  
+**Estado:** `corrected`
+
+**Evidência:** o round ocorreu em 5 de agosto de 2026, aproximadamente 20h10–20h27 em `America/Sao_Paulo`, mas o artefato original registrou 6 de agosto e recebeu esse sufixo no caminho.  
+**Correção:** a data humana no conteúdo foi corrigida e a discrepância do caminho foi explicitada. O caminho foi mantido para preservar referências públicas e evitar renomeação destrutiva.  
+**Risco residual:** o sufixo histórico `2026-08-06` permanece no nome do arquivo, mas não deve ser usado como data autoritativa do round.
 
 ## Arquivos do pacote
 
