@@ -124,7 +124,7 @@
       "publisher": "INPE / TerraBrasilis",
       "supports": [
         "URL genérica do serviço WFS",
-        "credenciais antecipadas restritas a instituições de controle e fiscalização",
+        "acesso antecipado com credenciais restritas a instituições de controle e fiscalização",
         "uso livre condicionado à licença e citação da fonte"
       ]
     }
@@ -161,7 +161,7 @@
     "a URL WFS genérica documenta capacidade da fonte e não resolve workspace, layer, schema, release ou estado vivo",
     "areatotkm documenta canal cadastrado de Shapefile, mas não resolve URL direta, credencial ou identidade do pacote",
     "publish_month documenta dimensão temporal no GeoServer, mas não resolve o nome da camada",
-    "credenciais antecipadas para fiscalização não devem ser generalizadas como autenticação obrigatória do download público",
+    "o acesso antecipado para fiscalização não deve ser generalizado como autenticação obrigatória do download público",
     "falha da API do registro não invalida o link descoberto no índice oficial, mas impede registrar resposta e conteúdo recuperado",
     "presença pública não comprova status HTTP, redirecionamento, Content-Type, Content-Disposition ou tamanho",
     "promoção de ativo exige bytes, inventário, checksum, CRS, geometria, esquema e cobertura",
