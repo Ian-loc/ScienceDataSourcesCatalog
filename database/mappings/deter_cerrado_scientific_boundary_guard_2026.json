@@ -135,8 +135,8 @@
   "evidence_surfaces": [
     {
       "role": "current_metadata_record",
-      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
-      "supports": ["current DETER Cerrado record", "specific class and schema", "current metadata UUID"]
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/e6e15388-4ca9-49b9-aec9-03891339a35e",
+      "supports": ["current DETER Cerrado record e6e15388-4ca9-49b9-aec9-03891339a35e", "specific class and schema", "current metadata UUID"]
     },
     {
       "role": "current_download_listing",
