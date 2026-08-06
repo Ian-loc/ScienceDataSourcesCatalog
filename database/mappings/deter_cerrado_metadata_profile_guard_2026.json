@@ -1,10 +1,10 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "family_stable_id": "PF000003",
   "candidate_scientific_product_id": "PD-DETER-CER-ALERTS",
   "metadata_identifier": "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
-  "status": "cerrado_specific_class_partial_schema_and_identifier_semantics_verified_release_unresolved",
-  "observed_at": "2026-08-06T07:24:00-03:00",
+  "status": "cerrado_specific_class_and_metadata_schema_verified_release_unresolved",
+  "observed_at": "2026-08-06T08:18:00-03:00",
   "timezone": "America/Sao_Paulo",
   "promotion_authorized": false,
   "specific_metadata_profile": {
@@ -13,25 +13,85 @@
     "image_source_statement": "imagens do satélite Landsat ou similares",
     "documented_class_name": "DESMATAMENTO_CR",
     "documented_class_meaning": "supressão completa da vegetação nativa, independentemente de evidência de uso posterior",
+    "class_domain_complete_for_metadata_record_verified": true,
     "class_domain_complete_for_current_release_verified": false,
     "cerrado_specific_method_version_resolved": false,
     "cerrado_specific_minimum_area_resolved": false,
     "cerrado_specific_spatial_resolution_resolved": false
   },
-  "documented_partial_schema": [
+  "documented_metadata_schema": [
     {
       "field": "fid",
       "meaning": "código de identificação seguido por sufixo que distingue tabela corrente e tabela histórica"
     },
     {
       "field": "classname",
-      "meaning": "nome da classe atribuída ao aviso, documentado como DESMATAMENTO_CR"
+      "meaning": "nome da classe atribuída ao aviso, documentada como DESMATAMENTO_CR"
     },
     {
       "field": "quadrant",
-      "meaning": "campo atualmente fora de uso para imagens CBERS"
+      "meaning": "campo atualmente fora de uso para imagens CBERS; no passado integrou informação das imagens AWFI"
+    },
+    {
+      "field": "path_row",
+      "meaning": "órbita e ponto das imagens usadas na identificação do aviso"
+    },
+    {
+      "field": "view_date",
+      "meaning": "data da imagem usada na identificação do aviso"
+    },
+    {
+      "field": "sensor",
+      "meaning": "nome do sensor embarcado no satélite usado para obter a imagem"
+    },
+    {
+      "field": "satellite",
+      "meaning": "nome do satélite que obteve a imagem"
+    },
+    {
+      "field": "areauckm",
+      "meaning": "área do aviso ou porção que intercepta uma unidade de conservação"
+    },
+    {
+      "field": "uc",
+      "meaning": "nome da unidade de conservação interceptada pelo aviso"
+    },
+    {
+      "field": "areamunkm",
+      "meaning": "área do aviso ou porção que intercepta um município; campo indicado para operações de soma de área"
+    },
+    {
+      "field": "municipality",
+      "meaning": "nome do município interceptado pelo aviso ou porção"
+    },
+    {
+      "field": "geocodibge",
+      "meaning": "identificador de município proveniente do IBGE para identificação inequívoca"
+    },
+    {
+      "field": "uf",
+      "meaning": "unidade da federação na qual o aviso ou porção está localizado"
+    },
+    {
+      "field": "areatotkm",
+      "meaning": "área calculada antes da fragmentação por intersecção; não deve ser somada e está disponível apenas no Shapefile da área de downloads para usuários cadastrados"
+    },
+    {
+      "field": "publish_month",
+      "meaning": "indicador temporal mensal usado apenas para configurar a dimensão temporal no GeoServer; não está disponível no Shapefile de download"
     }
   ],
+  "schema_and_channel_semantics": {
+    "metadata_record_schema_inventory_complete": true,
+    "schema_verified_from_asset_bytes": false,
+    "shapefile_field_names_truncated_to_ten_characters": true,
+    "areamunkm_is_recommended_sum_field": true,
+    "areatotkm_must_not_be_summed": true,
+    "areatotkm_registered_download_only": true,
+    "publish_month_geoserver_only": true,
+    "registered_download_channel_documented": true,
+    "geoserver_specific_layer_resolved": false
+  },
   "identifier_and_table_semantics": {
     "current_suffix": "_curr",
     "historical_suffix": "_hist",
@@ -40,16 +100,29 @@
     "metadata_uuid_is_feature_identifier": false,
     "current_and_historical_tables_are_distinct_operational_partitions": true
   },
+  "spatial_context": {
+    "geographic_domain": "bioma Cerrado",
+    "representation_type": "vector",
+    "metadata_scale_denominator_observed": 250000,
+    "scale_denominator_is_spatial_resolution": false,
+    "dataset_adjusted_to_2019_ibge_biome_boundary": true,
+    "current_crs_resolved": false,
+    "geometry_verified_from_bytes": false
+  },
   "temporal_and_method_boundaries": {
     "since_year_documented": 2018,
+    "maintenance_frequency_documented": "daily",
     "since_year_is_release_identifier": false,
     "detection_date_is_exact_suppression_date": false,
     "landsat_or_similar_is_complete_sensor_history": false,
     "general_current_deter_3ha_threshold_inherited_as_cerrado_specific_metadata_fact": false,
-    "general_current_wfi_profile_replaces_specific_metadata_statement": false
+    "general_current_wfi_profile_replaces_specific_metadata_statement": false,
+    "publish_month_is_scientific_release": false
   },
   "citation_context": {
+    "recommended_dataset_citation_resolved": true,
     "recommended_dataset_citation_year": 2024,
+    "recommended_dataset_citation": "INSTITUTO NACIONAL DE PESQUISAS ESPACIAIS (INPE). Bioma Cerrado – Deter (Avisos): Avisos no Bioma Cerrado – Shapefile (desde 2018). 2024. Disponível em: https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search#/metadata/a5220c18-f7fa-4e3e-b39b-feeb3ccc4830",
     "citation_access_date_example": "2024-09-02",
     "citation_year_is_current_release_identifier": false,
     "access_date_example_is_current_access_date": false,
@@ -57,57 +130,76 @@
   },
   "official_evidence": [
     {
-      "role": "cerrado_specific_metadata_class_and_schema",
-      "url": "https://data.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
-      "publisher": "INPE / BIG GeoNetwork",
+      "role": "cerrado_specific_metadata_class_schema_channels_and_boundary",
+      "url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search?cl_maintenanceAndUpdateFrequency=daily",
+      "publisher": "INPE / TerraBrasilis GeoNetwork",
       "supports": [
         "título específico desde 2018",
         "avisos de supressão com solo exposto",
         "imagens Landsat ou similares",
-        "classe DESMATAMENTO_CR",
-        "campos fid, classname e quadrant",
+        "classe única DESMATAMENTO_CR no registro específico",
+        "inventário dos campos fid, classname, quadrant, path_row, view_date, sensor, satellite, areauckm, uc, areamunkm, municipality, geocodibge, uf, areatotkm e publish_month",
         "sufixos _curr e _hist",
-        "quadrant fora de uso para imagens CBERS"
+        "semântica diferenciada de areamunkm, areatotkm e publish_month",
+        "truncamento de nomes no Shapefile",
+        "ajuste ao recorte de biomas publicado pelo IBGE em 2019",
+        "frequência diária, representação vetorial e escala declarada 1:250.000"
       ]
     },
     {
-      "role": "program_definition_and_recommended_citation",
+      "role": "program_definition_method_and_recommended_citation",
       "url": "https://data.inpe.br/biomasbr/deter-monitoramento-diario-da-supressao-e-degradacao-de-vegetacao-nativa/",
       "publisher": "INPE / BiomasBR",
       "supports": [
         "definição geral do DETER",
         "criação do DETER Cerrado em 2018",
+        "metodologia-base Almeida et al. 2022",
         "citação recomendada de 2024",
         "UUID do registro de metadados"
+      ]
+    },
+    {
+      "role": "biome_boundary_change",
+      "url": "https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/25798-ibge-lanca-mapa-inedito-de-biomas-e-sistema-costeiro-marinho",
+      "publisher": "IBGE",
+      "supports": [
+        "publicação do novo mapa de biomas e sistema costeiro-marinho em 30/10/2019"
       ]
     }
   ],
   "verified_state": {
     "specific_metadata_record_resolved": true,
     "specific_documented_class_resolved": true,
-    "partial_schema_documented": true,
+    "class_domain_complete_for_metadata_record_verified": true,
+    "metadata_schema_inventory_documented": true,
+    "channel_specific_field_semantics_documented": true,
     "current_historical_partition_semantics_documented": true,
-    "citation_context_documented": true,
-    "complete_current_class_domain_verified": false,
+    "citation_guidance_documented": true,
+    "biome_boundary_adjustment_documented": true,
+    "complete_current_release_class_domain_verified": false,
     "current_release_resolved": false,
     "direct_download_url_verified": false,
+    "geoserver_specific_layer_resolved": false,
     "asset_bytes_inspected": false,
     "complete_schema_verified_from_bytes": false,
     "license_resolved_for_release": false,
     "citation_resolved_for_current_release": false
   },
   "normalization_rules": [
-    "preservar DESMATAMENTO_CR como única classe documentada no metadado específico sem afirmar que o domínio da release vigente está completo",
+    "preservar DESMATAMENTO_CR como domínio completo do registro específico sem afirmar que o domínio da release vigente foi verificado",
     "não herdar classes de degradação, mineração ou exploração madeireira do DETER Amazônia",
     "não converter _curr e _hist em releases científicas",
     "não usar fid como chave persistente entre releases sem verificação longitudinal",
-    "não confundir UUID do registro GeoNetwork com identificador de feição",
+    "não confundir UUID do registro GeoNetwork com identificador de feição ou ativo",
     "não transformar 2018 em identificador de release",
     "não transformar a citação recomendada de 2024 em release vigente",
     "não substituir a declaração específica Landsat ou similares pelo perfil geral atual WFI",
-    "não atribuir o limiar geral atual de 3 ha ao metadado específico sem evidência individual",
-    "não tratar data de detecção como data exata da supressão",
-    "o esquema permanece parcial até DescribeFeatureType válido ou inspeção dos bytes",
+    "não atribuir o limiar geral atual de 3 ha ao perfil específico sem evidência individual",
+    "não tratar view_date como data exata da supressão",
+    "não tratar escala 1:250.000 como resolução espacial ou área mínima mapeável",
+    "usar areamunkm, e não areatotkm, para soma de áreas fragmentadas por município",
+    "não esperar publish_month no Shapefile nem areatotkm na camada GeoServer sem evidência adicional",
+    "o inventário do metadado não substitui inspeção de bytes, tipos físicos, CRS ou geometria",
     "incerteza não documentada deve permanecer não documentada e não pode ser convertida em ausência de incerteza",
     "licença e citação devem ser resolvidas para a release efetivamente acessada",
     "promoção permanece bloqueada até produto, release, distribuição, ativo, perfis e evidências suficientes"
