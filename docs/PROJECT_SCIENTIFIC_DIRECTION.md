@@ -1,7 +1,7 @@
 # Direção científica do projeto
 
 **Status:** decisão estratégica vigente  
-**Sistema de trabalho:** **Symbiotrama**  
+**Sistema de trabalho:** **Simbiotrama**  
 **Foco ativo:** **Instância 1 — Catálogo relacional científico-operacional**  
 **Princípio:** **Antes de investigar relações, é preciso compreender precisamente cada informação.**
 
@@ -126,8 +126,10 @@ O modelo executável está em `database/schema/001_instance1_core.sql`.
 8. Incerteza desconhecida não equivale a incerteza inexistente.
 9. Uso científico potencial não equivale a variável medida.
 10. Afirmações materiais devem ser sustentadas por evidência rastreável.
-11. A planilha e os CSVs são formatos de intercâmbio; a arquitetura final exige integridade relacional.
+11. Planilhas e CSVs são formatos de intercâmbio; a arquitetura final exige integridade relacional.
 12. O catálogo aponta para a fonte autoritativa e preserva citação, versão e licença.
+13. Compatibilidade científica não é atributo universal de um par de produtos.
+14. Instâncias futuras não devem orientar o trabalho ativo da Instância 1.
 
 ## 8. Banco de dados
 
@@ -149,7 +151,7 @@ PostGIS é usado para metadados espaciais. O projeto não assume armazenamento i
 
 ## 9. Curadoria
 
-A unidade de trabalho é um produto integralmente inspecionado.
+A unidade de trabalho é um produto ou release integralmente inspecionado.
 
 A curadoria deve incluir:
 
@@ -171,7 +173,7 @@ A expansão seguirá prioridade Brasil primeiro e será realizada fonte por font
 
 ## 10. Instância 2 — composição geográfica
 
-**Estado:** ambição futura registrada; não é foco ativo.
+**Estado:** `BACKLOG`; não é foco ativo.
 
 Poderá permitir:
 
@@ -182,11 +184,11 @@ Poderá permitir:
 - verificação de executabilidade técnica;
 - preservação de escala, método, versão e proveniência.
 
-A Instância 2 dependerá de produtos e distribuições suficientemente descritos na Instância 1.
+A Instância 2 dependerá de produtos e distribuições suficientemente descritos na Instância 1. Ela não deverá atribuir compatibilidade científica universal.
 
 ## 11. Instância 3 — contexto científico
 
-**Estado:** ambição futura registrada; não é foco ativo.
+**Estado:** `BACKLOG`; não é foco ativo.
 
 Poderá apresentar síntese breve e auditável da literatura sobre os fenômenos representados em uma composição escolhida pelo usuário.
 
@@ -196,7 +198,6 @@ A Instância 3 deverá:
 - priorizar literatura aplicável ao Brasil e à escala observada;
 - distinguir evidência direta, análoga e metodológica;
 - comunicar mecanismos, controvérsias e limitações;
-- não gerar perguntas para o usuário;
 - não transformar coincidência espacial em associação ou causalidade.
 
 ## 12. Regra de prioridade
@@ -207,7 +208,13 @@ Toda nova intervenção deverá responder:
 
 Mudanças voltadas exclusivamente às Instâncias 2 ou 3 permanecem no backlog até a consolidação da Instância 1.
 
-## 13. Critério de sucesso
+## 13. Estado e ciclo de vida
+
+A classificação `ACTIVE`, `BACKLOG`, `LEGACY_OPERATIONAL`, `RETIRED` e `HISTORICAL_EVIDENCE` é definida em `docs/PROJECT_STATE.md`.
+
+O roadmap vigente é `docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md`.
+
+## 14. Critério de sucesso
 
 O sucesso da fase atual será medido pela capacidade de responder com precisão:
 
@@ -220,5 +227,3 @@ O sucesso da fase atual será medido pela capacidade de responder com precisão:
 - qual versão deve ser usada;
 - como acessar os dados;
 - quais evidências sustentam o registro.
-
-A documentação detalhada está em `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`.
