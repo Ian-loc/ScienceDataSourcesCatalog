@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Validate the initial scientific and operational boundary for DETER Cerrado."""
+"""Validate the scientific and operational boundary for DETER Cerrado."""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 from urllib.parse import urlparse
 
+from validate_deter_cerrado_access_license_citation_guard import main as validate_access_license_citation
 from validate_deter_cerrado_metadata_profile_guard import main as validate_metadata_profile
 
 PATH = Path("database/mappings/deter_cerrado_scientific_boundary_guard_2026.json")
@@ -168,7 +169,11 @@ def main() -> int:
             fail(f"promoção prematura detectada: {forbidden}")
 
     validate_metadata_profile()
-    print("OK: DETER Cerrado preserva alerta versus inventário, identidade da distribuição e promoção negativa")
+    validate_access_license_citation()
+    print(
+        "OK: DETER Cerrado preserva alerta versus inventário, perfil específico expandido, "
+        "canais de acesso e promoção negativa"
+    )
     return 0
 
 
