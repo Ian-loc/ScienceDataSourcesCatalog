@@ -156,6 +156,10 @@ def main() -> int:
         [sys.executable, "scripts/validate_prodes_asset_endpoint_contract.py"],
         check=True,
     )
+    subprocess.run(
+        [sys.executable, "scripts/validate_prodes_catalog_reprocessing_state_guard.py"],
+        check=True,
+    )
     print("OK: evidência operacional PRODES validada sem promoção ou extrapolação metodológica")
     return 0
 
