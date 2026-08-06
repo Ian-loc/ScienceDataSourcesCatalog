@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 from validate_deter_cerrado_access_license_citation_guard import main as validate_access_license_citation
 from validate_deter_cerrado_metadata_profile_guard import main as validate_metadata_profile
 from validate_deter_cerrado_method_profile_guard import main as validate_method_profile
+from validate_deter_cerrado_operational_legend_latency_guard import main as validate_operational_legend_latency
 
 PATH = Path("database/mappings/deter_cerrado_scientific_boundary_guard_2026.json")
 EXPECTED_UUID = "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"
@@ -172,9 +173,10 @@ def main() -> int:
     validate_metadata_profile()
     validate_access_license_citation()
     validate_method_profile()
+    validate_operational_legend_latency()
     print(
         "OK: DETER Cerrado preserva alerta versus inventário, perfil específico expandido, "
-        "método 2024, canais de acesso e promoção negativa"
+        "método 2024, legenda/latência, canais de acesso e promoção negativa"
     )
     return 0
 
