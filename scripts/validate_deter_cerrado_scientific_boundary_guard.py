@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse
 
+from validate_deter_cerrado_metadata_profile_guard import main as validate_metadata_profile
+
 PATH = Path("database/mappings/deter_cerrado_scientific_boundary_guard_2026.json")
 EXPECTED_UUID = "a5220c18-f7fa-4e3e-b39b-feeb3ccc4830"
 
@@ -165,6 +167,7 @@ def main() -> int:
         if forbidden in serialized:
             fail(f"promoção prematura detectada: {forbidden}")
 
+    validate_metadata_profile()
     print("OK: DETER Cerrado preserva alerta versus inventário, identidade da distribuição e promoção negativa")
     return 0
 
