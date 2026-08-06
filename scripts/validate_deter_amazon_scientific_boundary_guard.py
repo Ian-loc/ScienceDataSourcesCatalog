@@ -6,6 +6,9 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse
 
+from validate_deter_amazon_access_snapshot_guard import main as validate_access_snapshot
+from validate_deter_amazon_distribution_boundary_guard import main as validate_distribution_boundary
+
 PATH = Path("database/mappings/deter_amazon_scientific_boundary_guard_2026.json")
 
 
@@ -161,7 +164,9 @@ def main() -> int:
         if forbidden in serialized:
             fail(f"promoção prematura detectada: {forbidden}")
 
-    print("OK: DETER Amazônia preserva alerta versus taxa e perfis operacionais datados sem promoção prematura")
+    validate_distribution_boundary()
+    validate_access_snapshot()
+    print("OK: DETER Amazônia preserva alerta versus taxa, distribuições distintas e acesso datado sem promoção prematura")
     return 0
 
 
