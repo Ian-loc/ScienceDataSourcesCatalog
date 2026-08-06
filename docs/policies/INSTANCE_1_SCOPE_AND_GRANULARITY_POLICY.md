@@ -9,6 +9,8 @@
 
 A Instância 1 é um catálogo relacional de fontes e ofertas de dados científicos. Seu propósito é permitir que uma pessoa encontre, compreenda e acesse dados mantidos pelas instituições produtoras.
 
+A regra central é operar com **granularidade mínima suficiente**: registrar apenas o nível necessário para descoberta, compreensão, filtragem e encaminhamento à fonte oficial.
+
 O Simbiotrama não é, nesta fase:
 
 - repositório ou arquivo de datasets externos;
