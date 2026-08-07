@@ -111,13 +111,25 @@ Essas atividades só pertencem à Instância 1 quando indispensáveis para corri
 
 Evidência deve ser suficiente e proporcional ao campo sustentado. Não é necessário criar um pacote forense ou uma afirmação independente para cada detalhe trivial.
 
-Estados curatoriais recomendados:
+### Estado global da entrada
 
-- `verified`;
+Usar apenas:
+
+- `needs_review`;
 - `partially_verified`;
+- `verified`.
+
+### Estado de evidência por campo
+
+Usar:
+
+- `needs_review`;
+- `partially_verified`;
+- `verified`;
 - `not_found`;
-- `not_applicable`;
-- `needs_review`.
+- `not_applicable`.
+
+`not_found` e `not_applicable` qualificam campos ou evidências; não podem ser usados como estado global de uma entrada.
 
 Não haverá escore universal de qualidade ou completude. Ausência de documentação não deve ser convertida em ausência do fenômeno, método, licença ou incerteza.
 
