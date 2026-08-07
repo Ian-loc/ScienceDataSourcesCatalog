@@ -185,9 +185,19 @@ Campos propostos:
 
 Um conector não implica cópia, hospedagem ou harmonização dos dados.
 
-## 5. Estados curatoriais
+## 5. Estados de curadoria e evidência
 
-Valores recomendados:
+### `catalog_entries.curation_status`
+
+Valores permitidos para o estado global da entrada:
+
+- `needs_review`;
+- `partially_verified`;
+- `verified`.
+
+### Evidência por campo
+
+Estados permitidos para campos/evidências:
 
 - `needs_review`;
 - `partially_verified`;
@@ -195,7 +205,7 @@ Valores recomendados:
 - `not_found`;
 - `not_applicable`.
 
-`not_found` significa que a informação não foi localizada no escopo de busca registrado. Não significa ausência factual universal.
+`not_found` significa que a informação não foi localizada no escopo de busca registrado. Não significa ausência factual universal. `not_found` e `not_applicable` não são estados globais de uma entrada.
 
 ## 6. Granularidade
 
