@@ -1,0 +1,333 @@
+[
+  {
+    "stable_id": "DR0022",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "no",
+      "metadata_url": "https://www.worldclim.org/data/index.html",
+      "methodology_url": "https://www.worldclim.org/data/worldclim21.html",
+      "citation_text": "Fick, S.E. and R.J. Hijmans, 2017. WorldClim 2: new 1km spatial resolution climate surfaces for global land areas. International Journal of Climatology 37(12): 4302-4315.",
+      "citation_url": "https://www.worldclim.org/data/worldclim21.html"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://worldclim.org/about.html",
+        "verification_status": "verified",
+        "support_note": "A licença oficial permite uso acadêmico e outros usos não comerciais gratuitamente, enquanto redistribuição ou uso comercial exigem permissão; por isso a condição agregada é parcial."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.worldclim.org/data/worldclim21.html",
+        "verification_status": "partially_verified",
+        "support_note": "A página oficial oferece downloads diretos sem fluxo de autenticação apresentado para o uso permitido; não foi localizada exigência geral de conta para esses downloads."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.worldclim.org/data/index.html",
+        "verification_status": "partially_verified",
+        "support_note": "O índice oficial organiza as famílias de dados e encaminha às páginas com versão, período, resolução e variáveis; não é um catálogo estruturado de metadados."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.worldclim.org/data/worldclim21.html",
+        "verification_status": "partially_verified",
+        "support_note": "A página da versão 2.1 documenta período, variáveis, resoluções e a publicação metodológica de referência; métodos podem variar entre famílias e versões."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://www.worldclim.org/data/worldclim21.html",
+        "verification_status": "verified",
+        "support_note": "A página oficial da versão 2.1 fornece explicitamente a referência Fick & Hijmans (2017)."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "WorldClim publica versões e famílias com períodos próprios, mas não foi localizada frequência única de atualização aplicável à entrada inteira."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0023",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://www.chelsa-climate.org/datasets",
+      "methodology_url": "https://www.chelsa-climate.org/models/chelsa",
+      "citation_url": "https://www.chelsa-climate.org/datasets",
+      "update_frequency_text": "Varia conforme o dataset; o catálogo oficial registra status, versão, publicação e extensão temporal separadamente para cada produto."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.chelsa-climate.org/datasets",
+        "verification_status": "partially_verified",
+        "support_note": "O catálogo oficial oferece downloads públicos e registra licenças abertas por dataset, incluindo CC0 em produtos centrais; a licença deve ser conferida no dataset usado."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.chelsa-climate.org/datasets",
+        "verification_status": "partially_verified",
+        "support_note": "As páginas oficiais apresentam downloads sem fluxo geral de login; não foi localizada exigência de autenticação para o catálogo público consultado."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.chelsa-climate.org/datasets",
+        "verification_status": "verified",
+        "support_note": "O catálogo oficial registra por dataset nome, cobertura temporal, status, versão, licença, formato, publicação, citação de modelo e citação de dados."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.chelsa-climate.org/models/chelsa",
+        "verification_status": "verified",
+        "support_note": "A página oficial do modelo CHELSA V2.1 identifica a versão ativa, implementação e publicações metodológicas; datasets individuais podem usar extensões ou modelos específicos."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://www.chelsa-climate.org/datasets",
+        "verification_status": "verified",
+        "support_note": "As páginas oficiais fornecem citações de modelo e de dados no nível de cada dataset; a entrada agregadora deve preservar essa citação específica ao produto usado."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.chelsa-climate.org/datasets",
+        "verification_status": "verified",
+        "support_note": "O catálogo distingue produtos ativos, incompletos, finalizados e offline, com versões e datas próprias; não há cadência única da infraestrutura."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0024",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://www.protectedplanet.net/en",
+      "citation_url": "https://www.protectedplanet.net/en/legal",
+      "update_frequency_text": "Mensal; o Protected Planet publica novas versões da World Database on Protected and Conserved Areas e acompanha as atualizações em seu tracker oficial."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.protectedplanet.net/en/legal",
+        "verification_status": "verified",
+        "support_note": "Protected Planet disponibiliza materiais públicos sob termos próprios, enquanto usos comerciais e algumas formas de acesso têm condições específicas; a condição agregada é parcial."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://api.protectedplanet.net/",
+        "verification_status": "verified",
+        "support_note": "A exploração pública do site é aberta, mas a API oficial exige chave/token; por isso a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.protectedplanet.net/en",
+        "verification_status": "partially_verified",
+        "support_note": "A plataforma oficial documenta a base global, estatísticas, downloads, versões e atualizações; metadados detalhados permanecem associados ao componente/base usado."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://www.protectedplanet.net/en/legal",
+        "verification_status": "verified",
+        "support_note": "Os termos oficiais fornecem formato explícito de citação para materiais baixados do Protected Planet e exigem registrar a base componente e a versão/mês utilizados."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://www.protectedplanet.net/en/monthly-release-news",
+        "verification_status": "verified",
+        "support_note": "O tracker oficial mostra releases sucessivos mensais em 2026 e a homepage declara atualização mensal."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "Protected Planet é uma infraestrutura/base compilada de áreas reportadas por múltiplos provedores; uma metodologia científica única de geração das geometrias não é propriedade da entrada agregadora."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0025",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://www.iucnredlist.org/search",
+      "methodology_url": "https://nrl.iucnredlist.org/assessment/process",
+      "citation_text": "IUCN. 2026. The IUCN Red List of Threatened Species. Version 2026-1. https://www.iucnredlist.org. Accessed on [day month year].",
+      "citation_url": "https://nrl.iucnredlist.org/about/citationinfo",
+      "update_frequency_text": "A base/API é normalmente atualizada duas ou três vezes por ano; reavaliações de espécies não seguem calendário fixo e são tipicamente buscadas em intervalos de 5–10 anos conforme prioridade e informação disponível."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://api.iucnredlist.org/help",
+        "verification_status": "verified",
+        "support_note": "Consulta e API apoiam educação, pesquisa e conservação, mas o uso comercial via API é proibido e exige licenciamento específico; portanto a condição agregada é parcial."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://api.iucnredlist.org/",
+        "verification_status": "verified",
+        "support_note": "A consulta web é pública, enquanto a API utiliza token e downloads/serviços seguem termos próprios; por isso a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.iucnredlist.org/search",
+        "verification_status": "partially_verified",
+        "support_note": "A busca oficial é o ponto de descoberta das avaliações e informações associadas; não é um catálogo de metadados independente da própria base de avaliações."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://nrl.iucnredlist.org/assessment/process",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial descreve o processo de avaliação e exige as IUCN Red List Categories and Criteria e diretrizes vigentes para todas as avaliações."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://nrl.iucnredlist.org/about/citationinfo",
+        "verification_status": "verified",
+        "support_note": "A página oficial fornece a forma de citar a Red List em geral e orientações específicas para avaliações individuais."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://api.iucnredlist.org/help",
+        "verification_status": "verified",
+        "support_note": "A FAQ oficial da API informa que a Red List costuma ser atualizada duas ou três vezes por ano; a FAQ de avaliações explica que espécies são tipicamente reavaliadas em 5–10 anos, sem agenda fixa."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0026",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://obis.org/data/access/",
+      "methodology_url": "https://manual.obis.org/",
+      "citation_text": "OBIS (YEAR) Ocean Biodiversity Information System. Intergovernmental Oceanographic Commission of UNESCO. https://obis.org.",
+      "citation_url": "https://manual.obis.org/citing.html"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://manual.obis.org/policy.html",
+        "verification_status": "verified",
+        "support_note": "A política oficial estabelece que todos os dados e produtos publicados através do OBIS são livremente acessíveis, respeitadas as licenças e atribuições dos datasets."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://obis.org/data/access/",
+        "verification_status": "verified",
+        "support_note": "A página oficial oferece busca, mapper, API, pacote R e exports públicos sem requisito geral de autenticação documentado."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://obis.org/data/access/",
+        "verification_status": "verified",
+        "support_note": "OBIS integra milhares de datasets com metadados e oferece busca de datasets, páginas próprias e múltiplas rotas oficiais de acesso."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://manual.obis.org/",
+        "verification_status": "verified",
+        "support_note": "O manual oficial documenta padrões, publicação, controle de qualidade, acesso e processamento; métodos científicos de coleta permanecem nos metadados dos datasets provedores."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://manual.obis.org/citing.html",
+        "verification_status": "verified",
+        "support_note": "O manual fornece citação geral do OBIS e formatos para datasets e subconjuntos, preservando atribuição aos provedores."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "A infraestrutura e o manual são continuamente revisados e datasets são atualizados por provedores, mas não foi localizada frequência única aplicável a toda a base integrada."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0027",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "partial",
+      "metadata_url": "https://science.ebird.org/en/use-ebird-data/download-ebird-data-products",
+      "methodology_url": "https://science.ebird.org/en/use-ebird-data",
+      "citation_text": "Sullivan, B.L., C.L. Wood, M.J. Iliff, R.E. Bonney, D. Fink, and S. Kelling. 2009. eBird: a citizen-based bird observation network in the biological sciences. Biological Conservation 142: 2282-2292.",
+      "citation_url": "https://science.ebird.org/en/use-ebird-data/citation",
+      "update_frequency_text": "Varia conforme o produto; o eBird Basic Dataset é atualizado mensalmente no dia 15, enquanto outros produtos processados possuem calendários próprios, incluindo produtos anuais."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://science.ebird.org/en/use-ebird-data",
+        "verification_status": "verified",
+        "support_note": "A página científica oficial declara os dados eBird open-access e disponíveis gratuitamente; termos específicos continuam aplicáveis aos produtos."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://science.ebird.org/en/use-ebird-data/download-ebird-data-products",
+        "verification_status": "verified",
+        "support_note": "Conteúdo e exploração pública são abertos, mas downloads como o EBD são fornecidos a usuários logados após formulário de solicitação; por isso a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://science.ebird.org/en/use-ebird-data/download-ebird-data-products",
+        "verification_status": "partially_verified",
+        "support_note": "A página oficial descreve os principais produtos, dados brutos e metadados associados; não é um catálogo estruturado único de metadados."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://science.ebird.org/en/use-ebird-data",
+        "verification_status": "verified",
+        "support_note": "A página oficial orienta boas práticas para inferência com dados de ciência cidadã e encaminha às metodologias específicas dos produtos Status and Trends."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://science.ebird.org/en/use-ebird-data/citation",
+        "verification_status": "verified",
+        "support_note": "A orientação oficial fornece referência primária do eBird e formatos para dados do site, checklists e EBD."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://science.ebird.org/en/use-ebird-data/download-ebird-data-products",
+        "verification_status": "verified",
+        "support_note": "A página oficial informa que o EBD é atualizado mensalmente no dia 15 e distingue outros produtos com calendários próprios."
+      }
+    ]
+  }
+]
