@@ -1,0 +1,131 @@
+[
+  {
+    "stable_id": "DR0002",
+    "fields": {
+      "update_frequency_text": "Varia conforme o recurso; a frequência é declarada nos metadados da IDE-Sisema.",
+      "authentication_required": "no",
+      "metadata_url": "https://idesisema.meioambiente.mg.gov.br/geonetwork/srv/search?type=dataset",
+      "methodology_url": "https://idesisema.meioambiente.mg.gov.br/geonetwork/srv/api/records/ce121547-8e95-4cc0-a6b9-e12a59c74f28/attachments/ide-sisema_manual_01_normas_estruturacao_padroes_dados_geoespaciais_4_ed.pdf"
+    },
+    "evidence": [
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://idesisema.meioambiente.mg.gov.br/geonetwork/srv/search?type=dataset",
+        "verification_status": "verified",
+        "support_note": "O catálogo oficial registra frequência de atualização por recurso; não há frequência única para a IDE-Sisema."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://idesisema.meioambiente.mg.gov.br/geonetwork/srv/api/records/ce121547-8e95-4cc0-a6b9-e12a59c74f28/attachments/ide-sisema_manual_03_guia_usuario_catalogo_metadados_1_ed.pdf",
+        "verification_status": "verified",
+        "support_note": "O manual oficial informa que usuários não precisam de cadastro prévio para acessar os dados do catálogo."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://idesisema.meioambiente.mg.gov.br/geonetwork/srv/search?type=dataset",
+        "verification_status": "verified",
+        "support_note": "Catálogo oficial GeoNetwork de metadados da IDE-Sisema."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://idesisema.meioambiente.mg.gov.br/geonetwork/srv/api/records/ce121547-8e95-4cc0-a6b9-e12a59c74f28/attachments/ide-sisema_manual_01_normas_estruturacao_padroes_dados_geoespaciais_4_ed.pdf",
+        "verification_status": "verified",
+        "support_note": "Manual oficial de normas, estruturação e padrões de dados geoespaciais e metadados."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação para a infraestrutura como um todo; créditos devem seguir o recurso/metadado utilizado."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0003",
+    "fields": {
+      "free_access": "yes",
+      "metadata_url": "https://adaptabrasil.mcti.gov.br/sobre/lista-de-indicadores",
+      "methodology_url": "https://adaptabrasil.mcti.gov.br/sobre/metodologia",
+      "citation_text": "AdaptaBrasil MCTI – Setor(es) Estratégico(s) [nome], acessado em [data], [link].",
+      "citation_url": "https://adaptabrasil.mcti.gov.br/sobre/termos-de-uso"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://adaptabrasil.mcti.gov.br/sobre/termos-de-uso",
+        "verification_status": "verified",
+        "support_note": "Os termos oficiais declaram os dados públicos, abertos e gratuitos."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://adaptabrasil.mcti.gov.br/sobre/lista-de-indicadores",
+        "verification_status": "verified",
+        "support_note": "Lista oficial de índices e indicadores, com nomes e definições para descoberta e interpretação mínima."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://adaptabrasil.mcti.gov.br/sobre/metodologia",
+        "verification_status": "verified",
+        "support_note": "Página oficial reúne os documentos metodológicos por setor estratégico."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://adaptabrasil.mcti.gov.br/sobre/termos-de-uso",
+        "verification_status": "verified",
+        "support_note": "Os termos de uso fornecem formato explícito de referência da fonte."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada frequência única de atualização aplicável à plataforma inteira; indicadores e setores podem ter ciclos distintos."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0004",
+    "fields": {
+      "methodology_url": "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/sirene/publicacoes/relatorios-bienais-de-transparencia-btrs/Relatorio_deInventario_NacionalNIR_2024_PORT.pdf"
+    },
+    "evidence": [
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/sirene/publicacoes/relatorios-bienais-de-transparencia-btrs/Relatorio_deInventario_NacionalNIR_2024_PORT.pdf",
+        "verification_status": "verified",
+        "support_note": "Relatório oficial do Inventário Nacional documenta métodos, dados, QA/QC e processos de elaboração das estimativas disponibilizadas pelo SIRENE."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizado um catálogo de metadados único do SIRENE equivalente a um registro estruturado da plataforma inteira."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação para o SIRENE como plataforma; publicações específicas possuem autoria e referência próprias."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "A documentação consultada descreve ciclos de inventário e estimativas, mas não uma frequência única de atualização da plataforma."
+      }
+    ]
+  }
+]
