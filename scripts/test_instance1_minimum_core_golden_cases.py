@@ -9,6 +9,8 @@ from __future__ import annotations
 import os
 import sys
 
+from promote_instance1_minimum_core import access_level, normalized_flag
+
 DEFAULT_DATABASE_URL = os.environ.get(
     "DATABASE_URL",
     "postgresql://catalog:catalog_dev_only@localhost:5432/science_data_catalog",
@@ -86,7 +88,31 @@ FIXTURES = (
 )
 
 
+def validate_normalization_semantics() -> None:
+    cases = {
+        "aberto": "open",
+        "restrito": "restricted",
+        "mediante solicitação": "restricted",
+        "aberto | alguns dados mediante solicitação": "partial",
+        "aberto | cadastro para alguns serviços": "partial",
+        "parcial": "partial",
+    }
+    for raw, expected in cases.items():
+        actual = access_level(raw)
+        if actual != expected:
+            raise ValueError(
+                f"normalização de acesso incorreta para {raw!r}: {actual!r} != {expected!r}"
+            )
+
+    if normalized_flag("não se aplica") != "not_applicable":
+        raise ValueError("não se aplica deve permanecer not_applicable")
+    if normalized_flag("cadastro", authentication=True) != "yes":
+        raise ValueError("cadastro deve registrar autenticação requerida")
+
+
 def main() -> int:
+    validate_normalization_semantics()
+
     try:
         import psycopg  # type: ignore
     except ImportError:
@@ -163,7 +189,11 @@ def main() -> int:
                 "SELECT count(*) FROM catalog.entry_variables ev JOIN catalog.catalog_entries e USING (entry_id) WHERE e.stable_id LIKE 'TEST-GOLDEN-%'"
             ).fetchone()[0] < 12:
                 raise ValueError("temas principais não foram representados")
-            print("OK: GEDI, DETER Cerrado, IBGE e ANA/SNIRH representados no núcleo mínimo sem proliferação")
+
+            print(
+                "OK: GEDI, DETER Cerrado, IBGE e ANA/SNIRH representados no núcleo mínimo "
+                "sem proliferação; normalização adversarial aprovada"
+            )
             connection.rollback()
             return 0
         except Exception:
