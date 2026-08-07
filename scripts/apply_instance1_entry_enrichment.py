@@ -27,6 +27,7 @@ ALLOWED_FIELDS = {
     "citation_text",
     "citation_url",
 }
+ALLOWED_EVIDENCE_FIELDS = ALLOWED_FIELDS | {"citation"}
 ALLOWED_EVIDENCE_ROLES = {
     "official_page", "official_metadata", "methodology", "license",
     "citation", "access", "other",
@@ -73,9 +74,12 @@ def validate_record(record: dict[str, object]) -> None:
     for item in evidence:
         if not isinstance(item, dict):
             raise ValueError(f"evidência inválida para {stable_id}")
+        field_name = item.get("field_name")
         role = item.get("evidence_role")
         status = item.get("verification_status")
         url = item.get("evidence_url")
+        if field_name not in ALLOWED_EVIDENCE_FIELDS:
+            raise ValueError(f"campo de evidência inválido em {stable_id}: {field_name!r}")
         if role not in ALLOWED_EVIDENCE_ROLES:
             raise ValueError(f"papel de evidência inválido em {stable_id}: {role!r}")
         if status not in ALLOWED_STATUSES:
@@ -197,6 +201,7 @@ def apply(connection, records: list[dict[str, object]]) -> dict[str, int]:
 def validate_materialized(connection, records: list[dict[str, object]]) -> dict[str, object]:
     verified: dict[str, dict[str, object]] = {}
     for record in records:
+        validate_record(record)
         stable_id = str(record["stable_id"])
         fields = dict(record.get("fields", {}))
         selected = ", ".join(["stable_id", *fields.keys()])
@@ -215,23 +220,47 @@ def validate_materialized(connection, records: list[dict[str, object]]) -> dict[
         if mismatches:
             raise ValueError(f"enriquecimento não materializado em {stable_id}: {mismatches}")
 
-        evidence_expected = len(record.get("evidence", []))
-        evidence_present = int(connection.execute(
-            """
-            SELECT count(*) FROM catalog.entry_evidence
-            WHERE entry_id = (SELECT entry_id FROM catalog.catalog_entries WHERE stable_id = %s)
-              AND field_name <> 'essential_profile'
-            """,
+        entry_id = int(connection.execute(
+            "SELECT entry_id FROM catalog.catalog_entries WHERE stable_id = %s",
             (stable_id,),
         ).fetchone()[0])
-        if evidence_present < evidence_expected:
-            raise ValueError(
-                f"evidência insuficiente em {stable_id}: {evidence_present} < {evidence_expected}"
-            )
+        evidence_expected = list(record.get("evidence", []))
+        matched_evidence = 0
+        for expected in evidence_expected:
+            item = dict(expected)
+            evidence_row = connection.execute(
+                """
+                SELECT support_note, verification_status
+                FROM catalog.entry_evidence
+                WHERE entry_id = %s
+                  AND COALESCE(field_name, '') = COALESCE(%s, '')
+                  AND evidence_role = %s
+                  AND COALESCE(evidence_url, '') = COALESCE(%s, '')
+                """,
+                (
+                    entry_id,
+                    item.get("field_name"),
+                    item.get("evidence_role"),
+                    item.get("evidence_url"),
+                ),
+            ).fetchone()
+            if not evidence_row:
+                raise ValueError(
+                    f"evidência esperada ausente em {stable_id}: "
+                    f"{item.get('field_name')} / {item.get('evidence_role')} / {item.get('evidence_url')}"
+                )
+            support_note, verification_status = evidence_row
+            if support_note != item.get("support_note") or verification_status != item.get("verification_status"):
+                raise ValueError(
+                    f"evidência divergente em {stable_id}: "
+                    f"{item.get('field_name')} / {item.get('evidence_role')}"
+                )
+            matched_evidence += 1
+
         verified[stable_id] = {
             "fields": len(fields),
-            "evidence_expected": evidence_expected,
-            "evidence_present": evidence_present,
+            "evidence_expected": len(evidence_expected),
+            "evidence_matched_exactly": matched_evidence,
         }
     return verified
 
