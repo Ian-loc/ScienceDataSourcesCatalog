@@ -134,7 +134,19 @@ A curadoria termina quando:
 4. lacunas relevantes estão explícitas;
 5. detalhes adicionais não alterariam materialmente a ficha pública.
 
-## 13. Estados curatoriais
+## 13. Estados de curadoria e evidência
+
+### Estado global da entrada
+
+Usar apenas:
+
+- `needs_review`;
+- `partially_verified`;
+- `verified`.
+
+### Estado de evidência por campo
+
+Usar:
 
 - `needs_review`;
 - `partially_verified`;
@@ -142,7 +154,9 @@ A curadoria termina quando:
 - `not_found`;
 - `not_applicable`.
 
-Uma entrada pode ser verificada sem release, ativo, checksum, bytes ou schema físico.
+`not_found` e `not_applicable` qualificam campos ou evidências; não qualificam a entrada inteira.
+
+Uma entrada pode ser `verified` sem release, ativo, checksum, bytes ou schema físico, desde que sua ficha essencial esteja sustentada.
 
 ## 14. Métricas
 
