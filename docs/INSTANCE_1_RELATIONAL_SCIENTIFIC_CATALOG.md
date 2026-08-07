@@ -109,7 +109,7 @@ Campos essenciais:
 - tipo de evidência;
 - nota de suporte;
 - data de recuperação;
-- estado curatorial.
+- estado de evidência do campo.
 
 ### `connector_profiles`
 
@@ -164,13 +164,25 @@ A curadoria começa por páginas e metadados oficiais. O trabalho deve parar qua
 
 A ausência de documentação deve ser registrada como lacuna. Não deve ser convertida em inferência.
 
-Estados recomendados:
+### Estado global da entrada
+
+Usar apenas:
+
+- `needs_review`;
+- `partially_verified`;
+- `verified`.
+
+### Estado de evidência por campo
+
+Usar:
 
 - `needs_review`;
 - `partially_verified`;
 - `verified`;
 - `not_found`;
 - `not_applicable`.
+
+`not_found` e `not_applicable` qualificam campos ou evidências; não são estados globais da entrada.
 
 ## 7. Exemplo GEDI
 
