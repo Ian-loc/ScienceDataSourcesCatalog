@@ -1,177 +1,191 @@
 # Workflow contínuo de curadoria da Instância 1
 
-**Objetivo:** aprofundar o catálogo fonte por fonte e produto por produto, com precisão científica, operacional e documental.
+**Objetivo:** concluir entradas de catálogo úteis, verificáveis e prontas para o website sem reconstruir plataformas externas.
 
 ## 1. Unidade de trabalho
 
-Uma unidade concluída corresponde a **um produto integralmente inspecionado**, incluindo:
+Uma unidade concluída corresponde a **uma entrada de catálogo suficientemente descrita**.
 
-- identidade e versão;
-- significado científico;
-- variáveis e classes relevantes;
-- método;
-- perfil espacial e temporal;
-- qualidade, incerteza e limitações;
-- distribuições e capacidades de acesso;
-- evidências e revisão.
+A entrada pode representar fonte, plataforma, coleção, produto de dados ou serviço, conforme a granularidade mais útil ao usuário.
 
-Cadastrar apenas o nome do produto não constitui conclusão.
+Não é requisito concluir todas as versões, arquivos, layers, bandas, distribuições ou endpoints associados.
 
-## 2. Sequência por produto
+## 2. Ficha essencial
 
-### Etapa A — resolução do objeto
+A curadoria deve buscar:
 
-1. identificar a fonte;
-2. confirmar o produtor primário;
-3. distinguir plataforma, família, produto, versão e distribuição;
-4. verificar se o objeto contém informação geográfica ou associação territorial inequívoca;
-5. definir estratégia de enumeração.
+- organização responsável;
+- nome oficial e acrônimo;
+- tipo amplo da entrada;
+- resumo e escopo científico;
+- modalidades de dados;
+- temas e variáveis principais;
+- cobertura espacial e temporal;
+- resolução ou suporte quando material;
+- frequência de atualização quando disponível;
+- gratuidade, autenticação e condições gerais de acesso;
+- página oficial;
+- página de metadados;
+- acesso principal;
+- metodologia, licença e citação quando disponíveis;
+- estado e data de verificação.
 
-### Etapa B — identidade científica
+## 3. Sequência por entrada
 
-1. registrar nome oficial e acrônimo;
-2. definir o objeto científico;
-3. formular a mensagem informacional;
-4. registrar o que o produto não representa;
-5. identificar usos potenciais sem transformá-los em garantias de adequação.
+### Etapa A — resolução mínima
 
-### Etapa C — variáveis e estrutura
+1. identificar a organização e a página oficial;
+2. decidir qual nível é útil: fonte, plataforma, coleção, produto ou serviço;
+3. verificar se a entrada oferece dados científicos ou encaminha claramente para eles;
+4. evitar subdivisão baseada apenas em arquivos, layers, bandas ou versões técnicas;
+5. registrar o tipo e a justificativa de granularidade.
 
-1. enumerar variáveis principais;
-2. registrar classes, probabilidades, indicadores, flags e incertezas;
-3. separar variável científica de coordenada, identificador e qualidade;
-4. registrar unidade, tipo de dado e definição original;
-5. preservar o nome usado pelo produtor.
+### Etapa B — descrição científica suficiente
 
-### Etapa D — método e observação
+1. explicar o que a entrada oferece;
+2. registrar modalidades de dados;
+3. listar temas e variáveis principais sem inventário exaustivo;
+4. preservar os nomes usados pelo produtor;
+5. registrar o que não deve ser inferido apenas quando houver risco real de interpretação.
 
-1. classificar a natureza de produção;
-2. documentar dados de entrada;
-3. descrever processamento;
-4. identificar método de validação;
-5. registrar versão do método;
-6. identificar dependência de outros produtos.
+### Etapa C — espaço, tempo e atualização
 
-### Etapa E — espaço e tempo
+1. registrar cobertura geográfica;
+2. registrar cobertura temporal;
+3. registrar resolução ou suporte somente quando material;
+4. distinguir período dos dados de data de publicação ou atualização da página;
+5. manter desconhecidos como desconhecidos.
 
-1. registrar tipo de geometria;
-2. definir suporte espacial;
-3. registrar resolução e seu significado;
-4. registrar CRS, grade e unidade geográfica;
-5. registrar extensão;
-6. registrar cobertura, janela e resolução temporal;
-7. distinguir frequência dos dados de frequência de atualização do portal.
+### Etapa D — acesso e documentação
 
-### Etapa F — qualidade e limitações
+1. registrar a página oficial;
+2. registrar a página de metadados quando distinta;
+3. registrar um caminho principal de acesso;
+4. registrar gratuidade e autenticação quando documentadas;
+5. registrar metodologia, licença e citação quando disponíveis;
+6. testar apenas os links essenciais.
 
-1. registrar métricas de qualidade disponíveis;
-2. registrar incerteza e seu tipo;
-3. registrar flags;
-4. registrar ausências e máscaras;
-5. identificar viés amostral ou de detecção;
-6. identificar erros de classificação ou modelagem;
-7. explicitar limitações de aplicação e interpretação.
+### Etapa E — evidência proporcional
 
-### Etapa G — acesso operacional
+Para campos materiais, registrar:
 
-1. registrar página do produto;
-2. registrar download, API e serviços;
-3. separar documentação, visualizador e acesso aos dados;
-4. registrar formato, protocolo e autenticação;
-5. verificar gratuidade, licença e atribuição;
-6. verificar suporte a recorte, consulta e exportação;
-7. testar links e registrar data e resultado.
-
-### Etapa H — evidência
-
-Para cada afirmação material, registrar:
-
-- campo sustentado;
-- valor;
-- URL;
-- tipo de evidência;
-- nota explicativa;
+- campo ou conjunto de campos sustentados;
+- URL oficial;
+- nota curta de suporte;
 - data de recuperação;
-- confiança curatorial.
+- estado de evidência do campo.
 
-### Etapa I — auditoria
+Não é necessário produzir uma afirmação atômica para cada detalhe trivial.
 
-Avaliar separadamente:
+### Etapa F — revisão
 
-- completude;
-- precisão científica;
-- precisão operacional;
-- coerência interna;
-- separação correta das entidades;
-- qualidade das evidências;
-- adequação da linguagem pública.
+Verificar:
 
-O produto somente pode ser promovido a `reviewed` ou `approved` após correções.
+- utilidade para descoberta;
+- clareza da descrição;
+- ausência de subdivisão excessiva;
+- ausência de inferência não sustentada;
+- funcionamento dos links essenciais;
+- coerência com a política de escopo;
+- prontidão para o website.
 
-## 3. Prioridade de curadoria
+## 4. Critério de parada
 
-### Prioridade P0
+A investigação deve encerrar quando:
 
-- produtos brasileiros de alta relevância;
-- produtos com cobertura nacional;
-- fontes públicas e institucionais;
-- produtos com acesso operacional documentado;
-- lacunas temáticas críticas do catálogo.
+1. a pessoa consegue compreender o que encontrará;
+2. os campos essenciais disponíveis foram registrados;
+3. existe caminho oficial para acesso ou continuidade;
+4. lacunas relevantes estão explícitas;
+5. aprofundamento adicional não mudaria materialmente a ficha pública.
 
-### Fontes iniciais recomendadas
+O fato de existirem mais arquivos, layers, versões ou páginas não prolonga automaticamente a curadoria.
 
-1. MapBiomas;
-2. TerraBrasilis / INPE;
+## 5. Quando aprofundar
+
+Aprofundamento adicional é permitido somente quando:
+
+- corrige uma ambiguidade central da entrada;
+- é necessário para um filtro importante do website;
+- diferencia duas entradas materialmente distintas;
+- prepara um conector selecionado da Instância 2;
+- responde a problema de licença, atribuição ou acesso.
+
+Inspeção de bytes, schema, CRS, checksum, bandas e endpoints não é rotina da Instância 1.
+
+## 6. Lotes e casos de validação
+
+Primeiro ciclo:
+
+1. GEDI;
+2. DETER Cerrado;
 3. IBGE;
-4. ANA / SNIRH;
-5. DATASUS;
-6. INMET;
-7. Embrapa;
-8. ICMBio e MMA;
-9. produtos internacionais com cobertura sistemática do Brasil.
+4. ANA/SNIRH.
 
-## 4. Lotes e checkpoints
+Após validar o modelo, trabalhar em lotes de 5 a 10 entradas. Cada lote deve incluir revisão de escopo antes de ampliar.
 
-Recomendação operacional:
+## 7. Saídas por lote
 
-- lotes de 5 a 10 produtos, conforme complexidade;
-- auditoria integral ao final de cada lote;
-- nenhum novo lote antes de corrigir erros estruturais detectados;
-- produtos de uma mesma família podem compartilhar evidências institucionais, mas não herdar silenciosamente resolução, período, método ou licença.
+- entradas concluídas;
+- variáveis e temas principais;
+- evidências mínimas;
+- links oficiais verificados;
+- lacunas relevantes;
+- candidatos a conectores;
+- ocorrências de escopo ou duplicidade;
+- exportação de teste para o website.
 
-## 5. Saídas de cada lote
+## 8. Indicadores de progresso
 
-- registros normalizados;
-- relatório de auditoria;
-- evidências de metadados;
-- lista de campos desconhecidos;
-- lista de endpoints testados;
-- correções do dicionário ou vocabulário;
-- atualização das exportações públicas somente após validação.
+- entradas prontas para exibição;
+- percentual de campos essenciais cobertos;
+- links essenciais verificados;
+- temas e variáveis identificados;
+- duplicatas consolidadas;
+- entradas com granularidade revisada;
+- candidatos a conectores futuros.
 
-## 6. Indicadores de progresso
+Não usar como indicadores principais:
 
-- fontes com estratégia de enumeração definida;
-- produtos resolvidos;
-- releases explícitos;
-- produtos com mensagem informacional válida;
-- produtos com variáveis enumeradas;
-- produtos com perfis espacial e temporal completos;
-- produtos com qualidade e incerteza documentadas;
-- distribuições testadas;
-- afirmações materiais com evidência;
-- registros aprovados.
+- releases resolvidos;
+- ativos enumerados;
+- quantidade de arquivos inspecionados;
+- número de afirmações;
+- número de commits ou validadores.
 
-O total bruto de linhas não deve ser usado isoladamente como indicador de avanço.
+## 9. Proibições
 
-## 7. Proibições
+- não reconstruir o catálogo da fonte;
+- não copiar ou hospedar dados externos;
+- não criar entrada apenas por formato, arquivo, layer, banda ou endpoint;
+- não exigir release ou ativo como condição universal;
+- não criar taxonomia científica universal do zero;
+- não promover metadados adicionais sem utilidade pública demonstrável;
+- não confundir acesso a uma plataforma com inventário de seus produtos;
+- não preencher lacunas por inferência;
+- não transformar literatura ou padrão externo em expansão automática do esquema;
+- não declarar a entrada incompleta apenas porque a fonte contém mais detalhes.
 
-- não tratar serviço ou catálogo como produto científico;
-- não copiar descrições promocionais sem análise;
-- não preencher resolução por inferência visual;
-- não presumir gratuidade ou licença;
-- não generalizar um produto para toda a fonte;
-- não generalizar uma versão para a série completa;
-- não registrar uso potencial como propriedade medida;
-- não afirmar ausência de incerteza quando a documentação é desconhecida;
-- não promover registros sem revisão.
+## 10. Estados de curadoria e evidência
+
+### Estado da entrada
+
+Usar apenas:
+
+- `needs_review` — ficha ainda não revisada;
+- `partially_verified` — ficha útil, mas com campo material ainda pendente ou evidência insuficiente;
+- `verified` — ficha essencial sustentada e pronta para exibição.
+
+### Estado de evidência do campo
+
+Usar:
+
+- `needs_review`;
+- `partially_verified`;
+- `verified`;
+- `not_found`;
+- `not_applicable`.
+
+`not_found` e `not_applicable` qualificam campos ou evidências; não são estados globais da entrada.
+
+Uma entrada pode ser `verified` mesmo sem release, ativo, checksum ou inventário integral, desde que sua ficha essencial esteja sustentada e seu escopo seja claro.

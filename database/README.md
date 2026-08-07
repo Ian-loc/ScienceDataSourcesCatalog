@@ -1,82 +1,107 @@
 # Banco relacional da Instância 1
 
-Este diretório contém a implementação de referência do núcleo relacional científico-operacional do catálogo.
+Este diretório contém o staging, o modelo profundo incorporado no Marco 1 e a futura migração para o núcleo mínimo da Instância 1.
 
-## Banco-alvo
+## 1. Estado arquitetural
 
-- PostgreSQL 16 ou superior;
-- PostGIS 3 ou superior;
-- `pg_trgm` para busca textual aproximada;
-- Python 3.11 ou superior para os carregadores e validadores.
+### Autoridade pública transitória
 
-O banco armazena **metadados, significado científico, versões, acesso, evidências e curadoria**. Ele não pretende copiar integralmente os datasets externos.
+- `data/data_resources.csv`;
+- `data/data_products.csv`;
+- `data/product_distributions.csv`;
+- artefatos JSON derivados usados pelo site atual.
 
-## Arquivos
+### Staging preservado
 
-### Esquema
+O schema `staging` importa os CSVs sem reinterpretá-los e registra lotes, hashes, contagens e ocorrências.
 
-- `schema/001_instance1_core.sql` — esquema normalizado `catalog` e tabelas centrais;
-- `schema/002_legacy_staging.sql` — importação sem perda dos CSVs atuais;
-- `schema/003_staging_batches.sql` — lotes imutáveis, hashes, histórico e views do último lote bem-sucedido.
+### Modelo profundo do Marco 1
 
-### Mapeamentos do piloto
+`schema/001_instance1_core.sql` continua executável e preservado. Ele demonstra integridade referencial, idempotência e separação de entidades, mas passa a ser classificado como **legado técnico/extensão futura**, não como requisito universal da Instância 1.
 
-- `mappings/pilot_entity_resolution.csv` — decide se cada linha antiga é produto, família, fonte ou capacidade de acesso;
-- `mappings/pilot_sources.csv` — tipos e estratégias de enumeração das fontes piloto;
-- `mappings/pilot_families.csv` — famílias científicas reconhecidas;
-- `mappings/pilot_products.csv` — significado científico mínimo e releases dos produtos específicos promovidos.
+### Núcleo mínimo proposto
 
-### Execução
-
-- `compose.yml` — PostgreSQL/PostGIS local reproduzível;
-- `requirements.txt` — dependência Python do cliente PostgreSQL;
-- `../scripts/load_instance1_staging.py` — valida e carrega os três CSVs em lote;
-- `../scripts/promote_instance1_pilot.py` — promove apenas entidades já resolvidas;
-- `../scripts/validate_instance1_database.py` — valida integridade do staging;
-- `../scripts/validate_instance1_pilot.py` — valida o piloto no esquema normalizado.
-
-## Entidades centrais
+A arquitetura de destino passa a ser:
 
 ```text
 organizations
-  └── sources
-        └── product_families
-              └── products
-                    └── product_releases
-                          ├── product_variables
-                          └── distributions
-                                ├── data_assets
-                                └── access_capabilities
+  └── catalog_entries
+        ├── entry_variables
+        ├── entry_evidence
+        └── connector_profiles opcional
 ```
 
-Entidades científicas transversais:
+A implementação deve ser aditiva e não destrutiva.
 
-- `variables`;
-- `methods`;
-- `spatial_profiles`;
-- `temporal_profiles`;
-- `quality_profiles`;
-- `taxonomy_terms`;
-- `citations`;
-- `metadata_assertions`;
-- `curation_reviews`.
+## 2. Banco-alvo
 
-## Por que PostgreSQL/PostGIS
+- PostgreSQL 16 ou superior;
+- PostGIS 3 ou superior;
+- `pg_trgm` quando necessário para busca textual;
+- Python 3.11 ou superior para cargas e validações.
 
-O catálogo precisa de:
+O banco armazena metadados do catálogo. Não copia integralmente datasets externos.
 
-- integridade referencial;
-- versionamento explícito;
-- busca por texto e filtros estruturados;
-- relações muitos-para-muitos;
-- rastreabilidade de evidências;
-- cobertura geográfica consultável;
-- futura API;
-- suporte às expansões geográficas sem armazenar todos os dados externos.
+## 3. Arquivos atuais
 
-PostGIS é usado principalmente para metadados espaciais, como a extensão geográfica do produto. A ingestão de grandes rasters, vetores ou séries externas não é requisito da Instância 1.
+### Schemas
 
-## Execução local reproduzível
+- `schema/001_instance1_core.sql` — modelo profundo do Marco 1, preservado;
+- `schema/002_legacy_staging.sql` — staging sem perda;
+- `schema/003_staging_batches.sql` — lotes e hashes.
+
+### Mapeamentos e promoção piloto
+
+Os arquivos em `mappings/` e `scripts/promote_instance1_pilot.py` permanecem como evidência da resolução inicial. Eles não definem que toda fonte deva ser decomposta em família, produto, release, distribuição ou ativo.
+
+### Validação
+
+- `scripts/load_instance1_staging.py`;
+- `scripts/validate_instance1_database.py`;
+- validadores do piloto e da estrutura profunda permanecem disponíveis para regressão.
+
+## 4. Próxima migration
+
+O próximo pacote executável deverá criar, sem remover tabelas atuais:
+
+- `catalog.catalog_entries`;
+- `catalog.entry_variables`;
+- `catalog.entry_evidence`;
+- `catalog.connector_profiles`.
+
+O plano detalhado está em:
+
+`docs/roadmap/INSTANCE_1_MINIMUM_SCHEMA_MIGRATION_PLAN.md`.
+
+## 5. Crosswalk
+
+| Estrutura atual | Tratamento no núcleo mínimo |
+|---|---|
+| organizações | preservar |
+| fontes | converter em entradas `source` ou `platform` |
+| famílias | criar entrada somente quando úteis ao usuário |
+| produtos | converter quando materialmente distintos |
+| releases | metadado adicional ou extensão excepcional |
+| variáveis | importar somente variáveis principais |
+| assertions | agregar em evidências proporcionais |
+| distribuições | converter em links essenciais ou conector selecionado |
+| ativos | não promover automaticamente |
+| capacidades | resumir no acesso ou usar em conector selecionado |
+| métodos e perfis | campos simples/JSONB, salvo necessidade repetida |
+
+## 6. Regras de migração
+
+- preservar todas as linhas originais;
+- registrar IDs de origem;
+- manter carga e promoção idempotentes;
+- não sobrescrever curadoria manual silenciosamente;
+- registrar conflitos;
+- não criar entrada por arquivo, layer, banda ou endpoint;
+- não converter toda distribuição em conector;
+- manter desconhecidos como desconhecidos;
+- permitir restauração do estado anterior.
+
+## 7. Execução local atual
 
 ```bash
 docker compose -f database/compose.yml up -d
@@ -87,170 +112,71 @@ python3 scripts/validate_instance1_database.py
 python3 scripts/validate_instance1_pilot.py
 ```
 
-A conexão local padrão é:
+A conexão padrão de desenvolvimento é:
 
 ```text
 postgresql://catalog:catalog_dev_only@localhost:5432/science_data_catalog
 ```
 
-A senha acima existe somente para desenvolvimento local. Produção deverá usar segredo próprio e nunca versionado.
+A senha é exclusivamente local e não deve ser usada em produção.
 
-Para recriar o banco local desde o início:
+## 8. Comando destrutivo
+
+O comando abaixo remove o volume local:
 
 ```bash
 docker compose -f database/compose.yml down -v
-docker compose -f database/compose.yml up -d
 ```
 
-## Carga sem banco
+Deve ser usado apenas quando a perda do banco de desenvolvimento local for intencional. Não é etapa normal de validação.
 
-A estrutura dos CSVs, as chaves e o mapeamento de entidades podem ser validados sem PostgreSQL:
+## 9. Staging e lotes
 
-```bash
-python3 scripts/load_instance1_staging.py --check-only
-```
-
-O comando informa:
-
-- número de linhas;
-- hashes SHA-256;
-- chaves órfãs;
-- cobertura do mapeamento;
-- distribuição das decisões de entidade.
-
-## Staging e lotes
-
-O schema `staging` recebe os CSVs sem reinterpretá-los. Todos os valores permanecem textuais até que sejam resolvidos e validados.
-
-As tabelas principais são:
-
-- `staging.load_batches`;
-- `staging.legacy_resources`;
-- `staging.legacy_products`;
-- `staging.legacy_distributions`;
-- `staging.migration_issues`.
-
-Cada carga registra:
+As tabelas de staging preservam:
 
 - arquivos de origem;
 - hashes SHA-256;
-- número de linhas;
-- SHA do repositório, quando disponível;
+- contagens;
+- SHA do repositório;
 - versão do carregador;
-- horário de início e conclusão;
-- estado da carga.
+- horários;
+- estado da carga;
+- ocorrências.
 
-Uma segunda execução com os mesmos três hashes é um `no_op`. A carga não duplica registros e não substitui silenciosamente lotes anteriores.
+Uma segunda execução com os mesmos hashes deve ser `no_op`.
 
-As views `v_latest_resources`, `v_latest_products` e `v_latest_distributions` expõem somente o último lote bem-sucedido.
+## 10. Promoção piloto anterior
 
-## Resolução de entidade
+A promoção anterior de fontes, famílias, produtos, releases, distribuições e capacidades continua como teste do modelo profundo. Ela não representa a cobertura final do catálogo e não deve ser expandida até que a decisão de granularidade mínima seja incorporada.
 
-O campo `resolved_entity_type` registra se uma linha antiga corresponde realmente a:
+## 11. Testes do núcleo mínimo
 
-- produto;
-- família;
-- fonte;
-- distribuição;
-- capacidade de acesso;
-- objeto ainda desconhecido.
+O futuro pacote deve testar:
 
-A resolução atual do piloto é:
+- banco vazio e banco pós-Marco 1;
+- idempotência;
+- integridade referencial;
+- preservação de IDs;
+- ausência de duplicatas;
+- exportação determinística;
+- rollback/restauração;
+- GEDI, DETER Cerrado, IBGE e ANA/SNIRH;
+- caso adversarial contra criação de entrada por arquivo ou layer.
 
-| Tipo resolvido | Quantidade |
-|---|---:|
-| Produto científico específico | 2 |
-| Família de produtos | 5 |
-| Fonte ou catálogo agregador | 2 |
-| Capacidade de acesso/processamento | 2 |
+## 12. Integração contínua
 
-Assim, serviços OGC, o catálogo público do Earth Engine e o serviço de processamento do Earth Engine não são promovidos como produtos científicos.
+O CI atual valida documentação, CSVs, interface, staging e modelo profundo. Durante a transição, ele deverá ganhar validações do núcleo mínimo sem remover prematuramente as regressões existentes.
 
-## Promoção piloto
+CI verde comprova que os contratos executáveis passaram; não comprova fatos externos nem autoriza promoção ou merge.
 
-A promoção inicial é intencionalmente limitada.
+## 13. Autoridade
 
-### Fontes promovidas
+O PostgreSQL/PostGIS somente substituirá os CSVs após:
 
-- `DR0011` — TerraBrasilis;
-- `DR0019` — Google Earth Engine Data Catalog.
-
-### Famílias promovidas
-
-- PRODES;
-- DETER Amazônia;
-- DETER Cerrado;
-- DETER Pantanal;
-- Vegetação secundária por bioma.
-
-### Produtos promovidos
-
-- `DP000005` — TerraClass Amazônia 2020;
-- `DP000011` — Dynamic World V1.
-
-### Distribuições promovidas
-
-- `DD000006` — TerraClass 2020, download;
-- `DD000016` — Dynamic World, ImageCollection/API;
-- `DD000017` — Dynamic World, registro de catálogo;
-- `DD000018` — Dynamic World, visualizador;
-- `DD000019` — Dynamic World, código e modelo.
-
-O script registra ainda capacidades operacionais, revisões curatoriais em andamento e afirmações científicas iniciais com evidência e confiança explícitas.
-
-## O que a promoção ainda não significa
-
-O piloto normalizado ainda não está completo. Em especial, faltam:
-
-- variáveis e classes detalhadas;
-- métodos versionados;
-- perfis espaciais;
-- perfis temporais;
-- qualidade, incerteza e validação;
-- taxonomias aprofundadas;
-- citações completas;
-- evidências de alta confiança por campo;
-- auditoria final de cada produto.
-
-Por isso, os produtos permanecem com revisão `in_progress`, e o banco ainda não substitui os CSVs públicos.
-
-## Estratégia de migração
-
-1. preservar os CSVs atuais;
-2. importar os CSVs para `staging`;
-3. registrar lote, hashes e integridade;
-4. resolver fonte, produto, versão, distribuição e serviço;
-5. promover somente entidades suficientemente definidas;
-6. criar releases explícitos;
-7. enriquecer produtos com perfis científicos;
-8. validar chaves, evidências e completude;
-9. auditar o lote piloto;
-10. somente então promover o banco a fonte canônica;
-11. gerar CSVs e planilhas a partir do banco.
-
-## Regras de modelagem
-
-- infraestrutura não é produto científico;
-- uma distribuição pertence a uma versão do produto;
-- uma variável deve preservar o nome original no produto;
-- a definição canônica da variável não substitui a definição fornecida pelo produtor;
-- resolução deve ser associada ao suporte que descreve;
-- incerteza desconhecida não equivale a incerteza ausente;
-- texto livre complementa, mas não substitui valores controlados;
-- afirmações importantes devem possuir evidência em `metadata_assertions`;
-- registros incompletos permanecem em estado de curadoria;
-- promoção e carga devem ser idempotentes;
-- nenhuma linha é promovida apenas porque existia no CSV anterior.
-
-## Integração contínua
-
-O workflow do GitHub Actions executa dois grupos independentes:
-
-1. validação documental, dos CSVs e da interface pública;
-2. criação efêmera de um PostGIS, aplicação das migrações, carga, repetição idempotente, promoção do piloto e validação relacional.
-
-O banco usado pelo CI é descartado ao final. Isso comprova reprodutibilidade, mas não equivale a provisionamento de produção.
-
-## Autoridade durante a transição
-
-Enquanto a migração não cumprir o Portão D definido em `docs/INSTANCE_1_RELATIONAL_SCIENTIFIC_CATALOG.md`, os CSVs públicos atuais permanecem canônicos para a versão publicada. O SQL representa a arquitetura canônica de destino, e o piloto normalizado permanece um artefato de migração auditável.
+- migration aditiva validada;
+- crosswalk auditado;
+- casos dourados aprovados;
+- exportação reproduzível;
+- CI verde;
+- revisão concluída;
+- autorização humana explícita.

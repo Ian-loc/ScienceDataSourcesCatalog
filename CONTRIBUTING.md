@@ -1,88 +1,137 @@
 # Como contribuir
 
-Contribuições são bem-vindas para corrigir registros, propor novas fontes, melhorar a interface, ampliar a camada de produtos e fortalecer validações.
+Contribuições são bem-vindas para corrigir entradas, propor novas fontes ou ofertas de dados, melhorar a interface e fortalecer validações.
 
-## Princípios
+## 1. Princípios
 
-1. `data/data_resources.csv` na branch `main` é a fonte canônica.
-2. JSONs e metadados derivados não devem ser editados manualmente.
-3. Uma evidência deve sustentar a afirmação específica que será alterada.
-4. Propriedades de produto ou distribuição não devem ser generalizadas para a fonte inteira.
-5. Novas fontes devem demonstrar vínculo com o Brasil ou justificativa científica explícita.
-6. Alterações significativas devem ocorrer em branch própria e pull request revisável.
+1. A `main` é a autoridade incorporada.
+2. Os CSV/JSON atuais continuam sustentando a interface pública durante a transição.
+3. A unidade futura é `catalog_entry`, de granularidade mínima suficiente.
+4. O Simbiotrama não copia datasets externos nem reconstrói catálogos de terceiros.
+5. Evidência deve sustentar o campo material alterado.
+6. Nomes e definições da fonte devem ser preservados.
+7. Novas entradas devem possuir vínculo com o Brasil ou justificativa estratégica.
+8. Mudanças significativas devem ocorrer em branch própria e PR revisável.
 
-## Propor uma nova fonte
+## 2. Gate de escopo
 
-A proposta deve incluir:
+Antes de propor entidade, coluna, vocabulário ou novo nível de entrada, informe qual função será melhorada:
 
-- nome oficial e instituição responsável;
-- página institucional e página de acesso aos dados;
-- vínculo territorial com o Brasil;
-- descrição objetiva dos dados oferecidos;
-- formatos e condições de acesso confirmados;
-- licença ou indicação explícita de que ela não foi localizada;
-- documentação oficial atual;
-- evidência científica ou técnica representativa, quando disponível;
-- limitações relevantes para uso acadêmico.
+- descoberta no catálogo;
+- interpretação mínima;
+- filtro ou exibição no website;
+- conector externo selecionado.
 
-A proposta não entra automaticamente no CSV canônico. Ela deve passar por avaliação de escopo, revisão factual, validação e pull request.
+A proposta permanece fora do núcleo quando serve apenas para:
 
-## Corrigir um registro
+- reconstruir genealogia;
+- enumerar arquivos, layers, bandas ou endpoints;
+- modelar ontologia universal;
+- antecipar harmonização ou análise;
+- reproduzir metadados que já pertencem à fonte.
 
-Toda correção factual deve informar:
+## 3. Propor uma entrada
 
-- `resource_id` afetado;
+A proposta deve incluir, conforme disponibilidade:
+
+- organização responsável;
+- nome oficial e tipo amplo;
+- resumo do que oferece;
+- modalidades, temas e variáveis principais;
+- cobertura espacial e temporal;
+- resolução ou suporte quando material;
+- página oficial;
+- metadados;
+- acesso principal;
+- gratuidade e autenticação;
+- metodologia, licença e citação quando disponíveis;
+- limitações relevantes;
+- data da verificação.
+
+Não é necessário enumerar todos os produtos, releases, arquivos ou serviços internos.
+
+## 4. Justificar granularidade
+
+Uma nova entrada somente deve ser criada quando existe diferença material de:
+
+- significado científico;
+- modalidade de dados;
+- cobertura;
+- método ou finalidade;
+- público ou uso;
+- caminho principal de acesso.
+
+Outro arquivo, formato, layer, banda, endpoint ou atualização técnica não é justificativa suficiente.
+
+## 5. Corrigir uma entrada
+
+Informe:
+
+- identificador afetado;
 - campo atual;
 - valor proposto;
-- URL da evidência oficial;
+- URL oficial;
 - data de acesso;
-- justificativa curta;
-- impacto em produtos ou distribuições relacionados.
+- justificativa;
+- impacto sobre a apresentação ou busca.
 
-Artigos que demonstram uso científico não são evidência suficiente para confirmar licença, autenticação, endpoint ou versão atual. Para esses campos, prefira documentação oficial contemporânea.
+Artigo de aplicação não confirma automaticamente licença, autenticação ou disponibilidade atual.
 
-## Fluxo de desenvolvimento
+## 6. Fluxo de desenvolvimento
 
-1. crie uma branch a partir de `main`;
-2. limite o escopo da alteração;
-3. edite somente arquivos-fonte;
-4. execute as validações relevantes;
-5. abra um pull request com resumo, motivação, impacto e testes;
-6. aguarde CI verde e revisão antes da integração.
+1. consulte o SHA atual da `main`;
+2. crie a branch;
+3. confirme que a branch existe;
+4. somente então escreva;
+5. limite o escopo;
+6. execute as validações;
+7. inspecione o diff;
+8. abra PR em draft;
+9. aguarde CI e revisão completos;
+10. corrija threads;
+11. congele o head;
+12. solicite autorização do SHA exato.
 
-## Validações principais
+Nunca use a `main` como fallback quando uma branch não for encontrada.
+
+## 7. Validações principais
 
 ```bash
 python3 scripts/build_catalog.py
 python3 scripts/validate_brazil_scope.py
 python3 scripts/validate_product_catalog.py
+python3 scripts/validate_scientific_direction.py
 python3 scripts/validate_frontend.py
 python3 scripts/build_site_artifact.py
 ```
 
-Validadores adicionais podem ser exigidos conforme o escopo da alteração.
+Validadores adicionais devem ser proporcionais ao risco. Evite testes baseados apenas na presença de palavras quando uma regra estrutural puder ser testada diretamente.
 
-## Alterações de dados
+## 8. Alterações de dados
 
-Ao editar `data/data_resources.csv`:
+Ao editar os CSVs atuais:
 
-- preserve os `resource_id` existentes;
-- não reutilize identificadores removidos;
-- mantenha o número e a ordem dos campos canônicos;
-- use valores coerentes com o codebook;
-- atualize classificações e contratos vinculados;
-- regenere artefatos derivados somente pelo workflow;
+- preserve identificadores;
+- não reutilize IDs removidos;
+- mantenha o schema canônico vigente;
+- atualize contratos vinculados;
+- regenere derivados pelo workflow;
 - atualize o changelog quando houver impacto público.
 
-## Pull request
+A existência de uma linha nos pilotos de produtos ou distribuições não obriga sua promoção como entrada futura.
 
-O pull request deve declarar:
+## 9. Pull request
 
-- o que mudou;
-- por que mudou;
-- quais usuários ou registros são afetados;
-- quais evidências sustentam a mudança;
-- quais comandos de validação foram executados;
-- o que permanece fora do escopo.
+O PR deve declarar:
 
-Alterações não relacionadas devem ser separadas em pull requests distintos.
+- objetivo;
+- função pública melhorada;
+- justificativa de granularidade;
+- arquivos alterados;
+- evidências;
+- testes;
+- casos adversariais relevantes;
+- estados negativos e bloqueios;
+- itens explicitamente fora do escopo.
+
+Alterações arquiteturais, curadoria de entradas e interface devem ser separadas quando puderem ser revisadas independentemente.

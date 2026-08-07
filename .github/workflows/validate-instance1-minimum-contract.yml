@@ -1,0 +1,24 @@
+name: Validar contrato mínimo da Instância 1
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "config/instance1_scope_contract.json"
+      - "scripts/validate_instance1_minimum_contract.py"
+      - ".github/workflows/validate-instance1-minimum-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-instance1-minimum-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Compilar validador
+        run: python3 -m py_compile scripts/validate_instance1_minimum_contract.py
+      - name: Validar ficha essencial e granularidade
+        run: python3 scripts/validate_instance1_minimum_contract.py
