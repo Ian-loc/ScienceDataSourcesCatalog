@@ -105,6 +105,14 @@ ON catalog.entry_evidence (entry_id);
 CREATE INDEX IF NOT EXISTS entry_evidence_status_idx
 ON catalog.entry_evidence (verification_status);
 
+CREATE UNIQUE INDEX IF NOT EXISTS entry_evidence_proportional_unique_idx
+ON catalog.entry_evidence (
+    entry_id,
+    COALESCE(field_name, ''),
+    evidence_role,
+    COALESCE(evidence_url, '')
+);
+
 INSERT INTO catalog.schema_migrations (version, description)
 VALUES ('004', 'Additive minimum-sufficient Instance 1 catalog core')
 ON CONFLICT (version) DO NOTHING;
