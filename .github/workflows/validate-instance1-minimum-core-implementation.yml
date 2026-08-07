@@ -1,0 +1,68 @@
+name: Validar implementação do núcleo mínimo da Instância 1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  minimum-core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgis/postgis:16-3.5
+        env:
+          POSTGRES_DB: science_data_catalog
+          POSTGRES_USER: catalog
+          POSTGRES_PASSWORD: catalog_dev_only
+          TZ: America/Sao_Paulo
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U catalog -d science_data_catalog"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgresql://catalog:catalog_dev_only@localhost:5432/science_data_catalog
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar cliente PostgreSQL
+        run: python3 -m pip install -r database/requirements.txt
+
+      - name: Validar sintaxe da promoção mínima
+        run: python3 -m py_compile scripts/promote_instance1_minimum_core.py
+
+      - name: Criar arquitetura legada e carregar staging canônico
+        run: python3 scripts/load_instance1_staging.py --initialize
+
+      - name: Aplicar migration aditiva do núcleo mínimo
+        run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/schema/004_instance1_minimum_core.sql
+
+      - name: Materializar 51 fontes como catalog entries
+        run: python3 scripts/promote_instance1_minimum_core.py
+
+      - name: Comprovar idempotência sem sobrescrita
+        run: |
+          output="$(python3 scripts/promote_instance1_minimum_core.py)"
+          echo "$output"
+          echo "$output" | grep -q '"inserted_entries": 0'
+          echo "$output" | grep -q '"inserted_themes": 0'
+          echo "$output" | grep -q '"inserted_evidence": 0'
+
+      - name: Validar núcleo mínimo materializado
+        run: python3 scripts/promote_instance1_minimum_core.py --validate-only
+
+      - name: Confirmar ausência deliberada de connector profiles
+        run: |
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('catalog.connector_profiles') IS NULL")" = "t"
+
+      - name: Confirmar que estruturas profundas permaneceram preservadas
+        run: |
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('catalog.products') IS NOT NULL")" = "t"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('catalog.product_releases') IS NOT NULL")" = "t"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('catalog.data_assets') IS NOT NULL")" = "t"
