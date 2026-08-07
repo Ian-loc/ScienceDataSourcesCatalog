@@ -1,0 +1,157 @@
+[
+  {
+    "stable_id": "DR0008",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://dados.gov.br/dados/conjuntos-dados",
+      "methodology_url": "https://dados.gov.br/dados/conteudo/sobre",
+      "update_frequency_text": "Varia conforme o conjunto de dados; o Portal registra periodicidade e alterações nos metadados de cada conjunto."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://dados.gov.br/dados/conteudo/sobre",
+        "verification_status": "verified",
+        "support_note": "O Portal declara que contém dados abertos e exclui do escopo dados com restrições de sigilo ou privacidade."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://dados.gov.br/swagger-ui/index.html",
+        "verification_status": "verified",
+        "support_note": "A API pública oferece operações GET de consulta aos conjuntos; operações administrativas são separadas. A descoberta pública não exige autenticação."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://dados.gov.br/dados/conjuntos-dados",
+        "verification_status": "verified",
+        "support_note": "O catálogo oficial é o ponto de descoberta dos conjuntos publicados por organizações governamentais."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://dados.gov.br/dados/conteudo/sobre",
+        "verification_status": "verified",
+        "support_note": "A página oficial descreve a função do portal como catálogo federado, a organização em conjuntos e recursos e os metadados usados para descoberta."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://dados.gov.br/dados/conteudo/sobre",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial informa que cada conjunto possui metadados como periodicidade de atualização; portanto não há frequência única do portal aplicável a todos os conjuntos."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação para o Portal Brasileiro de Dados Abertos como infraestrutura; atribuição e licença devem seguir o conjunto utilizado."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0009",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "partial",
+      "metadata_url": "https://www.gbif.org/dataset/search",
+      "citation_text": "GBIF: The Global Biodiversity Information Facility (year) What is GBIF?. Available from https://www.gbif.org/what-is-gbif [access date].",
+      "citation_url": "https://www.gbif.org/citation-guidelines"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.gbif.org/citation-guidelines",
+        "verification_status": "verified",
+        "support_note": "As diretrizes oficiais afirmam que dados acessados pela rede GBIF são livres para uso, sujeitos às obrigações de citação e licenças dos dados."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://techdocs.gbif.org/en/openapi/",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial informa que a maior parte da API não exige autenticação, enquanto downloads e algumas operações exigem conta; a condição global é portanto parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.gbif.org/dataset/search",
+        "verification_status": "verified",
+        "support_note": "A busca oficial de datasets expõe os registros de metadados publicados na infraestrutura GBIF."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://www.gbif.org/citation-guidelines",
+        "verification_status": "verified",
+        "support_note": "As diretrizes oficiais fornecem formato específico para citar GBIF como infraestrutura, além de exigir DOI para dados baixados."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "GBIF é uma infraestrutura agregadora: métodos de coleta e produção pertencem aos datasets publicados; para a entrada global, o requisito mínimo é metadados, regras de qualidade/publicação e acesso, não uma metodologia científica única."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada frequência única de atualização aplicável a toda a infraestrutura; datasets e índices possuem ciclos próprios."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0010",
+    "fields": {
+      "free_access": "yes",
+      "methodology_url": "https://brasil.mapbiomas.org/visao-geral-da-metodologia/",
+      "citation_text": "MapBiomas – Coleção [versão] da série [anual / mensal] de Mapas de [produto] do Brasil, acessado em [data] através do link: [LINK].",
+      "citation_url": "https://brasil.mapbiomas.org/termos-de-uso/",
+      "update_frequency_text": "Varia conforme o produto; novas coleções revisam e atualizam a série histórica, enquanto produtos específicos podem ter periodicidade anual ou mensal."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://brasil.mapbiomas.org/termos-de-uso/",
+        "verification_status": "verified",
+        "support_note": "Os termos oficiais declaram os dados do MapBiomas públicos, abertos e gratuitos sob licença CC-BY, mediante referência da fonte."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://brasil.mapbiomas.org/visao-geral-da-metodologia/",
+        "verification_status": "verified",
+        "support_note": "A página oficial apresenta a visão geral metodológica e encaminha aos ATBDs com detalhamento por produto e tema."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://brasil.mapbiomas.org/termos-de-uso/",
+        "verification_status": "verified",
+        "support_note": "Os termos de uso fornecem formato explícito de referência da fonte e condicionam o uso à atribuição."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://brasil.mapbiomas.org/colecoes-mapbiomas/",
+        "verification_status": "verified",
+        "support_note": "A página de coleções informa que novas coleções atualizam e revisam a série histórica; a própria plataforma reúne produtos com ciclos distintos."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizado catálogo estruturado único de metadados aplicável a toda a entrada MapBiomas Brasil; documentação e metadados são organizados por coleção/produto."
+      }
+    ]
+  }
+]
