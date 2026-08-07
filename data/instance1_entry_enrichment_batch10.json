@@ -1,0 +1,331 @@
+[
+  {
+    "stable_id": "DR0040",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "yes",
+      "metadata_url": "https://www.try-db.org/TryWeb/Database.php",
+      "methodology_url": "https://www.try-db.org/TryWeb/Database.php",
+      "update_frequency_text": "A base cresce continuamente com novas contribuições, mas os dados integrados tornam-se disponíveis por novas versões; não há calendário fixo documentado para a próxima versão."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.try-db.org/TryWeb/Prop0.php",
+        "verification_status": "verified",
+        "support_note": "Registros públicos são disponibilizados sob CC BY, enquanto registros temporariamente restritos dependem de permissão dos proprietários; portanto a condição agregada é parcial."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.try-db.org/TryWeb/Prop0.php",
+        "verification_status": "verified",
+        "support_note": "O fluxo oficial de solicitação de dados exige registro para prosseguir, inclusive quando apenas dados públicos são requisitados."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.try-db.org/TryWeb/Database.php",
+        "verification_status": "partially_verified",
+        "support_note": "A página oficial descreve versão corrente, cobertura, integração e estrutura da base; metadados detalhados de traits e fontes acompanham as solicitações/datasets, não um catálogo público único."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.try-db.org/TryWeb/Database.php",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial descreve integração, padronização, qualidade e modelo de dados da TRY; métodos de medição permanecem associados às fontes contribuidoras."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "TRY exige referência apropriada às fontes e datasets usados, mas não foi localizada nesta verificação proporcional uma única citação canônica da base que substitua as citações de dados e contribuidores."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://www.try-db.org/TryWeb/Submission.php",
+        "verification_status": "verified",
+        "support_note": "A documentação informa aquisição contínua de contribuições e disponibilidade normalmente na próxima versão, sem periodicidade fixa da release seguinte."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0041",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://bien.nceas.ucsb.edu/bien/data-and-access/",
+      "methodology_url": "https://bien.nceas.ucsb.edu/bien/",
+      "citation_text": "Enquist BJ, Boyle B, Maitner BS, et al. (2026). BIEN: A biodiversity informatics ecosystem advancing open and reproducible workflows for plant observation, plot and trait data. Methods in Ecology and Evolution 17(5):1556–1584. https://doi.org/10.1111/2041-210X.70274.",
+      "citation_url": "https://bien.nceas.ucsb.edu/bien/data-and-access/",
+      "update_frequency_text": "BIEN é versionado; cobertura, integrações e validações mudam entre versões e a análise deve registrar versão e data de acesso, sem assumir atualização contínua uniforme."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://bien.nceas.ucsb.edu/bien/data-and-access/",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial caracteriza BIEN 4.2 como ecossistema aberto e reprodutível e oferece portal, pacote R e serviços abertos para acesso."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://bien.nceas.ucsb.edu/bien/data-and-access/",
+        "verification_status": "partially_verified",
+        "support_note": "Os principais pontos de acesso públicos são apresentados sem requisito geral de conta; condições específicas de fontes subjacentes continuam preservadas pela proveniência."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://bien.nceas.ucsb.edu/bien/data-and-access/",
+        "verification_status": "verified",
+        "support_note": "A página oficial documenta versão, tipos de dados, proveniência, validações, limitações e formas de acesso, além de encaminhar aos produtos e serviços."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://bien.nceas.ucsb.edu/bien/",
+        "verification_status": "verified",
+        "support_note": "O site oficial descreve padronização taxonômica/geográfica, serviços de validação e fluxos reprodutíveis; métodos específicos dos dados originais continuam em suas fontes."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://bien.nceas.ucsb.edu/bien/data-and-access/",
+        "verification_status": "verified",
+        "support_note": "BIEN fornece citação primária atual e orienta registrar versão/data de acesso e citar contribuintes conforme os dados efetivamente utilizados."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://bien.nceas.ucsb.edu/bien/data-and-access/",
+        "verification_status": "verified",
+        "support_note": "A própria documentação ressalta que contagens são dependentes da versão e mudam entre releases; não foi convertida essa informação em uma cadência artificial."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0042",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "yes",
+      "metadata_url": "https://ameriflux.lbl.gov/data/flux-data-products/base-publish/",
+      "methodology_url": "https://ameriflux.lbl.gov/data/flux-data-products/base-publish/",
+      "citation_url": "https://ameriflux.lbl.gov/data/data-policy/",
+      "update_frequency_text": "Dados são publicados e versionados por sítio/produto após QA/QC; atualizações aparecem no Data Change Log, sem uma frequência única para toda a rede."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://ameriflux.lbl.gov/data/data-policy/",
+        "verification_status": "verified",
+        "support_note": "AmeriFlux compartilha dados abertamente; a maioria dos sítios usa CC BY 4.0 e parte do acervo mantém política legada, ambas sem cobrança de acesso documentada."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://ameriflux.lbl.gov/data/download-data/",
+        "verification_status": "partially_verified",
+        "support_note": "O fluxo de download coleta identificação/uso do usuário e os serviços programáticos usam credenciais; a consulta de metadados de sítios permanece pública."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://ameriflux.lbl.gov/data/flux-data-products/base-publish/",
+        "verification_status": "verified",
+        "support_note": "AmeriFlux publica BASE-BADM após QA/QC, com DOI, BADM e páginas de Site Info contendo metadados, citações e informações auxiliares."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://ameriflux.lbl.gov/data/flux-data-products/base-publish/",
+        "verification_status": "verified",
+        "support_note": "A documentação descreve QA/QC, padronização e publicação dos produtos BASE; processamento específico e métodos de medição permanecem documentados por produto/sítio."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://ameriflux.lbl.gov/data/data-policy/",
+        "verification_status": "verified",
+        "support_note": "A política oficial exige citar cada produto/sítio pelo DOI fornecido e inclui orientações de reconhecimento da infraestrutura AmeriFlux."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://ameriflux.lbl.gov/data/flux-data-products/base-publish/",
+        "verification_status": "verified",
+        "support_note": "Produtos são versionados e publicados após QA/QC, com atualizações rastreadas por Data Change Log; não há uma única cadência para toda a rede."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0043",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "yes",
+      "metadata_url": "https://fluxnet.org/data/",
+      "methodology_url": "https://fluxnet.org/data/fluxnet2015-dataset/data-processing/",
+      "citation_url": "https://fluxnet.org/data/data-policy/",
+      "update_frequency_text": "Varia por coleção, produto e sítio; a rede publica coleções e DOIs versionados, sem uma frequência única de atualização para FLUXNET como um todo."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://fluxnet.org/data/data-policy/",
+        "verification_status": "verified",
+        "support_note": "Parte dos dados segue CC BY 4.0, enquanto outras coleções/sítios podem usar políticas mais restritivas; a condição agregada é parcial."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://fluxnet.org/data/how-to-uploaddownload-data/",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial exige conta FLUXDATA para upload e download de dados."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://fluxnet.org/data/",
+        "verification_status": "partially_verified",
+        "support_note": "O portal organiza coleções e sítios com políticas, DOI/citações e documentação; metadados científicos permanecem associados às coleções e sítios."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://fluxnet.org/data/fluxnet2015-dataset/data-processing/",
+        "verification_status": "verified",
+        "support_note": "FLUXNET documenta processamento harmonizado das coleções; a metodologia de medição de cada torre permanece ligada ao sítio/rede regional."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://fluxnet.org/data/data-policy/",
+        "verification_status": "verified",
+        "support_note": "A política oficial exige citar a publicação da coleção e identificar/citar sítios ou DOIs por sítio quando disponíveis."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Coleções e produtos têm ciclos próprios; não foi localizada periodicidade única aplicável à rede FLUXNET agregada."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0044",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://data-api.globalforestwatch.org/",
+      "methodology_url": "https://data-api.globalforestwatch.org/",
+      "update_frequency_text": "Varia por dataset; a própria plataforma combina produtos anuais, mensais e quase em tempo real, e cada dataset registra sua atualização nos metadados."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.globalforestwatch.org/terms/",
+        "verification_status": "verified",
+        "support_note": "GFW busca disponibilizar muitos datasets sem restrição, mas cada dataset mantém licença e restrições próprias; por isso a condição global é parcial."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://data-api.globalforestwatch.org/",
+        "verification_status": "verified",
+        "support_note": "Leitura de metadados e exploração possuem rotas públicas, enquanto operações e alguns serviços da API usam cadastro/token/roles; a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://data-api.globalforestwatch.org/",
+        "verification_status": "verified",
+        "support_note": "A Data API expõe metadados por dataset, incluindo título, fonte, licença, disponibilidade para download e timestamps de atualização."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://data-api.globalforestwatch.org/",
+        "verification_status": "partially_verified",
+        "support_note": "A API preserva descrição/fonte no nível do dataset; métodos científicos pertencem às camadas/produtos de origem, não ao GFW como plataforma agregadora."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "A plataforma agrega dados de terceiros e exige respeitar licença, fonte e metadados de cada dataset; uma citação única do GFW não deve substituir a fonte científica usada."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://data-api.globalforestwatch.org/",
+        "verification_status": "verified",
+        "support_note": "Datasets têm timestamps e cadências próprias; a plataforma inclui dados anuais e quase em tempo real, logo não há frequência única."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0045",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://emissions.globalcarbonatlas.org/index.php?lang=en",
+      "methodology_url": "https://emissions.globalcarbonatlas.org/index.php?lang=en",
+      "citation_url": "https://globalcarbonatlas.org/project/stay-in-touch/",
+      "update_frequency_text": "Varia por série/produto; o Atlas atualiza suas visualizações conforme novas edições das fontes originais, que mantêm seus próprios calendários e anos de cobertura."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://emissions.globalcarbonatlas.org/index.php?lang=en",
+        "verification_status": "verified",
+        "support_note": "A interface oficial permite explorar e baixar séries em CSV/XLS sem cobrança ou fluxo de autenticação apresentado."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://emissions.globalcarbonatlas.org/index.php?lang=en",
+        "verification_status": "verified",
+        "support_note": "Exploração e download público das séries disponibilizadas pelo Atlas não apresentam requisito geral de login."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://emissions.globalcarbonatlas.org/index.php?lang=en",
+        "verification_status": "partially_verified",
+        "support_note": "A interface documenta definições, período, fontes, métodos e incertezas das séries mostradas; não é um catálogo independente de metadados para todas as fontes do Global Carbon Project."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://emissions.globalcarbonatlas.org/index.php?lang=en",
+        "verification_status": "verified",
+        "support_note": "O Atlas expõe métodos, definições, incertezas e referências para as séries; a metodologia completa permanece vinculada às publicações/fontes originais."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://globalcarbonatlas.org/project/stay-in-touch/",
+        "verification_status": "verified",
+        "support_note": "Os termos oficiais condicionam o uso à citação das fontes originais e fornecem referências específicas por série/modelo."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada frequência única de atualização do Atlas; os produtos exibidos dependem de edições e calendários distintos das fontes originais."
+      }
+    ]
+  }
+]
