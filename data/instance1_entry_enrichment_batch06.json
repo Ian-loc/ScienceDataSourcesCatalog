@@ -1,0 +1,294 @@
+[
+  {
+    "stable_id": "DR0001",
+    "fields": {
+      "authentication_required": "no"
+    },
+    "evidence": [
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://clima-gerais.meioambiente.mg.gov.br/",
+        "verification_status": "partially_verified",
+        "support_note": "A plataforma oficial disponibiliza publicamente seus módulos de mudanças climáticas, vulnerabilidade territorial, estimativas municipais e apoios sem fluxo de login apresentado para consulta."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada frequência única e atual de atualização da plataforma ou dos indicadores; o rodapé institucional histórico não foi usado como evidência de atualização."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizado catálogo estruturado de metadados proporcionalmente aplicável à plataforma Clima Gerais."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "A plataforma reúne diferentes indicadores e conteúdos de apoio derivados do PEMC; não foi tratada como possuidora de uma metodologia científica única para todos os módulos."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação da plataforma Clima Gerais na página oficial consultada."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0017",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "partial",
+      "metadata_url": "https://metadados.snirh.gov.br/geonetwork/srv/eng/catalog.search",
+      "update_frequency_text": "As informações do SNIRH são atualizadas permanentemente; no HidroWeb, a disponibilidade temporal depende da estação, do tipo de coleta e do fluxo de recebimento e consistência dos dados."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.snirh.gov.br/portal/snirh-1/o-que-e/sobre-o-snirh",
+        "verification_status": "verified",
+        "support_note": "O SNIRH informa que suas informações são públicas, atualizadas e disponibilizadas gratuitamente a qualquer interessado."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.snirh.gov.br/hidroweb/acesso-api",
+        "verification_status": "verified",
+        "support_note": "A consulta pública é aberta, enquanto o acesso automatizado pela API HidroWeb requer solicitação de credenciais à ANA; portanto a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://metadados.snirh.gov.br/geonetwork/srv/eng/catalog.search",
+        "verification_status": "verified",
+        "support_note": "O catálogo GeoNetwork oficial da ANA/SNIRH disponibiliza metadados geoespaciais e é apontado pelo portal do SNIRH como canal público de metadados."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://www.gov.br/ana/pt-br/assuntos/gestao-das-aguas/politica-nacional-de-recursos-hidricos/sistema-de-informacoes-sobre-recursos-hidricos/sistema-nacional-de-informacoes-sobre-recursos-hidricos",
+        "verification_status": "verified",
+        "support_note": "A ANA estabelece como objetivo do SNIRH atualizar permanentemente informações sobre disponibilidade e demanda; o HidroWeb reúne séries cujo período efetivo varia por estação."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "SNIRH/HidroWeb é infraestrutura de disponibilização de dados hidrológicos; métodos de medição, consistência e operação pertencem às redes, estações e normas técnicas correspondentes."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação para SNIRH/HidroWeb como entrada agregadora; a proveniência institucional e a estação/série utilizada devem ser preservadas."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0018",
+    "fields": {
+      "authentication_required": "yes"
+    },
+    "evidence": [
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://bdmep.inmet.gov.br/",
+        "verification_status": "verified",
+        "support_note": "O fluxo oficial do BDMEP solicita endereço de e-mail antes da seleção de estação, período e variáveis para processamento da solicitação."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "As séries possuem resoluções e disponibilidades distintas por estação, mas não foi localizada frequência única de atualização do BDMEP como serviço."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizado catálogo estruturado único de metadados do BDMEP nesta verificação proporcional."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "BDMEP é serviço de acesso às séries observacionais; métodos de observação, instrumentos e controle pertencem às redes e estações meteorológicas do INMET."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação do BDMEP na interface oficial consultada."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0019",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "yes",
+      "metadata_url": "https://developers.google.com/earth-engine/datasets/",
+      "citation_text": "Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., & Moore, R. (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. Remote Sensing of Environment. https://doi.org/10.1016/j.rse.2017.06.031",
+      "citation_url": "https://earthengine.google.com/faq/",
+      "update_frequency_text": "O arquivo público do Earth Engine é atualizado e expandido diariamente; a cadência científica de cada dataset continua definida no nível da fonte e do produto."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://earthengine.google.com/faq/",
+        "verification_status": "verified",
+        "support_note": "Earth Engine é gratuito para uso não comercial, enquanto usos comerciais/operacionais possuem condições de Google Cloud e preços próprios; por isso a condição agregada é parcial."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://developers.google.com/earth-engine/guides/access",
+        "verification_status": "verified",
+        "support_note": "O uso do Earth Engine exige projeto Google Cloud registrado, API habilitada e permissões apropriadas; chamadas são autenticadas e associadas a projeto."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://developers.google.com/earth-engine/datasets/",
+        "verification_status": "verified",
+        "support_note": "O catálogo oficial fornece páginas de descrição com metadados de datasets e também disponibiliza metadados estruturados em STAC e JSON-LD."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://earthengine.google.com/faq/",
+        "verification_status": "verified",
+        "support_note": "A FAQ oficial fornece referência explícita para citar o Earth Engine; datasets específicos mantêm suas próprias citações no catálogo."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://developers.google.com/earth-engine/datasets/",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial descreve o arquivo público como atualizado e expandido diariamente, sem substituir a cadência própria de cada dataset."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "Earth Engine é catálogo e ambiente de processamento; métodos científicos pertencem aos datasets e análises, não à plataforma como método único."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0020",
+    "fields": {
+      "authentication_required": "yes",
+      "methodology_url": "https://appeears.earthdatacloud.nasa.gov/help"
+    },
+    "evidence": [
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://appeears.earthdatacloud.nasa.gov/help",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial informa que usuários precisam de conta NASA Earthdata Login para usar o site e a API AppEEARS."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://appeears.earthdatacloud.nasa.gov/help",
+        "verification_status": "verified",
+        "support_note": "A documentação operacional descreve extrações por ponto e área, reprojeção, resultados, qualidade e download, sustentando a interpretação mínima do serviço."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "AppEEARS é serviço de extração sobre produtos de arquivos federais; metadados científicos devem ser atribuídos aos produtos de origem, não duplicados como catálogo próprio universal."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "A frequência científica é propriedade dos produtos disponibilizados; não é uma propriedade única necessária para interpretar o serviço AppEEARS."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "O uso científico deve citar os produtos NASA/federais de origem extraídos pelo serviço; não foi imposta uma citação substitutiva do AppEEARS."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0021",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "yes",
+      "metadata_url": "https://cds.climate.copernicus.eu/datasets",
+      "citation_url": "https://confluence.ecmwf.int/spaces/CKB/pages/197704114/How+to+acknowledge+and+cite+a+Climate+Data+Store+CDS+catalogue+entry+and+the+data+published+as+part+of+it",
+      "update_frequency_text": "Varia conforme o dataset; versões, atualizações, temporalidade e licença são documentadas nas entradas individuais do catálogo CDS."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://confluence.ecmwf.int/spaces/CKB/pages/174856258/Climate+Data+Store+CDS+documentation",
+        "verification_status": "verified",
+        "support_note": "A documentação do CDS define os dados como gratuitos e abertos, sujeitos à aceitação da licença aplicável ao dataset."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://cds.climate.copernicus.eu/how-to-api",
+        "verification_status": "verified",
+        "support_note": "O acesso programático requer conta, login e configuração de chave da CDS API; datasets também podem exigir aceitação de licença."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://cds.climate.copernicus.eu/datasets",
+        "verification_status": "verified",
+        "support_note": "O catálogo CDS é o ponto oficial de descoberta, metadados, licenças, referências e acesso aos datasets climáticos."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://confluence.ecmwf.int/spaces/CKB/pages/197704114/How+to+acknowledge+and+cite+a+Climate+Data+Store+CDS+catalogue+entry+and+the+data+published+as+part+of+it",
+        "verification_status": "verified",
+        "support_note": "A orientação oficial exige atribuição ao Copernicus e citação da entrada do catálogo e do dataset efetivamente utilizado."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://cds.climate.copernicus.eu/datasets",
+        "verification_status": "verified",
+        "support_note": "A plataforma é um catálogo distribuído; atualização e versão são propriedades das entradas individuais, não uma frequência única da infraestrutura."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "CDS é infraestrutura de distribuição: métodos científicos pertencem às reanálises, observações, projeções e produtos específicos documentados no catálogo."
+      }
+    ]
+  }
+]
