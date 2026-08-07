@@ -64,12 +64,31 @@ EXPECTED_SCOPE_USES = [
     "website_filter_or_display",
     "selected_connector",
 ]
-EXPECTED_STATUSES = [
+EXPECTED_ENTRY_STATUSES = [
+    "needs_review",
+    "partially_verified",
+    "verified",
+]
+EXPECTED_FIELD_EVIDENCE_STATUSES = [
     "needs_review",
     "partially_verified",
     "verified",
     "not_found",
     "not_applicable",
+]
+EXPECTED_PR_GATE_SEQUENCE = [
+    "draft_implementation",
+    "stable_head",
+    "ci_green_on_exact_head",
+    "diff_audited",
+    "ready_for_review",
+    "review_completed",
+    "findings_corrected",
+    "ci_revalidated_on_exact_head",
+    "zero_actionable_threads",
+    "head_frozen",
+    "human_authorization_for_exact_sha",
+    "merge",
 ]
 EXPECTED_GOLDEN_CASES = ["GEDI", "DETER Cerrado", "IBGE", "ANA/SNIRH"]
 EXPECTED_NON_MATERIAL_SPLITS = {
@@ -138,7 +157,7 @@ for name in PATHS:
     text(name)
 contract = json_object(PATHS["scope_contract"])
 
-if contract.get("contract_version") != "1.0.0":
+if contract.get("contract_version") != "1.0.1":
     fail("versão inesperada do contrato de escopo")
 if contract.get("project") != "Simbiotrama":
     fail("projeto inconsistente no contrato de escopo")
@@ -152,8 +171,18 @@ if contract.get("optional_entities") != EXPECTED_OPTIONAL_ENTITIES:
     fail("optional_entities divergentes")
 if contract.get("scope_gate_use_cases") != EXPECTED_SCOPE_USES:
     fail("gate de escopo divergente")
-if contract.get("curation_statuses") != EXPECTED_STATUSES:
-    fail("estados curatoriais divergentes")
+if "curation_statuses" in contract:
+    fail("curation_statuses ambíguo não deve coexistir com domínios separados")
+if contract.get("entry_curation_statuses") != EXPECTED_ENTRY_STATUSES:
+    fail("estados globais de entrada divergentes")
+if contract.get("field_evidence_statuses") != EXPECTED_FIELD_EVIDENCE_STATUSES:
+    fail("estados de evidência por campo divergentes")
+if set(contract["entry_curation_statuses"]) - set(contract["field_evidence_statuses"]):
+    fail("todo estado global deve possuir representação válida no domínio de evidência")
+if {"not_found", "not_applicable"} & set(contract["entry_curation_statuses"]):
+    fail("not_found e not_applicable não podem qualificar uma entrada inteira")
+if contract.get("pr_gate_sequence") != EXPECTED_PR_GATE_SEQUENCE:
+    fail("sequência obrigatória de gate de PR divergente")
 if contract.get("golden_cases") != EXPECTED_GOLDEN_CASES:
     fail("casos dourados divergentes")
 if set(contract.get("non_material_split_reasons", [])) != EXPECTED_NON_MATERIAL_SPLITS:
