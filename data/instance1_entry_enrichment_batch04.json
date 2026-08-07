@@ -1,0 +1,164 @@
+[
+  {
+    "stable_id": "DR0011",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "partial",
+      "metadata_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search",
+      "citation_url": "https://terrabrasilis.dpi.inpe.br/citacoes-e-licenca-de-uso/",
+      "update_frequency_text": "Varia conforme o programa e o recurso; o catálogo oficial registra frequências anuais, diárias, contínuas, irregulares, sob demanda e outras conforme o conjunto."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/faq/",
+        "verification_status": "verified",
+        "support_note": "A FAQ oficial informa que os dados disponibilizados no TerraBrasilis podem ser usados livremente, respeitando licença e citação."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/faq/",
+        "verification_status": "verified",
+        "support_note": "O acesso público é aberto, mas dados antecipados do DETER exigem credenciais concedidas a instituições responsáveis por controle e fiscalização; por isso a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/eng/catalog.search",
+        "verification_status": "verified",
+        "support_note": "O catálogo GeoNetwork oficial reúne os metadados do TerraBrasilis; a FAQ informa adoção do padrão ISO 19115:2003."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/citacoes-e-licenca-de-uso/",
+        "verification_status": "verified",
+        "support_note": "A página oficial fornece referência explícita para a plataforma TerraBrasilis e orienta citações específicas dos programas."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/geonetwork/srv/search",
+        "verification_status": "verified",
+        "support_note": "O próprio catálogo registra diferentes frequências por dataset; não há uma única frequência da plataforma."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "TerraBrasilis é infraestrutura de acesso e análise de produtos como PRODES e DETER; a metodologia científica pertence aos programas e conjuntos, não à plataforma agregadora como um todo."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0012",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "methodology_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/pages/secao_informacoes/faq/",
+      "citation_text": "INPE. Banco de Dados de queimadas. Disponível em: http://www.inpe.br/queimadas/bdqueimadas. Acesso em: [data de acesso].",
+      "citation_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/pages/secao_informacoes/faq/",
+      "update_frequency_text": "Varia conforme o produto; focos podem ser atualizados em tempo quase real após passagens de satélite, enquanto risco de fogo, meteorologia, relatórios e outros produtos têm ciclos próprios."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/pages/secao_informacoes/faq/",
+        "verification_status": "verified",
+        "support_note": "A FAQ oficial declara que todos os dados e produtos do Programa Queimadas são disponibilizados sem custo e com acesso livre após sua geração."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/",
+        "verification_status": "verified",
+        "support_note": "O portal oficial oferece consulta, download e geosserviços públicos sem requisito geral de autenticação documentado para os produtos públicos."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/pages/secao_informacoes/faq/",
+        "verification_status": "verified",
+        "support_note": "A FAQ oficial descreve princípios de detecção e encaminha às metodologias específicas por sensor e aos documentos metodológicos dos produtos."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/pages/secao_informacoes/faq/",
+        "verification_status": "verified",
+        "support_note": "A FAQ fornece formato explícito de referência para o Banco de Dados de Queimadas do INPE."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/pages/secao_downloads/dados-abertos/",
+        "verification_status": "verified",
+        "support_note": "A página oficial documenta periodicidades distintas, incluindo focos em intervalos de até 10 minutos, eventos horários e produtos diários ou mensais."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizado catálogo estruturado único de metadados aplicável ao conjunto do Programa Queimadas nesta verificação proporcional."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0013",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "partial",
+      "metadata_url": "https://specieslink.net/ws/1.0/",
+      "update_frequency_text": "Varia conforme a coleção provedora; a rede registra datas de última atualização por coleção."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://specieslink.net/data_sharing_policy",
+        "verification_status": "verified",
+        "support_note": "A política oficial promove compartilhamento livre e aberto; dados textuais da rede usam CC BY 4.0 e imagens CC BY-SA 4.0."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://specieslink.net/ws/1.0/",
+        "verification_status": "verified",
+        "support_note": "A consulta pública é aberta, mas a API exige apikey e algumas funções como downloads exigem identificação; portanto a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://specieslink.net/ws/1.0/",
+        "verification_status": "verified",
+        "support_note": "A API oficial expõe metadados de instituições, coleções e conjuntos de dados além dos registros de biodiversidade."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://specieslink.net/search/",
+        "verification_status": "verified",
+        "support_note": "As páginas oficiais das coleções registram individualmente a última atualização; não há frequência única da rede."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "speciesLink integra registros fornecidos por coleções distintas; métodos de coleta, identificação e curadoria pertencem aos provedores e coleções, não à rede agregadora como metodologia científica única."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "A rede exige atribuição e as coleções exibem instruções de citação próprias, mas não foi localizado formato único de citação da infraestrutura speciesLink nesta verificação proporcional."
+      }
+    ]
+  }
+]
