@@ -1,0 +1,126 @@
+[
+  {
+    "stable_id": "DR0005",
+    "fields": {
+      "metadata_url": "https://www.gov.br/cemaden/pt-br/acesso-a-informacao"
+    },
+    "evidence": [
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.gov.br/cemaden/pt-br/acesso-a-informacao",
+        "verification_status": "partially_verified",
+        "support_note": "A seção oficial de Acesso à Informação encaminha para Dados Abertos e demais informações institucionais do Cemaden; não constitui catálogo estruturado único de metadados para todos os produtos."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "O Cemaden opera monitoramento contínuo e publica produtos com temporalidades distintas, mas não foi localizada frequência única de atualização aplicável à entrada institucional inteira."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Há metodologias específicas por ameaça, rede, boletim e produto, mas não foi localizada metodologia única proporcionalmente aplicável ao Cemaden como entrada agregadora."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Publicações específicas do Cemaden fornecem referências próprias, mas não foi localizada orientação única de citação para a entrada institucional como um todo."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0006",
+    "fields": {
+      "metadata_url": "https://panorama.sipam.gov.br/geonetwork/srv/search?type=dataset",
+      "update_frequency_text": "Varia conforme o recurso; o catálogo oficial registra frequências como sob demanda, anual, mensal, contínua e desconhecida."
+    },
+    "evidence": [
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://panorama.sipam.gov.br/geonetwork/srv/search?type=dataset",
+        "verification_status": "verified",
+        "support_note": "O PANORAMA mantém catálogo GeoNetwork oficial para identificar, compreender e acessar produtos e serviços do CENSIPAM."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://panorama.sipam.gov.br/geonetwork/srv/search?type=dataset",
+        "verification_status": "verified",
+        "support_note": "O catálogo oficial apresenta frequências de atualização por recurso; não há frequência única para a infraestrutura PANORAMA."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "O catálogo documenta origem, qualidade e características por recurso, mas não foi localizada metodologia única aplicável a toda a infraestrutura PANORAMA."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação para a infraestrutura PANORAMA; a citação deve seguir o recurso efetivamente utilizado quando houver orientação específica."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0007",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://urbverde.iau.usp.br/",
+        "verification_status": "verified",
+        "support_note": "A página oficial declara acesso gratuito a dados sociais e ambientais e apresenta a missão de gerar dados socioambientais acessíveis e gratuitos para o Brasil."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://urbverde.iau.usp.br/",
+        "verification_status": "partially_verified",
+        "support_note": "A interface pública permite explorar municípios, mapas e indicadores sem fluxo de autenticação apresentado na página oficial; não foi localizada exigência de conta para a consulta pública."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizado catálogo estruturado único de metadados para a plataforma UrbVerde nesta verificação proporcional."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://urbverde.iau.usp.br/",
+        "verification_status": "partially_verified",
+        "support_note": "A própria plataforma expõe uma seção de Metodologias no conteúdo educativo, mas não foi localizado nesta rodada um URL canônico único que represente metodologicamente todos os indicadores."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação da plataforma UrbVerde na página oficial consultada."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada frequência única de atualização aplicável ao conjunto dos mapas e indicadores UrbVerde."
+      }
+    ]
+  }
+]
