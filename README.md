@@ -26,6 +26,7 @@ Documentos principais:
 - [Roadmap](docs/roadmap/SIMBIOTRAMA_IMPLEMENTATION_ROADMAP.md)
 - [Workflow de curadoria](docs/roadmap/INSTANCE_1_CURATION_WORKFLOW.md)
 - [Governança](docs/GOVERNANCE.md)
+- [Repositório canônico](https://github.com/Ian-loc/ScienceDataSourcesCatalog)
 
 ## Catálogo público atual
 
@@ -146,5 +147,7 @@ Contextualização por literatura científica curada, sem impor profundidade adi
 ## Citação
 
 > CLEMENTE, Ian. *Science Data Sources Catalog — Simbiotrama: catálogo relacional de fontes e ofertas de dados científicos*. GitHub, 2026. https://ian-loc.github.io/ScienceDataSourcesCatalog/
+
+Repositório: https://github.com/Ian-loc/ScienceDataSourcesCatalog
 
 ORCID: [0000-0003-1164-9318](https://orcid.org/0000-0003-1164-9318)
