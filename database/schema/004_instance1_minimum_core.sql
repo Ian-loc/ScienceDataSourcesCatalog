@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS catalog.catalog_entries (
     organization_id bigint REFERENCES catalog.organizations(organization_id),
     parent_entry_id bigint REFERENCES catalog.catalog_entries(entry_id),
     entry_type text NOT NULL CHECK (entry_type IN (
-        'source','platform','collection','product','service'
+        'source','platform','collection','data_product','data_service'
     )),
     official_name text NOT NULL,
     acronym text,
