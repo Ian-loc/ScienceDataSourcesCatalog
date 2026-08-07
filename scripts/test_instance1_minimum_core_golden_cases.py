@@ -6,11 +6,15 @@ scope discipline; they are not public catalog records.
 """
 from __future__ import annotations
 
+import json
 import os
 import sys
+from pathlib import Path
 
 from promote_instance1_minimum_core import access_level, normalized_flag
 
+ROOT = Path(__file__).resolve().parents[1]
+CONTRACT_PATH = ROOT / "config" / "instance1_scope_contract.json"
 DEFAULT_DATABASE_URL = os.environ.get(
     "DATABASE_URL",
     "postgresql://catalog:catalog_dev_only@localhost:5432/science_data_catalog",
@@ -37,7 +41,7 @@ FIXTURES = (
     {
         "stable_id": "TEST-GOLDEN-DETER-CERRADO",
         "organization": "Instituto Nacional de Pesquisas Espaciais (INPE)",
-        "entry_type": "service",
+        "entry_type": "data_service",
         "name": "DETER Cerrado",
         "summary": "Sistema de avisos de alteração da cobertura de vegetação nativa no Cerrado.",
         "scope": "Monitoramento operacional para fiscalização; não é taxa anual consolidada.",
@@ -88,6 +92,14 @@ FIXTURES = (
 )
 
 
+def load_contract_entry_types() -> tuple[str, ...]:
+    contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+    entry_types = contract.get("entry_types")
+    if not isinstance(entry_types, list) or not entry_types or not all(isinstance(value, str) for value in entry_types):
+        raise ValueError("entry_types inválidos no contrato mínimo")
+    return tuple(entry_types)
+
+
 def validate_normalization_semantics() -> None:
     cases = {
         "aberto": "open",
@@ -110,8 +122,41 @@ def validate_normalization_semantics() -> None:
         raise ValueError("cadastro deve registrar autenticação requerida")
 
 
+def validate_database_entry_type_domain(connection, entry_types: tuple[str, ...]) -> None:
+    """Prove that every contract entry type is accepted by the executable schema."""
+    for index, entry_type in enumerate(entry_types, start=1):
+        connection.execute(
+            """
+            INSERT INTO catalog.catalog_entries (
+                stable_id, entry_type, official_name, summary, curation_status
+            ) VALUES (%s, %s, %s, %s, 'needs_review')
+            """,
+            (
+                f"TEST-CONTRACT-TYPE-{index}",
+                entry_type,
+                f"Contract type fixture: {entry_type}",
+                "Transactional fixture for contract/schema alignment.",
+            ),
+        )
+
+    inserted = connection.execute(
+        "SELECT count(*) FROM catalog.catalog_entries WHERE stable_id LIKE 'TEST-CONTRACT-TYPE-%'"
+    ).fetchone()[0]
+    if inserted != len(entry_types):
+        raise ValueError(
+            f"domínio entry_type não materializou todos os valores do contrato: {inserted}/{len(entry_types)}"
+        )
+
+
 def main() -> int:
     validate_normalization_semantics()
+    entry_types = load_contract_entry_types()
+    fixture_types = {fixture["entry_type"] for fixture in FIXTURES}
+    unknown_fixture_types = fixture_types - set(entry_types)
+    if unknown_fixture_types:
+        raise ValueError(
+            f"fixtures usam entry_type fora do contrato: {sorted(unknown_fixture_types)}"
+        )
 
     try:
         import psycopg  # type: ignore
@@ -121,6 +166,8 @@ def main() -> int:
 
     with psycopg.connect(DEFAULT_DATABASE_URL) as connection:
         try:
+            validate_database_entry_type_domain(connection, entry_types)
+
             for index, fixture in enumerate(FIXTURES, start=1):
                 organization_id = connection.execute(
                     """
@@ -191,8 +238,8 @@ def main() -> int:
                 raise ValueError("temas principais não foram representados")
 
             print(
-                "OK: GEDI, DETER Cerrado, IBGE e ANA/SNIRH representados no núcleo mínimo "
-                "sem proliferação; normalização adversarial aprovada"
+                "OK: contrato/schema de entry_type alinhados; GEDI, DETER Cerrado, IBGE e ANA/SNIRH "
+                "representados no núcleo mínimo sem proliferação; normalização adversarial aprovada"
             )
             connection.rollback()
             return 0
