@@ -1,0 +1,333 @@
+[
+  {
+    "stable_id": "DR0034",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://api.inaturalist.org/v1/docs/",
+      "methodology_url": "https://www.inaturalist.org/pages/about.html",
+      "update_frequency_text": "A plataforma recebe observações de forma contínua; o subconjunto elegível compartilhado com o GBIF é regenerado semanalmente."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://help.inaturalist.org/en/support/solutions/articles/151000175695",
+        "verification_status": "verified",
+        "support_note": "Observações podem ser consultadas publicamente, mas licenças pertencem aos usuários e podem variar entre CC0, Creative Commons e todos os direitos reservados; mídia e dados de observação também podem ter licenças distintas."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.inaturalist.org/pages/developers",
+        "verification_status": "partially_verified",
+        "support_note": "Consulta e parte da API são públicas, enquanto operações de usuário e algumas formas de exportação dependem de conta/autorização; a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://api.inaturalist.org/v1/docs/",
+        "verification_status": "partially_verified",
+        "support_note": "A API oficial documenta os objetos e campos expostos pela plataforma; não funciona como catálogo separado de metadados científicos por dataset."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.inaturalist.org/pages/about.html",
+        "verification_status": "partially_verified",
+        "support_note": "A página oficial explica o modelo de ciência cidadã, registro de ocorrências e identificação colaborativa; protocolos científicos variam conforme projeto e uso analítico."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada uma citação científica única da plataforma proporcionalmente aplicável a todos os usos; reutilizações devem preservar licenças, observações e fontes/datasets efetivamente usados."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://help.inaturalist.org/en/support/solutions/articles/151000170346-which-inaturalist-observations-are-exported-for-gbif-and-how-often-does-this-export-happen-",
+        "verification_status": "partially_verified",
+        "support_note": "A documentação oficial confirma exportação semanal ao GBIF do subconjunto elegível; a plataforma em si recebe observações conforme contribuições dos usuários, sem uma release científica única."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0035",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://climatedataguide.ucar.edu/climate-data",
+      "methodology_url": "https://climatedataguide.ucar.edu/about",
+      "citation_text": "Schneider, D. P., C. Deser, J. Fasullo, and K. E. Trenberth, 2013: Climate Data Guide Spurs Discovery and Understanding. Eos Trans. AGU, 94, 121–122. https://doi.org/10.1002/2013eo130001",
+      "citation_url": "https://climatedataguide.ucar.edu/about"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://climatedataguide.ucar.edu/climate-data",
+        "verification_status": "verified",
+        "support_note": "O Guide é aberto para consulta; salvo um pequeno conjunto de índices hospedados, ele não hospeda os datasets e encaminha o usuário aos provedores originais para acesso."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://climatedataguide.ucar.edu/",
+        "verification_status": "verified",
+        "support_note": "Busca, páginas de síntese e expert guidance são publicamente consultáveis sem requisito de login apresentado para o uso principal do guia."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://climatedataguide.ucar.edu/climate-data",
+        "verification_status": "verified",
+        "support_note": "O catálogo do Guide organiza mais de 200 datasets/índices e registra variáveis, cobertura, timestep, formato, acesso e expert guidance quando disponível."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://climatedataguide.ucar.edu/about",
+        "verification_status": "partially_verified",
+        "support_note": "A página oficial descreve o modelo editorial baseado em sínteses e comentários de especialistas; métodos científicos permanecem nos datasets/provedores descritos."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://climatedataguide.ucar.edu/about",
+        "verification_status": "verified",
+        "support_note": "O Guide fornece referência explícita do projeto e citações específicas para páginas com expert guidance, além de exigir citação dos datasets segundo os provedores."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "O Guide é descrito como recurso vivo e em crescimento, mas não foi localizada periodicidade fixa de atualização do catálogo ou de suas sínteses."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0036",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "yes",
+      "metadata_url": "https://roots.ornl.gov/public-release",
+      "citation_text": "Iversen CM, McCormack ML, Baer JK, et al. 2021. Fine-Root Ecology Database (FRED): A Global Collection of Root Trait Data with Coincident Site, Vegetation, Edaphic, and Climatic Data, Version 3. Oak Ridge National Laboratory, TES SFA, U.S. Department of Energy. https://doi.org/10.25581/ornlsfa.014/1459186.",
+      "citation_url": "https://roots.ornl.gov/public-release"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://roots.ornl.gov/public-release",
+        "verification_status": "verified",
+        "support_note": "O acesso é fornecido sem cobrança mediante formulário; o usuário pode retornar para solicitar novo token conforme necessário."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://roots.ornl.gov/public-release",
+        "verification_status": "verified",
+        "support_note": "FRED 3.0 exige preenchimento de formulário e envia por e-mail um token para a interface de busca; o token expira em 24 horas."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://roots.ornl.gov/public-release",
+        "verification_status": "partially_verified",
+        "support_note": "A página oficial identifica versão, DOI, escopo e condições de acesso; a interface de filtragem é acessada após token, portanto não foi tratada como catálogo público universal de metadados."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "A página oficial encaminha a orientações de uso e fontes originais, mas não foi localizado nesta verificação proporcional um URL metodológico único que represente toda a compilação FRED 3.0."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://roots.ornl.gov/public-release",
+        "verification_status": "verified",
+        "support_note": "A página oficial fornece DOI e citação completa de FRED 3.0 e recomenda citar também as fontes de dados originais quando possível."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "A equipe menciona correções em uma próxima release, mas não estabelece periodicidade fixa de atualização da base."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0037",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://docs.isric.org/globaldata/soilgrids/index.html",
+      "methodology_url": "https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs.html",
+      "citation_text": "Poggio, L., de Sousa, L. M., Batjes, N. H., Heuvelink, G. B. M., Kempen, B., Ribeiro, E., and Rossiter, D. 2021. SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty. SOIL 7:217–240.",
+      "citation_url": "https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs_04.html",
+      "update_frequency_text": "Atualizado por versões quando novos dados de solo ou covariáveis justificam nova modelagem após controle de qualidade e padronização; não há calendário fixo documentado."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs_02.html",
+        "verification_status": "verified",
+        "support_note": "Os produtos SoilGrids são publicamente acessíveis sob CC BY 4.0."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://docs.isric.org/globaldata/soilgrids/index.html",
+        "verification_status": "verified",
+        "support_note": "WMS, WCS, WebDAV, website e distribuições comunitárias permitem acesso público; não há autenticação geral indicada para os caminhos estáveis principais."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://docs.isric.org/globaldata/soilgrids/index.html",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial registra propriedades, profundidades, resolução de 250 m, incerteza, licença e formas recomendadas de acesso."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs.html",
+        "verification_status": "verified",
+        "support_note": "A documentação define SoilGrids como mapeamento digital global baseado em perfis, covariáveis e machine learning com fluxo reprodutível e incerteza quantificada."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs_04.html",
+        "verification_status": "verified",
+        "support_note": "A FAQ oficial fornece citação explícita de SoilGrids 2.0 para propriedades físicas e químicas comuns."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "methodology",
+        "evidence_url": "https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs.html",
+        "verification_status": "verified",
+        "support_note": "A documentação afirma que o fluxo permite atualizações quando novos dados/covariáveis ficam disponíveis após controle de qualidade, sem estabelecer frequência fixa."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0038",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "no",
+      "metadata_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+      "methodology_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+      "citation_text": "Batjes NH, Calisto L and de Sousa LM, 2024. Providing quality-assessed and standardised soil data to support global mapping and modelling (WoSIS snapshot 2023). Earth System Science Data 16:4735–4765. https://doi.org/10.5194/essd-16-4735-2024.",
+      "citation_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+      "update_frequency_text": "WoSIS-latest é dinâmico; snapshots estáticos são preparados quando há crescimento material do acervo ou das propriedades padronizadas, e não por calendário fixo."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+        "verification_status": "verified",
+        "support_note": "Dados padronizados públicos são livremente acessíveis com atribuição, mas alguns conjuntos de origem possuem licenças mais restritivas e não podem ser redistribuídos; por isso a condição agregada é parcial."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+        "verification_status": "verified",
+        "support_note": "WFS, GraphQL, snapshots e webplatform públicos são documentados sem requisito geral de autenticação para os dados redistribuíveis."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+        "verification_status": "verified",
+        "support_note": "A documentação diferencia WoSIS-latest dinâmico de snapshots versionados e descreve acesso, licenças, cobertura e formas de citação."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+        "verification_status": "verified",
+        "support_note": "A documentação descreve padronização e disponibilização de dados de perfis de solo e encaminha ao data paper de qualidade/standardisation."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+        "verification_status": "verified",
+        "support_note": "A FAQ fornece citações obrigatórias distintas para snapshots e WoSIS-latest, preservando a versão/forma realmente utilizada."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://docs.isric.org/globaldata/wosis/faq-wosis.html",
+        "verification_status": "verified",
+        "support_note": "WoSIS-latest é dinâmico; novos snapshots são preparados após crescimento substancial do número de perfis ou das propriedades padronizadas, não por periodicidade fixa."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0039",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "partial",
+      "metadata_url": "https://ipt.gbif.org/manual/en/ipt/latest/resource-metadata",
+      "methodology_url": "https://ipt.gbif.org/manual/en/ipt/latest/",
+      "citation_text": "Wieczorek J, Blissett M, Braak K & Podolskiy M (2026) The GBIF Integrated Publishing Toolkit User Manual. Copenhagen: GBIF Secretariat.",
+      "citation_url": "https://ipt.gbif.org/manual/en/ipt/latest/colophon",
+      "update_frequency_text": "Software mantido por releases sem calendário fixo para a próxima versão; recursos publicados por cada instalação seguem ciclos definidos pelos respectivos publicadores."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://ipt.gbif.org/manual/en/ipt/latest/",
+        "verification_status": "verified",
+        "support_note": "O IPT é aplicação web livre e open source para publicação de dados e metadados de biodiversidade."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://ipt.gbif.org/manual/en/ipt/latest/home",
+        "verification_status": "verified",
+        "support_note": "Recursos públicos podem ser visualizados sem login, enquanto funções administrativas e de publicação são restritas a usuários com direitos apropriados; a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://ipt.gbif.org/manual/en/ipt/latest/resource-metadata",
+        "verification_status": "verified",
+        "support_note": "O manual documenta o GBIF Metadata Profile baseado em EML, campos obrigatórios/recomendados e o editor de metadados do IPT."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://ipt.gbif.org/manual/en/ipt/latest/",
+        "verification_status": "verified",
+        "support_note": "O manual oficial descreve publicação, validação, versionamento e exposição interoperável de recursos; não é metodologia científica dos datasets publicados."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://ipt.gbif.org/manual/en/ipt/latest/colophon",
+        "verification_status": "verified",
+        "support_note": "O manual oferece citação recomendada do IPT/manual; datasets publicados podem ainda possuir citações auto-geradas com DOI e versão."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://ipt.gbif.org/manual/en/ipt/latest/releases",
+        "verification_status": "verified",
+        "support_note": "A página oficial registra manutenção por releases e declara que não há data definida para a próxima versão; recursos de cada instalação possuem ciclos próprios de publicação."
+      }
+    ]
+  }
+]
