@@ -1,0 +1,326 @@
+[
+  {
+    "stable_id": "DR0046",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025",
+      "methodology_url": "https://edgar.jrc.ec.europa.eu/methodology",
+      "citation_text": "EDGAR (Emissions Database for Global Atmospheric Research) Community GHG Database, a collaboration between the European Commission, Joint Research Centre (JRC), the International Energy Agency (IEA), and comprising IEA-EDGAR CO2, EDGAR CH4, EDGAR N2O, EDGAR F-GASES version EDGAR_2025_GHG (2025) European Commission, JRC (Datasets).",
+      "citation_url": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025",
+        "verification_status": "verified",
+        "support_note": "A página oficial disponibiliza tabelas e grades para download e documenta as condições de uso; materiais da União Europeia são reutilizáveis sob CC BY 4.0 salvo indicação específica."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025",
+        "verification_status": "verified",
+        "support_note": "Os downloads públicos da edição EDGAR_2025_GHG são apresentados diretamente, sem requisito geral de cadastro ou login."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025",
+        "verification_status": "verified",
+        "support_note": "A página oficial registra versão, cobertura, gases, setores, resoluções temporais, fontes, referências, condições de uso e formas de citação da edição."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://edgar.jrc.ec.europa.eu/methodology",
+        "verification_status": "verified",
+        "support_note": "A metodologia oficial descreve o cálculo de emissões por atividade, tecnologia, abatimento e fatores de emissão, aplicado consistentemente por país e categoria."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025",
+        "verification_status": "verified",
+        "support_note": "A página oficial fornece a citação da Community GHG Database e orienta reconhecer a edição e as fontes subjacentes."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "EDGAR é publicado em versões/edições e produtos distintos, mas não foi localizada uma periodicidade única normativa de atualização aplicável à base inteira."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0047",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "partial",
+      "metadata_url": "https://dataspace.copernicus.eu/analyse/apis/catalogue-apis",
+      "citation_text": "Kovács, D.D., Musial, J., Bojanowski, J., Clarijs, D., de la Mar, J., & Zlinszky, A. (2026). Copernicus Data Space Ecosystem establishes public cloud processing for earth observation data. Scientific Data. https://doi.org/10.1038/s41597-026-06765-8.",
+      "citation_url": "https://dataspace.copernicus.eu/about"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://dataspace.copernicus.eu/ecosystem/about",
+        "verification_status": "verified",
+        "support_note": "CDSE declara acesso aberto e gratuito aos dados Copernicus e oferece serviços centrais gratuitos com capacidade configurada."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://documentation.dataspace.copernicus.eu/Ecosystem.html",
+        "verification_status": "verified",
+        "support_note": "Há serviços abertos utilizáveis sem registro e também dados/serviços gratuitos destinados a usuários registrados; portanto a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://dataspace.copernicus.eu/analyse/apis/catalogue-apis",
+        "verification_status": "verified",
+        "support_note": "O catálogo oficial pode ser consultado por protocolos como OData e STAC; a documentação explicita que essas interfaces expõem metadados dos produtos/coleções."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "CDSE é infraestrutura de descoberta, acesso e processamento; métodos científicos pertencem às missões, coleções e produtos Copernicus, não ao ecossistema como método único."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://dataspace.copernicus.eu/about",
+        "verification_status": "verified",
+        "support_note": "A página oficial fornece uma citação específica para o Copernicus Data Space Ecosystem; produtos usados continuam exigindo atribuição própria quando aplicável."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://documentation.dataspace.copernicus.eu/Ecosystem.html",
+        "verification_status": "partially_verified",
+        "support_note": "O ecossistema é documentado como continuamente evolutivo, incorporando novos datasets, provedores e serviços; não há frequência única que substitua a cadência das missões/produtos."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0048",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://esgf.github.io/esg-search/",
+      "methodology_url": "https://esgf.github.io/esgf-technical-overview.html"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://esgf.github.io/software.html",
+        "verification_status": "partially_verified",
+        "support_note": "ESGF oferece interfaces públicas de busca e múltiplos caminhos de acesso, mas projetos/datasets podem aplicar requisitos e políticas de autorização próprios; a federação não implica acesso irrestrito universal."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://esgf.github.io/esgf-user-support/",
+        "verification_status": "verified",
+        "support_note": "A documentação oficial distingue busca pública de fluxos de login/OpenID e autorização por projeto para determinados acessos; a condição agregada é parcial."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://esgf.github.io/esg-search/",
+        "verification_status": "verified",
+        "support_note": "O serviço oficial de busca federada expõe resultados, campos de metadados, identificadores, versões e URLs de acesso por API REST."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://esgf.github.io/esgf-technical-overview.html",
+        "verification_status": "partially_verified",
+        "support_note": "A documentação descreve arquitetura federada, nós de dados/índice, busca e identidade; metodologias científicas pertencem aos projetos e modelos distribuídos."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "ESGF é infraestrutura federada; a citação científica deve preservar os datasets, projetos e instituições produtoras utilizados em vez de substituir a proveniência por uma citação única da federação."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "Nós e projetos publicam/versionam dados de forma distribuída; uma cadência única da federação não representa a atualização científica dos conteúdos."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0049",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "no",
+      "metadata_url": "https://deims.org/",
+      "methodology_url": "https://deims.org/docs/"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://deims.org/terms",
+        "verification_status": "partially_verified",
+        "support_note": "DEIMS-SDR disponibiliza publicamente e sem cobrança seus registros sob CC BY-NC 4.0, mas datasets associados podem residir em repositórios externos com condições próprias; a ILTER não é um repositório único."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://deims.org/contact",
+        "verification_status": "verified",
+        "support_note": "A própria documentação informa que dados disponíveis no DEIMS-SDR podem ser usados sem conta; cadastro é necessário para representantes que gerenciam registros."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://deims.org/",
+        "verification_status": "verified",
+        "support_note": "DEIMS-SDR funciona como registro de sítios, sensores, atividades e vínculos de dados; seus registros são expostos por interface e APIs/serviços de metadados."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://deims.org/docs/",
+        "verification_status": "partially_verified",
+        "support_note": "A documentação descreve modelos de metadados, identificação, gestão e recuperação dos registros; métodos científicos pertencem aos sítios/projetos e datasets vinculados."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Os termos exigem uso/citação adequados, mas não foi localizada orientação canônica única de citação para ILTER/DEIMS-SDR que substitua a referência ao sítio ou dataset utilizado."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://deims.org/docs/export.html",
+        "verification_status": "partially_verified",
+        "support_note": "A API retorna sempre a versão mais recente dos registros, porém não existe periodicidade global de atualização: cada sítio/rede mantém seus registros conforme seu próprio ciclo."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0050",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "yes",
+      "metadata_url": "https://search.earthdata.nasa.gov/search?fpj=ORNL_DAAC",
+      "methodology_url": "https://daac.ornl.gov/submit/submit.html",
+      "citation_url": "https://www.earthdata.nasa.gov/engage/open-data-services-software/data-use-policy"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://urs.earthdata.nasa.gov/users",
+        "verification_status": "verified",
+        "support_note": "NASA declara que dados EOSDIS são abertamente disponíveis e gratuitos, salvo exceções regidas por acordos internacionais."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://urs.earthdata.nasa.gov/documentation/what_do_i_need_to_know",
+        "verification_status": "verified",
+        "support_note": "Earthdata Login é necessário para baixar dados dos DAACs, enquanto páginas informativas e descoberta podem ser consultadas sem login."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://search.earthdata.nasa.gov/search?fpj=ORNL_DAAC",
+        "verification_status": "verified",
+        "support_note": "ORNL DAAC publica metadados estruturados no NASA Common Metadata Repository, que alimenta Earthdata Search e as landing pages dos datasets."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://daac.ornl.gov/submit/submit.html",
+        "verification_status": "partially_verified",
+        "support_note": "O workflow oficial documenta revisão de qualidade, preparação de metadados, user guide, DOI e publicação; a metodologia científica permanece no dataset e sua documentação."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-software/data-use-policy",
+        "verification_status": "verified",
+        "support_note": "NASA orienta citar formalmente os datasets utilizados; ORNL DAAC gera citação e DOI por dataset, preservando a proveniência específica em vez de uma citação única substitutiva do centro."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "Datasets e missões têm versionamento e calendários próprios; uma frequência única do ORNL DAAC não representa a atualização científica dos produtos arquivados."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0051",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "no",
+      "methodology_url": "https://interactive.carbonbrief.org/cosmos/methodology/index.html",
+      "citation_text": "Hickman, L. et al. Introducing Project Cosmos: Carbon Brief’s ‘universe’ of climate science (Carbon Brief, 2026). https://interactive.carbonbrief.org/cosmos/index.html",
+      "citation_url": "https://interactive.carbonbrief.org/cosmos/methodology/index.html",
+      "update_frequency_text": "A base será atualizada e expandida ao final de cada ano-calendário; os produtos públicos derivados podem ser publicados em ondas de análise independentes."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://interactive.carbonbrief.org/cosmos/methodology/index.html",
+        "verification_status": "verified",
+        "support_note": "Metodologia, rankings e visualizações públicas são acessíveis gratuitamente, mas a base integral não é open source nem oferecida para download; acesso de pesquisa depende de proposta colaborativa."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://interactive.carbonbrief.org/cosmos/index.html",
+        "verification_status": "verified",
+        "support_note": "Os produtos públicos do Project Cosmos podem ser consultados sem login; a base integral não é disponibilizada por um fluxo autenticado de download, mas por colaboração mediante proposta."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não existe catálogo público independente de metadados da base integral; a metodologia descreve o corpus, fontes e estrutura em nível suficiente para interpretar os produtos públicos."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://interactive.carbonbrief.org/cosmos/methodology/index.html",
+        "verification_status": "verified",
+        "support_note": "A metodologia oficial documenta construção do corpus a partir do IPCC, periódicos climáticos e fontes bibliográficas, rede de citações, métricas e limitações analíticas."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://interactive.carbonbrief.org/cosmos/methodology/index.html",
+        "verification_status": "verified",
+        "support_note": "A metodologia fornece explicitamente a forma recomendada de citar Project Cosmos."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://interactive.carbonbrief.org/cosmos/methodology/index.html",
+        "verification_status": "verified",
+        "support_note": "Carbon Brief informa que a base será atualizada e expandida ao final de cada ano-calendário."
+      }
+    ]
+  }
+]
