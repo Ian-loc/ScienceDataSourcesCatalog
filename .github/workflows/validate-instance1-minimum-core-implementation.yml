@@ -67,11 +67,13 @@ jobs:
       - name: Validar materialização do enriquecimento essencial
         run: python3 scripts/apply_instance1_entry_enrichment.py --validate-only
 
-      - name: Comprovar idempotência das evidências do enriquecimento
+      - name: Comprovar idempotência forte do enriquecimento
         run: |
           output="$(python3 scripts/apply_instance1_entry_enrichment.py)"
           echo "$output"
+          echo "$output" | grep -q '"updated_entries": 0'
           echo "$output" | grep -q '"inserted_evidence": 0'
+          echo "$output" | grep -q '"updated_evidence": 0'
 
       - name: Validar núcleo mínimo materializado
         run: python3 scripts/promote_instance1_minimum_core.py --validate-only
