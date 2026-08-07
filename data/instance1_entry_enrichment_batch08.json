@@ -1,0 +1,327 @@
+[
+  {
+    "stable_id": "DR0028",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://www.movebank.org/cms/movebank-content/data-repository",
+      "methodology_url": "https://www.movebank.org/cms/movebank-content/about-movebank",
+      "citation_text": "Wikelski M, Davidson SC, Kays R. [year]. Movebank: archive, analysis and sharing of animal movement data. Hosted by the Max Planck Institute of Animal Behavior. www.movebank.org, accessed on [date].",
+      "citation_url": "https://www.movebank.org/cms/movebank-content/about-movebank"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.movebank.org/cms/movebank-content/access-data",
+        "verification_status": "verified",
+        "support_note": "Acesso é definido por estudo: centenas de estudos permitem download público, enquanto outros exigem permissão do proprietário; licenças e termos também variam por estudo."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.movebank.org/cms/movebank-content/access-data",
+        "verification_status": "partially_verified",
+        "support_note": "O acesso depende das permissões do estudo e da relação do usuário com o estudo; a plataforma diferencia dados públicos de dados concedidos a colaboradores ou gestores, portanto não há condição universal de autenticação."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://www.movebank.org/cms/movebank-content/data-repository",
+        "verification_status": "verified",
+        "support_note": "O Movebank Data Repository publica pacotes curatorados com DOI, licença, citação e descrição, enquanto estudos ativos mantêm detalhes próprios na plataforma."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.movebank.org/cms/movebank-content/about-movebank",
+        "verification_status": "partially_verified",
+        "support_note": "A documentação oficial identifica o modelo de dados e vocabulário da plataforma; a metodologia científica de coleta e análise permanece no nível do estudo e dos sensores."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://www.movebank.org/cms/movebank-content/citation-guidelines",
+        "verification_status": "verified",
+        "support_note": "Movebank fornece citação geral da plataforma e orientações específicas para estudos; datasets publicados no repositório possuem DOI e citação própria."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Estudos podem receber fluxos ao vivo ou atualizações definidas pelos proprietários, mas não foi localizada frequência única de atualização da plataforma ou do repositório."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0029",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "yes",
+      "metadata_url": "https://data.neonscience.org/data-products/explore",
+      "methodology_url": "https://www.neonscience.org/product-documentation",
+      "citation_url": "https://www.neonscience.org/data/guidelines-policies/citing"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.neonscience.org/usage-policies",
+        "verification_status": "verified",
+        "support_note": "NEON declara seus dados amplamente e gratuitamente disponíveis sob CC BY 4.0, com exceções específicas como informações sensíveis de espécies ameaçadas."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.neonscience.org/impact/observatory-blog/next-week-required-logins-and-data-licensing-updates",
+        "verification_status": "verified",
+        "support_note": "Desde 30 de junho de 2026, downloads exigem conta e login no portal ou token na API/neonUtilities; metadados e exploração básica continuam publicamente navegáveis."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://data.neonscience.org/data-api/",
+        "verification_status": "verified",
+        "support_note": "O portal/API oficial expõe informações estruturadas sobre produtos, locais, amostras e metadados; GraphQL permite consultar apenas os metadados desejados."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.neonscience.org/product-documentation",
+        "verification_status": "verified",
+        "support_note": "NEON mantém documentação aberta de coleta e produção, incluindo protocolos, algoritmos de processamento, relatórios de qualidade e metadados associados aos produtos."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://www.neonscience.org/data/guidelines-policies/citing",
+        "verification_status": "verified",
+        "support_note": "A página oficial orienta citação por data product e release/DOI; a entrada agregadora não substitui as citações dos produtos efetivamente usados."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Disponibilidade e revisão variam por produto, local, mês e release; não foi localizada frequência única de atualização do observatório como um todo."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0030",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://search.dataone.org/data",
+      "methodology_url": "https://dataoneorg.github.io/api-documentation/apis/index.html"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.dataone.org/participate/",
+        "verification_status": "verified",
+        "support_note": "A busca federada e os serviços básicos são públicos e gratuitos, mas o acesso ao conteúdo pode permanecer aberto ou restrito conforme o repositório membro e o dataset."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://docs.dataone.org/",
+        "verification_status": "verified",
+        "support_note": "Uma conta DataONE não é necessária para buscar e acessar conteúdo público; a arquitetura também suporta políticas de acesso e usuários autenticados para objetos restritos."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://search.dataone.org/data",
+        "verification_status": "verified",
+        "support_note": "DataONE é uma federação, não um repositório único; sua busca integrada indexa metadados dos repositórios membros para descoberta transversal."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://dataoneorg.github.io/api-documentation/apis/index.html",
+        "verification_status": "partially_verified",
+        "support_note": "A documentação oficial descreve a arquitetura federada e os níveis de API/leitura; métodos científicos pertencem aos datasets e repositórios membros."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "A própria DataONE orienta descoberta e citação dos datasets; a citação científica deve preservar o dataset/repositório original em vez de substituir a fonte por uma citação única da federação."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "A atualização é determinada por cada repositório membro e dataset; uma frequência única da federação não representa o significado necessário ao usuário."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0031",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://knb.ecoinformatics.org/",
+      "methodology_url": "https://knb.ecoinformatics.org/knb/docs/submitting.html"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://knb.ecoinformatics.org/knb/docs/dataone.html",
+        "verification_status": "verified",
+        "support_note": "KNB funciona como repositório membro DataONE e suporta políticas de acesso por objeto; datasets públicos são legíveis sem transformar todos os depósitos em conteúdo universalmente aberto."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://knb.ecoinformatics.org/knb/docs/submitting.html",
+        "verification_status": "verified",
+        "support_note": "Descoberta e leitura pública podem ocorrer sem login, enquanto submissão e objetos com políticas específicas usam autenticação, inclusive ORCID para submissão."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://knb.ecoinformatics.org/",
+        "verification_status": "verified",
+        "support_note": "KNB é repositório de dados e metadados ecológicos; sua interface MetacatUI consulta objetos e metadados e participa da federação DataONE."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://knb.ecoinformatics.org/knb/docs/submitting.html",
+        "verification_status": "partially_verified",
+        "support_note": "A documentação operacional descreve submissão e acesso de dados/metadados; métodos científicos permanecem nos próprios datasets."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "A reutilização deve citar o dataset e seu identificador persistente; uma citação única da KNB não substitui a proveniência do depósito específico."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "Datasets são publicados e revisados individualmente; não há frequência única necessária para interpretar a KNB como repositório."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0032",
+    "fields": {
+      "free_access": "partial",
+      "authentication_required": "partial",
+      "metadata_url": "https://www.pangaea.de/",
+      "methodology_url": "https://wiki.pangaea.de/wiki/Data_policy",
+      "citation_text": "Felden, J.; Möller, L.; Schindler, U.; Huber, R.; Schumacher, S.; Koppe, R.; Diepenbroek, M.; Glöckner, F.O. (2023): PANGAEA – Data Publisher for Earth & Environmental Science. Scientific Data 10, 347. https://doi.org/10.1038/s41597-023-02269-x",
+      "citation_url": "https://wiki.pangaea.de/wiki/Citation"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://wiki.pangaea.de/wiki/Data_policy",
+        "verification_status": "verified",
+        "support_note": "PANGAEA adota Open Access como princípio; dados publicados são abertos, mas podem existir moratórias temporárias/proteção por senha conforme projeto ou dataset."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://wiki.pangaea.de/wiki/Data_Access_and_Reuse",
+        "verification_status": "verified",
+        "support_note": "Metadados permanecem públicos e datasets abertos podem ser acessados diretamente; datasets restritos respondem com exigência de token durante a moratória."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://wiki.pangaea.de/wiki/Data_Access_and_Reuse",
+        "verification_status": "verified",
+        "support_note": "Cada DOI resolve para landing page com metadados e oferece representações DataCite, ISO 19139, PANGAEA XML, BibTeX, RIS e JSON-LD; OAI-PMH permite colheita de metadados."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://wiki.pangaea.de/wiki/Data_policy",
+        "verification_status": "partially_verified",
+        "support_note": "A política documenta publicação, preservação, metadados e acesso; a metodologia científica de produção permanece no dataset e em sua documentação."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://wiki.pangaea.de/wiki/Citation",
+        "verification_status": "verified",
+        "support_note": "PANGAEA instrui citar formalmente cada dataset pela citação sugerida e DOI; a publicação institucional pode ser usada adicionalmente para citar o serviço."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "Publicação e versionamento ocorrem por dataset; uma frequência única do repositório não representa a atualização científica dos dados depositados."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0033",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://datadryad.org/stash",
+      "methodology_url": "https://datadryad.org/mission",
+      "citation_text": "Citar o dataset específico usando a citação recomendada e o DOI exibidos em sua landing page Dryad.",
+      "citation_url": "https://datadryad.org/mission"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://datadryad.org/mission",
+        "verification_status": "verified",
+        "support_note": "Dryad publica dados de pesquisa abertamente para descoberta e reutilização; dados publicados são curados para compartilhamento aberto e reutilização."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://blog.datadryad.org/2023/07/13/for-researchers-including-dryad-in-your-data-management-plan/",
+        "verification_status": "verified",
+        "support_note": "Dados publicados ficam publicamente disponíveis para visualização e download; autenticação é necessária para submissão/gestão, não para o acesso principal aos datasets publicados."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://datadryad.org/mission",
+        "verification_status": "verified",
+        "support_note": "Cada dataset possui landing page, DOI e metadados baseados em DataCite; busca facetada e API aberta suportam descoberta."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://datadryad.org/mission",
+        "verification_status": "partially_verified",
+        "support_note": "Dryad documenta seu processo de curadoria e publicação, mas não avalia rigor/veracidade e não substitui os métodos científicos documentados pelos autores."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": "https://datadryad.org/mission",
+        "verification_status": "verified",
+        "support_note": "Cada dataset recebe DOI e a landing page fornece formato de citação recomendado; a citação deve permanecer no nível do dataset efetivamente utilizado."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "Datasets podem ser versionados individualmente e a versão publicada mais recente substitui a anterior no acesso principal; não há cadência científica única do repositório."
+      }
+    ]
+  }
+]
