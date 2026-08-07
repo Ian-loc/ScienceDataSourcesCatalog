@@ -103,20 +103,20 @@ Não exigir perfil forense nem escore universal. `desconhecido` não equivale a 
 
 A inspeção de bytes, schemas, checksums, bandas, layers ou pacotes completos **não é rotina da Instância 1**. Ela somente se justifica para um conector selecionado ou para corrigir uma afirmação central que não possa ser verificada pelos metadados oficiais.
 
-## 10. Acesso
+## 10. Acesso e papéis dos links
 
 Distinguir, quando possível:
 
-- página oficial;
+- **Site oficial** — `homepage_url`: página institucional principal ou página oficial que identifica a fonte;
+- **Acessar dados** — `data_access_url`: caminho principal para pesquisar, visualizar, solicitar ou baixar dados;
 - metadados;
-- acesso principal;
 - metodologia;
 - licença;
 - citação.
 
 Não é necessário enumerar todas as formas de download ou todos os endpoints.
 
-`homepage_url` e `data_access_url` podem coincidir quando a mesma página realmente cumpre os dois papéis.
+`homepage_url` e `data_access_url` podem coincidir quando a mesma página realmente cumpre os dois papéis. Quando isso não estiver demonstrado, a igualdade permanece pendência de revisão.
 
 ## 11. Conectores
 
