@@ -1,0 +1,158 @@
+[
+  {
+    "stable_id": "DR0014",
+    "fields": {
+      "free_access": "yes"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.gov.br/mcti/pt-br/acesso-a-informacao/prestacao-de-contas/relatorios-de-gestao/2019-2022/relatorio_da_gestao_sepef_mcti_2019_2022_versao_otimizada.pdf",
+        "verification_status": "verified",
+        "support_note": "Documentação oficial do MCTI descreve o SiBBr como sistema que disponibiliza de forma aberta dados de espécies brasileiras e adota padrões internacionais de compartilhamento."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada, nesta verificação proporcional, documentação oficial acessível que defina uma condição única de autenticação para todos os módulos do SiBBr."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "O SiBBr integra coleções, ocorrências e outros conteúdos, mas não foi localizado nesta rodada um catálogo único e canônico de metadados aplicável à entrada agregadora."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": null,
+        "verification_status": "not_applicable",
+        "support_note": "SiBBr é infraestrutura nacional de integração e publicação; métodos científicos pertencem aos datasets e projetos provedores, não à plataforma agregadora como método único."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação oficial única de citação da infraestrutura SiBBr nesta verificação proporcional."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "A plataforma recebe dados de múltiplas fontes e coleções, mas não foi localizada frequência única de atualização da entrada SiBBr como um todo."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0015",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "methodology_url": "https://www.ibge.gov.br/geociencias/informacoes-ambientais/vegetacao/23382-banco-de-informacoes-ambientais.html?lang=pt-BR",
+      "update_frequency_text": "A cada 2 anos, conforme a documentação oficial do BDiA, a partir de revisões dos mapeamentos temáticos e incorporação de novos produtos ambientais."
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.ibge.gov.br/geociencias/informacoes-ambientais/vegetacao/23382-banco-de-informacoes-ambientais.html?lang=pt-BR",
+        "verification_status": "verified",
+        "support_note": "O IBGE descreve o BDiA como sistema disponível à consulta pública na web, com acesso e download de informações ambientais."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.ibge.gov.br/geociencias/informacoes-ambientais/vegetacao/23382-banco-de-informacoes-ambientais.html?lang=pt-BR",
+        "verification_status": "partially_verified",
+        "support_note": "A documentação oficial apresenta consulta pública e acesso ao BDiAWeb sem indicar requisito de login; nenhuma exigência geral de autenticação foi localizada para a consulta pública."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.ibge.gov.br/geociencias/informacoes-ambientais/vegetacao/23382-banco-de-informacoes-ambientais.html?lang=pt-BR",
+        "verification_status": "verified",
+        "support_note": "A página oficial reúne as notas metodológicas do Mapeamento de Recursos Naturais, incluindo as versões 2025 e 2023."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "official_page",
+        "evidence_url": "https://www.ibge.gov.br/geociencias/informacoes-ambientais/vegetacao/23382-banco-de-informacoes-ambientais.html?lang=pt-BR",
+        "verification_status": "verified",
+        "support_note": "O IBGE informa explicitamente que a atualização do sistema se dá a cada 2 anos."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "A página técnica sustenta método e escopo, mas não foi localizado catálogo estruturado único de metadados do BDiA nesta verificação proporcional."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Há publicações metodológicas identificáveis por versão, mas não foi localizada orientação única de citação para o BDiA como plataforma."
+      }
+    ]
+  },
+  {
+    "stable_id": "DR0016",
+    "fields": {
+      "free_access": "yes",
+      "authentication_required": "no",
+      "metadata_url": "https://dados.gov.br/dados/conjuntos-dados/unidadesdeconservacao",
+      "methodology_url": "https://www.gov.br/pt-br/servicos/obter-informacoes-sobre-as-unidades-de-conservacao-ambiental-nacionais"
+    },
+    "evidence": [
+      {
+        "field_name": "free_access",
+        "evidence_role": "access",
+        "evidence_url": "https://www.gov.br/pt-br/servicos/obter-informacoes-sobre-as-unidades-de-conservacao-ambiental-nacionais",
+        "verification_status": "verified",
+        "support_note": "A ficha oficial do serviço declara o CNUC gratuito, online e aberto a todos os interessados."
+      },
+      {
+        "field_name": "authentication_required",
+        "evidence_role": "access",
+        "evidence_url": "https://www.gov.br/pt-br/servicos/obter-informacoes-sobre-as-unidades-de-conservacao-ambiental-nacionais",
+        "verification_status": "verified",
+        "support_note": "A consulta pública não exige cadastro nem login; o acesso restrito é separado e destinado a gestores que inserem e mantêm dados."
+      },
+      {
+        "field_name": "metadata_url",
+        "evidence_role": "official_metadata",
+        "evidence_url": "https://dados.gov.br/dados/conjuntos-dados/unidadesdeconservacao",
+        "verification_status": "verified",
+        "support_note": "O conjunto oficial no Portal Brasileiro de Dados Abertos fornece a ficha de metadados e o caminho público para os dados do cadastro."
+      },
+      {
+        "field_name": "methodology_url",
+        "evidence_role": "methodology",
+        "evidence_url": "https://www.gov.br/pt-br/servicos/obter-informacoes-sobre-as-unidades-de-conservacao-ambiental-nacionais",
+        "verification_status": "partially_verified",
+        "support_note": "A ficha oficial documenta como o cadastro é mantido, os tipos de consulta e a separação entre acesso público e atualização por gestores; não é uma metodologia científica de produção de dados."
+      },
+      {
+        "field_name": "update_frequency_text",
+        "evidence_role": "other",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Os gestores são responsáveis por manter as informações atualizadas, mas não foi localizada periodicidade única e normativa de atualização para o cadastro nacional inteiro."
+      },
+      {
+        "field_name": "citation",
+        "evidence_role": "citation",
+        "evidence_url": null,
+        "verification_status": "not_found",
+        "support_note": "Não foi localizada orientação única de citação do CNUC como base na documentação oficial consultada; a proveniência deve ser preservada com data de acesso."
+      }
+    ]
+  }
+]
