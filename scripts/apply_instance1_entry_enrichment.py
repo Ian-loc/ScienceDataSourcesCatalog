@@ -89,24 +89,32 @@ def validate_record(record: dict[str, object]) -> None:
 def apply(connection, records: list[dict[str, object]]) -> dict[str, int]:
     updated_entries = 0
     inserted_evidence = 0
+    updated_evidence = 0
     preserved_evidence = 0
 
     for record in records:
         validate_record(record)
         stable_id = str(record["stable_id"])
+        fields = dict(record.get("fields", {}))
+        selected = ["entry_id", *fields.keys()]
         row = connection.execute(
-            "SELECT entry_id FROM catalog.catalog_entries WHERE stable_id = %s",
+            f"SELECT {', '.join(selected)} FROM catalog.catalog_entries WHERE stable_id = %s",
             (stable_id,),
         ).fetchone()
         if not row:
             raise ValueError(f"catalog_entry não localizada: {stable_id}")
-        entry_id = int(row[0])
+        current = dict(zip(selected, row, strict=True))
+        entry_id = int(current["entry_id"])
 
-        fields = dict(record.get("fields", {}))
-        if fields:
-            assignments = ", ".join(f"{field} = %s" for field in fields)
-            values = list(fields.values())
-            values.extend([stable_id])
+        changed_fields = {
+            field: expected
+            for field, expected in fields.items()
+            if current.get(field) != expected
+        }
+        if changed_fields:
+            assignments = ", ".join(f"{field} = %s" for field in changed_fields)
+            values = list(changed_fields.values())
+            values.append(stable_id)
             connection.execute(
                 f"UPDATE catalog.catalog_entries SET {assignments}, updated_at = now() WHERE stable_id = %s",
                 values,
@@ -115,27 +123,65 @@ def apply(connection, records: list[dict[str, object]]) -> dict[str, int]:
 
         for evidence in record.get("evidence", []):
             item = dict(evidence)
-            inserted = connection.execute(
+            existing = connection.execute(
                 """
-                INSERT INTO catalog.entry_evidence (
-                    entry_id, field_name, evidence_url, evidence_role,
-                    support_note, verification_status, retrieved_at
-                )
-                VALUES (%s, %s, %s, %s, %s, %s, CURRENT_DATE)
-                ON CONFLICT DO NOTHING
-                RETURNING evidence_id
+                SELECT evidence_id, support_note, verification_status
+                FROM catalog.entry_evidence
+                WHERE entry_id = %s
+                  AND COALESCE(field_name, '') = COALESCE(%s, '')
+                  AND evidence_role = %s
+                  AND COALESCE(evidence_url, '') = COALESCE(%s, '')
                 """,
                 (
                     entry_id,
                     item.get("field_name"),
-                    item.get("evidence_url"),
                     item.get("evidence_role"),
-                    item.get("support_note"),
-                    item.get("verification_status"),
+                    item.get("evidence_url"),
                 ),
             ).fetchone()
-            if inserted:
+
+            if not existing:
+                connection.execute(
+                    """
+                    INSERT INTO catalog.entry_evidence (
+                        entry_id, field_name, evidence_url, evidence_role,
+                        support_note, verification_status, retrieved_at
+                    )
+                    VALUES (%s, %s, %s, %s, %s, %s, CURRENT_DATE)
+                    """,
+                    (
+                        entry_id,
+                        item.get("field_name"),
+                        item.get("evidence_url"),
+                        item.get("evidence_role"),
+                        item.get("support_note"),
+                        item.get("verification_status"),
+                    ),
+                )
                 inserted_evidence += 1
+                continue
+
+            evidence_id, support_note, verification_status = existing
+            if (
+                support_note != item.get("support_note")
+                or verification_status != item.get("verification_status")
+            ):
+                connection.execute(
+                    """
+                    UPDATE catalog.entry_evidence
+                    SET support_note = %s,
+                        verification_status = %s,
+                        retrieved_at = CURRENT_DATE,
+                        updated_at = now()
+                    WHERE evidence_id = %s
+                    """,
+                    (
+                        item.get("support_note"),
+                        item.get("verification_status"),
+                        evidence_id,
+                    ),
+                )
+                updated_evidence += 1
             else:
                 preserved_evidence += 1
 
@@ -143,6 +189,7 @@ def apply(connection, records: list[dict[str, object]]) -> dict[str, int]:
         "records": len(records),
         "updated_entries": updated_entries,
         "inserted_evidence": inserted_evidence,
+        "updated_evidence": updated_evidence,
         "preserved_evidence": preserved_evidence,
     }
 
