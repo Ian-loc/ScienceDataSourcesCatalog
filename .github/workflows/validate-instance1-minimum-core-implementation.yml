@@ -40,6 +40,7 @@ jobs:
           python3 -m py_compile scripts/test_instance1_minimum_core_golden_cases.py
           python3 -m py_compile scripts/apply_instance1_entry_enrichment.py
           python3 -m json.tool data/instance1_entry_enrichment_batch01.json >/dev/null
+          python3 -m json.tool data/instance1_entry_enrichment_batch02.json >/dev/null
 
       - name: Criar arquitetura legada e carregar staging canônico
         run: python3 scripts/load_instance1_staging.py --initialize
@@ -62,14 +63,28 @@ jobs:
           echo "$output" | grep -q '"inserted_evidence": 0'
 
       - name: Aplicar primeiro lote de enriquecimento essencial
-        run: python3 scripts/apply_instance1_entry_enrichment.py
+        run: python3 scripts/apply_instance1_entry_enrichment.py --input data/instance1_entry_enrichment_batch01.json
 
-      - name: Validar materialização do enriquecimento essencial
-        run: python3 scripts/apply_instance1_entry_enrichment.py --validate-only
+      - name: Validar materialização do primeiro lote
+        run: python3 scripts/apply_instance1_entry_enrichment.py --input data/instance1_entry_enrichment_batch01.json --validate-only
 
-      - name: Comprovar idempotência forte do enriquecimento
+      - name: Comprovar idempotência forte do primeiro lote
         run: |
-          output="$(python3 scripts/apply_instance1_entry_enrichment.py)"
+          output="$(python3 scripts/apply_instance1_entry_enrichment.py --input data/instance1_entry_enrichment_batch01.json)"
+          echo "$output"
+          echo "$output" | grep -q '"updated_entries": 0'
+          echo "$output" | grep -q '"inserted_evidence": 0'
+          echo "$output" | grep -q '"updated_evidence": 0'
+
+      - name: Aplicar segundo lote de enriquecimento essencial
+        run: python3 scripts/apply_instance1_entry_enrichment.py --input data/instance1_entry_enrichment_batch02.json
+
+      - name: Validar materialização do segundo lote
+        run: python3 scripts/apply_instance1_entry_enrichment.py --input data/instance1_entry_enrichment_batch02.json --validate-only
+
+      - name: Comprovar idempotência forte do segundo lote
+        run: |
+          output="$(python3 scripts/apply_instance1_entry_enrichment.py --input data/instance1_entry_enrichment_batch02.json)"
           echo "$output"
           echo "$output" | grep -q '"updated_entries": 0'
           echo "$output" | grep -q '"inserted_evidence": 0'
