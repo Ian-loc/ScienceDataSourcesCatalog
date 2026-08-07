@@ -62,14 +62,24 @@ def normalized_flag(value: object, *, authentication: bool = False) -> str:
 
 
 def access_level(value: object) -> str:
+    """Normalize access conservatively without turning mixed access into restricted.
+
+    Examples such as ``aberto | alguns dados mediante solicitação`` represent
+    partial/mixed access, not a wholly restricted catalog entry.
+    """
     text = (clean(value) or "").casefold()
     if not text:
         return "unknown"
-    if "restrit" in text or "mediante" in text:
-        return "restricted"
-    if "parcial" in text or "cadastro" in text or "solicita" in text:
+
+    has_open = any(token in text for token in ("aberto", "públic", "public"))
+    has_restricted = any(token in text for token in ("restrit", "mediante", "solicita"))
+    has_partial = "parcial" in text or "cadastro" in text
+
+    if (has_open and has_restricted) or has_partial:
         return "partial"
-    if "aberto" in text or "públic" in text or "public" in text:
+    if has_restricted:
+        return "restricted"
+    if has_open:
         return "open"
     return "unknown"
 
@@ -97,6 +107,7 @@ def latest_successful_batch(connection) -> int:
 def ensure_organization(connection, name: str | None) -> int | None:
     if not name:
         return None
+
     row = connection.execute(
         """
         SELECT organization_id
@@ -109,17 +120,26 @@ def ensure_organization(connection, name: str | None) -> int | None:
     ).fetchone()
     if row:
         return int(row[0])
+
     stable_id = organization_stable_id(name)
-    row = connection.execute(
+    inserted = connection.execute(
         """
         INSERT INTO catalog.organizations (stable_id, official_name, organization_type)
         VALUES (%s, %s, 'legacy_source_label')
-        ON CONFLICT (stable_id) DO UPDATE
-        SET official_name = EXCLUDED.official_name
+        ON CONFLICT (stable_id) DO NOTHING
         RETURNING organization_id
         """,
         (stable_id, name),
     ).fetchone()
+    if inserted:
+        return int(inserted[0])
+
+    row = connection.execute(
+        "SELECT organization_id FROM catalog.organizations WHERE stable_id = %s",
+        (stable_id,),
+    ).fetchone()
+    if not row:
+        raise ValueError(f"não foi possível resolver organização {name!r}")
     return int(row[0])
 
 
@@ -156,6 +176,7 @@ def promote(connection, batch_id: int) -> dict[str, int]:
         verification_url = clean(source["verification_url"]) or clean(source["homepage_url"])
         verified_at = clean(source["last_verified"])
         status = "partially_verified" if verification_url and verified_at else "needs_review"
+
         additional_metadata = {
             key: value
             for key, value in {
@@ -176,6 +197,7 @@ def promote(connection, batch_id: int) -> dict[str, int]:
             }.items()
             if value not in (None, [], "")
         }
+
         inserted = connection.execute(
             """
             INSERT INTO catalog.catalog_entries (
@@ -215,14 +237,18 @@ def promote(connection, batch_id: int) -> dict[str, int]:
                 }], ensure_ascii=False),
             ),
         ).fetchone()
+
         if inserted:
             entry_id = int(inserted[0])
             inserted_entries += 1
         else:
-            entry_id = int(connection.execute(
+            row = connection.execute(
                 "SELECT entry_id FROM catalog.catalog_entries WHERE stable_id = %s",
                 (resource_id,),
-            ).fetchone()[0])
+            ).fetchone()
+            if not row:
+                raise ValueError(f"entrada existente não localizada para {resource_id}")
+            entry_id = int(row[0])
             preserved_entries += 1
 
         for theme in split_pipe(source["keywords"]):
@@ -266,6 +292,14 @@ def promote(connection, batch_id: int) -> dict[str, int]:
     }
 
 
+def _count_where(connection, predicate: str) -> int:
+    sql = (
+        "SELECT count(*) FROM catalog.catalog_entries "
+        "WHERE stable_id ~ '^DR[0-9]{4,}$' AND " + predicate
+    )
+    return int(connection.execute(sql).fetchone()[0])
+
+
 def validate(connection, batch_id: int) -> dict[str, object]:
     expected = int(connection.execute(
         "SELECT count(*) FROM staging.legacy_resources WHERE load_batch_id = %s", (batch_id,)
@@ -279,9 +313,10 @@ def validate(connection, batch_id: int) -> dict[str, object]:
         FROM staging.legacy_resources r
         LEFT JOIN catalog.catalog_entries e ON e.stable_id = r.resource_id
         WHERE r.load_batch_id = %s AND e.entry_id IS NULL
-        """, (batch_id,)
+        """,
+        (batch_id,),
     ).fetchone()[0])
-    duplicate_names = int(connection.execute(
+    duplicate_ids = int(connection.execute(
         """
         SELECT count(*) FROM (
             SELECT stable_id FROM catalog.catalog_entries
@@ -290,12 +325,7 @@ def validate(connection, batch_id: int) -> dict[str, object]:
         ) d
         """
     ).fetchone()[0])
-    unlinked_org = int(connection.execute(
-        """
-        SELECT count(*) FROM catalog.catalog_entries
-        WHERE stable_id ~ '^DR[0-9]{4,}$' AND organization_id IS NULL
-        """
-    ).fetchone()[0])
+    unlinked_org = _count_where(connection, "organization_id IS NULL")
     theme_count = int(connection.execute(
         "SELECT count(*) FROM catalog.entry_variables WHERE term_role = 'theme'"
     ).fetchone()[0])
@@ -306,41 +336,46 @@ def validate(connection, batch_id: int) -> dict[str, object]:
         "SELECT to_regclass('catalog.connector_profiles') IS NOT NULL"
     ).fetchone()[0])
 
-    essential_fields = {
-        "organization": "organization_id",
-        "name": "official_name",
-        "summary": "summary",
-        "scope": "scientific_scope",
-        "modalities": "data_modalities",
-        "spatial_coverage": "geographic_coverage_text",
-        "temporal_coverage": "temporal_coverage_text",
-        "spatial_resolution": "spatial_resolution_text",
-        "access": "primary_access_url",
-        "official_page": "official_page_url",
-        "license": "license_text",
-        "verification_date": "last_verified_at",
+    # Coverage is a metric, not a claim of scientific verification. Null or
+    # ``unknown`` values remain visible so later curation can target real gaps.
+    essential_coverage = {
+        "organization": _count_where(connection, "organization_id IS NOT NULL"),
+        "name": _count_where(connection, "official_name IS NOT NULL"),
+        "broad_type": _count_where(connection, "entry_type IS NOT NULL"),
+        "summary": _count_where(connection, "summary IS NOT NULL"),
+        "scope": _count_where(connection, "scientific_scope IS NOT NULL"),
+        "modalities": _count_where(connection, "cardinality(data_modalities) > 0"),
+        "themes_or_variables": int(connection.execute(
+            """
+            SELECT count(DISTINCT e.entry_id)
+            FROM catalog.catalog_entries e
+            JOIN catalog.entry_variables v ON v.entry_id = e.entry_id
+            WHERE e.stable_id ~ '^DR[0-9]{4,}$'
+            """
+        ).fetchone()[0]),
+        "spatial_coverage": _count_where(connection, "geographic_coverage_text IS NOT NULL"),
+        "temporal_coverage": _count_where(connection, "temporal_coverage_text IS NOT NULL"),
+        "resolution_when_recorded": _count_where(connection, "spatial_resolution_text IS NOT NULL"),
+        "update_frequency": _count_where(connection, "update_frequency_text IS NOT NULL"),
+        "access": _count_where(connection, "primary_access_url IS NOT NULL"),
+        "free_access_known": _count_where(connection, "free_access <> 'unknown'"),
+        "authentication_known": _count_where(connection, "authentication_required <> 'unknown'"),
+        "official_page": _count_where(connection, "official_page_url IS NOT NULL"),
+        "metadata": _count_where(connection, "metadata_url IS NOT NULL"),
+        "methodology": _count_where(connection, "methodology_url IS NOT NULL"),
+        "license": _count_where(connection, "license_text IS NOT NULL OR license_url IS NOT NULL"),
+        "citation": _count_where(connection, "citation_text IS NOT NULL OR citation_url IS NOT NULL"),
+        "curation_status": _count_where(connection, "curation_status IS NOT NULL"),
+        "verification_date": _count_where(connection, "last_verified_at IS NOT NULL"),
     }
-    coverage: dict[str, int] = {}
-    for label, column in essential_fields.items():
-        if column == "data_modalities":
-            sql = (
-                "SELECT count(*) FROM catalog.catalog_entries "
-                "WHERE stable_id ~ '^DR[0-9]{4,}$' AND cardinality(data_modalities) > 0"
-            )
-        else:
-            sql = (
-                "SELECT count(*) FROM catalog.catalog_entries "
-                f"WHERE stable_id ~ '^DR[0-9]{{4,}}$' AND {column} IS NOT NULL"
-            )
-        coverage[label] = int(connection.execute(sql).fetchone()[0])
 
     failures = {
-        "expected_entries_mismatch": (entries != expected),
-        "missing_entries": (missing != 0),
-        "duplicate_stable_ids": (duplicate_names != 0),
-        "unlinked_organizations": (unlinked_org != 0),
-        "themes_absent": (theme_count == 0),
-        "evidence_below_entries": (evidence_count < expected),
+        "expected_entries_mismatch": entries != expected,
+        "missing_entries": missing != 0,
+        "duplicate_stable_ids": duplicate_ids != 0,
+        "unlinked_organizations": unlinked_org != 0,
+        "themes_absent": theme_count == 0,
+        "evidence_below_entries": evidence_count < expected,
         "connector_profile_created_without_selected_use_case": connector_exists,
     }
     active_failures = [name for name, failed in failures.items() if failed]
@@ -354,7 +389,7 @@ def validate(connection, batch_id: int) -> dict[str, object]:
         "themes": theme_count,
         "evidence_rows": evidence_count,
         "connector_profiles_present": connector_exists,
-        "essential_field_coverage": coverage,
+        "essential_field_coverage": essential_coverage,
     }
 
 
