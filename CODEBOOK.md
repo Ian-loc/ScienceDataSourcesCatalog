@@ -21,8 +21,8 @@ Arquivo: `data/data_resources.csv`
 | `acronym` | Sigla ou nome curto. |
 | `official_identity` | Natureza declarada pela fonte. |
 | `description` | Síntese objetiva do que a fonte oferece. |
-| `homepage_url` | Página institucional ou oficial. |
-| `data_access_url` | Caminho principal para pesquisar, visualizar, solicitar ou baixar dados. |
+| `homepage_url` | **Site oficial**: página institucional principal ou página oficial que identifica a fonte. |
+| `data_access_url` | **Acessar dados**: caminho principal para pesquisar, visualizar, solicitar ou baixar dados. |
 | `research_areas` | Áreas usadas em busca e filtros. |
 | `keywords` | Temas pesquisáveis. |
 | `data_product_types` | Resumo não exaustivo das modalidades ou ofertas. |
@@ -50,6 +50,8 @@ Arquivo: `data/data_resources.csv`
 | `academic_evidence_note` | O que essa evidência sustenta. |
 | `verification_url` | Evidência oficial principal. |
 | `last_verified` | Data da revisão do registro; não certifica todo o conteúdo da fonte. |
+
+`homepage_url` e `data_access_url` podem coincidir quando a mesma página cumpre comprovadamente os dois papéis. Caso contrário, a igualdade deve permanecer como pendência de revisão.
 
 ## 3. CSVs piloto
 
